@@ -31,9 +31,6 @@ import frc.robot.commands.PathPlanner.SequentialPathsCombined;
 import frc.robot.subsystems.Swerve;
 
 
-
-
-
 public class RobotContainer {
 
   // controllers
@@ -62,6 +59,9 @@ public class RobotContainer {
   
   // robot container -- contains subsystems, OI devices, and commands
   public RobotContainer() {
+    // auto maps
+    //AutoSwitchHelpers.put(new boolean[] {true, true, true, true}, Commands.none()); *EXAMPLE
+
     s_Swerve.setDefaultCommand(
       new TeleopSwerve(
         s_Swerve, 
@@ -73,7 +73,7 @@ public class RobotContainer {
     );
       
     // named commands
-    //NamedCommands.registerCommand("coralGrab", coralGrab); **EXAMPLE
+    //NamedCommands.registerCommand("coralGrab", coralGrab); *EXAMPLE
 
     configureBindings();
   }
@@ -101,6 +101,9 @@ public class RobotContainer {
     POVButton upPov = new POVButton(driverController,Constants.XboxController.POVXbox.UP_ANGLE);
     POVButton downPov = new POVButton(driverController,Constants.XboxController.POVXbox.DOWN_ANGLE);
 
+    Trigger lt = new Trigger(() -> driverController.getRawAxis(Constants.XboxController.AxesXbox.LTrig) > 0.5);
+    Trigger rt = new Trigger(() -> driverController.getRawAxis(Constants.XboxController.AxesXbox.RTrig) > 0.5);
+
     // aux controller
     JoystickButton a1 = new JoystickButton(auxController, Constants.XboxController.A);
     JoystickButton b1 = new JoystickButton(auxController, Constants.XboxController.B);
@@ -120,85 +123,14 @@ public class RobotContainer {
     POVButton upPov1 = new POVButton(auxController,Constants.XboxController.POVXbox.UP_ANGLE);
     POVButton downPov1 = new POVButton(auxController,Constants.XboxController.POVXbox.DOWN_ANGLE); 
     
-    
     Trigger lt1 = new Trigger(() -> auxController.getRawAxis(Constants.XboxController.AxesXbox.LTrig) > 0.5);
     Trigger rt1 = new Trigger(() -> auxController.getRawAxis(Constants.XboxController.AxesXbox.RTrig) > 0.5);
 
-
-    //Inputs
-
-  //y button is already assigned to ZeroGyro
-  //leftBumper lb button is already assigned to RobotCentric
-
-
-//DRIVER CONTROLLER
-
-//driving & gyro
-//rb robot centric already binded
-//y reset gyro already binded
-// rb.onTrue(updateRobotPosition);
-
-
-
-// a.onTrue(algaeGrab).onTrue(l3_Score);
-// b.onTrue(algaeGrab).onTrue(l4_Score);
+    // command binds
+    //a.onTrue(algaeGrab).onTrue(l3_Score); *EXAMPLE
   }
 
   public Command getAutonomousCommand() {
-
-  // SmartDashboard.putString("autokey", "Entering getAutoCommand now");
-  //SmartDashboard.putString("Asking for auto sequence", "" + !autoSwitch1.get() + !autoSwitch2.get() + !autoSwitch3.get() + !autoSwitch4.get());
-  Command command = null;
-
-
-  //! means switch is on
-  // if (!autoSwitch1.get() && !autoSwitch2.get() && !autoSwitch3.get() && !autoSwitch4.get()) {
-  //   command = fullRunRight;
-  // } else if (!autoSwitch1.get() && !autoSwitch2.get() && !autoSwitch3.get() && autoSwitch4.get()) {
-  //   command = legs1and2Right;
-  // } else if (!autoSwitch1.get() && !autoSwitch2.get() && autoSwitch3.get() && autoSwitch4.get()) {
-  //   command = leg1Right; 
-  // } else if (autoSwitch1.get() && !autoSwitch2.get() && !autoSwitch3.get() && !autoSwitch4.get()) {
-  //   command =  fullRunLeft;
-  // } else if (autoSwitch1.get() && !autoSwitch2.get() && !autoSwitch3.get() && autoSwitch4.get()) {
-  //   //  command =  lesssgs1and2Left;
-  //   command = leg1PracticeFieldTest;
-  //  // command = leg1and2Practice;
-  // } else if (autoSwitch1.get() && !autoSwitch2.get() && autoSwitch3.get() && autoSwitch4.get()) {
-  //   command = leg1Left;
-  // } else if (autoSwitch1.get() && autoSwitch2.get() && autoSwitch3.get() && autoSwitch4.get()) {
-  //   command = ctrScore1;
-  // } 
-  // else if (autoSwitch1.get() && autoSwitch2.get() && autoSwitch3.get() && !autoSwitch4.get()) {
-  //   command = centerNoAlgae;
-  // } 
- return command;
+    return AutoSwitchHelpers.getCommand();
+  }
 }
-
-}
-    /* 
-    // SmartDashboard.putString("autokey", "Entering getAutoCommand now");
-    Command command = null;
-    AutoSwitchHelpers autoSwitchHelpers = new AutoSwitchHelpers();
-    // Switch 1 is in the "ON" spot on the old auto box
-
-    if (autoSwitchHelpers.switchesAre(true, true, true, true)){
-      command = fullRunRight;
-    } else if (autoSwitchHelpers.switchesAre(true, true, false, false)){
-      command = leg1Right;
-    } else if (autoSwitchHelpers.switchesAre(true, true, true, false)){
-      command = legs1and2Right;
-    }  else if (autoSwitchHelpers.switchesAre(false, true, true, true)){
-        command = fullRunLeft;
-    }  else if (autoSwitchHelpers.switchesAre(false, true, false, false)){
-        command = leg1Left;
-    }  else if (autoSwitchHelpers.switchesAre(false, true, true, false)){
-        command = legs1and2Left;
-    }  else if (autoSwitchHelpers.switchesAre(false, false, false, false)){
-        command = fullRunCenter;
-    }
-   return command;
-   */
- 
-
-
