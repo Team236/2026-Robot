@@ -1,5 +1,5 @@
 package frc.robot.commands;
-
+//https://activities.graspablemath.com/whiteboards/_b78955ecb5363c72
 import frc.robot.Constants;
 import frc.robot.LimelightHelpers;
 import frc.robot.subsystems.Swerve;
@@ -24,6 +24,12 @@ public class AutoPivotTowardHub extends Command {
   private int targetId;
   private double yawError;
   private double newRotation;
+  private double robotX;
+  private double robotY;
+  private double tagX;
+  private double tagY;
+  private double HUBX;
+  private double HUBY;
 
   public AutoPivotTowardHub(Swerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, DoubleSupplier rotationSup, BooleanSupplier robotCentricSup) {
     this.s_Swerve = s_Swerve;
@@ -61,18 +67,29 @@ public class AutoPivotTowardHub extends Command {
     if (tv == 1 && targetId >= 2 && targetId <=11 ) {
 
       // inside the if statement to reduce stress if not seeing tag
-      robotFieldPose = LimelightHelpers.getBotPose2d_wpiRed("limelight");
+      robotFieldPose = LimelightHelpers.getBotPose2d_wpiBlue("limelight");
 
-      // gets angle of robot
-      double angle1 = robotFieldPose.getRotation().getRadians();
+      // gets angle of robot and gets x,y
+      double robotYaw = robotFieldPose.getRotation().getRadians();
+      robotX = robotFieldPose.getX();
+      robotY = robotFieldPose.getY();
 
+      Pose2d tagPose = Constants.Targeting.ID_TO_POSE.get(targetId);
+
+      double hubCenterX = Constants.Targeting.RED_ALLIANCE_HUB_CENTER_X;
+      double hubCenterY = Constants.Targeting.RED_ALLIANCE_HUB_CENTER_Y;
+ 
       double angle2 = Constants.Targeting.ID_TO_POSE
         // gets the position for the target it sees
         .get(targetId)
         .getRotation()
         .getRadians();
 
-        yawError = MathUtil.angleModulus(angle2 - angle1);
+        double dx = hubCenterX - robotX;
+        double dy = hubCenterY - robotY;
+
+        double desiredYaw = Math.atan2(dy, dx);
+        yawError = MathUtil.angleModulus(desiredYaw - robotYaw);
 
         newRotation = pidController.calculate(yawError);
 
@@ -80,8 +97,15 @@ public class AutoPivotTowardHub extends Command {
       // inside the if statement to reduce stress if not seeing tag
       robotFieldPose = LimelightHelpers.getBotPose2d_wpiBlue("limelight");
 
-      // gets angle of robot
-      double angle1 = robotFieldPose.getRotation().getRadians();
+      // gets angle of robot and gets x,y
+      double robotYaw = robotFieldPose.getRotation().getRadians();
+      robotX = robotFieldPose.getX();
+      robotY = robotFieldPose.getY();
+
+      Pose2d tagPose = Constants.Targeting.ID_TO_POSE.get(targetId);
+
+      double hubCenterX = Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_X;
+      double hubCenterY = Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_Y;
 
       double angle2 = Constants.Targeting.ID_TO_POSE
         // gets the position for the target it sees
@@ -89,7 +113,12 @@ public class AutoPivotTowardHub extends Command {
         .getRotation()
         .getRadians();
 
-        yawError = MathUtil.angleModulus(angle2 - angle1);
+        double dx = hubCenterX - robotX;
+        double dy = hubCenterY - robotY;
+
+
+      double desiredYaw = Math.atan2(dy, dx);
+      yawError = MathUtil.angleModulus(desiredYaw - robotYaw);
 
         newRotation = pidController.calculate(yawError);
     } else {
