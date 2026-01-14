@@ -58,6 +58,19 @@ public class AutoPivotTowardHub extends Command {
   }
 
   @Override
+  public void initialize() {
+      // alliance hub selection
+      // this needs to be reviewd to make sure code is aceptable and intergratable
+      if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+        HUBX = Constants.Targeting.RED_ALLIANCE_HUB_CENTER_X;
+        HUBY = Constants.Targeting.RED_ALLIANCE_HUB_CENTER_Y;
+      } else {
+        HUBX = Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_X;
+        HUBY = Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_Y;
+      }
+  }
+
+  @Override
   public void execute() {
     // took from swerve
       double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.stickDeadband);
@@ -75,16 +88,6 @@ public class AutoPivotTowardHub extends Command {
       robotYaw = robotFieldPose.getRotation().getRadians();
       robotX = robotFieldPose.getX();
       robotY = robotFieldPose.getY();
-
-      // alliance hub selection
-      // this needs to be reviewd to make sure code is aceptable and intergratable
-      if (alliance.isPresent() && alliance.get() == Alliance.Red) {
-        HUBX = Constants.Targeting.RED_ALLIANCE_HUB_CENTER_X;
-        HUBY = Constants.Targeting.RED_ALLIANCE_HUB_CENTER_Y;
-      } else {
-        HUBX = Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_X;
-        HUBY = Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_Y;
-      }
 
       double dx = HUBX - robotX;
       double dy = HUBY - robotY;
