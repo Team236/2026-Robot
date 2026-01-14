@@ -1,7 +1,6 @@
 package frc.robot.commands;
 
 import frc.robot.Constants;
-import frc.robot.LimelightHelpers;
 import frc.robot.subsystems.Swerve;
 
 import java.util.Optional;
@@ -11,7 +10,6 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -20,16 +18,9 @@ public class AutoPivotTowardHub extends Command {
   private Swerve s_Swerve;
   private DoubleSupplier translationSup;
   private DoubleSupplier strafeSup;
-  private DoubleSupplier rotationSup;
+  //private DoubleSupplier rotationSup;
   private BooleanSupplier robotCentricSup;
   private PIDController pidController;
-  private Pose2d robotFieldPose;
-  private double tv;
-  private double yawError;
-  private double newRotation;
-  private double robotX;
-  private double robotY;
-  private double robotYaw;
   private double HUBX;
   private double HUBY;
   private Optional<Alliance> alliance = DriverStation.getAlliance();
@@ -41,7 +32,7 @@ public class AutoPivotTowardHub extends Command {
 
     this.translationSup = translationSup;
     this.strafeSup = strafeSup;
-    this.rotationSup = rotationSup;
+    //this.rotationSup = rotationSup;
     this.robotCentricSup = robotCentricSup;
 
     // need help understanding what k (difference) and d (rate) should be
@@ -59,15 +50,17 @@ public class AutoPivotTowardHub extends Command {
 
   @Override
   public void initialize() {
-      // alliance hub selection
-      // this needs to be reviewd to make sure code is aceptable and intergratable
-      if (alliance.isPresent() && alliance.get() == Alliance.Red) {
-        HUBX = Constants.Targeting.RED_ALLIANCE_HUB_CENTER_X;
-        HUBY = Constants.Targeting.RED_ALLIANCE_HUB_CENTER_Y;
-      } else {
-        HUBX = Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_X;
-        HUBY = Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_Y;
-      }
+    DriverStation.getAlliance();
+
+    // alliance hub selection
+    // this needs to be reviewd to make sure code is aceptable and intergratable
+    if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+      HUBX = Constants.Targeting.RED_ALLIANCE_HUB_CENTER_X;
+      HUBY = Constants.Targeting.RED_ALLIANCE_HUB_CENTER_Y;
+    } else {
+      HUBX = Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_X;
+      HUBY = Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_Y;
+    }
   }
 
   @Override
@@ -75,38 +68,29 @@ public class AutoPivotTowardHub extends Command {
     // took from swerve
       double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.stickDeadband);
       double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.stickDeadband);
-      double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.stickDeadband);
-
-      tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0); //if target is seen
-
-    if (tv == 1) {
+      //double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.stickDeadband);
 
       // math concepts at https://tinyurl.com/mvjft42z
-      robotFieldPose = LimelightHelpers.getBotPose2d_wpiBlue("limelight");
+      Pose2d currentPose = s_Swerve.getPose();
 
       // needs to be in radians for math.atan2()
-      robotYaw = robotFieldPose.getRotation().getRadians();
-      robotX = robotFieldPose.getX();
-      robotY = robotFieldPose.getY();
+      double dx = HUBX - currentPose.getX();
+      double dy = HUBY - currentPose.getY();
+      double targetAngle = Math.atan2(dy, dx);
 
-      double dx = HUBX - robotX;
-      double dy = HUBY - robotY;
+      double newRotation = pidController.calculate(currentPose.getRotation().getRadians(), targetAngle);
 
-      double desiredYaw = Math.atan2(dy, dx);
-      yawError = MathUtil.angleModulus(desiredYaw - robotYaw);
+      // if driver wants to turn while holding and it gets springed back
+      // use: newRotationVal = (newRotation * .75) + (rotaionVal * .25)
 
-      newRotation = pidController.calculate(yawError);
-
-    } else {
-      pidController.reset();
-      newRotation = rotationVal;
+      if (pidController.atSetpoint()) {
+        newRotation = 0;
     }
 
     s_Swerve.drive(
-        new Translation2d(translationVal, strafeVal)
-            .times(Constants.Swerve.maxSpeed),
+        new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed),
         newRotation * Constants.Swerve.maxAngularVelocity,
-        !robotCentricSup.getAsBoolean(),
+        !robotCentricSup.getAsBoolean(), // this might need to be set only true
         true
     );
   }
