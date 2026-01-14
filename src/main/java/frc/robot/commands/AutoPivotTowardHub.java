@@ -11,7 +11,6 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class AutoPivotTowardHub extends Command {
   private Swerve s_Swerve;
@@ -41,7 +40,10 @@ public class AutoPivotTowardHub extends Command {
         0.0,
         0.0);
 
-    
+    // used for shortest route (angle measurement that wraps around)
+    pidController.enableContinuousInput(-Math.PI, Math.PI);
+    // tolerance is to prevent gittering (this will need to be tuned)
+    pidController.setTolerance(Math.toRadians(1.0));
     pidController.setSetpoint(0.0);
   }
 
@@ -59,6 +61,23 @@ public class AutoPivotTowardHub extends Command {
     if (tv == 1 && targetId >= 2 && targetId <=11 ) {
 
       // inside the if statement to reduce stress if not seeing tag
+      robotFieldPose = LimelightHelpers.getBotPose2d_wpiRed("limelight");
+
+      // gets angle of robot
+      double angle1 = robotFieldPose.getRotation().getRadians();
+
+      double angle2 = Constants.Targeting.ID_TO_POSE
+        // gets the position for the target it sees
+        .get(targetId)
+        .getRotation()
+        .getRadians();
+
+        yawError = MathUtil.angleModulus(angle2 - angle1);
+
+        newRotation = pidController.calculate(yawError);
+
+    } else if (tv == 1 && targetId >= 18 && targetId <=27) {
+      // inside the if statement to reduce stress if not seeing tag
       robotFieldPose = LimelightHelpers.getBotPose2d_wpiBlue("limelight");
 
       // gets angle of robot
@@ -70,10 +89,13 @@ public class AutoPivotTowardHub extends Command {
         .getRotation()
         .getRadians();
 
-        yawError = angle2 - angle1;
+        yawError = MathUtil.angleModulus(angle2 - angle1);
 
-        double newRotation = pidController.calculate(yawError);
-
+        newRotation = pidController.calculate(yawError);
+    } else {
+      // incase it can't see the apriltag, let driver turn normally
+      pidController.reset();
+      newRotation = rotationVal;
     }
 
     // passing in the values for drive
