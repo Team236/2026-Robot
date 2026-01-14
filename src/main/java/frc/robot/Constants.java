@@ -93,19 +93,54 @@ public final class Constants {
     public static Map<Integer, Pose2d> ID_TO_POSE = new HashMap<>();
 
     static {
-      Constants.Targeting.ID_TO_POSE.put(6, new Pose2d(Units.inchesToMeters(530.49), Units.inchesToMeters(130.17), new Rotation2d(Units.degreesToRadians(300))));
-      Constants.Targeting.ID_TO_POSE.put(7, new Pose2d(Units.inchesToMeters(546.87), Units.inchesToMeters(158.50), new Rotation2d(Units.degreesToRadians(0))));
-      Constants.Targeting.ID_TO_POSE.put(8, new Pose2d(Units.inchesToMeters(530.49), Units.inchesToMeters(186.83), new Rotation2d(Units.degreesToRadians(60))));
-      Constants.Targeting.ID_TO_POSE.put(9, new Pose2d(Units.inchesToMeters(497.77), Units.inchesToMeters(186.83), new Rotation2d(Units.degreesToRadians(120))));
-      Constants.Targeting.ID_TO_POSE.put(10, new Pose2d(Units.inchesToMeters(481.39), Units.inchesToMeters(158.50), new Rotation2d(Units.degreesToRadians(180))));
-      Constants.Targeting.ID_TO_POSE.put(11, new Pose2d(Units.inchesToMeters(497.77), Units.inchesToMeters(130.17), new Rotation2d(Units.degreesToRadians(240))));
+      // Constants.Targeting.ID_TO_POSE.put(6, new Pose2d(Units.inchesToMeters(530.49), Units.inchesToMeters(130.17), new Rotation2d(Units.degreesToRadians(300))));
+      // Constants.Targeting.ID_TO_POSE.put(7, new Pose2d(Units.inchesToMeters(546.87), Units.inchesToMeters(158.50), new Rotation2d(Units.degreesToRadians(0))));
+      // Constants.Targeting.ID_TO_POSE.put(8, new Pose2d(Units.inchesToMeters(530.49), Units.inchesToMeters(186.83), new Rotation2d(Units.degreesToRadians(60))));
+      // Constants.Targeting.ID_TO_POSE.put(9, new Pose2d(Units.inchesToMeters(497.77), Units.inchesToMeters(186.83), new Rotation2d(Units.degreesToRadians(120))));
+      // Constants.Targeting.ID_TO_POSE.put(10, new Pose2d(Units.inchesToMeters(481.39), Units.inchesToMeters(158.50), new Rotation2d(Units.degreesToRadians(180))));
+      // Constants.Targeting.ID_TO_POSE.put(11, new Pose2d(Units.inchesToMeters(497.77), Units.inchesToMeters(130.17), new Rotation2d(Units.degreesToRadians(240))));
         
-      Constants.Targeting.ID_TO_POSE.put(17, new Pose2d(Units.inchesToMeters(160.39), Units.inchesToMeters(130.17), new Rotation2d(Units.degreesToRadians(240))));
-      Constants.Targeting.ID_TO_POSE.put(18, new Pose2d(Units.inchesToMeters(144.00), Units.inchesToMeters(158.50), new Rotation2d(Units.degreesToRadians(180))));
-      Constants.Targeting.ID_TO_POSE.put(19, new Pose2d(Units.inchesToMeters(160.39), Units.inchesToMeters(186.83), new Rotation2d(Units.degreesToRadians(120))));
-      Constants.Targeting.ID_TO_POSE.put(20, new Pose2d(Units.inchesToMeters(193.10), Units.inchesToMeters(186.83), new Rotation2d(Units.degreesToRadians(60))));
-      Constants.Targeting.ID_TO_POSE.put(21, new Pose2d(Units.inchesToMeters(209.49), Units.inchesToMeters(158.50), new Rotation2d(Units.degreesToRadians(0))));
-      Constants.Targeting.ID_TO_POSE.put(22, new Pose2d(Units.inchesToMeters(193.10), Units.inchesToMeters(130.17), new Rotation2d(Units.degreesToRadians(300))));
+      // Constants.Targeting.ID_TO_POSE.put(17, new Pose2d(Units.inchesToMeters(160.39), Units.inchesToMeters(130.17), new Rotation2d(Units.degreesToRadians(240))));
+      // Constants.Targeting.ID_TO_POSE.put(18, new Pose2d(Units.inchesToMeters(144.00), Units.inchesToMeters(158.50), new Rotation2d(Units.degreesToRadians(180))));
+      // Constants.Targeting.ID_TO_POSE.put(19, new Pose2d(Units.inchesToMeters(160.39), Units.inchesToMeters(186.83), new Rotation2d(Units.degreesToRadians(120))));
+      // Constants.Targeting.ID_TO_POSE.put(20, new Pose2d(Units.inchesToMeters(193.10), Units.inchesToMeters(186.83), new Rotation2d(Units.degreesToRadians(60))));
+      // Constants.Targeting.ID_TO_POSE.put(21, new Pose2d(Units.inchesToMeters(209.49), Units.inchesToMeters(158.50), new Rotation2d(Units.degreesToRadians(0))));
+      // Constants.Targeting.ID_TO_POSE.put(22, new Pose2d(Units.inchesToMeters(193.10), Units.inchesToMeters(130.17), new Rotation2d(Units.degreesToRadians(300))));
+
+      Constants.Targeting.ID_TO_POSE.put(1, new Pose2d(Units.inchesToMeters(467.08), Units.inchesToMeters(291.79), new Rotation2d(Units.degreesToRadians(180))));
+      Constants.Targeting.ID_TO_POSE.put(2, new Pose2d(Units.inchesToMeters(468.56), Units.inchesToMeters(182.08), new Rotation2d(Units.degreesToRadians(90))));
+      Constants.Targeting.ID_TO_POSE.put(3, new Pose2d(Units.inchesToMeters(444.80), Units.inchesToMeters(172.32), new Rotation2d(Units.degreesToRadians(180))));
+      Constants.Targeting.ID_TO_POSE.put(4, new Pose2d(Units.inchesToMeters(444.80), Units.inchesToMeters(158.32), new Rotation2d(Units.degreesToRadians(180))));
+      Constants.Targeting.ID_TO_POSE.put(5, new Pose2d(Units.inchesToMeters(468.56), Units.inchesToMeters(134.56), new Rotation2d(Units.degreesToRadians(270))));
+      Constants.Targeting.ID_TO_POSE.put(6, new Pose2d(Units.inchesToMeters(467.08), Units.inchesToMeters(24.85), new Rotation2d(Units.degreesToRadians(180))));
+      Constants.Targeting.ID_TO_POSE.put(7, new Pose2d(Units.inchesToMeters(470.03), Units.inchesToMeters(24.85), new Rotation2d(Units.degreesToRadians(0))));
+      Constants.Targeting.ID_TO_POSE.put(8, new Pose2d(Units.inchesToMeters(482.56), Units.inchesToMeters(134.56), new Rotation2d(Units.degreesToRadians(270))));
+      Constants.Targeting.ID_TO_POSE.put(9, new Pose2d(Units.inchesToMeters(492.33), Units.inchesToMeters(144.32), new Rotation2d(Units.degreesToRadians(0))));
+      Constants.Targeting.ID_TO_POSE.put(10, new Pose2d(Units.inchesToMeters(492.33), Units.inchesToMeters(158.32), new Rotation2d(Units.degreesToRadians(0))));
+      Constants.Targeting.ID_TO_POSE.put(11, new Pose2d(Units.inchesToMeters(482.56), Units.inchesToMeters(182.08), new Rotation2d(Units.degreesToRadians(90))));
+      Constants.Targeting.ID_TO_POSE.put(12, new Pose2d(Units.inchesToMeters(470.03), Units.inchesToMeters(291.79), new Rotation2d(Units.degreesToRadians(0))));
+      Constants.Targeting.ID_TO_POSE.put(13, new Pose2d(Units.inchesToMeters(649.58), Units.inchesToMeters(291.02), new Rotation2d(Units.degreesToRadians(180))));
+      Constants.Targeting.ID_TO_POSE.put(14, new Pose2d(Units.inchesToMeters(649.58), Units.inchesToMeters(274.02), new Rotation2d(Units.degreesToRadians(180))));
+      Constants.Targeting.ID_TO_POSE.put(15, new Pose2d(Units.inchesToMeters(649.57), Units.inchesToMeters(169.78), new Rotation2d(Units.degreesToRadians(180))));
+      Constants.Targeting.ID_TO_POSE.put(16, new Pose2d(Units.inchesToMeters(649.57), Units.inchesToMeters(152.78), new Rotation2d(Units.degreesToRadians(180))));
+
+      Constants.Targeting.ID_TO_POSE.put(17, new Pose2d(Units.inchesToMeters(183.03), Units.inchesToMeters(24.85), new Rotation2d(Units.degreesToRadians(0))));
+      Constants.Targeting.ID_TO_POSE.put(18, new Pose2d(Units.inchesToMeters(181.56), Units.inchesToMeters(134.56), new Rotation2d(Units.degreesToRadians(270))));
+      Constants.Targeting.ID_TO_POSE.put(19, new Pose2d(Units.inchesToMeters(205.32), Units.inchesToMeters(144.32), new Rotation2d(Units.degreesToRadians(0))));
+      Constants.Targeting.ID_TO_POSE.put(20, new Pose2d(Units.inchesToMeters(205.32), Units.inchesToMeters(158.32), new Rotation2d(Units.degreesToRadians(0))));
+      Constants.Targeting.ID_TO_POSE.put(21, new Pose2d(Units.inchesToMeters(181.56), Units.inchesToMeters(182.08), new Rotation2d(Units.degreesToRadians(90))));
+      Constants.Targeting.ID_TO_POSE.put(22, new Pose2d(Units.inchesToMeters(183.03), Units.inchesToMeters(291.79), new Rotation2d(Units.degreesToRadians(0))));
+      Constants.Targeting.ID_TO_POSE.put(23, new Pose2d(Units.inchesToMeters(180.08), Units.inchesToMeters(291.79), new Rotation2d(Units.degreesToRadians(180))));
+      Constants.Targeting.ID_TO_POSE.put(24, new Pose2d(Units.inchesToMeters(167.56), Units.inchesToMeters(182.08), new Rotation2d(Units.degreesToRadians(90))));
+      Constants.Targeting.ID_TO_POSE.put(25, new Pose2d(Units.inchesToMeters(157.79), Units.inchesToMeters(172.32), new Rotation2d(Units.degreesToRadians(180))));
+      Constants.Targeting.ID_TO_POSE.put(26, new Pose2d(Units.inchesToMeters(157.79), Units.inchesToMeters(158.32), new Rotation2d(Units.degreesToRadians(180))));
+      Constants.Targeting.ID_TO_POSE.put(27, new Pose2d(Units.inchesToMeters(167.56), Units.inchesToMeters(134.56), new Rotation2d(Units.degreesToRadians(270))));
+      Constants.Targeting.ID_TO_POSE.put(28, new Pose2d(Units.inchesToMeters(180.08), Units.inchesToMeters(24.85), new Rotation2d(Units.degreesToRadians(180))));
+      Constants.Targeting.ID_TO_POSE.put(29, new Pose2d(Units.inchesToMeters(.54), Units.inchesToMeters(25.62), new Rotation2d(Units.degreesToRadians(0))));
+      Constants.Targeting.ID_TO_POSE.put(30, new Pose2d(Units.inchesToMeters(.54), Units.inchesToMeters(42.62), new Rotation2d(Units.degreesToRadians(0))));
+      Constants.Targeting.ID_TO_POSE.put(31, new Pose2d(Units.inchesToMeters(.55), Units.inchesToMeters(146.86), new Rotation2d(Units.degreesToRadians(0))));
+      Constants.Targeting.ID_TO_POSE.put(32, new Pose2d(Units.inchesToMeters(.55), Units.inchesToMeters(163.86), new Rotation2d(Units.degreesToRadians(0))));
+       
     }
 
     public static final double ROT_SETPOINT_REEF_ALIGNMENT = 0; //TODO measure on a field as described in comments above
@@ -120,6 +155,14 @@ public final class Constants {
 
     public static final double DONT_SEE_TAG_WAIT_TIME = 0.3;
     public static final double POSE_VALIDATION_TIME = 2; //TODO - shorten
+
+    // this is from subtracting opposing April Tags on https://firstfrc.blob.core.windows.net/frc2026/FieldAssets/2026-field-dimension-dwgs.pdf find actual values in cad
+    public static final double RED_ALLIANCE_HUB_CENTER_X = 468.565;
+    public static final double RED_ALLIANCE_HUB_CENTER_Y = 158.32;
+
+    public static final double BLUE_ALLIANCE_HUB_CENTER_X = 181.555;
+    public static final double BLUE_ALLIANCE_HUB_CENTER_Y = 158.32;
+    
 }
 
 public static final class PathPlanner {
