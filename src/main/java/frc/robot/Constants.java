@@ -58,8 +58,8 @@ public final class Constants {
     public static final int ID_CORAL_HOLD_MOTOR = 1;
     //AlgaePivot 
     public static final int ID_ALGAE_PIVOT = 57;
-    //CoralPivot 
-    public static final int ID_CORAL_PIVOT = 2;//BRUSHED!!! 
+    //ShooterPivot 
+    public static final int ID_SHOOTER_PIVOT = 2;
   }
 
   public static final class  Targeting {
@@ -330,7 +330,7 @@ public static class CoralHold {
     public static final double KFF = 0;
   }
   
-  public static class CoralPivot {
+  public static class ShooterPivot {
     public static final int DIO_LIMIT = 8; 
     public static final double ENC_REVS_MAX = -119;//-125;
     public static final double ENC_REVS_LEVEL1 = 0;
