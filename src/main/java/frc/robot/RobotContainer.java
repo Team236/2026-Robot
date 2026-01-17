@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.AutoPivotTowardHub;
 import frc.robot.commands.TeleopSwerve;
 // import frc.robot.commands.CoralHoldCommands.CoralSeqGrabCount;
 import frc.robot.commands.PathPlanner.SequentialPathTest;
@@ -128,6 +129,13 @@ public class RobotContainer {
 
     // command binds
     //a.onTrue(algaeGrab).onTrue(l3_Score); *EXAMPLE
+    lt.whileTrue(new AutoPivotTowardHub(
+      s_Swerve, 
+      () -> -driverController.getRawAxis(translationAxis), 
+      () -> -driverController.getRawAxis(strafeAxis), 
+      () -> -driverController.getRawAxis(rotationAxis), 
+      () -> robotCentric.getAsBoolean()
+    ));
   }
 
   public Command getAutonomousCommand() {
