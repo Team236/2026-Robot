@@ -49,18 +49,21 @@ public final class Constants {
   public static class MotorControllers {
     public static final int SMART_CURRENT_LIMIT = 40;
    //Motor ID Numbers
-    //Elevator 
-    public static final int ID_ELEVATOR_LEFT_TALON = 11;
-    public static final int ID_ELEVATOR_RIGHT_TALON = 12;
-    //AlgaeHold
-    public static final int ID_ALGAE_HOLD = 56; 
-    //CoralHold
-    public static final int ID_CORAL_HOLD_MOTOR = 1;
-    //AlgaePivot 
-    public static final int ID_ALGAE_PIVOT = 57;
-    //CoralPivot 
-    public static final int ID_CORAL_PIVOT = 2;//BRUSHED!!! 
+
+    // Fuel Shooter TODO change these; insert proper ID numbers
+    public static final int ID_SHOOTER_LEFT_TALON = 20;
+    public static final int ID_SHOOTER_RIGHT_TALON = 21;
   }
+
+  public static class FuelShooter {
+    // TODO find final gains
+    public static final double KV = 0.116; // feed forward
+    public static final double KP = 0.4;
+    public static final double KI = 0;
+    public static final double KD = 0;
+  }
+
+
 
   public static final class  Targeting {
     //Use these do  MetricDriveFwdSideDist field centric robot to tag 
