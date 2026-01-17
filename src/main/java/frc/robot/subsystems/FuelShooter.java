@@ -105,8 +105,9 @@ private VelocityVoltage Leftm_request, Rightm_request;
     m_request = new MotionMagicVoltage(0);
     */
 
-    // Methods Start Here
 
+
+    // Methods Start Here
     public void shootFuel (double targetVelocity, double feedForward) {
      rightMotor.setControl(Rightm_request.withVelocity(targetVelocity).withFeedForward(feedForward));
      leftMotor.setControl(Leftm_request.withVelocity(targetVelocity).withFeedForward(feedForward));
@@ -116,14 +117,18 @@ private VelocityVoltage Leftm_request, Rightm_request;
     }
 
 
+    // this is motor speed between -1.0 and 1.0
     public double getLeftSpeed() {
     return leftMotor.get();
   }  
 
+  // this is motor speed between -1.0 and 1.0
   public double getRightSpeed() {
     return rightMotor.get();
   }  
 
+
+  // this is motor speed between -1.0 and 1.0
   public double getAvgSpeed() {
     return (rightMotor.get() + leftMotor.get()) / 2;
   }
@@ -131,6 +136,10 @@ private VelocityVoltage Leftm_request, Rightm_request;
   // this value is in RPS, rotations per second between -512 to 512
   public double getLeftVelocity() {
     return leftMotor.getRotorVelocity().getValueAsDouble();
+  }
+  // this value is in RPS, rotations per second
+  public double getRightVelocity() {
+    return rightMotor.getRotorVelocity().getValueAsDouble();
   }
 
 
