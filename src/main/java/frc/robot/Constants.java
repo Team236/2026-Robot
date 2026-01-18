@@ -49,20 +49,9 @@ public final class Constants {
   public static class MotorControllers {
     public static final int SMART_CURRENT_LIMIT = 40;
    //Motor ID Numbers
-    //Elevator 
-    public static final int ID_ELEVATOR_LEFT_TALON = 11;
-    public static final int ID_ELEVATOR_RIGHT_TALON = 12;
-    //AlgaeHold
-    public static final int ID_ALGAE_HOLD = 56; 
-    //CoralHold
-    public static final int ID_CORAL_HOLD_MOTOR = 1;
-    //AlgaePivot 
-    public static final int ID_ALGAE_PIVOT = 57;
-    //CoralPivot 
-    public static final int ID_CORAL_PIVOT = 2;//BRUSHED!!! 
   }
 
-  public static final class  Targeting {
+  public static final class  Targeting { //TODO -- MUST ALL BE UPDATED
     //Use these do  MetricDriveFwdSideDist field centric robot to tag 
     public static final double DIST_ROBOT_CENTER_TO_FRONT_WITH_BUMPER = 18.25; // inches
     public static final double DIST_ROBOT_CENTER_TO_LL_SIDEWAYS = 8; //
@@ -85,56 +74,56 @@ public final class Constants {
     public static final double KP_TRANSLATION = 0.4;//kP value for forward (translation) motion
     public static final double KP_STRAFE = 0.9;// 0.475;  //kP value for the sideways (strafe) motio%n 
 
-    public static final List<Integer> REEF_IDS = Arrays.asList(6, 7, 8, 9, 10, 11, 17, 18, 19, 20, 21, 22);
+    //public static final List<Integer> REEF_IDS = Arrays.asList(6, 7, 8, 9, 10, 11, 17, 18, 19, 20, 21, 22);
     //LL lens is offset from Coral scorer by 1.25 inches, and Reefs are about 6.75" Left/Right of AprilTag ce
-    public static final double DIST_TAG_RIGHT_BRANCH = 5.5;// 6.75-1;//5.5;//7.0;
-    public static final double DIST_TAG_LEFT_BRANCH = 8.5;//9+1;//6.75;//8.75;//7.0;
-    public static final double DIST_ALGAE_CENTERED_LL = 8.5;//center of LL lens to center of Algae device
-    public static Map<Integer, Pose2d> ID_TO_POSE = new HashMap<>();
-
-    static {
-      Constants.Targeting.ID_TO_POSE.put(6, new Pose2d(Units.inchesToMeters(530.49), Units.inchesToMeters(130.17), new Rotation2d(Units.degreesToRadians(300))));
-      Constants.Targeting.ID_TO_POSE.put(7, new Pose2d(Units.inchesToMeters(546.87), Units.inchesToMeters(158.50), new Rotation2d(Units.degreesToRadians(0))));
-      Constants.Targeting.ID_TO_POSE.put(8, new Pose2d(Units.inchesToMeters(530.49), Units.inchesToMeters(186.83), new Rotation2d(Units.degreesToRadians(60))));
-      Constants.Targeting.ID_TO_POSE.put(9, new Pose2d(Units.inchesToMeters(497.77), Units.inchesToMeters(186.83), new Rotation2d(Units.degreesToRadians(120))));
-      Constants.Targeting.ID_TO_POSE.put(10, new Pose2d(Units.inchesToMeters(481.39), Units.inchesToMeters(158.50), new Rotation2d(Units.degreesToRadians(180))));
-      Constants.Targeting.ID_TO_POSE.put(11, new Pose2d(Units.inchesToMeters(497.77), Units.inchesToMeters(130.17), new Rotation2d(Units.degreesToRadians(240))));
-        
-      Constants.Targeting.ID_TO_POSE.put(17, new Pose2d(Units.inchesToMeters(160.39), Units.inchesToMeters(130.17), new Rotation2d(Units.degreesToRadians(240))));
-      Constants.Targeting.ID_TO_POSE.put(18, new Pose2d(Units.inchesToMeters(144.00), Units.inchesToMeters(158.50), new Rotation2d(Units.degreesToRadians(180))));
-      Constants.Targeting.ID_TO_POSE.put(19, new Pose2d(Units.inchesToMeters(160.39), Units.inchesToMeters(186.83), new Rotation2d(Units.degreesToRadians(120))));
-      Constants.Targeting.ID_TO_POSE.put(20, new Pose2d(Units.inchesToMeters(193.10), Units.inchesToMeters(186.83), new Rotation2d(Units.degreesToRadians(60))));
-      Constants.Targeting.ID_TO_POSE.put(21, new Pose2d(Units.inchesToMeters(209.49), Units.inchesToMeters(158.50), new Rotation2d(Units.degreesToRadians(0))));
-      Constants.Targeting.ID_TO_POSE.put(22, new Pose2d(Units.inchesToMeters(193.10), Units.inchesToMeters(130.17), new Rotation2d(Units.degreesToRadians(300))));
-    }
-
-    public static final double ROT_SETPOINT_REEF_ALIGNMENT = 0; //TODO measure on a field as described in comments above
-    public static final double ROT_TOLERANCE_REEF_ALIGNMENT = 0.01; //TODO is 1 degree ok?
-
-    public static final double X_SETPOINT_REEF_ALIGNMENT = 0; //TODO measure on a field as described in comments above
-    public static final double X_TOLERANCE_REEF_ALIGNMENT =  0.01; //TODO: 10 mm is good?
-
-    public static final double Y_SETPOINT_RIGHT_REEF_ALIGNMENT = 0; //(negative)TODO measure on a field as described in comments above
-    public static final double Y_SETPOINT_LEFT_REEF_ALIGNMENT = 0; // (positive)TODO measure on a field as described in comments above
-    public static final double Y_TOLERANCE_REEF_ALIGNMENT = 0.01; //TODO: 10 mm is good?
-
+    //public static final double DIST_TAG_RIGHT_BRANCH = 5.5;// 6.75-1;//5.5;//7.0;
+    //public static final double DIST_TAG_LEFT_BRANCH = 8.5;//9+1;//6.75;//8.75;//7.0;
+    //public static final double DIST_ALGAE_CENTERED_LL = 8.5;//center of LL lens to center of Algae device
+    //public static Map<Integer, Pose2d> ID_TO_POSE = new HashMap<>();
+//
+    //static {
+    //  Constants.Targeting.ID_TO_POSE.put(6, new Pose2d(Units.inchesToMeters(530.49), Units.inchesToMeters(130.17), new Rotation2d(Units.degreesToRadians(300))));
+    //  Constants.Targeting.ID_TO_POSE.put(7, new Pose2d(Units.inchesToMeters(546.87), Units.inchesToMeters(158.50), new Rotation2d(Units.degreesToRadians(0))));
+    //  Constants.Targeting.ID_TO_POSE.put(8, new Pose2d(Units.inchesToMeters(530.49), Units.inchesToMeters(186.83), new Rotation2d(Units.degreesToRadians(60))));
+    //  Constants.Targeting.ID_TO_POSE.put(9, new Pose2d(Units.inchesToMeters(497.77), Units.inchesToMeters(186.83), new Rotation2d(Units.degreesToRadians(120))));
+    //  Constants.Targeting.ID_TO_POSE.put(10, new Pose2d(Units.inchesToMeters(481.39), Units.inchesToMeters(158.50), new Rotation2d(Units.degreesToRadians(180))));
+    //  Constants.Targeting.ID_TO_POSE.put(11, new Pose2d(Units.inchesToMeters(497.77), Units.inchesToMeters(130.17), new Rotation2d(Units.degreesToRadians(240))));
+    //    
+    //  Constants.Targeting.ID_TO_POSE.put(17, new Pose2d(Units.inchesToMeters(160.39), Units.inchesToMeters(130.17), new Rotation2d(Units.degreesToRadians(240))));
+    //  Constants.Targeting.ID_TO_POSE.put(18, new Pose2d(Units.inchesToMeters(144.00), Units.inchesToMeters(158.50), new Rotation2d(Units.degreesToRadians(180))));
+    //  Constants.Targeting.ID_TO_POSE.put(19, new Pose2d(Units.inchesToMeters(160.39), Units.inchesToMeters(186.83), new Rotation2d(Units.degreesToRadians(120))));
+    //  Constants.Targeting.ID_TO_POSE.put(20, new Pose2d(Units.inchesToMeters(193.10), Units.inchesToMeters(186.83), new Rotation2d(Units.degreesToRadians(60))));
+    //  Constants.Targeting.ID_TO_POSE.put(21, new Pose2d(Units.inchesToMeters(209.49), Units.inchesToMeters(158.50), new Rotation2d(Units.degreesToRadians(0))));
+    //  Constants.Targeting.ID_TO_POSE.put(22, new Pose2d(Units.inchesToMeters(193.10), Units.inchesToMeters(130.17), new Rotation2d(Units.degreesToRadians(300))));
+    //}
+//
+    //public static final double ROT_SETPOINT_REEF_ALIGNMENT = 0; //TODO measure on a field as described in comments above
+    //public static final double ROT_TOLERANCE_REEF_ALIGNMENT = 0.01; //TODO is 1 degree ok?
+//
+    //public static final double X_SETPOINT_REEF_ALIGNMENT = 0; //TODO measure on a field as described in comments above
+    //public static final double X_TOLERANCE_REEF_ALIGNMENT =  0.01; //TODO: 10 mm is good?
+//
+    //public static final double Y_SETPOINT_RIGHT_REEF_ALIGNMENT = 0; //(negative)TODO measure on a field as described in comments above
+    //public static final double Y_SETPOINT_LEFT_REEF_ALIGNMENT = 0; // (positive)TODO measure on a field as described in comments above
+    //public static final double Y_TOLERANCE_REEF_ALIGNMENT = 0.01; //TODO: 10 mm is good?
+//
     public static final double DONT_SEE_TAG_WAIT_TIME = 0.3;
     public static final double POSE_VALIDATION_TIME = 2; //TODO - shorten
 }
 
-public static final class PathPlanner {
+public static final class PathPlanner { //TODO -- UPDATE TO NEW ROBOT
   public static final PIDConstants TRANSLATION_PID_CONSTANTS = new PIDConstants(4.5, 0.0, 0.0); // seems like these affect movement of robot when it tries to correct itself (goes off path), not for just regular movement
   public static final PIDConstants ROTATION_PID_CONSTANTS = new PIDConstants(5.0, 0.0, 0.0); // ^^^^
 }
 
-public static final class Swerve {
+public static final class Swerve { //TODO -- UPDATE ALL VALUES / TUNE
         public static final int pigeonID = 1; //gryo
 
         public static final COTSTalonFXSwerveConstants chosenModule =  //TODO: This must be tuned to specific robot
         COTSTalonFXSwerveConstants.SDS.MK4.KrakenX60(COTSTalonFXSwerveConstants.SDS.MK4.driveRatios.L2);
       
         /* Drivetrain Constants */
-        public static final double trackWidth = Units.inchesToMeters(23.5); //2024 testbed
+        public static final double trackWidth = Units.inchesToMeters(23.5); //2024 testbed //TODO MUST BE UPDATED
         public static final double wheelBase = Units.inchesToMeters(23.5); //2024 testbed
         public static final double wheelCircumference = chosenModule.wheelCircumference;
 
@@ -204,7 +193,7 @@ public static final class Swerve {
         /* Module Specific Constants */
 
         /* FRONT LEFT Module - Module 0 */
-        public static final class Mod0 { //TODO: This must be tuned to specific robot
+        public static final class Mod0 { //TODO: This must be tuned to specific robot TUNE
             public static final int driveMotorID = 7;
             public static final int angleMotorID = 6;
             public static final int canCoderID = 0;
@@ -213,7 +202,7 @@ public static final class Swerve {
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
         /* FRONT RIGHT Module - Module 1 */
-            public static final class Mod1 { //TODO: This must be tuned to specific robot
+            public static final class Mod1 { //TODO: This must be tuned to specific robot TUNE
             public static final int driveMotorID = 3;
             public static final int angleMotorID = 2;
             public static final int canCoderID = 1;
@@ -222,7 +211,7 @@ public static final class Swerve {
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset); 
         }    
         /* BACK LEFT Module - Module 2 */
-        public static final class Mod2 { //TODO: This must be tuned to specific robot
+        public static final class Mod2 { //TODO: This must be tuned to specific robot TUNE
             public static final int driveMotorID = 5;
             public static final int angleMotorID = 4;
             public static final int canCoderID = 2;
@@ -231,7 +220,7 @@ public static final class Swerve {
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
         /* BACK RIGHT Module - Module 3 */
-        public static final class Mod3 { //TODO: This must be tuned to specific robot
+        public static final class Mod3 { //TODO: This must be tuned to specific robot TUNE
             public static final int driveMotorID = 1;
             public static final int angleMotorID = 10;
             public static final int canCoderID = 3;
@@ -241,7 +230,7 @@ public static final class Swerve {
         }
     }
 
-    public static final class AutoConstants { //TODO: these are for example auto - must be tuned to specific robot
+    public static final class AutoConstants { //TODO: these are for example auto - must be tuned to specific robot TUNE
         public static final double kMaxSpeedMetersPerSecond = 5.0; //4 //2.5
         public static final double kMaxAccelerationMetersPerSecondSquared = 4.0; //4 //2.5
         public static final double kMaxAngularSpeedRadiansPerSecond = 4*Math.PI;
