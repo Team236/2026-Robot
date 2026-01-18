@@ -3,7 +3,6 @@ package frc.robot.commands;
 import frc.robot.Constants;
 import frc.robot.subsystems.Swerve;
 
-import java.util.Optional;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 import edu.wpi.first.math.MathUtil;
@@ -18,12 +17,10 @@ public class AutoPivotTowardHub extends Command {
   private Swerve s_Swerve;
   private DoubleSupplier translationSup;
   private DoubleSupplier strafeSup;
-  //private DoubleSupplier rotationSup;
   private BooleanSupplier robotCentricSup;
   private PIDController pidController;
   private double HUBX;
   private double HUBY;
-  private Optional<Alliance> alliance = DriverStation.getAlliance();
 
   public AutoPivotTowardHub(Swerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, DoubleSupplier rotationSup, BooleanSupplier robotCentricSup) {
     this.s_Swerve = s_Swerve;
@@ -50,7 +47,7 @@ public class AutoPivotTowardHub extends Command {
 
   @Override
   public void initialize() {
-    DriverStation.getAlliance();
+    var alliance = DriverStation.getAlliance();
 
     // alliance hub selection
     // this needs to be reviewd to make sure code is aceptable and intergratable
@@ -78,14 +75,16 @@ public class AutoPivotTowardHub extends Command {
       double dy = HUBY - currentPose.getY();
       double targetAngle = Math.atan2(dy, dx);
 
-      double newRotation = pidController.calculate(currentPose.getRotation().getRadians(), targetAngle);
+      double pidOutput = pidController.calculate(currentPose.getRotation().getRadians(), targetAngle);
+
+      double newRotation = MathUtil.clamp(pidOutput, -1.0, 1.0);
 
       // if driver wants to turn while holding and it gets springed back
       // use: newRotationVal = (newRotation * .75) + (rotaionVal * .25)
 
-      if (pidController.atSetpoint()) {
-        newRotation = 0;
-    }
+    //   if (pidController.atSetpoint()) {
+    //     newRotation = 0;
+    // }
 
     s_Swerve.drive(
         new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed),
