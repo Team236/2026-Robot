@@ -49,6 +49,7 @@ public final class Constants {
   public static class MotorControllers {
     public static final int SMART_CURRENT_LIMIT = 40;
    //Motor ID Numbers
+    public static final int ID_CLIMBER = -1; //placeholder id
   }
 
   public static final class  Targeting { //TODO -- MUST ALL BE UPDATED
@@ -248,6 +249,11 @@ public static final class Swerve { //TODO -- UPDATE ALL VALUES / TUNE
       //Center Auto path (inches)
         public static final double CENTER_FWD_DIST = 53.5; 
     }
+
+  public static class Climber {
+    public static final int CLIMBER_SOL_FOR = 1; // placeholder
+    public static final int CLIMBER_SOL_REV = 0; // placeholder
+  }
 
   public static class Elevator {
     public static final int DIO_ELEV_TOP = 4;
