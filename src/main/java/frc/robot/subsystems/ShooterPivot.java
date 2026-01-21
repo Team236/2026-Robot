@@ -15,6 +15,12 @@ import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.DutyCycleOut;
+import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.InvertedValue;
+import com.ctre.phoenix6.signals.NeutralModeValue;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -27,22 +33,34 @@ import frc.robot.Constants;
 
 public class shooterPivot extends SubsystemBase {
   
-  private SparkMax shooterPivotMotor;
-  private SparkBaseConfig shooterPivotConfig;
+  private TalonFX shooterPivotMotor;
+  private DutyCycleOut m_dutyCycleControl = new DutyCycleOut(0);
   private Encoder shooterPivotEncoder;
   private boolean isShooterPivotExtException, isShooterPivotRetException;
   private DigitalInput ShooterExtLimit, ShooterRetLimit;
  
 
     /** Creates a new ShooterPivot. */
-    public shooterPivot() {
-    shooterPivotMotor = new SparkMax(Constants.MotorControllers.ID_SHOOTER_PIVOT, MotorType.kBrushless);
-    shooterPivotEncoder = new Encoder(Constants.ShooterPivot.DIO_ENC_A, Constants.ShooterPivot.DIO_ENC_B);
+    //public shooterPivot() {
+    //shooterPivotMotor = new TalonFX(Constants.MotorControllers.ID_SHOOTER_PIVOT);
+   
+    //shooterPivotConfig.inverted(false);//TODO check if needs to be inverted
+   // shooterPivotConfig.smartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
+   // shooterPivotMotor.configure(shooterPivotConfig,SparkBase.ResetMode.kResetSafeParameters ,SparkBase.PersistMode.kPersistParameters);
+       // --- Configuration ---
+    TalonFXConfiguration config = new TalonFXConfiguration();
+    
+    // Inversion and Neutral Mode
+    config.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive; // Change to Clockwise_Positive if needed
+    config.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+    
+    // Current Limiting (Crucial for Krakens)
+    config.CurrentLimits.StatorCurrentLimitEnable = true;
+    config.CurrentLimits.StatorCurrentLimit = 40.0; // Amps
+    
+    // Apply the config to the motor
+    shooterPivotMotor.getConfigurator().apply(config);
 
-    shooterPivotConfig.inverted(false);//TODO check if needs to be inverted
-    shooterPivotConfig.smartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
-    shooterPivotMotor.configure(shooterPivotConfig,SparkBase.ResetMode.kResetSafeParameters ,SparkBase.PersistMode.kPersistParameters);
-        
     try {
       //  This tries to make a new digital input, and if it fails, throws an error 
       ShooterExtLimit = new DigitalInput(Constants.ShooterPivot.DIO_EXT_LIMIT);
@@ -60,40 +78,58 @@ public class shooterPivot extends SubsystemBase {
 }
 
 // methods start here
-public double getShooterEncoder() {  //gives encoder reading in Revs
+/*public double getShooterEncoder() {  //gives encoder reading in Revs
   return shooterPivotEncoder.getRaw();
 }
 
 public void resetShooterEncoder() {
   shooterPivotEncoder.reset();
 }
+*/
+public double getShooterEncoder() {
+    // getPosition() returns a StatusSignal; .getValueAsDouble() gets the rotation count
+    return shooterPivotMotor.getPosition().getValueAsDouble();
+  }
+
+  public void resetShooterEncoder() {
+    // Sets the current position to 0 rotations
+    shooterPivotMotor.setPosition(0);
 
 public void stopShooterPivot() {
-shooterPivotMotor.set(0);
+shooterPivotMotor.stopMotor();
 }
 
 public double getShooterPivotSpeed() {
   return shooterPivotMotor.get();
 }
+//public boolean isShooterExtLimit() {
+//if (isShooterPivotExtException) {
+  //return true;
+//} else {
+  //return ShooterExtLimit.get();
+//}
+//}
 public boolean isShooterExtLimit() {
-if (isShooterPivotExtException) {
-  return true;
-} else {
-  return ShooterExtLimit.get();
-}
-}
+    return isShooterPivotExtException ? true : shooterExtLimit.get();
+  }
 
+//public boolean isShooterRetLimit() {
+//if (isShooterPivotRetException) {
+  //return true;
+//} else {
+  //return ShooterRetLimit.get();
+//}
+//}
 public boolean isShooterRetLimit() {
-if (isShooterPivotRetException) {
-  return true;
-} else {
-  return ShooterRetLimit.get();
-}
-}
+    return isShooterPivotRetException ? true : shooterRetLimit.get();
+  }
 
+//public boolean isFullyExtended() {
+  //return (getShooterEncoder() <= Constants.ShooterPivot.ENC_REVS_MAX);
+//}
 public boolean isFullyExtended() {
-  return (getShooterEncoder() <= Constants.ShooterPivot.ENC_REVS_MAX);
-}
+    return (getShooterEncoder() >= Constants.ShooterPivot.ENC_REVS_MAX);
+  }
 
 public void setShooterPivotSpeed(double speed) {
   if (speed > 0) {  //TODO make sure shooter speed > 0 when shooting foward
@@ -103,7 +139,7 @@ public void setShooterPivotSpeed(double speed) {
         stopShooterPivot();
      }  else {
         //  extending out but fully extended limit is not tripped, go at commanded speed
-       shooterPivotMotor.set(speed);
+       shooterPivotMotor.setControl(m_dutyCycleControl.withOutput(speed));
       }
  } 
  else {
@@ -113,7 +149,7 @@ public void setShooterPivotSpeed(double speed) {
         resetShooterEncoder();
       } else {
         // shooter retracting but fully retracted limit is not tripped, go at commanded speed
-        ShooterPivotMotor.set(speed);
+        ShooterPivotMotor.setControl(m_dutyCycleControl.withOutout(speed));
       }
      }
 }
