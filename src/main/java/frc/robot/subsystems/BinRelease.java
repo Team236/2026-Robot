@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import java.util.Queue;
+
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfigurator;
@@ -28,10 +30,11 @@ public class BinRelease extends SubsystemBase {
     private boolean isBinExtException;
 
    // private PIDController pidController;
-     private PositionVoltage m_request;
+    private PositionVoltage m_request;
 
 
-    public BinRelease() {
+    public BinRelease() 
+    {
         binReleaseMotor = new TalonFX(Constants.MotorControllers.ID_BIN_REL, "usb"); //tbd - will all be USB???
 
         motorConfig = new TalonFXConfiguration();
@@ -39,39 +42,42 @@ public class BinRelease extends SubsystemBase {
         motorConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
         motorConfig.CurrentLimits.SupplyCurrentLimit = Constants.MotorControllers.SMART_CURRENT_LIMIT; //tbd
         motorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-   
-        //set required slot0 gains, for PID Position control with TalonFX
-        var slot0Configs = motorConfig.Slot0;  //start with KP, KI, KD =0,  increase KP until works well
-        slot0Configs.kP = Constants.BinRelease.KP; //2.4; 
-        slot0Configs.kI = Constants.BinRelease.KI; // 
-        slot0Configs.kD = Constants.BinRelease.KD; // 0.1 
 
         binReleaseMotor.getConfigurator().apply(motorConfig);
 
-       m_request = new PositionVoltage(0).withSlot(0);
-       // pidController = new PIDController(0, 0, 0); //tbd
+        //set required slot0 gains, for PID Position control with TalonFX
+        var slot0Configs = motorConfig.Slot0;  // start with 0, 0, 0
+        slot0Configs.kP = Constants.BinRelease.KP; // 2.4; 
+        slot0Configs.kI = Constants.BinRelease.KI; // 0
+        slot0Configs.kD = Constants.BinRelease.KD; // 0.1 
 
+        m_request = new PositionVoltage(0).withSlot(0);
+        // pidController = new PIDController(0, 0, 0); //tbd
 
-    try {
-      //  This tries to make a new digital input, and if it fails, throws an error 
-       maxRetractLimit = new DigitalInput(Constants.BinRelease.DIO_RET_LIMIT); //tbd
-    } catch (Exception e) {
-       isBinRetException = true;
-      SmartDashboard.putBoolean("exception thrown for Bin Retract limit: ", isBinRetException);
+        // attempts to make ret limit switch, if it fails, throws an error
+        try
+        {
+            maxRetractLimit = new DigitalInput(Constants.BinRelease.DIO_RET_LIMIT);
+        } 
+        catch (Exception e)
+        {
+            isBinRetException = true;
+            SmartDashboard.putBoolean("Exception thrown for binReleaseMaxRetractLimit: ", isBinRetException);
+        }
+
+        // attempts to make ext limit switch, if it fails, throws an error
+        try
+        {
+            maxExtendLimit = new DigitalInput(Constants.BinRelease.DIO_EXT_LIMIT);
+        } 
+        catch (Exception e)
+        {
+            isBinRetException = true;
+            SmartDashboard.putBoolean("Exception thrown for binReleaseMaxExtendLimit: ", isBinRetException);
+        }
     }
 
- 
-   try {
-      //  This tries to make a new digital input, and if it fails, throws an error 
-       maxExtendLimit = new DigitalInput(Constants.BinRelease.DIO_EXT_LIMIT); //tbd
-    } catch (Exception e) {
-       isBinExtException = true;
-      SmartDashboard.putBoolean("exception thrown for Bin Extend limit: ", isBinRetException);
-    }
-
-    }
-
-//METHODS START HERE:
+    //METHODS START HERE:
 
     public void resetEncoder()
     {
@@ -84,27 +90,32 @@ public class BinRelease extends SubsystemBase {
     }
 
     public void stopMotor()
-    {  // desired speed is zero
+    {  
+        // desired speed is zero
         binReleaseMotor.set(0);
     }
 
+    // returns speed between -1 and 1
     public double getMotorSpeed()
-    {   //returns speed between -1 and +1
+    {   
         return binReleaseMotor.get();
     }
 
+    // sets speed between -1 and 1
     private void setMotorSpeed(double speed)
-    {  //sets the motor speed to "speed" which is passed in, between -1 and +1
+    {
         binReleaseMotor.set(speed);
     }
 
     public boolean isFullyRetracted()
-    {   //want to zero the encoder when this limit is hit
+    {   
+        //want to zero the encoder when this limit is hit
         return maxRetractLimit.get();
     }
 
     public boolean isFullyExtended()
-    {   //TBD  make sure encoder reading is increasing as mechanism extends, so the ">" sign works below
+    {   
+        // TBD make sure encoder reading is increasing as mechanism extends, so the ">" sign works below
         return (maxExtendLimit.get() || getEncoderRevolutions() > Constants.BinRelease.ENC_REVS_MAX); //set to a high value at first, for code testing
     }
 
