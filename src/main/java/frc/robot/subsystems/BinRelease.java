@@ -1,12 +1,15 @@
 package frc.robot.subsystems;
 
-
-
+import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfigurator;
+import com.ctre.phoenix6.controls.MotionMagicVoltage;
+import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 
+import edu.wpi.first.hal.PowerDistributionVersion;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.units.Units;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -16,7 +19,7 @@ import frc.robot.Constants;
 
 public class BinRelease extends SubsystemBase {
     
-    private TalonFX motor;
+    private TalonFX binReleaseMotor;
     private TalonFXConfiguration motorConfig;
 
     private DigitalInput maxRetractLimit; //limit switch
@@ -24,22 +27,30 @@ public class BinRelease extends SubsystemBase {
     private boolean isBinRetException;
     private boolean isBinExtException;
 
-    private PIDController pidController;
+   // private PIDController pidController;
+     private PositionVoltage m_request;
 
-    private double desiredSpeed;
-    private double desiredRevolutions;
 
     public BinRelease() {
+        binReleaseMotor = new TalonFX(Constants.MotorControllers.ID_BIN_REL, "usb"); //tbd - will all be USB???
 
         motorConfig = new TalonFXConfiguration();
         motorConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive; //tbd
         motorConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
         motorConfig.CurrentLimits.SupplyCurrentLimit = Constants.MotorControllers.SMART_CURRENT_LIMIT; //tbd
+        motorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+   
+        //set required slot0 gains
+        var slot0Configs = motorConfig.Slot0;  //start with KP, KI, KD =0,  increase KP until works well
+        slot0Configs.kP = Constants.BinRelease.KP; //2.4; 
+        slot0Configs.kI = Constants.BinRelease.KI; // 
+        slot0Configs.kD = Constants.BinRelease.KD; // 0.1 
 
-        motor = new TalonFX(0); //tbd
-        motor.getConfigurator().apply(motorConfig);
+        binReleaseMotor.getConfigurator().apply(motorConfig);
 
-        pidController = new PIDController(0, 0, 0); //tbd
+       m_request = new PositionVoltage(0).withSlot(0);
+       // pidController = new PIDController(0, 0, 0); //tbd
+
 
     try {
       //  This tries to make a new digital input, and if it fails, throws an error 
@@ -48,43 +59,43 @@ public class BinRelease extends SubsystemBase {
        isBinRetException = true;
       SmartDashboard.putBoolean("exception thrown for Bin Retract limit: ", isBinRetException);
     }
+
  
    try {
       //  This tries to make a new digital input, and if it fails, throws an error 
        maxExtendLimit = new DigitalInput(Constants.BinRelease.DIO_EXT_LIMIT); //tbd
     } catch (Exception e) {
-       isBinRetException = true;
+       isBinExtException = true;
       SmartDashboard.putBoolean("exception thrown for Bin Extend limit: ", isBinRetException);
     }
 
     }
 
-
 //METHODS START HERE:
 
     public void resetEncoder()
     {
-        motor.setPosition(0.0);
+        binReleaseMotor.setPosition(0.0);
     }
 
     public double getEncoderRevolutions()
     {
-        return motor.getPosition().getValueAsDouble();
+        return binReleaseMotor.getPosition().getValueAsDouble();
     }
 
     public void stopMotor()
     {  // desired speed is zero
-        motor.set(0);
+        binReleaseMotor.set(0);
     }
 
     public double getMotorSpeed()
     {   //returns speed between -1 and +1
-        return motor.get();
+        return binReleaseMotor.get();
     }
 
     private void setMotorSpeed(double speed)
     {  //sets the motor speed to "speed" which is passed in, between -1 and +1
-        motor.set(speed);
+        binReleaseMotor.set(speed);
     }
 
     public boolean isFullyRetracted()
@@ -114,15 +125,11 @@ public class BinRelease extends SubsystemBase {
         }
     }
 
-    public void setDesiredPosition(double revolutions)
-    {
-        desiredRevolutions = revolutions;
-    }
-
-    public void doPIDControl()
-    {
+  
+    public void doPIDControl(double desiredRevs) {
+        //uses position control with Kp, Ki and Kd to bring the motor to the desired encoder revolutions
+        binReleaseMotor.setControl(m_request.withPosition(desiredRevs));     
         //double revolutionsError = desiredRevolutions - getEncoderRevolutions();
-
         //double speed = pidController.calculate()
     }
 
