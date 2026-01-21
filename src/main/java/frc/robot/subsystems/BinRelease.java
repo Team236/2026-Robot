@@ -40,7 +40,7 @@ public class BinRelease extends SubsystemBase {
         motorConfig.CurrentLimits.SupplyCurrentLimit = Constants.MotorControllers.SMART_CURRENT_LIMIT; //tbd
         motorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
    
-        //set required slot0 gains
+        //set required slot0 gains, for PID Position control with TalonFX
         var slot0Configs = motorConfig.Slot0;  //start with KP, KI, KD =0,  increase KP until works well
         slot0Configs.kP = Constants.BinRelease.KP; //2.4; 
         slot0Configs.kI = Constants.BinRelease.KI; // 
