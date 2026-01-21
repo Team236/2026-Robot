@@ -49,6 +49,7 @@ public final class Constants {
   public static class MotorControllers {
     public static final int SMART_CURRENT_LIMIT = 40;
    //Motor ID Numbers
+    public static final int ID_FEEDER = -1; //placeholder;
   }
 
   public static final class  Targeting { //TODO -- MUST ALL BE UPDATED
