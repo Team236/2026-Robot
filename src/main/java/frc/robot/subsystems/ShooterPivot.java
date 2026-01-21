@@ -6,7 +6,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix6.swerve.SwerveModuleConstants.ClosedLoopOutputType;
 import com.revrobotics.RelativeEncoder;
-
+/*
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkClosedLoopController;
@@ -14,7 +14,7 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
-
+*/
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -29,6 +29,9 @@ import frc.robot.Constants;
 
 
 //Some of this code is 2024/2025 code, and may not be relevant
+//to our robot. It is left in case we need it in the future.
+//for example, the SparkMax code is not currently used, but it is left in case we need it in the future.
+
 
 
 public class shooterPivot extends SubsystemBase {
