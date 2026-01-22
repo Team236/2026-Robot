@@ -147,6 +147,7 @@ public class BinRelease extends SubsystemBase {
     @Override
     public void periodic()
     {
+        SmartDashboard.putNumber("Bin encoder revolutions:", getEncoderRevolutions());
         SmartDashboard.putBoolean("Bin fully extended:", isFullyExtended());
         SmartDashboard.putBoolean("Bin fully retracted:", isFullyRetracted());
     }
