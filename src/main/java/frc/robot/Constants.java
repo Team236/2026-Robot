@@ -58,11 +58,20 @@ public final class Constants {
   }
 
   public static class FuelShooter {
+
+    public static final double MAIN_MOTOR_RPM = 4500.0;
+    public static final double TOP_MOTOR_RPM = 500.0;
+
     // TODO find final gains
-    public static final double KV = 0.116; // feed forward
-    public static final double KP = 0.4;
-    public static final double KI = 0;
-    public static final double KD = 0;
+    public static final double KV_MAIN = 0.116; // feed forward
+    public static final double KP_MAIN = 0.4;
+    public static final double KI_MAIN = 0;
+    public static final double KD_MAIN = 0;
+
+    public static final double KV_TOP = 0.116; // feed forward
+    public static final double KP_TOP = 0.4;
+    public static final double KI_TOP = 0;
+    public static final double KD_TOP = 0;
   }
 
 
