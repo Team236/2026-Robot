@@ -349,6 +349,13 @@ public static class CoralHold {
     public static final int DIO_ENC_A = 11;
     public static final int DIO_ENC_B = 12;
   }
+
+  public static  class FloorIntake {
+    public static final int INTAKE_MOTOR_ID = 99; //FIND ACTUAL ID
+
+    public static final double INTAKE_SPEED = 1.0;
+    public static final double OUTTAKE_SPEED = -1.0;
+  }
   
   public static class XboxController {
     public static final int A = 1;
