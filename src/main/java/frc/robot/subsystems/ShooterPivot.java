@@ -197,4 +197,5 @@ public void setFF(double kFF) {
     SmartDashboard.putBoolean("Shooter Pivot is fully extended?", isFullyExtended());
   }
 
+
 }
