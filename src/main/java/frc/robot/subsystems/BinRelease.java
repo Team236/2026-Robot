@@ -73,7 +73,7 @@ public class BinRelease extends SubsystemBase {
         catch (Exception e)
         {
             isBinRetException = true;
-            SmartDashboard.putBoolean("Exception thrown for binReleaseMaxExtendLimit: ", isBinRetException);
+            SmartDashboard.putBoolean("Exception thrown for binReleaseMaxExtendLimit: ", isBinExtException);
         }
     }
 
@@ -137,7 +137,7 @@ public class BinRelease extends SubsystemBase {
     }
 
   
-    public void doPIDControl(double desiredRevs) {
+    public void PIDControlToPosition(double desiredRevs) {
         //uses position control with Kp, Ki and Kd to bring the motor to the desired encoder revolutions
         binReleaseMotor.setControl(m_request.withPosition(desiredRevs));     
         //double revolutionsError = desiredRevolutions - getEncoderRevolutions();

@@ -57,9 +57,9 @@ public final class Constants {
     public static final int KP = 0;  
     public static final int KI = 0;
     public static final int KD = 0;
-     public static final int DIO_RET_LIMIT = 0; //TBD
-      public static final int DIO_EXT_LIMIT = 1;  //TBD
-      public static final int ENC_REVS_MAX = 20; //TBD
+    public static final int DIO_RET_LIMIT = 0; //TBD
+    public static final int DIO_EXT_LIMIT = 1;  //TBD
+    public static final int ENC_REVS_MAX = 20; //TBD
   }
 
   public static final class  Targeting { //TODO -- MUST ALL BE UPDATED

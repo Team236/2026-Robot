@@ -22,11 +22,14 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.TeleopSwerve;
+import frc.robot.commands.BinRelease.BinPivot;
+import frc.robot.commands.BinRelease.BinToPosition;
 // import frc.robot.commands.CoralHoldCommands.CoralSeqGrabCount;
 import frc.robot.commands.PathPlanner.SequentialPathTest;
 import frc.robot.commands.PathPlanner.SequentialPathTest2;
 import frc.robot.commands.PathPlanner.SequentialPathTest3;
 import frc.robot.commands.PathPlanner.SequentialPathsCombined;
+import frc.robot.subsystems.BinRelease;
 import frc.robot.subsystems.Swerve;
 
 
@@ -53,8 +56,12 @@ public class RobotContainer {
 
   // subsystems
   private final Swerve s_Swerve = new Swerve();
+  private final BinRelease binRelease = new BinRelease();
 
   // commands
+  private final BinPivot binReleasePivotUp = new BinPivot(binRelease, -0.1); // TBD TESTING VALUES
+  private final BinPivot binReleasePivotDown = new BinPivot(binRelease, 0.1); // TBD TESTING VALUES
+  private final BinToPosition binReleaseToPositionTestA = new BinToPosition(binRelease, 0); // TBD TESTING VALUES, PID VALUES NEEDED
   
   // robot container -- contains subsystems, OI devices, and commands
   public RobotContainer() {
@@ -88,7 +95,7 @@ public class RobotContainer {
     JoystickButton y = new JoystickButton(driverController, Constants.XboxController.Y); // swerve
 
     JoystickButton lb = new JoystickButton(driverController, Constants.XboxController.LB); // swerve
-    JoystickButton rb = new JoystickButton(driverController, Constants.XboxController.RB);
+    JoystickButton rb = new JoystickButton(driverController, Constants.XboxController.RB); // bin (testing)
     JoystickButton lm = new JoystickButton(driverController, Constants.XboxController.LM);
     JoystickButton rm = new JoystickButton(driverController, Constants.XboxController.RM);
 
@@ -97,8 +104,8 @@ public class RobotContainer {
 
     POVButton rightPov = new POVButton(driverController,Constants.XboxController.POVXbox.RIGHT_ANGLE);
     POVButton leftPov = new POVButton(driverController,Constants.XboxController.POVXbox.LEFT_ANGLE);
-    POVButton upPov = new POVButton(driverController,Constants.XboxController.POVXbox.UP_ANGLE);
-    POVButton downPov = new POVButton(driverController,Constants.XboxController.POVXbox.DOWN_ANGLE);
+    POVButton upPov = new POVButton(driverController,Constants.XboxController.POVXbox.UP_ANGLE); // bin (testing)
+    POVButton downPov = new POVButton(driverController,Constants.XboxController.POVXbox.DOWN_ANGLE); // bin (testing)
 
     Trigger lt = new Trigger(() -> driverController.getRawAxis(Constants.XboxController.AxesXbox.LTrig) > 0.5);
     Trigger rt = new Trigger(() -> driverController.getRawAxis(Constants.XboxController.AxesXbox.RTrig) > 0.5);
@@ -126,7 +133,9 @@ public class RobotContainer {
     Trigger rt1 = new Trigger(() -> auxController.getRawAxis(Constants.XboxController.AxesXbox.RTrig) > 0.5);
 
     // command binds
-    //a.onTrue(algaeGrab).onTrue(l3_Score); *EXAMPLE
+    upPov.whileTrue(binReleasePivotUp);
+    downPov.whileTrue(binReleasePivotDown);
+    rb.onTrue(binReleaseToPositionTestA);
   }
 
   public Command getAutonomousCommand() {
