@@ -21,16 +21,9 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.BinRelease.BinPivot;
 import frc.robot.commands.BinRelease.BinToPosition;
-// import frc.robot.commands.CoralHoldCommands.CoralSeqGrabCount;
-import frc.robot.commands.PathPlanner.SequentialPathTest;
-import frc.robot.commands.PathPlanner.SequentialPathTest2;
-import frc.robot.commands.PathPlanner.SequentialPathTest3;
-import frc.robot.commands.PathPlanner.SequentialPathsCombined;
 import frc.robot.subsystems.BinRelease;
-import frc.robot.subsystems.Swerve;
 
 
 public class RobotContainer {
@@ -55,7 +48,6 @@ public class RobotContainer {
   private final JoystickButton robotCentric = new JoystickButton(driverController, XboxController.Button.kLeftBumper.value);
 
   // subsystems
-  private final Swerve s_Swerve = new Swerve();
   private final BinRelease binRelease = new BinRelease();
 
   // commands
@@ -65,28 +57,11 @@ public class RobotContainer {
   
   // robot container -- contains subsystems, OI devices, and commands
   public RobotContainer() {
-    // auto maps
-    //AutoSwitchHelpers.put(new boolean[] {true, true, true, true}, Commands.none()); *EXAMPLE
-
-    s_Swerve.setDefaultCommand(
-      new TeleopSwerve(
-        s_Swerve, 
-        () -> -driverController.getRawAxis(translationAxis), 
-        () -> -driverController.getRawAxis(strafeAxis), 
-        () -> -driverController.getRawAxis(rotationAxis), 
-        () -> robotCentric.getAsBoolean()
-      )
-    );
-      
-    // named commands
-    //NamedCommands.registerCommand("coralGrab", coralGrab); *EXAMPLE
 
     configureBindings();
   }
 
   private void configureBindings() {
-    
-    zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
 
     // driver controller
     JoystickButton a = new JoystickButton(driverController, Constants.XboxController.A);
