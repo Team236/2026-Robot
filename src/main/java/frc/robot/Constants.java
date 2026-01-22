@@ -59,7 +59,7 @@ public final class Constants {
 
   public static class FuelShooter {
 
-    public static final double MAIN_MOTOR_RPM = 4500.0;
+    public static final double MAIN_MOTOR_RPM = 500.0;
     public static final double TOP_MOTOR_RPM = 500.0;
 
     // TODO find final gains
