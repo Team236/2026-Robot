@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.FuelShooting;
 
 import com.ctre.phoenix6.controls.VelocityVoltage;
 
@@ -11,18 +11,16 @@ import frc.robot.Constants;
 import frc.robot.subsystems.FuelShooter;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class SpinShooterMotorsPID extends Command {
+public class SpinMainShooterMotorManual extends Command {
 
   private FuelShooter fuelShooter;
-  private double mainMotorSetRPM;
-  private double topMotorSetRPM;
+  private double mainMotorSetSpeed;
 
   /** Creates a new SpinShooterMotors. */
-  public SpinShooterMotorsPID(FuelShooter fuelShooter, double mainMotorSetRPM, double topMotorSetRPM) {
+  public SpinMainShooterMotorManual(FuelShooter fuelShooter, double mainMotorSetSpeed ) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.fuelShooter = fuelShooter; 
-    this.mainMotorSetRPM = mainMotorSetRPM; //tbd
-    this.topMotorSetRPM = topMotorSetRPM; //tbd
+    this.mainMotorSetSpeed = mainMotorSetSpeed;
 
     addRequirements(fuelShooter);
   }
@@ -34,9 +32,7 @@ public class SpinShooterMotorsPID extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
 public void execute() {
-  double mainRPS = mainMotorSetRPM / 60.0;
-  double topRPS = topMotorSetRPM / 60.0;
-  fuelShooter.shootFuel(mainRPS, topRPS, 0, 0); 
+  fuelShooter.spinMainMotor(mainMotorSetSpeed);
 }
 
   // Called once the command ends or is interrupted.
