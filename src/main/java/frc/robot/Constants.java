@@ -59,7 +59,7 @@ public final class Constants {
     //AlgaePivot 
     public static final int ID_ALGAE_PIVOT = 57;
     //ShooterPivot 
-    public static final int ID_SHOOTER_PIVOT = 2;
+    public static final int ID_SHOOTER_PIVOT = 8;
   }
 
   public static final class  Targeting {
