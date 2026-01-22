@@ -139,7 +139,7 @@ public class RobotContainer {
     // command binds
     //a.onTrue(algaeGrab).onTrue(l3_Score); *EXAMPLE
 
-    a.onTrue(spinMainShooterMotorManual);
+    a.whileTrue(spinMainShooterMotorManual);
   }
 
   public Command getAutonomousCommand() {

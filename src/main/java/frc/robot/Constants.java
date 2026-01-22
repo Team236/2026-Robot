@@ -62,6 +62,9 @@ public final class Constants {
     public static final double MAIN_MOTOR_RPM = 500.0;
     public static final double TOP_MOTOR_RPM = 500.0;
 
+    public static final double MAIN_MOTOR_SPEED = 0.2;
+    public static final double TOP_MOTOR_SPEED = 0.2;
+
     // TODO find final gains
     public static final double KV_MAIN = 0.116; // feed forward
     public static final double KP_MAIN = 0.4;
