@@ -21,8 +21,8 @@ public class SpinShooterMotorsPID extends Command {
   public SpinShooterMotorsPID(FuelShooter fuelShooter, double mainMotorSetRPM, double topMotorSetRPM) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.fuelShooter = fuelShooter; 
-    this.mainMotorSetRPM = Constants.FuelShooter.MAIN_MOTOR_RPM; //tbd
-    this.topMotorSetRPM = Constants.FuelShooter.TOP_MOTOR_RPM; //tbd
+    this.mainMotorSetRPM = mainMotorSetRPM; //tbd
+    this.topMotorSetRPM = topMotorSetRPM; //tbd
 
     addRequirements(fuelShooter);
   }

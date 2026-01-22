@@ -54,7 +54,7 @@ public class FuelShooter extends SubsystemBase {
     //slot0LMConfigs.kS = 0.25; // Add 0.25 V output to overcome static friction
     slot0LMConfigs.kV = Constants.FuelShooter.KV_MAIN; // FF. A velocity target of 1 rps results in 0.12 V output
     //slot0LMConfigs.kA = 0.01; // An acceleration of 1 rps/s requires 0.01 V output
-    slot0LMConfigs.kP = Constants.FuelShooter.KP_MAIN;//4.8
+    slot0LMConfigs.kP = Constants.FuelShooter.KP_MAIN; //4.8
     slot0LMConfigs.kI = Constants.FuelShooter.KI_MAIN; // no output for integrated error
     slot0LMConfigs.kD = Constants.FuelShooter.KD_MAIN;
 
@@ -62,7 +62,7 @@ public class FuelShooter extends SubsystemBase {
     //slot0LTConfigs.kS = 0.25; // Add 0.25 V output to overcome static friction
     slot0LTConfigs.kV = Constants.FuelShooter.KV_TOP; // FF. A velocity target of 1 rps results in 0.12 V output
     //slot0LTConfigs.kA = 0.01; // An acceleration of 1 rps/s requires 0.01 V output
-    slot0LTConfigs.kP = Constants.FuelShooter.KP_TOP;//4.8
+    slot0LTConfigs.kP = Constants.FuelShooter.KP_TOP; //4.8
     slot0LTConfigs.kI = Constants.FuelShooter.KI_TOP; // no output for integrated error
     slot0LTConfigs.kD = Constants.FuelShooter.KD_TOP;
 
