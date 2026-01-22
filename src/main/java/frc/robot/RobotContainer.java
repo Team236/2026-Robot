@@ -32,10 +32,13 @@ import frc.robot.subsystems.Swerve;
 
 
 public class RobotContainer {
+  private final shooterPivot shooterPivot = new shooterPivot();
 
   // controllers
   XboxController driverController = new XboxController(Constants.Controller.USB_DRIVECONTROLLER);
   XboxController auxController = new XboxController(Constants.Controller.USB_AUXCONTROLLER);
+
+private final shooterManualPivot shooterManualPivot = new shooterManualPivot(shooterPivot, constants.shooterPivotConstants.speed);
 
   // auto switches
   private static DigitalInput autoSwitch1 = new DigitalInput(Constants.DIO_AUTO_1);
@@ -128,6 +131,7 @@ public class RobotContainer {
 
     // command binds
     //a.onTrue(algaeGrab).onTrue(l3_Score); *EXAMPLE
+    a.whileTrue(shooterManualPivot);
   }
 
   public Command getAutonomousCommand() {
