@@ -44,8 +44,8 @@ public class shooterPivot extends SubsystemBase {
  
 
     /** Creates a new ShooterPivot. */
-    //public shooterPivot() {
-    //shooterPivotMotor = new TalonFX(Constants.MotorControllers.ID_SHOOTER_PIVOT);
+    public shooterPivot() {
+    shooterPivotMotor = new TalonFX(Constants.MotorControllers.ID_SHOOTER_PIVOT);
    
     //shooterPivotConfig.inverted(false);//TODO check if needs to be inverted
    // shooterPivotConfig.smartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
