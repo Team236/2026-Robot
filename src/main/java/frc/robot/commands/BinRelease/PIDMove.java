@@ -12,6 +12,7 @@ public class PIDMove extends Command {
     {
         this.binRelease = binRelease;
         this.desiredRevs = desiredRevs;
+        addRequirements(this.binRelease);
     }
 
     @Override 
