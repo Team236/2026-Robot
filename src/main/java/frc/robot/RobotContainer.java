@@ -21,8 +21,8 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.BinRelease.BinPivot;
-import frc.robot.commands.BinRelease.BinToPosition;
+import frc.robot.commands.BinRelease.ManualMove;
+import frc.robot.commands.BinRelease.PIDMove;
 import frc.robot.subsystems.BinRelease;
 
 
@@ -51,9 +51,9 @@ public class RobotContainer {
   private final BinRelease binRelease = new BinRelease();
 
   // commands
-  private final BinPivot binReleasePivotUp = new BinPivot(binRelease, -0.1); // TBD TESTING VALUES
-  private final BinPivot binReleasePivotDown = new BinPivot(binRelease, 0.1); // TBD TESTING VALUES
-  private final BinToPosition binReleaseToPositionTestA = new BinToPosition(binRelease, 0); // TBD TESTING VALUES, PID VALUES NEEDED
+  private final ManualMove binReleasePivotUp = new ManualMove(binRelease, -0.1); // TBD TESTING VALUES
+  private final ManualMove binReleasePivotDown = new ManualMove(binRelease, 0.1); // TBD TESTING VALUES
+  private final PIDMove binReleaseToPositionTestA = new PIDMove(binRelease, 0); // TBD TESTING VALUES, PID VALUES NEEDED
   
   // robot container -- contains subsystems, OI devices, and commands
   public RobotContainer() {
