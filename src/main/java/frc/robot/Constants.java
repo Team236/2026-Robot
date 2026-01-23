@@ -330,9 +330,16 @@ public static class CoralHold {
     public static final double KFF = 0;
   }
   
-  public static class ShooterPivot {
-    public static final int DIO_LIMIT = 8; 
-    public static final double ENC_REVS_MAX = -119;//-125;
+  public static class ShooterPvt {
+    public static final int DIO_EXT_LIMIT = 0;
+    public static final int DIO_RET_LIMIT = 1;
+    public static final double KP = 0; 
+    public static final double KI = 0;
+    public static final double KD = 0;
+    public static final double ENC_REVS_MAX = 10000;
+    public static final double TARGET_REVS = 10;
+    public static final double CONSTANT_SPEED_TEST_VALUE = 0.1;
+    /*public static final int DIO_LIMIT = 8; 
     public static final double ENC_REVS_LEVEL1 = 0;
     public static final double ENC_REVS_LEVEL2 = -4;//-10;//-45;
     public static final double ENC_REVS_LEVEL3 = -4;//-10;//-45; 
@@ -342,12 +349,11 @@ public static class CoralHold {
     public static final double MAN_EXT_SPEED = -0.6;
     public static final double MAN_RET_SPEED = 0.6;
     public static final double ENC_REVS_LOADING = 0;
-    public static final double KP = 0.05; //TODO tune better?
-    public static final double KI = 0;
-    public static final double KD = 0;
+
     public static final double KFF = 0;
     public static final int DIO_ENC_A = 11;
     public static final int DIO_ENC_B = 12;
+   */
   }
   
   public static class XboxController {

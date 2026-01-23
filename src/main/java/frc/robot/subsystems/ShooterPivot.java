@@ -21,25 +21,26 @@ import frc.robot.Constants;
 // to our robot. It is left in case we need it in the future.
 // for example, the SparkMax code is not currently used, but it is left in case we need it in the future.
 
-public class shooterPivot extends SubsystemBase {
+public class ShooterPivot extends SubsystemBase {
 
-  private final TalonFX shooterPivotMotor;
-  private final PositionVoltage m_positionRequest = new PositionVoltage(0);
+  private TalonFX shooterPivotMotor;
+  private TalonFXConfiguration motorConfig;
+
+  private PositionVoltage m_positionRequest;;
 
   private boolean isShooterPivotExtException = false;
   private boolean isShooterPivotRetException = false;
-
   private DigitalInput ShooterExtLimit;
   private DigitalInput ShooterRetLimit;
 
-  // --- Configuration ---
-  TalonFXConfiguration motorConfig = new TalonFXConfiguration();
+  private PositionVoltage m_request;
 
   /** Creates a new ShooterPivot. */
-  public shooterPivot() {
+  public ShooterPivot() {
 
     shooterPivotMotor = new TalonFX(Constants.MotorControllers.ID_SHOOTER_PIVOT);
-
+    // --- Configuration ---
+    motorConfig = new TalonFXConfiguration();
     motorConfig.MotorOutput.Inverted =
         InvertedValue.CounterClockwise_Positive; // Change to Clockwise_Positive if needed
     motorConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
@@ -47,20 +48,20 @@ public class shooterPivot extends SubsystemBase {
         Constants.MotorControllers.SMART_CURRENT_LIMIT;
     motorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
-    shooterPivotMotor.getConfigurator().apply(motorConfig);
 
     // Configure onboard PID for PositionVoltage
-    Slot0Configs slot0 = new Slot0Configs();
-    slot0.kP = 20.0; // TODO tune
-    slot0.kI = 0.0;
-    slot0.kD = 0.0;
-    slot0.kV = 0.0;
+    var slot0Configs = motorConfig.Slot0;  // start with 0, 0, 0
+    slot0Configs.kP = Constants.ShooterPvt.KP; // TODO tune
+    slot0Configs.kI = Constants.ShooterPvt.KI;
+    slot0Configs.kD = Constants.ShooterPvt.KD;
 
-    shooterPivotMotor.getConfigurator().apply(slot0);
+    shooterPivotMotor.getConfigurator().apply(motorConfig);
+
+    m_positionRequest = new PositionVoltage(0).withSlot(0);
 
     try {
       // This tries to make a new digital input, and if it fails, throws an error
-      ShooterExtLimit = new DigitalInput(Constants.ShooterPivot.DIO_EXT_LIMIT);
+      ShooterExtLimit = new DigitalInput(Constants.ShooterPvt.DIO_EXT_LIMIT);
     } catch (Exception e) {
       isShooterPivotExtException = true;
       SmartDashboard.putBoolean(
@@ -70,7 +71,7 @@ public class shooterPivot extends SubsystemBase {
 
     try {
       // This sets a bottom limit for the shooter, and if it fails, throws an error
-      ShooterRetLimit = new DigitalInput(Constants.ShooterPivot.DIO_RET_LIMIT);
+      ShooterRetLimit = new DigitalInput(Constants.ShooterPvt.DIO_RET_LIMIT);
     } catch (Exception e) {
       isShooterPivotRetException = true;
       SmartDashboard.putBoolean(
@@ -81,22 +82,16 @@ public class shooterPivot extends SubsystemBase {
 
   // methods start here
 
-  /*
-  public double getShooterEncoder() {  //gives encoder reading in Revs
-    return shooterPivotEncoder.getRaw();
-  }
 
-  public void resetShooterEncoder() {
-    shooterPivotEncoder.reset();
-  }
-  */
-
-  public double getShooterEncoder() {
+  public double getEncoderRevs() {
     // getPosition() returns a StatusSignal; .getValueAsDouble() gets the rotation count
+    //Position of the device in mechanism rotations. 
+    //This can be the position of a remote sensor and is affected by the RotorToSensorRatio 
+    //and SensorToMechanismRatio configs, as well as calls to setPosition.
     return shooterPivotMotor.getPosition().getValueAsDouble();
   }
 
-  public void resetShooterEncoder() {
+  public void resetEncoder() {
     // Sets the current position to 0 rotations
     shooterPivotMotor.setPosition(0);
   }
@@ -106,10 +101,17 @@ public class shooterPivot extends SubsystemBase {
   }
 
   public double getShooterPivotVelocity() {
+    //returns shooter speed in rotations per second
     return shooterPivotMotor.getVelocity().getValueAsDouble();
   }
 
-  // public boolean isShooterExtLimit() {
+  
+  public double getMotorSpeed()
+    {    // returns speed between -1 and 1 
+        return shooterPivotMotor.get();
+    }
+
+      // public boolean isShooterExtLimit() {
   //   if (isShooterPivotExtException) {
   //     return true;
   //   } else {
@@ -138,28 +140,58 @@ public class shooterPivot extends SubsystemBase {
   // }
 
   public boolean isFullyExtended() {
-    return (getShooterEncoder() >= Constants.ShooterPivot.ENC_REVS_MAX);
+    return (getEncoderRevs() >= Constants.ShooterPvt.ENC_REVS_MAX);
   }
 
-  // Replaced DutyCycle speed control with PositionVoltage control
-  public void setShooterPivotPosition(double targetRevs) {
+  public boolean isFullyRetracted()
+    {   //want to zero the encoder when this limit is hit  
+        return ShooterRetLimit.get();
+    }
 
+ 
+  private void manualSetSpeed (double speed)
+    {   // sets speed between -1 and 1
+        shooterPivotMotor.set(speed);
+    }
+
+  public void manualSetSpeedSafe(double speed)
+    {
+        if (isFullyRetracted())
+        {
+            resetEncoder();
+            stopShooterPivot();
+        } 
+        else if (isFullyExtended()) 
+        {
+            stopShooterPivot();
+        } 
+        else 
+        {
+            manualSetSpeed(speed);
+        }
+    }
+
+  
+  public void pidSetPosition(double targetRevs) {
+    //NOTE TO CODERS:  In a java method that return nothing ("void" returned),
+    //                 a "return" line causes the code to exit the method
+    //                 and not perform anything after that line
     // Clamp target to software limits
+    //TODO ENSURE TARGET REVS >0 for logic to work!!!
     targetRevs =
-        Math.max(0.0, Math.min(targetRevs, Constants.ShooterPivot.ENC_REVS_MAX));
+        Math.max(0.0, Math.min(targetRevs, Constants.ShooterPvt.ENC_REVS_MAX));
 
     // Prevent driving further into limits
-    if (targetRevs > getShooterEncoder() && isShooterExtLimit()) {
+    if (targetRevs > getEncoderRevs() && isShooterExtLimit()) {
       stopShooterPivot();
-      return;
+      return; //causes the method to end here when the "if" is true
     }
 
-    if (targetRevs < getShooterEncoder() && isShooterRetLimit()) {
+    if (targetRevs < getEncoderRevs() && isShooterRetLimit()) {
       stopShooterPivot();
-      resetShooterEncoder();
-      return;
+      resetEncoder();
+      return;//causes the method to end here when the "if" is true
     }
-
     shooterPivotMotor.setControl(
         m_positionRequest.withPosition(targetRevs));
   }
@@ -182,7 +214,7 @@ public class shooterPivot extends SubsystemBase {
         isShooterRetLimit());
     SmartDashboard.putNumber(
         "# Shooter Pivot Encoder Revolutions",
-        getShooterEncoder());
+        getEncoderRevs());
     SmartDashboard.putBoolean(
         "Shooter Pivot is fully extended?",
         isFullyExtended());

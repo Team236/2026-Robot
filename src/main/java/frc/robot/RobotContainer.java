@@ -28,17 +28,21 @@ import frc.robot.commands.PathPlanner.SequentialPathTest;
 import frc.robot.commands.PathPlanner.SequentialPathTest2;
 import frc.robot.commands.PathPlanner.SequentialPathTest3;
 import frc.robot.commands.PathPlanner.SequentialPathsCombined;
+import frc.robot.commands.ShooterPivotCommands.ManualPivot;
+import frc.robot.commands.ShooterPivotCommands.PIDPivot;
+import frc.robot.subsystems.ShooterPivot;
 import frc.robot.subsystems.Swerve;
 
 
 public class RobotContainer {
-  private final shooterPivot shooterPivot = new shooterPivot();
+  private final ShooterPivot shooterPivot = new ShooterPivot();
 
   // controllers
   XboxController driverController = new XboxController(Constants.Controller.USB_DRIVECONTROLLER);
   XboxController auxController = new XboxController(Constants.Controller.USB_AUXCONTROLLER);
 
-private final shooterManualPivot shooterManualPivot = new shooterManualPivot(shooterPivot, constants.shooterPivotConstants.speed);
+private final ManualPivot manualPivot = new ManualPivot(shooterPivot, Constants.ShooterPvt.CONSTANT_SPEED_TEST_VALUE);
+private final PIDPivot pidPivot = new PIDPivot(shooterPivot, Constants.ShooterPvt.TARGET_REVS);
 
   // auto switches
   private static DigitalInput autoSwitch1 = new DigitalInput(Constants.DIO_AUTO_1);
@@ -131,7 +135,7 @@ private final shooterManualPivot shooterManualPivot = new shooterManualPivot(sho
 
     // command binds
     //a.onTrue(algaeGrab).onTrue(l3_Score); *EXAMPLE
-    a.whileTrue(shooterManualPivot);
+    a.whileTrue(manualPivot);
   }
 
   public Command getAutonomousCommand() {
