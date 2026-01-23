@@ -102,7 +102,7 @@ public class BinRelease extends SubsystemBase {
     }
 
     // sets speed between -1 and 1
-    private void setMotorSpeed(double speed)
+    private void manualSetSpeed(double speed)
     {
         binReleaseMotor.set(speed);
     }
@@ -119,7 +119,9 @@ public class BinRelease extends SubsystemBase {
         return (maxExtendLimit.get() || getEncoderRevolutions() > Constants.BinRelease.ENC_REVS_MAX); //set to a high value at first, for code testing
     }
 
-    public void setMotorSpeedSafe(double speed)
+
+    //EDC - renamed method below 1/23/26:
+    public void manualSetSpeedSafe(double speed)
     {
         if (isFullyRetracted())
         {
@@ -132,7 +134,7 @@ public class BinRelease extends SubsystemBase {
         } 
         else 
         {
-            setMotorSpeed(speed);
+            manualSetSpeed(speed);
         }
     }
 
