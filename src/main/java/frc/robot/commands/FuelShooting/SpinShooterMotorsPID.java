@@ -18,11 +18,11 @@ public class SpinShooterMotorsPID extends Command {
   private double topMotorSetRPM;
 
   /** Creates a new SpinShooterMotors. */
-  public SpinShooterMotorsPID(FuelShooter fuelShooter, double mainMotorSetRPM, double topMotorSetRPM) {
+  public SpinShooterMotorsPID(FuelShooter fuelShooter, double mainMotorSetRPM) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.fuelShooter = fuelShooter; 
     this.mainMotorSetRPM = mainMotorSetRPM; //tbd
-    this.topMotorSetRPM = topMotorSetRPM; //tbd
+    //this.topMotorSetRPM = topMotorSetRPM; //tbd
 
     addRequirements(fuelShooter);
   }

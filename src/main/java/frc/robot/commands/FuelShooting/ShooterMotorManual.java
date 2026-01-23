@@ -13,13 +13,13 @@ import frc.robot.Constants;
 import frc.robot.subsystems.FuelShooter;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class SpinMainShooterMotorManual extends Command {
+public class ShooterMotorManual extends Command {
 
   private FuelShooter fuelShooter;
   private double mainMotorSetSpeed;
 
   /** Creates a new SpinShooterMotors. */
-  public SpinMainShooterMotorManual(FuelShooter fuelShooter, double mainMotorSetSpeed ) {
+  public ShooterMotorManual(FuelShooter fuelShooter, double mainMotorSetSpeed ) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.fuelShooter = fuelShooter; 
     this.mainMotorSetSpeed = mainMotorSetSpeed;
@@ -36,11 +36,6 @@ public class SpinMainShooterMotorManual extends Command {
 public void execute() {
   fuelShooter.spinMainMotor(mainMotorSetSpeed);
 
-
-    double actualSpeed = fuelShooter.getAvgSpeed();
-    
-    SmartDashboard.putNumber("Speed asked: ", mainMotorSetSpeed);
-    SmartDashboard.putNumber("Active speed", actualSpeed);
 }
 
   // Called once the command ends or is interrupted.
