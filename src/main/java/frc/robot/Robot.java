@@ -44,26 +44,26 @@ public class Robot extends TimedRobot {
 
    // myPDH.setSwitchableChannel(true);
 
-  UsbCamera usbCamera0;
-	try {
-   usbCamera0 = CameraServer.startAutomaticCapture(0);
-    } catch (Exception e)  {
-   SmartDashboard.putString("camera capture failed", "failed");
-   }
+ //UsbCamera usbCamera0;
+//try {
+ // usbCamera0 = CameraServer.startAutomaticCapture(0);
+ //  } catch (Exception e)  {
+ // SmartDashboard.putString("camera capture failed", "failed");
+ // }
 
 
 
-   TrajectoryConfig config =
-           new TrajectoryConfig(
-                   Constants.AutoConstants.kMaxSpeedMetersPerSecond,
-                   Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
-               .setKinematics(Constants.Swerve.swerveKinematics).setReversed(false);
-
+  // TrajectoryConfig config =
+  //         new TrajectoryConfig(
+  //                 Constants.AutoConstants.kMaxSpeedMetersPerSecond,
+  //                 Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+  //             .setKinematics(Constants.Swerve.swerveKinematics).setReversed(false);
+//
 
     //Need to do this once in order to have Limelight communication while tethered
-    for (int port = 5800; port <= 5805; port++){
-      PortForwarder.add(port, "limelight.local", port);
-    }
+   //for (int port = 5800; port <= 5805; port++){
+   //  PortForwarder.add(port, "limelight.local", port);
+   //}
   }
 
   /**
@@ -130,7 +130,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    LimelightHelpers.setCropWindow("limelight", -.5, .7, -1, .9);
+    //LimelightHelpers.setCropWindow("limelight", -.5, .7, -1, .9);
   }
   @Override
   public void testInit() {
