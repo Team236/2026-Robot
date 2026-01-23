@@ -23,16 +23,21 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.TeleopSwerve;
+import frc.robot.commands.Intake.BallSuck;
+import frc.robot.commands.Intake.Goon;
 // import frc.robot.commands.CoralHoldCommands.CoralSeqGrabCount;
 import frc.robot.commands.PathPlanner.SequentialPathTest;
 import frc.robot.commands.PathPlanner.SequentialPathTest2;
 import frc.robot.commands.PathPlanner.SequentialPathTest3;
 import frc.robot.commands.PathPlanner.SequentialPathsCombined;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Swerve;
 
 
 public class RobotContainer {
 
+  private final Intake BallIntake = new Intake();
+  
   // controllers
   XboxController driverController = new XboxController(Constants.Controller.USB_DRIVECONTROLLER);
   XboxController auxController = new XboxController(Constants.Controller.USB_AUXCONTROLLER);
@@ -54,8 +59,11 @@ public class RobotContainer {
 
   // subsystems
   private final Swerve s_Swerve = new Swerve();
+  private final Intake ballIntake = new Intake();
 
   // commands
+  private final BallSuck ballSuck = new BallSuck(BallIntake, rotationAxis);
+  private final Goon goon = new Goon(BallIntake, rotationAxis);
   
   // robot container -- contains subsystems, OI devices, and commands
   public RobotContainer() {
@@ -128,6 +136,8 @@ public class RobotContainer {
 
     // command binds
     //a.onTrue(algaeGrab).onTrue(l3_Score); *EXAMPLE
+    a.whileTrue(ballSuck);
+    b.whileTrue(goon);
   }
 
   public Command getAutonomousCommand() {

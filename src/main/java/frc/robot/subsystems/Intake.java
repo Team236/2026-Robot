@@ -62,10 +62,12 @@ public class Intake extends SubsystemBase {
   public double getIntakeSpeed() {
     return intakeMotor.get();
   }
-  
+
 
   @Override
   public void periodic() {
+
+    
     // This method will be called once per scheduler run
   }
 }
