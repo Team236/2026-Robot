@@ -55,26 +55,26 @@ public class BinRelease extends SubsystemBase {
         // pidController = new PIDController(0, 0, 0); //tbd
 
         // attempts to make ret limit switch, if it fails, throws an error
-        try
-        {
-            maxRetractLimit = new DigitalInput(Constants.BinRelease.DIO_RET_LIMIT);
-        } 
-        catch (Exception e)
-        {
-            isBinRetException = true;
-            SmartDashboard.putBoolean("Exception thrown for binReleaseMaxRetractLimit: ", isBinRetException);
-        }
+        //try
+        //{
+        //    maxRetractLimit = new DigitalInput(Constants.BinRelease.DIO_RET_LIMIT);
+        //} 
+        //catch (Exception e)
+        //{
+        //    isBinRetException = true;
+        //    SmartDashboard.putBoolean("Exception thrown for binReleaseMaxRetractLimit: ", isBinRetException);
+        //}
 
         // attempts to make ext limit switch, if it fails, throws an error
-        try
-        {
-            maxExtendLimit = new DigitalInput(Constants.BinRelease.DIO_EXT_LIMIT);
-        } 
-        catch (Exception e)
-        {
-            isBinRetException = true;
-            SmartDashboard.putBoolean("Exception thrown for binReleaseMaxExtendLimit: ", isBinExtException);
-        }
+        //try
+        //{
+        //    maxExtendLimit = new DigitalInput(Constants.BinRelease.DIO_EXT_LIMIT);
+        //} 
+        //catch (Exception e)
+        //{
+        //    isBinRetException = true;
+        //    SmartDashboard.putBoolean("Exception thrown for binReleaseMaxExtendLimit: ", isBinExtException);
+        //}
     }
 
     //METHODS START HERE:

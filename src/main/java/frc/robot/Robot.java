@@ -43,6 +43,7 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
 
    // myPDH.setSwitchableChannel(true);
+<<<<<<< HEAD
 //
  // UsbCamera usbCamera0;
 	//try {
@@ -50,21 +51,37 @@ public class Robot extends TimedRobot {
     //} catch (Exception e)  {
    //SmartDashboard.putString("camera capture failed", "failed");
    }
+=======
+
+ //UsbCamera usbCamera0;
+//try {
+ // usbCamera0 = CameraServer.startAutomaticCapture(0);
+ //  } catch (Exception e)  {
+ // SmartDashboard.putString("camera capture failed", "failed");
+ // }
+>>>>>>> a62e80eef574c641b2f955375b821b6e0e89e4c2
 
 
 
-   TrajectoryConfig config =
-           new TrajectoryConfig(
-                   Constants.AutoConstants.kMaxSpeedMetersPerSecond,
-                   Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
-               .setKinematics(Constants.Swerve.swerveKinematics).setReversed(false);
-
+  // TrajectoryConfig config =
+  //         new TrajectoryConfig(
+  //                 Constants.AutoConstants.kMaxSpeedMetersPerSecond,
+  //                 Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+  //             .setKinematics(Constants.Swerve.swerveKinematics).setReversed(false);
+//
 
     //Need to do this once in order to have Limelight communication while tethered
+<<<<<<< HEAD
     //for (int port = 5800; port <= 5805; port++){
       //PortForwarder.add(port, "limelight.local", port);
     //}
   
+=======
+   //for (int port = 5800; port <= 5805; port++){
+   //  PortForwarder.add(port, "limelight.local", port);
+   //}
+  }
+>>>>>>> a62e80eef574c641b2f955375b821b6e0e89e4c2
 
   /**
    * This function is called every robot packet, no matter the mode. Use this for items like
@@ -130,7 +147,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    LimelightHelpers.setCropWindow("limelight", -.5, .7, -1, .9);
+    //LimelightHelpers.setCropWindow("limelight", -.5, .7, -1, .9);
   }
   @Override
   public void testInit() {
