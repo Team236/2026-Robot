@@ -51,9 +51,9 @@ public class RobotContainer {
   private final BinRelease binRelease = new BinRelease();
 
   // commands
-  private final ManualMove binReleasePivotUp = new ManualMove(binRelease, -0.1); // TBD TESTING VALUES
-  private final ManualMove binReleasePivotDown = new ManualMove(binRelease, 0.1); // TBD TESTING VALUES
-  private final PIDMove binReleaseToPositionTestA = new PIDMove(binRelease, 0); // TBD TESTING VALUES, PID VALUES NEEDED
+  private final ManualMove manualExtend = new ManualMove(binRelease, -0.1); // TBD TESTING VALUES
+  private final ManualMove manualRelease = new ManualMove(binRelease, 0.1); // TBD TESTING VALUES
+  private final PIDMove pidToPositionTestA = new PIDMove(binRelease, 0); // TBD TESTING VALUES, PID VALUES NEEDED
   
   // robot container -- contains subsystems, OI devices, and commands
   public RobotContainer() {
@@ -108,9 +108,9 @@ public class RobotContainer {
     Trigger rt1 = new Trigger(() -> auxController.getRawAxis(Constants.XboxController.AxesXbox.RTrig) > 0.5);
 
     // command binds
-    upPov.whileTrue(binReleasePivotUp);
-    downPov.whileTrue(binReleasePivotDown);
-    rb.onTrue(binReleaseToPositionTestA);
+    upPov.whileTrue(manualExtend);
+    downPov.whileTrue(manualRelease);
+    rb.onTrue(pidToPositionTestA);
   }
 
   public Command getAutonomousCommand() {
