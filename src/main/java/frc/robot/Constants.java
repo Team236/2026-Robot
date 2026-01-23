@@ -51,7 +51,7 @@ public final class Constants {
    //Motor ID Numbers
 
     // Fuel Shooter TODO change these; insert proper ID numbers
-    public static final int ID_SHOOTER_LEFT_MAIN = 20;
+    public static final int ID_SHOOTER_LEFT_MAIN = 8;
     public static final int ID_SHOOTER_RIGHT_MAIN = 21;
       public static final int ID_SHOOTER_LEFT_TOP = 22;
     public static final int ID_SHOOTER_RIGHT_TOP = 23;

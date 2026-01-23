@@ -158,6 +158,7 @@ public class FuelShooter extends SubsystemBase {
 
   public void stopShooter() {
     leftMainMotor.set(0);
+    leftTopMotor.set(0);
     // rightElevatorMotor.set(0); // Right is follower, so it also stops
   }
 

@@ -5,7 +5,9 @@
 package frc.robot.commands.FuelShooting;
 
 import com.ctre.phoenix6.controls.VelocityVoltage;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.FuelShooter;
@@ -33,6 +35,12 @@ public class SpinMainShooterMotorManual extends Command {
   @Override
 public void execute() {
   fuelShooter.spinMainMotor(mainMotorSetSpeed);
+
+
+    double actualSpeed = fuelShooter.getAvgSpeed();
+    
+    SmartDashboard.putNumber("Speed asked: ", mainMotorSetSpeed);
+    SmartDashboard.putNumber("Active speed", actualSpeed);
 }
 
   // Called once the command ends or is interrupted.
