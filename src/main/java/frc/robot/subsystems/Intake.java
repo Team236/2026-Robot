@@ -34,7 +34,7 @@ public class Intake extends SubsystemBase {
     // im bad at coding 
     intakeMotor = new TalonFX(Constants.FloorIntake.INTAKE_MOTOR_ID, "usb");
 
-    // config = new TalonFXConfigurator();
+    // config = new TalonFXConfigurator(null);
     talonConfig = new TalonFXConfiguration();
 
     // Motor Output Configs
@@ -42,9 +42,11 @@ public class Intake extends SubsystemBase {
     talonConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
     talonConfig.CurrentLimits.SupplyCurrentLimit = Constants.MotorControllers.SMART_CURRENT_LIMIT;
     talonConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-    talonConfig.CurrentLimits = currentConfigs;
+    // talonConfig.CurrentLimits = currentConfigs;
 
-    config.apply(talonConfig);
+    // config.apply(talonConfig);
+
+    intakeMotor.getConfigurator().apply(talonConfig);
 
   }
 
@@ -52,12 +54,12 @@ public class Intake extends SubsystemBase {
     intakeMotor.set(0);
   }
 
-  public void intakeIn() {
-    intakeMotor.set(Constants.FloorIntake.INTAKE_SPEED);
+  public void intakeIn(double speed) {
+    intakeMotor.set(speed);
   }
 
-  public void intakeOut() {
-    intakeMotor.set(Constants.FloorIntake.OUTTAKE_SPEED);
+  public void intakeOut(double speed) {
+    intakeMotor.set(speed);
   }
 
   public double getIntakeSpeed() {
