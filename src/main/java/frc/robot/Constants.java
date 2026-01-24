@@ -36,10 +36,10 @@ public final class Constants {
   public static final double stickDeadband = 0.1;
 
   //AUTO SWITCHES
-  public static final int DIO_AUTO_1 = 0;
-  public static final int DIO_AUTO_2 = 1;
-  public static final int DIO_AUTO_3 = 2;
-  public static final int DIO_AUTO_4 = 3;
+  public static final int DIO_AUTO_1 = 18;
+  public static final int DIO_AUTO_2 = 19;
+  public static final int DIO_AUTO_3 = 20;
+  public static final int DIO_AUTO_4 = 21;
 
   public static class MotorControllers {
     public static final int SMART_CURRENT_LIMIT = 40;
@@ -54,12 +54,15 @@ public final class Constants {
   }
 
   public static final class BinRelease {
-    public static final int KP = 0;  
-    public static final int KI = 0;
-    public static final int KD = 0;
+    public static final double KP = 0.1;  
+    public static final double KI = 0;
+    public static final double KD = 0;
     public static final int DIO_RET_LIMIT = 0; //TBD
     public static final int DIO_EXT_LIMIT = 1;  //TBD
-    public static final int ENC_REVS_MAX = 20; //TBD
+    public static final int ENC_REVS_MAX = 1000; //TBD
+    public static final double MANUAL_EXT_SPEED = 0.1;
+    public static final double MANUAL_RET_SPEED = -0.1;
+    public static final double POSITION1 = 50;
   }
 
   public static final class  Targeting { //TODO -- MUST ALL BE UPDATED
@@ -259,96 +262,6 @@ public static final class Swerve { //TODO -- UPDATE ALL VALUES / TUNE
       //Center Auto path (inches)
         public static final double CENTER_FWD_DIST = 53.5; 
     }
-
-  public static class Elevator {
-    public static final int DIO_ELEV_TOP = 4;
-    public static final int DIO_ELEV_BOTTOM = 5;
-
-    public static final double ELEV_UP_SPEED = 0.1;
-    public static final double ELEV_DOWN_SPEED = -0.2;
-    public static final double ELEV_CLIMB_DOWN_SPEED = -0.2;
-
-    //conversion factors
-    public static final double ELEV_REV_TO_METERS = 1.362*0.0254;
-    public static final double ELEV_REV_TO_IN = 1.362;
-    public static final double ELEV_IN_TO_REV = 1/ELEV_REV_TO_IN;
-
-    public static final double BOTTOM_HEIGHT = 0;
-    public static final double TELEOP_HEIGHT = 5;//3.47;
-    public static final double L1_HEIGHT = 0;
-    public static final double L2_HEIGHT = 4;//6;
-    public static final double L3_HEIGHT = 21;//23;
-    public static final double L4_HEIGHT = 57;//no more than 57.5
-    public static final double L4_HT_AUTO = 56;
-    public static final double PICK_ALGAE_L2_HEIGHT = 22; //TODO find actual
-    public static final double PICK_ALGAE_L3_HEIGHT = 38;//TODO find actual
-    public static final double SCORE_ALGAE_NET_HEIGHT = 60; //TODO find actual
-    public static final double BUMP_HEIGHT = 10; 
-    public static final double CLIMB_START_HEIGHT = 12;  
-    public static final double CLIMB_END_HEIGHT = 0; 
-    public static final double MAX_HEIGHT = 60.15;
-
-    //PID values
-    public static final double KP_ELEV = 0.039; //0.04;
-    public static final double KI_ELEV = 0;
-    public static final double KD_ELEV = 0;
-  }
-
-public static class AlgaeHold {
-  public static final double HOLD_SPEED1 = -0.5;//MUST BE NEGATIVE!
-  public static final double HOLD_SPEED2 = -0.04;//MUST BE NEGATIVE!
-  public static final double RELEASE_SPEED = 1.0;
-  public static final double PROCESSOR_SPEED = 1.0; //0.125;
-  public static final int DIO_AH_LIMIT = 9;
-}
-
-public static class CoralHold {
-  public static final int DIO_COUNTER = 10;
-  public static final double HOLD_SPEED = 0.2;
-  public static final double L1_RELEASE_SPEED = 0.25;//0.2;
-  public static final double L2_RELEASE_SPEED = 0.25;//0.5;
-  public static final double L3_RELEASE_SPEED = 0.25;//0.5;
-  public static final double L4_RELEASE_SPEED = 0.25;//0.1;
-}
-
-  public static class AlgaePivot {
-    public static final int DIO_LIMIT = 6;
-    public static final int DIO_ENC_A = 7;
-    public static final int DIO_ENC_B = 13;
-    //TODO find actual values with new limit switch position (approx 167 difference)
-    public static final double ENC_REVS_MAX = -855-167; //TODO determine max revs
-    public static final double ENC_REVS_BUMP = -250-167-33;
-    public static final double ENC_REVS_REEF_PICKUP = -500-167;
-    public static final double ENC_REVS_FLOOR_PICKUP = -23.7-167;
-    public static final double ENC_REVS_SCORE_NET = 0; //TODO find actual
-    public static final double ENC_REVS_ELEVATOR_SAFE_POSITION = 0;//TODO verify safe at retract limit
-    public static final double MAN_EXT_SPEED = -0.4;
-    public static final double MAN_RET_SPEED = 0.4;
-    public static final double KP = 0.01;  //TODO find actual
-    public static final double KI = 0;
-    public static final double KD = 0;
-    public static final double KFF = 0;
-  }
-  
-  public static class CoralPivot {
-    public static final int DIO_LIMIT = 8; 
-    public static final double ENC_REVS_MAX = -119;//-125;
-    public static final double ENC_REVS_LEVEL1 = 0;
-    public static final double ENC_REVS_LEVEL2 = -4;//-10;//-45;
-    public static final double ENC_REVS_LEVEL3 = -4;//-10;//-45; 
-    public static final double ENC_REVS_LEVEL4 = -114;//-120;//-125;
-    public static final double ENC_REVS_AUTO_LEVEL4 = -114;//-120;//120;
-    public static final double ENC_REVS_FULL_RETRACT = 0;
-    public static final double MAN_EXT_SPEED = -0.6;
-    public static final double MAN_RET_SPEED = 0.6;
-    public static final double ENC_REVS_LOADING = 0;
-    public static final double KP = 0.05; //TODO tune better?
-    public static final double KI = 0;
-    public static final double KD = 0;
-    public static final double KFF = 0;
-    public static final int DIO_ENC_A = 11;
-    public static final int DIO_ENC_B = 12;
-  }
   
   public static class XboxController {
     public static final int A = 1;

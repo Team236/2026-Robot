@@ -51,9 +51,9 @@ public class RobotContainer {
   private final BinRelease binRelease = new BinRelease();
 
   // commands
-  private final ManualMove manualExtend = new ManualMove(binRelease, -0.1); // TBD TESTING VALUES
-  private final ManualMove manualRelease = new ManualMove(binRelease, 0.1); // TBD TESTING VALUES
-  private final PIDMove pidToPositionTestA = new PIDMove(binRelease, 0); // TBD TESTING VALUES, PID VALUES NEEDED
+  private final ManualMove manualExtend = new ManualMove(binRelease, Constants.BinRelease.MANUAL_EXT_SPEED); // TBD TESTING VALUES
+  private final ManualMove manualRetract = new ManualMove(binRelease, Constants.BinRelease.MANUAL_RET_SPEED); // TBD TESTING VALUES
+  private final PIDMove pidToPositionTestA = new PIDMove(binRelease, Constants.BinRelease.POSITION1); // TBD TESTING VALUES, PID VALUES NEEDED
   
   // robot container -- contains subsystems, OI devices, and commands
   public RobotContainer() {
@@ -109,7 +109,7 @@ public class RobotContainer {
 
     // command binds
     upPov.whileTrue(manualExtend);
-    downPov.whileTrue(manualRelease);
+    downPov.whileTrue(manualRetract);
     rb.onTrue(pidToPositionTestA);
   }
 
