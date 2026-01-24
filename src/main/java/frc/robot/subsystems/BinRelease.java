@@ -141,8 +141,20 @@ public class BinRelease extends SubsystemBase {
 
   
     public void PIDControlToPosition(double desiredRevs) {
-        //uses position control with Kp, Ki and Kd to bring the motor to the desired encoder revolutions
-        binReleaseMotor.setControl(m_request.withPosition(desiredRevs));     
+
+        if (isFullyRetracted() || desiredRevs > getEncoderRevolutions()) 
+        {
+            resetEncoder();
+            stopMotor();
+        } else if (isFullyExtended()) 
+        {
+            stopMotor();
+        } else 
+        {
+            binReleaseMotor.setControl(m_request.withPosition(desiredRevs));   
+        }
+
+        //uses position control with Kp, Ki and Kd to bring the motor to the desired encoder revolutions  
         //double revolutionsError = desiredRevolutions - getEncoderRevolutions();
         //double speed = pidController.calculate()
     }
