@@ -62,17 +62,17 @@ public class AutoPivotTowardHub extends Command {
       robotFieldPose = LimelightHelpers.getBotPose2d_wpiBlue("limelight");
 
       // gets angle of robot
-      double angle1 = robotFieldPose.getRotation().getRadians();
+      // double angle1 = robotFieldPose.getRotation().getRadians();
 
-      double angle2 = Constants.Targeting.ID_TO_POSE
-        // gets the position for the target it sees
-        .get(targetId)
-        .getRotation()
-        .getRadians();
+      // double angle2 = Constants.Targeting.ID_TO_POSE
+      //   // gets the position for the target it sees
+      //   .get(targetId)
+      //   .getRotation()
+      //   .getRadians();
 
-        yawError = angle2 - angle1;
+      //   yawError = angle2 - angle1;
 
-        double newRotation = pidController.calculate(yawError);
+      //   double newRotation = pidController.calculate(yawError);
 
     }
 
