@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.ClimberCommands.ClimberMotionMagic;
+import frc.robot.commands.ClimberCommands.ClimberSetSpeed;
 // import frc.robot.commands.CoralHoldCommands.CoralSeqGrabCount;
 import frc.robot.commands.PathPlanner.SequentialPathTest;
 import frc.robot.commands.PathPlanner.SequentialPathTest2;
@@ -59,6 +60,7 @@ public class RobotContainer {
 
   // commands
   private final ClimberMotionMagic climberMotionMagicTest = new ClimberMotionMagic(climber, Constants.Climber.TEST_MM_REVS);
+  private final ClimberSetSpeed climberSetSpeedTest = new ClimberSetSpeed(climber, Constants.Climber.CLIMBER_SPEED_TEST);
   
   // robot container -- contains subsystems, OI devices, and commands
   public RobotContainer() {
@@ -133,6 +135,7 @@ public class RobotContainer {
     //a.onTrue(algaeGrab).onTrue(l3_Score); *EXAMPLE
     
     x.onTrue(climberMotionMagicTest);
+    b.whileTrue(climberSetSpeedTest);
   }
 
   public Command getAutonomousCommand() {
