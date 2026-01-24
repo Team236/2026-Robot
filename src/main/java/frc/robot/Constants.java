@@ -49,7 +49,7 @@ public final class Constants {
   public static class MotorControllers {
     public static final int SMART_CURRENT_LIMIT = 40;
    //Motor ID Numbers
-    public static final int ID_CLIMBER = -1; //placeholder id
+    public static final int ID_CLIMBER = 8; //placeholder id
   }
 
   public static final class  Targeting { //TODO -- MUST ALL BE UPDATED
@@ -253,6 +253,8 @@ public static final class Swerve { //TODO -- UPDATE ALL VALUES / TUNE
   public static class Climber {
     public static final int CLIMBER_SOL_FOR = 1; // placeholder
     public static final int CLIMBER_SOL_REV = 0; // placeholder
+
+    public static final int TEST_MM_REVS = 2;
   }
 
   public static class Elevator {
