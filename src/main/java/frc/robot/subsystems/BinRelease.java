@@ -142,11 +142,11 @@ public class BinRelease extends SubsystemBase {
   
     public void PIDControlToPosition(double desiredRevs) {
 
-        if (isFullyRetracted() || desiredRevs > getEncoderRevolutions()) 
+        if (isFullyRetracted() && (desiredRevs < getEncoderRevolutions())) 
         {
             resetEncoder();
             stopMotor();
-        } else if (isFullyExtended()) 
+        } else if (isFullyExtended() && (desiredRevs > getEncoderRevolutions())) 
         {
             stopMotor();
         } else 

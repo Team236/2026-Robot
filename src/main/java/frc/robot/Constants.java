@@ -43,7 +43,7 @@ public final class Constants {
 
   public static class MotorControllers {
     public static final int SMART_CURRENT_LIMIT = 40;
-    public static final int ID_BIN_REL = 8; //TBD get actual number
+    public static final int ID_BIN_REL = 13; //TBD get actual number
    //Motor ID Numbers
   }
 
@@ -54,7 +54,7 @@ public final class Constants {
   }
 
   public static final class BinRelease {
-    public static final double KP = 0.1;  
+    public static final double KP = 0.2;  
     public static final double KI = 0;
     public static final double KD = 0;
     public static final int DIO_RET_LIMIT = 0; //TBD
