@@ -252,9 +252,10 @@ public static final class Swerve { //TODO -- UPDATE ALL VALUES / TUNE
     }
 
   public static class Climber {
-    public static final int CLIMBER_SOL_FOR = 1; // placeholder
-    public static final int CLIMBER_SOL_REV = 0; // placeholder
+    public static final int DIO_CLIMBER_TOP = 1; // placeholder
+    public static final int DIO_CLIMBER_BOTTOM = 0; // placeholder
 
+    public static final double MAX_ENCODER_REVS = 10.0;
     public static final double CLIMBER_SPEED_TEST = 0.1;
     public static final int TEST_MM_REVS = 2;
   }

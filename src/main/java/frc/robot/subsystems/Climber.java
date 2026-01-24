@@ -11,6 +11,7 @@ import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -24,7 +25,10 @@ public class Climber extends SubsystemBase {
   private TalonFXConfiguration motorConfig;
   private MotionMagicVoltage m_request;
 
-  private DoubleSolenoid climbSolenoid;
+  private boolean isTopException = false;
+  private boolean isBottomException = false;
+  private DigitalInput topLimitSwitch;
+  private DigitalInput bottomLimitSwitch;
   
   public Climber() {
     // MOTOR
@@ -55,9 +59,32 @@ public class Climber extends SubsystemBase {
 
     m_request = new MotionMagicVoltage(0);
 
-    // SOLENOID/PNEUMATICS
+    // LIMIT SWITCHES
+    try {
+      topLimitSwitch = new DigitalInput(Constants.Climber.DIO_CLIMBER_TOP);
+    } catch (Exception e) {
+      isTopException = true;
+    }
+    
+    try {
+      bottomLimitSwitch = new DigitalInput(Constants.Climber.DIO_CLIMBER_BOTTOM);
+    } catch (Exception e) {
+      isBottomException = true;
+    }
+  }
 
-    climbSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.Climber.CLIMBER_SOL_FOR, Constants.Climber.CLIMBER_SOL_REV);
+  public boolean isTopLimit() {
+    if (isTopException) {
+      return true;
+    }
+    return topLimitSwitch.get() || getClimberEncoder() > Constants.Climber.MAX_ENCODER_REVS;
+  }
+
+  public boolean isBottomLimit() {
+    if (isBottomException) {
+      return true;
+    }
+    return bottomLimitSwitch.get() || getClimberEncoder() < 0;
   }
 
   public double getClimberEncoder() {
@@ -73,6 +100,17 @@ public class Climber extends SubsystemBase {
   }
 
   public void setClimberSpeed(double speed) {
+    if (isBottomLimit()) {
+      resetClimberEncoder();
+      stopClimber();
+    } else if (isTopLimit()) {
+      stopClimber();
+    } else {
+      setClimberSpeedOverride(speed);
+    }
+  }
+
+  public void setClimberSpeedOverride(double speed) {
     climbMotor.set(speed);
   }
 
@@ -82,23 +120,14 @@ public class Climber extends SubsystemBase {
 
   // TODO: ideally take in desiredHeight or desiredInches once revs to inches conversion is known
   public void doMotionMagic(double desiredRevs) {
-    climbMotor.setControl(m_request.withPosition(desiredRevs));
-  }
-
-  public void lock() {
-    climbSolenoid.set(Value.kForward);
-  }
-
-  public void unlock() {
-    climbSolenoid.set(Value.kReverse);
-  }
-
-  public boolean isLocked() {
-    return climbSolenoid.get() == Value.kForward;
-  }
-
-  public boolean isUnlocked() {
-    return climbSolenoid.get() == Value.kReverse; // should also maybe check if value is kOff too? in which case just return !isLocked();
+    if (climbMotor.get() > 0 && isTopLimit()) {
+      stopClimber();
+    } else if (climbMotor.get() < 0 && isBottomLimit()) {
+      resetClimberEncoder();
+      stopClimber();
+    } else {
+      climbMotor.setControl(m_request.withPosition(desiredRevs));
+    }
   }
 
   @Override
@@ -106,5 +135,9 @@ public class Climber extends SubsystemBase {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Climber encoder revs", getClimberEncoder());
     SmartDashboard.putNumber("Climber motor speed", getClimberSpeed());
+    SmartDashboard.putBoolean("Climber top limit EXCEPTION", isTopException);
+    SmartDashboard.putBoolean("Climber bottom limit EXCEPTION", isBottomException);
+    SmartDashboard.putBoolean("Climber top limit hit", isTopLimit());
+    SmartDashboard.putBoolean("Climber bottom limit hit", isBottomLimit());
   }
 }
