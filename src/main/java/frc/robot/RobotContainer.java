@@ -60,7 +60,8 @@ public class RobotContainer {
 
   // commands
   private final ClimberMotionMagic climberMotionMagicTest = new ClimberMotionMagic(climber, Constants.Climber.TEST_MM_REVS);
-  private final ClimberSetSpeed climberSetSpeedTest = new ClimberSetSpeed(climber, Constants.Climber.CLIMBER_SPEED_TEST);
+  private final ClimberSetSpeed climberManualUp = new ClimberSetSpeed(climber, Constants.Climber.CLIMBER_SPEED_TEST);
+  private final ClimberSetSpeed climberManualDown = new ClimberSetSpeed(climber, -Constants.Climber.CLIMBER_SPEED_TEST);
   
   // robot container -- contains subsystems, OI devices, and commands
   public RobotContainer() {
@@ -135,7 +136,8 @@ public class RobotContainer {
     //a.onTrue(algaeGrab).onTrue(l3_Score); *EXAMPLE
     
     x.onTrue(climberMotionMagicTest);
-    b.whileTrue(climberSetSpeedTest);
+    b.whileTrue(climberManualUp);
+    a.whileTrue(climberManualDown);
   }
 
   public Command getAutonomousCommand() {

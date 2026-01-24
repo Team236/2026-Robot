@@ -12,9 +12,6 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -100,11 +97,12 @@ public class Climber extends SubsystemBase {
   }
 
   public void setClimberSpeed(double speed) {
-    if (isBottomLimit()) {
+    if (speed <= 0 && isBottomLimit()) {
       resetClimberEncoder();
       stopClimber();
-    } else if (isTopLimit()) {
+    } else if (speed > 0 && isTopLimit()) {
       stopClimber();
+
     } else {
       setClimberSpeedOverride(speed);
     }
@@ -122,6 +120,7 @@ public class Climber extends SubsystemBase {
   public void doMotionMagic(double desiredRevs) {
     if (climbMotor.get() > 0 && isTopLimit()) {
       stopClimber();
+      return;
     } else if (climbMotor.get() < 0 && isBottomLimit()) {
       resetClimberEncoder();
       stopClimber();

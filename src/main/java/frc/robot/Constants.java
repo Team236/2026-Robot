@@ -41,15 +41,15 @@ public final class Constants {
   }
 
   //AUTO SWITCHES
-  public static final int DIO_AUTO_1 = 0;
-  public static final int DIO_AUTO_2 = 1;
-  public static final int DIO_AUTO_3 = 2;
-  public static final int DIO_AUTO_4 = 3;
+  public static final int DIO_AUTO_1 = 18;
+  public static final int DIO_AUTO_2 = 19;
+  public static final int DIO_AUTO_3 = 20;
+  public static final int DIO_AUTO_4 = 21;
 
   public static class MotorControllers {
     public static final int SMART_CURRENT_LIMIT = 40;
    //Motor ID Numbers
-    public static final int ID_CLIMBER = 10; //placeholder id
+    public static final int ID_CLIMBER = 13; //placeholder id
 
   }
 
@@ -253,11 +253,11 @@ public static final class Swerve { //TODO -- UPDATE ALL VALUES / TUNE
 
   public static class Climber {
     public static final int DIO_CLIMBER_TOP = 1; // placeholder
-    public static final int DIO_CLIMBER_BOTTOM = 0; // placeholder
+    public static final int DIO_CLIMBER_BOTTOM = 2; // placeholder
 
-    public static final double MAX_ENCODER_REVS = 10.0;
+    public static final double MAX_ENCODER_REVS = 1000.0; // MotionMagic/PID stops if here; DO NOT PID CLIMB TO HIGHER THAN THIS
     public static final double CLIMBER_SPEED_TEST = 0.1;
-    public static final int TEST_MM_REVS = 2;
+    public static final double TEST_MM_REVS = 0.0;
   }
 
   public static class Elevator {
