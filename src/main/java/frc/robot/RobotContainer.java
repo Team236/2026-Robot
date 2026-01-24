@@ -58,7 +58,8 @@ public class RobotContainer {
   private final Feeder feeder = new Feeder();
 
   // commands
-  private final RunFeeder runFeederTesting = new RunFeeder(feeder, Constants.Feeder.TEST_SPEED);
+  private final RunFeeder 
+  runFeederTesting = new RunFeeder(feeder, Constants.Feeder.TEST_SPEED);
   
   // robot container -- contains subsystems, OI devices, and commands
   public RobotContainer() {

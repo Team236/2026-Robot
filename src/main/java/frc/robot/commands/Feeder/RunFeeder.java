@@ -4,6 +4,7 @@
 
 package frc.robot.commands.Feeder;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Feeder;
 
@@ -28,6 +29,7 @@ public class RunFeeder extends Command {
   @Override
   public void execute() {
     feeder.setFeederSpeed(speed);
+    SmartDashboard.putNumber("attempting feeder speed", speed);
   }
 
   // Called once the command ends or is interrupted.

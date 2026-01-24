@@ -8,6 +8,7 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -17,13 +18,17 @@ public class Feeder extends SubsystemBase {
   private TalonFXConfiguration motorConfig;
 
   public Feeder() {
-    feederMotor = new TalonFX(Constants.MotorControllers.ID_FEEDER);
+    feederMotor = new TalonFX(Constants.MotorControllers.ID_FEEDER, "usb");
     
     motorConfig = new TalonFXConfiguration();
     motorConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
     motorConfig.CurrentLimits.SupplyCurrentLimit = Constants.MotorControllers.SMART_CURRENT_LIMIT;
     motorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     feederMotor.getConfigurator().apply(motorConfig);
+  }
+
+  public double getFeederSpeed() {
+    return feederMotor.get();
   }
 
   public void setFeederSpeed(double speed) {
@@ -37,5 +42,6 @@ public class Feeder extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Feeder speed", getFeederSpeed());
   }
 }
