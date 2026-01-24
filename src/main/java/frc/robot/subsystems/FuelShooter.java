@@ -127,8 +127,8 @@ public class FuelShooter extends SubsystemBase {
   }
 
   // between -1 and 1
-    public void spinTopMotor (double manualTopSpeed) {
-    leftMainMotor.set(manualTopSpeed);
+  public void spinTopMotor (double manualTopSpeed) {
+    leftTopMotor.set(manualTopSpeed);
   }
 
   // this is motor speed between -1.0 and 1.0
@@ -136,9 +136,17 @@ public class FuelShooter extends SubsystemBase {
     return leftMainMotor.get();
   }
 
+  public double getLeftSpeedTop() {
+    return leftTopMotor.get();
+  }
+
   // this is motor speed between -1.0 and 1.0
   public double getRightSpeed() {
     return rightMainMotor.get();
+  }
+
+  public double getRightSpeedTop() {
+    return rightTopMotor.get();
   }
 
   // this is motor speed between -1.0 and 1.0
@@ -151,9 +159,17 @@ public class FuelShooter extends SubsystemBase {
     return leftMainMotor.getRotorVelocity().getValueAsDouble();
   }
 
+  public double getLeftVelocityTop() {
+    return leftTopMotor.getRotorVelocity().getValueAsDouble();
+  }
+
   // this value is in RPS, rotations per second
   public double getRightVelocity() {
     return rightMainMotor.getRotorVelocity().getValueAsDouble();
+  }
+
+  public double getRightVelocityTop() {
+    return rightTopMotor.getRotorVelocity().getValueAsDouble();
   }
 
   public void stopShooter() {
@@ -166,8 +182,10 @@ public class FuelShooter extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     
-   // SmartDashboard.putNumber("left velovity: ", getLeftMainVelocity());
-   SmartDashboard.putNumber("left main velocity", getLeftVelocity());
-
+    // SmartDashboard.putNumber("left velovity: ", getLeftMainVelocity());
+    SmartDashboard.putNumber("left main velocity", getLeftVelocity());
+    SmartDashboard.putNumber("left top velocity", getLeftVelocityTop());
+    SmartDashboard.putNumber("right main velocity", getRightVelocity());
+    SmartDashboard.putNumber("right top velocity", getRightVelocityTop());
   }
 }
