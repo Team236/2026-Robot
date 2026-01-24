@@ -9,11 +9,7 @@ import frc.robot.subsystems.Intake;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 
-            //GOON - Get Out Of Ntake
-
 public class RunOuttake extends Command {
-  /** Creates a new Goon. */
-  
   private Intake intake;
   private double speed;
 
