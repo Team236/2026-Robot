@@ -14,7 +14,7 @@ public class ManualPivot extends Command {
    private double speed;
 
   /** Creates a new ManualPivot. */
-  public ManualPivot(ShooterPivot shooterPivot, double speeed) {
+  public ManualPivot(ShooterPivot shooterPivot, double speed) {
     // Use addRequirements() here to declare subsystem dependencies.
         this.shooterPivot = shooterPivot;
         this.speed = speed;
@@ -29,12 +29,14 @@ public class ManualPivot extends Command {
   @Override
   public void execute() {
     //TODO:  change to manualSetSpeedSafe later, test limit switch logic
-       shooterPivot.manualSetSpeedSafe(Constants.ShooterPvt.CONSTANT_SPEED_TEST_VALUE);
+       shooterPivot.manualSetSpeedSafe(speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    shooterPivot.stopShooterPivot();
+  }
 
   // Returns true when the command should end.
   @Override

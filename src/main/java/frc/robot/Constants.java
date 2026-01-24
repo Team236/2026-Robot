@@ -41,10 +41,10 @@ public final class Constants {
   }
 
   //AUTO SWITCHES
-  public static final int DIO_AUTO_1 = 0;
-  public static final int DIO_AUTO_2 = 1;
-  public static final int DIO_AUTO_3 = 2;
-  public static final int DIO_AUTO_4 = 3;
+  public static final int DIO_AUTO_1 = 18;
+  public static final int DIO_AUTO_2 = 19;
+  public static final int DIO_AUTO_3 = 20;
+  public static final int DIO_AUTO_4 = 21;
 
   public static class MotorControllers {
     public static final int SMART_CURRENT_LIMIT = 40;
@@ -333,11 +333,11 @@ public static class CoralHold {
   public static class ShooterPvt {
     public static final int DIO_EXT_LIMIT = 0;
     public static final int DIO_RET_LIMIT = 1;
-    public static final double KP = 0; 
+    public static final double KP = 0.16; 
     public static final double KI = 0;
     public static final double KD = 0;
-    public static final double ENC_REVS_MAX = 10000;
-    public static final double TARGET_REVS = 10;
+    public static final double ENC_REVS_MAX = 1000; //TODO find actual
+    public static final double TARGET_REVS = 200;
     public static final double CONSTANT_SPEED_TEST_VALUE = 0.1;
     /*public static final int DIO_LIMIT = 8; 
     public static final double ENC_REVS_LEVEL1 = 0;

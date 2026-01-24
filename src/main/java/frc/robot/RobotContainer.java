@@ -135,7 +135,8 @@ private final PIDPivot pidPivot = new PIDPivot(shooterPivot, Constants.ShooterPv
 
     // command binds
     //a.onTrue(algaeGrab).onTrue(l3_Score); *EXAMPLE
-    a.whileTrue(manualPivot);
+    a.whileTrue(pidPivot);
+    b.whileTrue(manualPivot);
   }
 
   public Command getAutonomousCommand() {

@@ -30,15 +30,15 @@ public class ShooterPivot extends SubsystemBase {
 
   private boolean isShooterPivotExtException = false;
   private boolean isShooterPivotRetException = false;
-  private DigitalInput ShooterExtLimit;
-  private DigitalInput ShooterRetLimit;
+  private DigitalInput shooterExtLimit;
+  private DigitalInput shooterRetLimit;
 
   private PositionVoltage m_request;
 
   /** Creates a new ShooterPivot. */
   public ShooterPivot() {
 
-    shooterPivotMotor = new TalonFX(Constants.MotorControllers.ID_SHOOTER_PIVOT);
+    shooterPivotMotor = new TalonFX(Constants.MotorControllers.ID_SHOOTER_PIVOT, "usb");
     // --- Configuration ---
     motorConfig = new TalonFXConfiguration();
     motorConfig.MotorOutput.Inverted =
@@ -61,7 +61,7 @@ public class ShooterPivot extends SubsystemBase {
 
     try {
       // This tries to make a new digital input, and if it fails, throws an error
-      ShooterExtLimit = new DigitalInput(Constants.ShooterPvt.DIO_EXT_LIMIT);
+      shooterExtLimit = new DigitalInput(Constants.ShooterPvt.DIO_EXT_LIMIT);
     } catch (Exception e) {
       isShooterPivotExtException = true;
       SmartDashboard.putBoolean(
@@ -71,7 +71,7 @@ public class ShooterPivot extends SubsystemBase {
 
     try {
       // This sets a bottom limit for the shooter, and if it fails, throws an error
-      ShooterRetLimit = new DigitalInput(Constants.ShooterPvt.DIO_RET_LIMIT);
+      shooterRetLimit = new DigitalInput(Constants.ShooterPvt.DIO_RET_LIMIT);
     } catch (Exception e) {
       isShooterPivotRetException = true;
       SmartDashboard.putBoolean(
@@ -120,7 +120,8 @@ public class ShooterPivot extends SubsystemBase {
   // }
 
   public boolean isShooterExtLimit() {
-    return isShooterPivotExtException ? true : ShooterExtLimit.get();
+    //return isShooterPivotExtException ? true : ShooterExtLimit.get();
+    return shooterExtLimit.get();
   }
 
   // public boolean isShooterRetLimit() {
@@ -132,7 +133,8 @@ public class ShooterPivot extends SubsystemBase {
   // }
 
   public boolean isShooterRetLimit() {
-    return isShooterPivotRetException ? true : ShooterRetLimit.get();
+    //return isShooterPivotRetException ? true : ShooterRetLimit.get();
+    return shooterRetLimit.get();
   }
 
   // public boolean isFullyExtended() {
@@ -145,7 +147,7 @@ public class ShooterPivot extends SubsystemBase {
 
   public boolean isFullyRetracted()
     {   //want to zero the encoder when this limit is hit  
-        return ShooterRetLimit.get();
+        return shooterRetLimit.get();
     }
 
  
