@@ -44,8 +44,9 @@ public class RobotContainer {
   XboxController driverController = new XboxController(Constants.Controller.USB_DRIVECONTROLLER);
   XboxController auxController = new XboxController(Constants.Controller.USB_AUXCONTROLLER);
 
-  private final SpinShooterMotorsPID spinShooterMotorsPID = new SpinShooterMotorsPID(fuelShooter, Constants.FuelShooter.MAIN_MOTOR_RPM);
-  //private final ShooterMotorManual shooterMotorManual = new ShooterMotorManual(fuelShooter, Constants.FuelShooter.TOP_MOTOR_SPEED);
+  private final SpinShooterMotorsPID spinShooterMotorsPID = new SpinShooterMotorsPID(fuelShooter, Constants.FuelShooter.MAIN_MOTOR_RPM, Constants.FuelShooter.TOP_MOTOR_RPM);
+  private final ShooterMotorManual shooterMotorManual = new ShooterMotorManual(fuelShooter, Constants.FuelShooter.MAIN_MOTOR_SPEED, Constants.FuelShooter.TOP_MOTOR_SPEED);
+
 
   // auto switches
   private static DigitalInput autoSwitch1 = new DigitalInput(Constants.DIO_AUTO_1);
@@ -139,7 +140,9 @@ public class RobotContainer {
     // command binds
     //a.onTrue(algaeGrab).onTrue(l3_Score); *EXAMPLE
 
-    a.whileTrue(spinShooterMotorsPID);
+   
+    a.whileTrue(shooterMotorManual);
+    b.whileTrue(spinShooterMotorsPID);
   }
 
   public Command getAutonomousCommand() {

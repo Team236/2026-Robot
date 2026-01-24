@@ -51,16 +51,16 @@ public final class Constants {
    //Motor ID Numbers
 
     // Fuel Shooter TODO change these; insert proper ID numbers
-    public static final int ID_SHOOTER_LEFT_MAIN = 8;
-    public static final int ID_SHOOTER_RIGHT_MAIN = 21;
-      public static final int ID_SHOOTER_LEFT_TOP = 22;
-    public static final int ID_SHOOTER_RIGHT_TOP = 23;
+    public static final int ID_SHOOTER_LEFT_MAIN = 22;
+    public static final int ID_SHOOTER_RIGHT_MAIN = 23;
+      public static final int ID_SHOOTER_LEFT_TOP = 8;
+    public static final int ID_SHOOTER_RIGHT_TOP = 13;
   }
 
   public static class FuelShooter {
 
-    public static final double MAIN_MOTOR_RPM = 500.0;
-    public static final double TOP_MOTOR_RPM = 500.0;
+    public static final double MAIN_MOTOR_RPM = 2250;
+    public static final double TOP_MOTOR_RPM = 2000;
 
     public static final double MAIN_MOTOR_SPEED = -0.5;
     public static final double TOP_MOTOR_SPEED = -0.1;

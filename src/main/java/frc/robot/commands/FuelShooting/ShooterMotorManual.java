@@ -17,12 +17,14 @@ public class ShooterMotorManual extends Command {
 
   private FuelShooter fuelShooter;
   private double mainMotorSetSpeed;
+  private double topMotorSetSpeed;
 
   /** Creates a new SpinShooterMotors. */
-  public ShooterMotorManual(FuelShooter fuelShooter, double mainMotorSetSpeed ) {
+  public ShooterMotorManual(FuelShooter fuelShooter, double mainMotorSetSpeed, double topMotorSetSpeed) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.fuelShooter = fuelShooter; 
     this.mainMotorSetSpeed = mainMotorSetSpeed;
+    this.topMotorSetSpeed = topMotorSetSpeed;
 
     addRequirements(fuelShooter);
   }
@@ -35,6 +37,7 @@ public class ShooterMotorManual extends Command {
   @Override
 public void execute() {
   fuelShooter.spinMainMotor(mainMotorSetSpeed);
+  fuelShooter.spinTopMotor(topMotorSetSpeed);
 
 }
 

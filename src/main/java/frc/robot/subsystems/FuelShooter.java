@@ -29,8 +29,8 @@ public class FuelShooter extends SubsystemBase {
   private TalonFXConfiguration leftMainConfig, rightMainConfig;
   private TalonFXConfiguration leftTopConfig, rightTopConfig;
 
-  private VelocityVoltage leftMain_m_request, rightMain_m_request;
-  private VelocityVoltage leftTop_m_request, rightTop_m_request;
+  private VelocityVoltage leftMain_m_request;
+  private VelocityVoltage leftTop_m_request;
   /** Creates a new FuelShooter. */
   public FuelShooter() {
 
@@ -111,25 +111,24 @@ public class FuelShooter extends SubsystemBase {
     rightMainMotor.getConfigurator().apply(rightMainConfig);
     rightTopMotor.getConfigurator().apply(rightTopConfig);
 
-    //rightMainMotor.setControl(new Follower(Constants.MotorControllers.ID_SHOOTER_LEFT_MAIN, MotorAlignmentValue.Opposed));
-    //rightTopMotor.setControl(new Follower(Constants.MotorControllers.ID_SHOOTER_LEFT_TOP, MotorAlignmentValue.Opposed));
+    rightMainMotor.setControl(new Follower(Constants.MotorControllers.ID_SHOOTER_LEFT_MAIN, MotorAlignmentValue.Opposed));
+    rightTopMotor.setControl(new Follower(Constants.MotorControllers.ID_SHOOTER_LEFT_TOP, MotorAlignmentValue.Opposed));
   }
 
   // Methods Start Here
-  public void shootFuel(double targetMianVelocity, double targetTopVelocity, double feedForwardMain, double feedForwardTop) {
+  public void shootFuel(double targetMainVelocity, double targetTopVelocity) {
    //rightMainMotor and rightTopMotor will follow their corresponding left motor
-    leftMainMotor.setControl(leftMain_m_request.withVelocity(targetMianVelocity).withFeedForward(feedForwardMain));
-    //leftTopMotor.setControl(leftTop_m_request.withVelocity(targetTopVelocity).withFeedForward(feedForwardTop));
-    // rightMainMotor.setControl(Rightm_request.withVelocity(targetVelocity));
-    // leftMainMotor.setControl(Main.withVelocity(targetVelocity));
+    leftMainMotor.setControl(leftMain_m_request.withVelocity(targetMainVelocity).withFeedForward(Constants.FuelShooter.KV_MAIN));
+    leftTopMotor.setControl(leftTop_m_request.withVelocity(targetTopVelocity).withFeedForward(Constants.FuelShooter.KV_TOP));
   }
 
-  public void spinMainMotor (double targetMainVelocity) {
-    leftMainMotor.set(targetMainVelocity);
+  public void spinMainMotor (double manualMainSpeed) {
+    leftMainMotor.set(manualMainSpeed); // between -1 and 1
   }
 
-    public void spinTopMotor (double targetTopVelocity) {
-    leftMainMotor.set(targetTopVelocity);
+  // between -1 and 1
+    public void spinTopMotor (double manualTopSpeed) {
+    leftMainMotor.set(manualTopSpeed);
   }
 
   // this is motor speed between -1.0 and 1.0
