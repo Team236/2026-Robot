@@ -22,11 +22,13 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.TeleopSwerve;
+import frc.robot.commands.Feeder.RunFeeder;
 // import frc.robot.commands.CoralHoldCommands.CoralSeqGrabCount;
 import frc.robot.commands.PathPlanner.SequentialPathTest;
 import frc.robot.commands.PathPlanner.SequentialPathTest2;
 import frc.robot.commands.PathPlanner.SequentialPathTest3;
 import frc.robot.commands.PathPlanner.SequentialPathsCombined;
+import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Swerve;
 
 
@@ -53,8 +55,10 @@ public class RobotContainer {
 
   // subsystems
   private final Swerve s_Swerve = new Swerve();
+  private final Feeder feeder = new Feeder();
 
   // commands
+  private final RunFeeder runFeederTesting = new RunFeeder(feeder, Constants.Feeder.TEST_SPEED);
   
   // robot container -- contains subsystems, OI devices, and commands
   public RobotContainer() {
@@ -127,6 +131,8 @@ public class RobotContainer {
 
     // command binds
     //a.onTrue(algaeGrab).onTrue(l3_Score); *EXAMPLE
+
+    b.whileTrue(runFeederTesting);
   }
 
   public Command getAutonomousCommand() {

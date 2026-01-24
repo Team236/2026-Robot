@@ -339,6 +339,10 @@ public static class CoralHold {
     public static final int DIO_ENC_A = 11;
     public static final int DIO_ENC_B = 12;
   }
+
+  public static class Feeder {
+    public static final double TEST_SPEED = 0.1;
+  }
   
   public static class XboxController {
     public static final int A = 1;
