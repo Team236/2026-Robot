@@ -8,16 +8,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
+public class RunIntake extends Command {
 
-            //GOON - Get Out Of Ntake
-
-public class Goon extends Command {
-  /** Creates a new Goon. */
-  
   private Intake intake;
   private double speed;
 
-  public Goon(Intake intake, double speed) {
+  /** Creates a new IntakeIn. */
+  public RunIntake(Intake intake, double speed) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.intake = intake;
     this.speed = speed;
@@ -30,11 +27,15 @@ public class Goon extends Command {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    intake.intakeIn();
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    intake.intakeStop();
+  }
 
   // Returns true when the command should end.
   @Override

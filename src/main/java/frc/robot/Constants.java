@@ -353,8 +353,8 @@ public static class CoralHold {
   public static  class FloorIntake {
     public static final int INTAKE_MOTOR_ID = 99; //FIND ACTUAL ID
 
-    public static final double INTAKE_SPEED = 1.0;
-    public static final double OUTTAKE_SPEED = -1.0;
+    public static final double INTAKE_SPEED = 0.1;
+    public static final double OUTTAKE_SPEED = -0.1;
   }
   
   public static class XboxController {
