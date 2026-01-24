@@ -825,10 +825,6 @@ public Trajectory getTargetingTrajectory(double fwdDist1, double sideDist1, doub
             {
                 doUpdate = false;
             }
-            if (mt2.pose.getX() == 0 && mt2.pose.getY() == 0) 
-            {
-                doUpdate = false;
-            }
             if(doUpdate)   // if doRejectUpdate is false (or NOT true), then update the pose estimator
             {
                 // this line basically sets the "trust" level of vision measurements; higher number means to trust it less, and hence weight vision 
