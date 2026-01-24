@@ -158,12 +158,12 @@ public class ShooterPivot extends SubsystemBase {
 
   public void manualSetSpeedSafe(double speed)
     {
-        if (isFullyRetracted())
+        if ((isFullyRetracted() || isShooterRetLimit()) && speed <= 0)
         {
             resetEncoder();
             stopShooterPivot();
         } 
-        else if (isFullyExtended()) 
+        else if ((isFullyExtended() || isShooterExtLimit()) && speed > 0) 
         {
             stopShooterPivot();
         } 
@@ -180,22 +180,20 @@ public class ShooterPivot extends SubsystemBase {
     //                 and not perform anything after that line
     // Clamp target to software limits
     //TODO ENSURE TARGET REVS >0 for logic to work!!!
-    targetRevs =
-        Math.max(0.0, Math.min(targetRevs, Constants.ShooterPvt.ENC_REVS_MAX));
+    targetRevs = Math.max(0.0, Math.min(targetRevs, Constants.ShooterPvt.ENC_REVS_MAX));
 
     // Prevent driving further into limits
-    if (targetRevs > getEncoderRevs() && isShooterExtLimit()) {
+    if (targetRevs > getEncoderRevs() && (isShooterExtLimit() || isFullyExtended())) {
       stopShooterPivot();
       return; //causes the method to end here when the "if" is true
     }
 
-    if (targetRevs < getEncoderRevs() && isShooterRetLimit()) {
+    if (targetRevs < getEncoderRevs() && (isShooterRetLimit() || isFullyRetracted())) {
       stopShooterPivot();
       resetEncoder();
       return;//causes the method to end here when the "if" is true
     }
-    shooterPivotMotor.setControl(
-        m_positionRequest.withPosition(targetRevs));
+    shooterPivotMotor.setControl(m_positionRequest.withPosition(targetRevs));
   }
 
   // Begin things that may not be relevant

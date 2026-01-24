@@ -41,9 +41,6 @@ public class RobotContainer {
   XboxController driverController = new XboxController(Constants.Controller.USB_DRIVECONTROLLER);
   XboxController auxController = new XboxController(Constants.Controller.USB_AUXCONTROLLER);
 
-private final ManualPivot manualPivot = new ManualPivot(shooterPivot, Constants.ShooterPvt.CONSTANT_SPEED_TEST_VALUE);
-private final PIDPivot pidPivot = new PIDPivot(shooterPivot, Constants.ShooterPvt.TARGET_REVS);
-
   // auto switches
   private static DigitalInput autoSwitch1 = new DigitalInput(Constants.DIO_AUTO_1);
   private static DigitalInput autoSwitch2 = new DigitalInput(Constants.DIO_AUTO_2);
@@ -63,6 +60,9 @@ private final PIDPivot pidPivot = new PIDPivot(shooterPivot, Constants.ShooterPv
   private final Swerve s_Swerve = new Swerve();
 
   // commands
+  private final ManualPivot manualPivotExtend = new ManualPivot(shooterPivot, Constants.ShooterPvt.CONSTANT_SPEED_TEST_VALUE);
+  private final ManualPivot manualPivotRetract = new ManualPivot(shooterPivot, -Constants.ShooterPvt.CONSTANT_SPEED_TEST_VALUE);
+  private final PIDPivot pidPivot = new PIDPivot(shooterPivot, Constants.ShooterPvt.TARGET_REVS);
   
   // robot container -- contains subsystems, OI devices, and commands
   public RobotContainer() {
@@ -135,8 +135,9 @@ private final PIDPivot pidPivot = new PIDPivot(shooterPivot, Constants.ShooterPv
 
     // command binds
     //a.onTrue(algaeGrab).onTrue(l3_Score); *EXAMPLE
-    a.whileTrue(pidPivot);
-    b.whileTrue(manualPivot);
+    x.onTrue(pidPivot);
+    b.whileTrue(manualPivotExtend);
+    a.whileTrue(manualPivotRetract);
   }
 
   public Command getAutonomousCommand() {
