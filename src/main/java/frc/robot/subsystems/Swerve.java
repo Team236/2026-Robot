@@ -179,11 +179,6 @@ public class Swerve extends SubsystemBase {
         }
     }
 
-    // set pose method from last years robot
-    public void setPose(Pose2d pose) {
-        swerveOdometry.resetPosition(getGyroYaw(), getModulePositions(), pose);
-    }
-
     public SwerveModuleState[] getModuleStates(){
         SwerveModuleState[] states = new SwerveModuleState[4];
         for(SwerveModule mod : mSwerveMods){
@@ -791,9 +786,10 @@ public Trajectory getTargetingTrajectory(double fwdDist1, double sideDist1, doub
                 mSwerveMods[2].getPosition(), //back left
                 mSwerveMods[3].getPosition()  //back right
             });
-        */   m_poseEstimator.update(getGyroYaw(), getModulePositions());
+        */   
+        m_poseEstimator.update(getGyroYaw(), getModulePositions());
 
-        boolean useMegaTag2 = false; //set to false to use MegaTag1
+        boolean useMegaTag2 = true; //set to false to use MegaTag1
         boolean doUpdate = true;
         // evaluating which Megatag one or two to use based on above boolean value and 
         // only incorporate Limelight's estimates when more than one tag is visible (tagcount >= 1)
@@ -829,6 +825,10 @@ public Trajectory getTargetingTrajectory(double fwdDist1, double sideDist1, doub
             {
                 doUpdate = false;
             }
+            if (mt2.pose.getX() == 0 && mt2.pose.getY() == 0) 
+            {
+                doUpdate = false;
+            }
             if(doUpdate)   // if doRejectUpdate is false (or NOT true), then update the pose estimator
             {
                 // this line basically sets the "trust" level of vision measurements; higher number means to trust it less, and hence weight vision 
@@ -838,13 +838,12 @@ public Trajectory getTargetingTrajectory(double fwdDist1, double sideDist1, doub
                 // update 11/12 it seems like according to limelight docs megatag2 does not calculate heading at all. therefore this won't realy change much
                 // still researching potential solution
 
-                m_poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7, 0.01)); // n3 was 9999999 
+                m_poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7, 9999999)); // n3 was 9999999 
                 m_poseEstimator.addVisionMeasurement(
                     mt2.pose,
                     mt2.timestampSeconds);
           }
         }
-        
     }
 
     @Override
@@ -852,18 +851,21 @@ public Trajectory getTargetingTrajectory(double fwdDist1, double sideDist1, doub
       //  SmartDashboard.putNumber("limelight standoff fwd", LimelightHelpers.getTargetPose_CameraSpace("limelight")[2]);
 
     //    swerveOdometry.update(getGyroYaw(), getModulePositions());
-        // MegaTag2UpdateOdometry();
+    //    swerveOdometry.update(gyro.getRotation2d(), getModulePositions());
+
+       MegaTag2UpdateOdometry();
        SmartDashboard.putNumber("** RobotPoseX (Estimator)", Units.metersToInches( m_poseEstimator.getEstimatedPosition().getX()));
        SmartDashboard.putNumber("** RobotPoseY (Estimator)", Units.metersToInches( m_poseEstimator.getEstimatedPosition().getY()));
 
        SmartDashboard.putNumber("MegaTag2Rotation (Estimator)", m_poseEstimator.getEstimatedPosition().getRotation().getDegrees());
        SmartDashboard.putData(CommandScheduler.getInstance());
+
     //    System.out.println(swerveOdometry.getPoseMeters().getX() + " " + swerveOdometry.getPoseMeters().getY() + " Rotation: " + swerveOdometry.getPoseMeters().getRotation().getDegrees());
 
         //for(SwerveModule mod : mSwerveMods){
-         // SmartDashboard.putNumber("Mod " + mod.moduleNumber + " CANcoder degrees", mod.getCANcoder().getDegrees());
+         //SmartDashboard.putNumber("Mod " + mod.moduleNumber + " CANcoder degrees", mod.getCANcoder().getDegrees());
           //SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Angle degrees", mod.getPosition().angle.getDegrees());
-          // SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);
+          //SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);
           //Can't use m/s in the key!! SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity m/s", mod.getState().speedMetersPerSecond);
          //}
     
@@ -876,6 +878,4 @@ public Trajectory getTargetingTrajectory(double fwdDist1, double sideDist1, doub
        SmartDashboard.putNumber("TargetingSideDistance in swerve: ", poseSideDistance / 0.0254);
        */
      }
-
-}       
-
+}
