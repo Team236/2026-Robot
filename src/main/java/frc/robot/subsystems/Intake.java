@@ -34,7 +34,7 @@ public class Intake extends SubsystemBase {
     // im bad at coding 
     intakeMotor = new TalonFX(Constants.FloorIntake.INTAKE_MOTOR_ID, "usb");
 
-    config = new TalonFXConfigurator(null);
+    // config = new TalonFXConfigurator();
     talonConfig = new TalonFXConfiguration();
 
     // Motor Output Configs
