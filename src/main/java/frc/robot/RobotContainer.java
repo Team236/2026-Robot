@@ -35,6 +35,9 @@ import frc.robot.commands.ShooterPivotCommands.ManualPivot;
 import frc.robot.commands.ShooterPivotCommands.PIDPivot;
 import frc.robot.subsystems.ShooterPivot;
 import frc.robot.subsystems.Swerve;
+import frc.robot.commands.BinRelease.ManualMove;
+import frc.robot.commands.BinRelease.PIDMove;
+import frc.robot.subsystems.BinRelease;
 
 
 public class RobotContainer {
@@ -67,37 +70,23 @@ public class RobotContainer {
   private final JoystickButton robotCentric = new JoystickButton(driverController, XboxController.Button.kLeftBumper.value);
 
   // subsystems
-  private final Swerve s_Swerve = new Swerve();
+  private final BinRelease binRelease = new BinRelease();
 
   // commands
   private final ManualPivot manualPivotExtend = new ManualPivot(shooterPivot, Constants.ShooterPvt.CONSTANT_SPEED_TEST_VALUE);
   private final ManualPivot manualPivotRetract = new ManualPivot(shooterPivot, -Constants.ShooterPvt.CONSTANT_SPEED_TEST_VALUE);
   private final PIDPivot pidPivot = new PIDPivot(shooterPivot, Constants.ShooterPvt.TARGET_REVS);
+  private final ManualMove manualExtend = new ManualMove(binRelease, Constants.BinRelease.MANUAL_EXT_SPEED); // TBD TESTING VALUES
+  private final ManualMove manualRetract = new ManualMove(binRelease, Constants.BinRelease.MANUAL_RET_SPEED); // TBD TESTING VALUES
+  private final PIDMove pidToPositionTestA = new PIDMove(binRelease, Constants.BinRelease.POSITION1); // TBD TESTING VALUES, PID VALUES NEEDED
   
   // robot container -- contains subsystems, OI devices, and commands
   public RobotContainer() {
-    // auto maps
-    //AutoSwitchHelpers.put(new boolean[] {true, true, true, true}, Commands.none()); *EXAMPLE
-
-    s_Swerve.setDefaultCommand(
-      new TeleopSwerve(
-        s_Swerve, 
-        () -> -driverController.getRawAxis(translationAxis), 
-        () -> -driverController.getRawAxis(strafeAxis), 
-        () -> -driverController.getRawAxis(rotationAxis), 
-        () -> robotCentric.getAsBoolean()
-      )
-    );
-      
-    // named commands
-    //NamedCommands.registerCommand("coralGrab", coralGrab); *EXAMPLE
 
     configureBindings();
   }
 
   private void configureBindings() {
-    
-    zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
 
     // driver controller
     JoystickButton a = new JoystickButton(driverController, Constants.XboxController.A);
@@ -106,7 +95,7 @@ public class RobotContainer {
     JoystickButton y = new JoystickButton(driverController, Constants.XboxController.Y); // swerve
 
     JoystickButton lb = new JoystickButton(driverController, Constants.XboxController.LB); // swerve
-    JoystickButton rb = new JoystickButton(driverController, Constants.XboxController.RB);
+    JoystickButton rb = new JoystickButton(driverController, Constants.XboxController.RB); // bin (testing)
     JoystickButton lm = new JoystickButton(driverController, Constants.XboxController.LM);
     JoystickButton rm = new JoystickButton(driverController, Constants.XboxController.RM);
 
@@ -115,8 +104,8 @@ public class RobotContainer {
 
     POVButton rightPov = new POVButton(driverController,Constants.XboxController.POVXbox.RIGHT_ANGLE);
     POVButton leftPov = new POVButton(driverController,Constants.XboxController.POVXbox.LEFT_ANGLE);
-    POVButton upPov = new POVButton(driverController,Constants.XboxController.POVXbox.UP_ANGLE);
-    POVButton downPov = new POVButton(driverController,Constants.XboxController.POVXbox.DOWN_ANGLE);
+    POVButton upPov = new POVButton(driverController,Constants.XboxController.POVXbox.UP_ANGLE); // bin (testing)
+    POVButton downPov = new POVButton(driverController,Constants.XboxController.POVXbox.DOWN_ANGLE); // bin (testing)
 
     Trigger lt = new Trigger(() -> driverController.getRawAxis(Constants.XboxController.AxesXbox.LTrig) > 0.5);
     Trigger rt = new Trigger(() -> driverController.getRawAxis(Constants.XboxController.AxesXbox.RTrig) > 0.5);
@@ -152,6 +141,9 @@ public class RobotContainer {
     x.onTrue(pidPivot);
     b.whileTrue(manualPivotExtend);
     a.whileTrue(manualPivotRetract);
+    upPov.whileTrue(manualExtend);
+    downPov.whileTrue(manualRetract);
+    rb.onTrue(pidToPositionTestA);
   }
 
   public Command getAutonomousCommand() {
