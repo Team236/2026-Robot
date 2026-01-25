@@ -52,7 +52,7 @@ public final class Constants {
     public static final int SMART_CURRENT_LIMIT = 40;
     
     //Motor ID Numbers
-    
+
     // Fuel Shooter TODO change these; insert proper ID numbers
     public static final int ID_SHOOTER_LEFT_MAIN = 1;
     public static final int ID_SHOOTER_RIGHT_MAIN = 3;
@@ -67,6 +67,9 @@ public final class Constants {
 
     // Climber
     public static final int ID_CLIMBER = 13; //placeholder id
+
+    // Intake
+    public static final int ID_INTAKE = 8; //FIND ACTUAL ID
   }
 
   public static class FuelShooter {
@@ -120,6 +123,11 @@ public final class Constants {
     public static final double CLIMBER_SPEED_TEST = 0.1;
     public static final double TEST_MM_REVS = 0.0;
   }
+
+  public static  class FloorIntake {
+    public static final double INTAKE_SPEED = 0.1;
+    public static final double OUTTAKE_SPEED = -0.1;
+  }  
 
   public static final class  Targeting {
     //Use these do  MetricDriveFwdSideDist field centric robot to tag 
@@ -408,7 +416,7 @@ public static class CoralHold {
     public static final int DIO_ENC_A = 11;
     public static final int DIO_ENC_B = 12;
   }
-  
+
   public static class XboxController {
     public static final int A = 1;
     public static final int B = 2;

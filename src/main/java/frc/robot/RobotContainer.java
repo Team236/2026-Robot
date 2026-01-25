@@ -27,6 +27,8 @@ import frc.robot.commands.FuelShooting.ShooterMotorManual;
 import frc.robot.commands.FuelShooting.SpinShooterMotorsPID;
 import frc.robot.commands.ClimberCommands.ClimberMotionMagic;
 import frc.robot.commands.ClimberCommands.ClimberSetSpeed;
+import frc.robot.commands.Intake.RunIntake;
+import frc.robot.commands.Intake.RunOuttake;
 // import frc.robot.commands.CoralHoldCommands.CoralSeqGrabCount;
 import frc.robot.commands.PathPlanner.SequentialPathTest;
 import frc.robot.commands.PathPlanner.SequentialPathTest2;
@@ -37,6 +39,7 @@ import frc.robot.commands.ShooterPivotCommands.ManualPivot;
 import frc.robot.commands.ShooterPivotCommands.PIDPivot;
 import frc.robot.subsystems.ShooterPivot;
 import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Swerve;
 import frc.robot.commands.BinRelease.ManualMove;
 import frc.robot.commands.BinRelease.PIDMove;
@@ -44,6 +47,7 @@ import frc.robot.subsystems.BinRelease;
 
 
 public class RobotContainer {
+  
   // controllers
   XboxController driverController = new XboxController(Constants.Controller.USB_DRIVECONTROLLER);
   XboxController auxController = new XboxController(Constants.Controller.USB_AUXCONTROLLER);
@@ -69,6 +73,7 @@ public class RobotContainer {
   private final BinRelease binRelease = new BinRelease();
   private final Swerve s_Swerve = new Swerve();
   private final Climber climber = new Climber();
+  private final Intake intake = new Intake();  
 
   // commands
   private final ManualPivot manualPivotExtend = new ManualPivot(shooterPivot, Constants.ShooterPvt.CONSTANT_SPEED_TEST_VALUE);
@@ -82,8 +87,9 @@ public class RobotContainer {
   private final ClimberSetSpeed climberManualDown = new ClimberSetSpeed(climber, -Constants.Climber.CLIMBER_SPEED_TEST);
   private final SpinShooterMotorsPID spinShooterMotorsPID = new SpinShooterMotorsPID(fuelShooter, Constants.FuelShooter.MAIN_MOTOR_RPM, Constants.FuelShooter.TOP_MOTOR_RPM);
   private final ShooterMotorManual shooterMotorManual = new ShooterMotorManual(fuelShooter, Constants.FuelShooter.MAIN_MOTOR_SPEED, Constants.FuelShooter.TOP_MOTOR_SPEED);
-
-
+  private final RunIntake runIntakeTest = new RunIntake(intake, Constants.FloorIntake.INTAKE_SPEED);
+  private final RunOuttake runOuttakeTest = new RunOuttake(intake, Constants.FloorIntake.OUTTAKE_SPEED);
+  
   // robot container -- contains subsystems, OI devices, and commands
   public RobotContainer() {
 
@@ -151,6 +157,8 @@ public class RobotContainer {
     x.onTrue(climberMotionMagicTest);
     b.whileTrue(climberManualUp);
     a.whileTrue(climberManualDown);
+    a.whileTrue(runIntakeTest);
+    b.whileTrue(runOuttakeTest);
   }
 
   public Command getAutonomousCommand() {
