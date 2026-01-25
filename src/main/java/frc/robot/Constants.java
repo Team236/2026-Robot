@@ -70,6 +70,9 @@ public final class Constants {
 
     // Intake
     public static final int ID_INTAKE = 8; //FIND ACTUAL ID
+    
+    // Feeder
+    public static final int ID_FEEDER = 10; //placeholder;
   }
 
   public static class FuelShooter {
@@ -128,6 +131,10 @@ public final class Constants {
     public static final double INTAKE_SPEED = 0.1;
     public static final double OUTTAKE_SPEED = -0.1;
   }  
+
+  public static class Feeder {
+    public static final double TEST_SPEED = 0.2;
+  }
 
   public static final class  Targeting {
     //Use these do  MetricDriveFwdSideDist field centric robot to tag 
@@ -416,7 +423,7 @@ public static class CoralHold {
     public static final int DIO_ENC_A = 11;
     public static final int DIO_ENC_B = 12;
   }
-
+  
   public static class XboxController {
     public static final int A = 1;
     public static final int B = 2;
