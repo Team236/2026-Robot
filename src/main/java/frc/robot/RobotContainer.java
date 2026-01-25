@@ -25,6 +25,8 @@ import frc.robot.Constants.AlgaeHold;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.FuelShooting.ShooterMotorManual;
 import frc.robot.commands.FuelShooting.SpinShooterMotorsPID;
+import frc.robot.commands.ClimberCommands.ClimberMotionMagic;
+import frc.robot.commands.ClimberCommands.ClimberSetSpeed;
 // import frc.robot.commands.CoralHoldCommands.CoralSeqGrabCount;
 import frc.robot.commands.PathPlanner.SequentialPathTest;
 import frc.robot.commands.PathPlanner.SequentialPathTest2;
@@ -34,6 +36,7 @@ import frc.robot.subsystems.FuelShooter;
 import frc.robot.commands.ShooterPivotCommands.ManualPivot;
 import frc.robot.commands.ShooterPivotCommands.PIDPivot;
 import frc.robot.subsystems.ShooterPivot;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Swerve;
 import frc.robot.commands.BinRelease.ManualMove;
 import frc.robot.commands.BinRelease.PIDMove;
@@ -41,18 +44,9 @@ import frc.robot.subsystems.BinRelease;
 
 
 public class RobotContainer {
-  private final ShooterPivot shooterPivot = new ShooterPivot();
-
-  private final FuelShooter  fuelShooter = new FuelShooter();
-
-
   // controllers
   XboxController driverController = new XboxController(Constants.Controller.USB_DRIVECONTROLLER);
   XboxController auxController = new XboxController(Constants.Controller.USB_AUXCONTROLLER);
-
-  private final SpinShooterMotorsPID spinShooterMotorsPID = new SpinShooterMotorsPID(fuelShooter, Constants.FuelShooter.MAIN_MOTOR_RPM, Constants.FuelShooter.TOP_MOTOR_RPM);
-  private final ShooterMotorManual shooterMotorManual = new ShooterMotorManual(fuelShooter, Constants.FuelShooter.MAIN_MOTOR_SPEED, Constants.FuelShooter.TOP_MOTOR_SPEED);
-
 
   // auto switches
   private static DigitalInput autoSwitch1 = new DigitalInput(Constants.DIO_AUTO_1);
@@ -70,7 +64,11 @@ public class RobotContainer {
   private final JoystickButton robotCentric = new JoystickButton(driverController, XboxController.Button.kLeftBumper.value);
 
   // subsystems
+  private final ShooterPivot shooterPivot = new ShooterPivot();
+  private final FuelShooter  fuelShooter = new FuelShooter();
   private final BinRelease binRelease = new BinRelease();
+  private final Swerve s_Swerve = new Swerve();
+  private final Climber climber = new Climber();
 
   // commands
   private final ManualPivot manualPivotExtend = new ManualPivot(shooterPivot, Constants.ShooterPvt.CONSTANT_SPEED_TEST_VALUE);
@@ -79,7 +77,13 @@ public class RobotContainer {
   private final ManualMove manualExtend = new ManualMove(binRelease, Constants.BinRelease.MANUAL_EXT_SPEED); // TBD TESTING VALUES
   private final ManualMove manualRetract = new ManualMove(binRelease, Constants.BinRelease.MANUAL_RET_SPEED); // TBD TESTING VALUES
   private final PIDMove pidToPositionTestA = new PIDMove(binRelease, Constants.BinRelease.POSITION1); // TBD TESTING VALUES, PID VALUES NEEDED
-  
+  private final ClimberMotionMagic climberMotionMagicTest = new ClimberMotionMagic(climber, Constants.Climber.TEST_MM_REVS);
+  private final ClimberSetSpeed climberManualUp = new ClimberSetSpeed(climber, Constants.Climber.CLIMBER_SPEED_TEST);
+  private final ClimberSetSpeed climberManualDown = new ClimberSetSpeed(climber, -Constants.Climber.CLIMBER_SPEED_TEST);
+  private final SpinShooterMotorsPID spinShooterMotorsPID = new SpinShooterMotorsPID(fuelShooter, Constants.FuelShooter.MAIN_MOTOR_RPM, Constants.FuelShooter.TOP_MOTOR_RPM);
+  private final ShooterMotorManual shooterMotorManual = new ShooterMotorManual(fuelShooter, Constants.FuelShooter.MAIN_MOTOR_SPEED, Constants.FuelShooter.TOP_MOTOR_SPEED);
+
+
   // robot container -- contains subsystems, OI devices, and commands
   public RobotContainer() {
 
@@ -144,6 +148,9 @@ public class RobotContainer {
     upPov.whileTrue(manualExtend);
     downPov.whileTrue(manualRetract);
     rb.onTrue(pidToPositionTestA);
+    x.onTrue(climberMotionMagicTest);
+    b.whileTrue(climberManualUp);
+    a.whileTrue(climberManualDown);
   }
 
   public Command getAutonomousCommand() {

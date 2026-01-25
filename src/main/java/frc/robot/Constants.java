@@ -52,6 +52,7 @@ public final class Constants {
     public static final int SMART_CURRENT_LIMIT = 40;
     
     //Motor ID Numbers
+    
     // Fuel Shooter TODO change these; insert proper ID numbers
     public static final int ID_SHOOTER_LEFT_MAIN = 1;
     public static final int ID_SHOOTER_RIGHT_MAIN = 3;
@@ -63,6 +64,9 @@ public final class Constants {
 
     // Bin Release
     public static final int ID_BIN_REL = 13; //TBD get actual number
+
+    // Climber
+    public static final int ID_CLIMBER = 13; //placeholder id
   }
 
   public static class FuelShooter {
@@ -106,6 +110,15 @@ public final class Constants {
     public static final double ENC_REVS_MAX = 1000; //TODO find actual
     public static final double TARGET_REVS = 200;
     public static final double CONSTANT_SPEED_TEST_VALUE = 0.1;
+  }
+
+  public static class Climber {
+    public static final int DIO_CLIMBER_TOP = 1; // placeholder
+    public static final int DIO_CLIMBER_BOTTOM = 2; // placeholder
+
+    public static final double MAX_ENCODER_REVS = 1000.0; // MotionMagic/PID stops if here; DO NOT PID CLIMB TO HIGHER THAN THIS
+    public static final double CLIMBER_SPEED_TEST = 0.1;
+    public static final double TEST_MM_REVS = 0.0;
   }
 
   public static final class  Targeting {
