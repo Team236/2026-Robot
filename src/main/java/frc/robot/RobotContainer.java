@@ -21,7 +21,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Constants.AlgaeHold;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.FuelShooting.ShooterMotorManual;
 import frc.robot.commands.FuelShooting.SpinShooterMotorsPID;
@@ -96,7 +95,6 @@ public class RobotContainer {
   
   // robot container -- contains subsystems, OI devices, and commands
   public RobotContainer() {
-
     configureBindings();
   }
 
@@ -147,23 +145,33 @@ public class RobotContainer {
     Trigger rt1 = new Trigger(() -> auxController.getRawAxis(Constants.XboxController.AxesXbox.RTrig) > 0.5);
 
     // command binds
-    //a.onTrue(algaeGrab).onTrue(l3_Score); *EXAMPLE
+    // a.onTrue(algaeGrab).onTrue(l3_Score); *EXAMPLE
 
-   
-    a.whileTrue(shooterMotorManual);
-    b.whileTrue(spinShooterMotorsPID);
-    x.onTrue(pidPivot);
-    b.whileTrue(manualPivotExtend);
-    a.whileTrue(manualPivotRetract);
-    upPov.whileTrue(manualExtend);
-    downPov.whileTrue(manualRetract);
-    rb.onTrue(pidToPositionTestA);
-    x.onTrue(climberMotionMagicTest);
-    b.whileTrue(climberManualUp);
-    a.whileTrue(climberManualDown);
-    a.whileTrue(runIntakeTest);
-    b.whileTrue(runOuttakeTest);
-    b.whileTrue(runFeederTesting);
+    // Fuel Shooter
+    // a.whileTrue(shooterMotorManual);
+    // b.whileTrue(spinShooterMotorsPID);
+
+    // Shooter Pivot
+    // x.onTrue(pidPivot);
+    // b.whileTrue(manualPivotExtend);
+    // a.whileTrue(manualPivotRetract);
+
+    // Bin Release
+    // upPov.whileTrue(manualExtend);
+    // downPov.whileTrue(manualRetract);
+    // rb.onTrue(pidToPositionTestA);
+
+    // Climber
+    // x.onTrue(climberMotionMagicTest);
+    // b.whileTrue(climberManualUp);
+    // a.whileTrue(climberManualDown);
+    
+    // Intake
+    // a.whileTrue(runIntakeTest);
+    // b.whileTrue(runOuttakeTest);
+
+    // Feeder
+    // b.whileTrue(runFeederTesting);
   }
 
   public Command getAutonomousCommand() {

@@ -412,90 +412,83 @@ public class Swerve extends SubsystemBase {
                 mSwerveMods[2].getPosition(), //back left
                 mSwerveMods[3].getPosition()  //back right
             });
-        */   m_poseEstimator.update(getGyroYaw(), getModulePositions());
+        */   
+        m_poseEstimator.update(getGyroYaw(), getModulePositions());
 
         boolean useMegaTag2 = false; //set to false to use MegaTag1
         boolean doUpdate = true;
         // evaluating which Megatag one or two to use based on above boolean value and 
         // only incorporate Limelight's estimates when more than one tag is visible (tagcount >= 1)
-        if(useMegaTag2 == false)
+        if (useMegaTag2 == false)
         {
-          LimelightHelpers.PoseEstimate mt1 = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
-          if(mt1.tagCount == 1 && mt1.rawFiducials.length == 1)
-          {
-            if(mt1.rawFiducials[0].ambiguity > .7) { doUpdate = false; }
-            if(mt1.rawFiducials[0].distToCamera > 3) { doUpdate = false; }
-          }
-          if(mt1.tagCount == 0) {
-             doUpdate = false; 
+            LimelightHelpers.PoseEstimate mt1 = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
+
+            // sometimes when starting robot/building code, mt1 == null for a split second, so need to check for that or code errors and crashes
+            if (mt1 == null) {
+                return;
             }
-          if(doUpdate) {     // if doUpdate is true, then update the pose estimator (this used to be doRejectUpdate; logic was changed)
-            m_poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,0.01));
-            m_poseEstimator.addVisionMeasurement(
-                mt1.pose,
-                mt1.timestampSeconds);
-          }
-        }
-        else if (useMegaTag2)
-        {   // only incorporate Limelight's estimates when more than one tag is visible (tagcount >= 1)
+
+            if(mt1.tagCount == 1 && mt1.rawFiducials.length == 1)
+            {
+                if(mt1.rawFiducials[0].ambiguity > .7) { doUpdate = false; }
+                if(mt1.rawFiducials[0].distToCamera > 3) { doUpdate = false; }
+            }
+            if(mt1.tagCount == 0) {
+                doUpdate = false; 
+            }
+            if(doUpdate) {     // if doUpdate is true, then update the pose estimator (this used to be doRejectUpdate; logic was changed)
+                m_poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,0.01));
+                m_poseEstimator.addVisionMeasurement(
+                    mt1.pose,
+                    mt1.timestampSeconds);
+            }
+        } else if (useMegaTag2) {
+            // only incorporate Limelight's estimates when more than one tag is visible (tagcount >= 1)
+            // line below is required because megatag2 requires the limelight to know the robot's current rotation, as it USES it instead of providing it like in MT1
             LimelightHelpers.SetRobotOrientation("limelight", m_poseEstimator.getEstimatedPosition().getRotation().getDegrees(), 0, 0, 0, 0, 0);
             LimelightHelpers.PoseEstimate mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight");
             
-            // sometimes when starting robot/building code, mt2 == null for a split second, so need to check for that or code errors
-            if(mt2 == null || Math.abs(gyro.getAngularVelocityZWorld().getValueAsDouble()) > 720) // if our angular velocity is greater than 720 degrees per second, ignore vision updates
+            // sometimes when starting robot/building code, mt2 == null for a split second, so need to check for that or code errors and crashes
+            if (mt2 == null) {
+                return;
+            }
+            
+            if (Math.abs(gyro.getAngularVelocityZWorld().getValueAsDouble()) > 720 || mt2.tagCount == 0) // if our angular velocity is greater than 720 degrees per second, ignore vision updates
             {
                 doUpdate = false;
             }
-            if(mt2.tagCount == 0)
-            {
-                doUpdate = false;
-            }
-            if(doUpdate)   // if doRejectUpdate is false (or NOT true), then update the pose estimator
+
+            if (doUpdate)
             {
                 // this line basically sets the "trust" level of vision measurements; higher number means to trust it less, and hence weight vision 
                 // measurements a lot less. In this case, the rotation stddev was enormous (9999999), so its essentially ignored entirely.
-                // i've set it to ten degrees for now, because too low may be erratic, but it can be tuned
-
-                // update 11/12 it seems like according to limelight docs megatag2 does not calculate heading at all. therefore this won't realy change much
-                // still researching potential solution
+                // update 11/12 it seems like according to limelight docs megatag2 does not calculate heading at all, number likely irrelevant 
 
                 m_poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7, 0.01)); // n3 was 9999999 
                 m_poseEstimator.addVisionMeasurement(
                     mt2.pose,
                     mt2.timestampSeconds);
-          }
+            }
         }
-        
     }
 
     @Override
     public void periodic(){
-      //  SmartDashboard.putNumber("limelight standoff fwd", LimelightHelpers.getTargetPose_CameraSpace("limelight")[2]);
+        //SmartDashboard.putNumber("limelight standoff fwd", LimelightHelpers.getTargetPose_CameraSpace("limelight")[2]);
 
-    //    swerveOdometry.update(getGyroYaw(), getModulePositions());
-        // MegaTag2UpdateOdometry();
-       SmartDashboard.putNumber("** RobotPoseX (Estimator)", Units.metersToInches( m_poseEstimator.getEstimatedPosition().getX()));
-       SmartDashboard.putNumber("** RobotPoseY (Estimator)", Units.metersToInches( m_poseEstimator.getEstimatedPosition().getY()));
-
-       SmartDashboard.putNumber("MegaTag2Rotation (Estimator)", m_poseEstimator.getEstimatedPosition().getRotation().getDegrees());
-    //    System.out.println(swerveOdometry.getPoseMeters().getX() + " " + swerveOdometry.getPoseMeters().getY() + " Rotation: " + swerveOdometry.getPoseMeters().getRotation().getDegrees());
+        //swerveOdometry.update(getGyroYaw(), getModulePositions());
+        MegaTag2UpdateOdometry();
+        SmartDashboard.putNumber("** RobotPoseX (Estimator)", Units.metersToInches( m_poseEstimator.getEstimatedPosition().getX()));
+        SmartDashboard.putNumber("** RobotPoseY (Estimator)", Units.metersToInches( m_poseEstimator.getEstimatedPosition().getY()));
+        SmartDashboard.putNumber("MegaTag2Rotation (Estimator)", m_poseEstimator.getEstimatedPosition().getRotation().getDegrees());
+        //System.out.println(swerveOdometry.getPoseMeters().getX() + " " + swerveOdometry.getPoseMeters().getY() + " Rotation: " + swerveOdometry.getPoseMeters().getRotation().getDegrees());
 
         for(SwerveModule mod : mSwerveMods){
-         SmartDashboard.putNumber("Mod " + mod.moduleNumber + " CANcoder degrees", mod.getCANcoder().getDegrees());
-          SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Angle degrees", mod.getPosition().angle.getDegrees());
-          SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);
-        //   Can't use m/s in the key!! SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity m/s", mod.getState().speedMetersPerSecond);
-         }
-    
-         /* 
-       poseAngle = LimelightHelpers.getTargetPose_CameraSpace("l1 melight")[5];
-       SmartDashboard.putNumber("TargetingAngle in swerve: ", poseAngle);
-       poseForwardDistance = LimelightHelpers.getTargetPose_ameraSpace("limelight")[2];
-      SmartDashboard.putNumber("TargetingForwardDistance in swerve: ", poseForwardDistance / 0.0254);
-      poseSideDistance = LimelightHelpers.getTargetPose_CameraSpace("limelight")[0];
-       SmartDashboard.putNumber("TargetingSideDistance in swerve: ", poseSideDistance / 0.0254);
-       */
-     }
-
+            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " CANcoder degrees", mod.getCANcoder().getDegrees());
+            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Angle degrees", mod.getPosition().angle.getDegrees());
+            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);
+            // Can't use m/s in the key!! SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity m/s", mod.getState().speedMetersPerSecond);
+        }
+    }
 }       
 
