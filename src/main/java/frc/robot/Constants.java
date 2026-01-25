@@ -49,9 +49,37 @@ public final class Constants {
   public static class MotorControllers {
     public static final int SMART_CURRENT_LIMIT = 40;
    //Motor ID Numbers
+
+    // Fuel Shooter TODO change these; insert proper ID numbers
+    public static final int ID_SHOOTER_LEFT_MAIN = 1;
+    public static final int ID_SHOOTER_RIGHT_MAIN = 3;
+      public static final int ID_SHOOTER_LEFT_TOP = 5;
+    public static final int ID_SHOOTER_RIGHT_TOP = 7;
   }
 
-  public static final class  Targeting { //TODO -- MUST ALL BE UPDATED
+  public static class FuelShooter {
+
+    public static final double MAIN_MOTOR_RPM = 2250;
+    public static final double TOP_MOTOR_RPM = 2000;
+
+    public static final double MAIN_MOTOR_SPEED = -0.5;
+    public static final double TOP_MOTOR_SPEED = -0.1;
+
+    // TODO find final gains
+    public static final double KV_MAIN = 0.116; // feed forward
+    public static final double KP_MAIN = 0.4;
+    public static final double KI_MAIN = 0;
+    public static final double KD_MAIN = 0; 
+
+    public static final double KV_TOP = 0.116; // feed forward
+    public static final double KP_TOP = 0.4;
+    public static final double KI_TOP = 0;
+    public static final double KD_TOP = 0;
+  }
+
+
+
+  public static final class  Targeting {
     //Use these do  MetricDriveFwdSideDist field centric robot to tag 
     public static final double DIST_ROBOT_CENTER_TO_FRONT_WITH_BUMPER = 18.25; // inches
     public static final double DIST_ROBOT_CENTER_TO_LL_SIDEWAYS = 8; //

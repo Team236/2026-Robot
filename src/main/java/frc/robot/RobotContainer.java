@@ -21,20 +21,31 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants.AlgaeHold;
 import frc.robot.commands.TeleopSwerve;
+import frc.robot.commands.FuelShooting.ShooterMotorManual;
+import frc.robot.commands.FuelShooting.SpinShooterMotorsPID;
 // import frc.robot.commands.CoralHoldCommands.CoralSeqGrabCount;
 import frc.robot.commands.PathPlanner.SequentialPathTest;
 import frc.robot.commands.PathPlanner.SequentialPathTest2;
 import frc.robot.commands.PathPlanner.SequentialPathTest3;
 import frc.robot.commands.PathPlanner.SequentialPathsCombined;
+import frc.robot.subsystems.FuelShooter;
 import frc.robot.subsystems.Swerve;
 
 
 public class RobotContainer {
 
+  private final FuelShooter  fuelShooter = new FuelShooter();
+
+
   // controllers
   XboxController driverController = new XboxController(Constants.Controller.USB_DRIVECONTROLLER);
   XboxController auxController = new XboxController(Constants.Controller.USB_AUXCONTROLLER);
+
+  private final SpinShooterMotorsPID spinShooterMotorsPID = new SpinShooterMotorsPID(fuelShooter, Constants.FuelShooter.MAIN_MOTOR_RPM, Constants.FuelShooter.TOP_MOTOR_RPM);
+  private final ShooterMotorManual shooterMotorManual = new ShooterMotorManual(fuelShooter, Constants.FuelShooter.MAIN_MOTOR_SPEED, Constants.FuelShooter.TOP_MOTOR_SPEED);
+
 
   // auto switches
   private static DigitalInput autoSwitch1 = new DigitalInput(Constants.DIO_AUTO_1);
@@ -127,6 +138,10 @@ public class RobotContainer {
 
     // command binds
     //a.onTrue(algaeGrab).onTrue(l3_Score); *EXAMPLE
+
+   
+    a.whileTrue(shooterMotorManual);
+    b.whileTrue(spinShooterMotorsPID);
   }
 
   public Command getAutonomousCommand() {
