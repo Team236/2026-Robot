@@ -41,10 +41,10 @@ public final class Constants {
   }
 
   //AUTO SWITCHES
-  public static final int DIO_AUTO_1 = 0;
-  public static final int DIO_AUTO_2 = 1;
-  public static final int DIO_AUTO_3 = 2;
-  public static final int DIO_AUTO_4 = 3;
+  public static final int DIO_AUTO_1 = 18;
+  public static final int DIO_AUTO_2 = 19;
+  public static final int DIO_AUTO_3 = 20;
+  public static final int DIO_AUTO_4 = 21;
 
   public static class MotorControllers {
     public static final int SMART_CURRENT_LIMIT = 40;
@@ -55,6 +55,17 @@ public final class Constants {
     public static final int ID_SHOOTER_RIGHT_MAIN = 3;
       public static final int ID_SHOOTER_LEFT_TOP = 5;
     public static final int ID_SHOOTER_RIGHT_TOP = 7;
+    //Elevator 
+    public static final int ID_ELEVATOR_LEFT_TALON = 11;
+    public static final int ID_ELEVATOR_RIGHT_TALON = 12;
+    //AlgaeHold
+    public static final int ID_ALGAE_HOLD = 56; 
+    //CoralHold
+    public static final int ID_CORAL_HOLD_MOTOR = 1;
+    //AlgaePivot 
+    public static final int ID_ALGAE_PIVOT = 57;
+    //ShooterPivot 
+    public static final int ID_SHOOTER_PIVOT = 13;
   }
 
   public static class FuelShooter {
@@ -347,9 +358,16 @@ public static class CoralHold {
     public static final double KFF = 0;
   }
   
-  public static class CoralPivot {
-    public static final int DIO_LIMIT = 8; 
-    public static final double ENC_REVS_MAX = -119;//-125;
+  public static class ShooterPvt {
+    public static final int DIO_EXT_LIMIT = 0;
+    public static final int DIO_RET_LIMIT = 1;
+    public static final double KP = 0.16; 
+    public static final double KI = 0;
+    public static final double KD = 0;
+    public static final double ENC_REVS_MAX = 1000; //TODO find actual
+    public static final double TARGET_REVS = 200;
+    public static final double CONSTANT_SPEED_TEST_VALUE = 0.1;
+    /*public static final int DIO_LIMIT = 8; 
     public static final double ENC_REVS_LEVEL1 = 0;
     public static final double ENC_REVS_LEVEL2 = -4;//-10;//-45;
     public static final double ENC_REVS_LEVEL3 = -4;//-10;//-45; 
@@ -359,12 +377,11 @@ public static class CoralHold {
     public static final double MAN_EXT_SPEED = -0.6;
     public static final double MAN_RET_SPEED = 0.6;
     public static final double ENC_REVS_LOADING = 0;
-    public static final double KP = 0.05; //TODO tune better?
-    public static final double KI = 0;
-    public static final double KD = 0;
+
     public static final double KFF = 0;
     public static final int DIO_ENC_A = 11;
     public static final int DIO_ENC_B = 12;
+   */
   }
   
   public static class XboxController {

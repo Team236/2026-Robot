@@ -31,10 +31,14 @@ import frc.robot.commands.PathPlanner.SequentialPathTest2;
 import frc.robot.commands.PathPlanner.SequentialPathTest3;
 import frc.robot.commands.PathPlanner.SequentialPathsCombined;
 import frc.robot.subsystems.FuelShooter;
+import frc.robot.commands.ShooterPivotCommands.ManualPivot;
+import frc.robot.commands.ShooterPivotCommands.PIDPivot;
+import frc.robot.subsystems.ShooterPivot;
 import frc.robot.subsystems.Swerve;
 
 
 public class RobotContainer {
+  private final ShooterPivot shooterPivot = new ShooterPivot();
 
   private final FuelShooter  fuelShooter = new FuelShooter();
 
@@ -66,6 +70,9 @@ public class RobotContainer {
   private final Swerve s_Swerve = new Swerve();
 
   // commands
+  private final ManualPivot manualPivotExtend = new ManualPivot(shooterPivot, Constants.ShooterPvt.CONSTANT_SPEED_TEST_VALUE);
+  private final ManualPivot manualPivotRetract = new ManualPivot(shooterPivot, -Constants.ShooterPvt.CONSTANT_SPEED_TEST_VALUE);
+  private final PIDPivot pidPivot = new PIDPivot(shooterPivot, Constants.ShooterPvt.TARGET_REVS);
   
   // robot container -- contains subsystems, OI devices, and commands
   public RobotContainer() {
@@ -142,6 +149,9 @@ public class RobotContainer {
    
     a.whileTrue(shooterMotorManual);
     b.whileTrue(spinShooterMotorsPID);
+    x.onTrue(pidPivot);
+    b.whileTrue(manualPivotExtend);
+    a.whileTrue(manualPivotRetract);
   }
 
   public Command getAutonomousCommand() {
