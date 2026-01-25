@@ -36,10 +36,10 @@ public final class Constants {
   public static final double stickDeadband = 0.1;
 
   //AUTO SWITCHES
-  public static final int DIO_AUTO_1 = 18;
-  public static final int DIO_AUTO_2 = 19;
-  public static final int DIO_AUTO_3 = 20;
-  public static final int DIO_AUTO_4 = 21;
+  public static final int DIO_AUTO_1 = 0;
+  public static final int DIO_AUTO_2 = 1;
+  public static final int DIO_AUTO_3 = 2;
+  public static final int DIO_AUTO_4 = 3;
 
   public static final class Controller {
     //USB port number of the xbox controllers
@@ -53,23 +53,23 @@ public final class Constants {
     
     //Motor ID Numbers
 
-    // Fuel Shooter TODO change these; insert proper ID numbers
-    public static final int ID_SHOOTER_LEFT_MAIN = 1;
-    public static final int ID_SHOOTER_RIGHT_MAIN = 3;
-    public static final int ID_SHOOTER_LEFT_TOP = 5;
-    public static final int ID_SHOOTER_RIGHT_TOP = 7;
+    // Fuel Shooter
+    public static final int ID_SHOOTER_LEFT_MAIN = 11;
+    public static final int ID_SHOOTER_RIGHT_MAIN = 12;
+    public static final int ID_SHOOTER_LEFT_TOP = 13;
+    public static final int ID_SHOOTER_RIGHT_TOP = 14;
     
     // Shooter Pivot 
-    public static final int ID_SHOOTER_PIVOT = 13;
+    public static final int ID_SHOOTER_PIVOT = 15;
 
     // Bin Release
-    public static final int ID_BIN_REL = 13; //TBD get actual number
+    public static final int ID_BIN_REL = 8; //TBD get actual number
 
     // Climber
-    public static final int ID_CLIMBER = 13; //placeholder id
+    public static final int ID_CLIMBER = 16; //placeholder id
 
     // Intake
-    public static final int ID_INTAKE = 8; //FIND ACTUAL ID
+    public static final int ID_INTAKE = 9; //FIND ACTUAL ID
     
     // Feeder
     public static final int ID_FEEDER = 10; //placeholder;
@@ -99,8 +99,8 @@ public final class Constants {
     public static final double KP = 0.2;  
     public static final double KI = 0;
     public static final double KD = 0;
-    public static final int DIO_RET_LIMIT = 0; //TBD
-    public static final int DIO_EXT_LIMIT = 1;  //TBD
+    public static final int DIO_EXT_LIMIT = 8;
+    public static final int DIO_RET_LIMIT = 9;
     public static final int ENC_REVS_MAX = 1000; //TBD
     public static final double MANUAL_EXT_SPEED = 0.1;
     public static final double MANUAL_RET_SPEED = -0.1;
@@ -108,8 +108,8 @@ public final class Constants {
   }
 
   public static class ShooterPvt {
-    public static final int DIO_EXT_LIMIT = 0;
-    public static final int DIO_RET_LIMIT = 1;
+    public static final int DIO_EXT_LIMIT = 4;
+    public static final int DIO_RET_LIMIT = 5;
     public static final double KP = 0.16; 
     public static final double KI = 0;
     public static final double KD = 0;
@@ -119,8 +119,8 @@ public final class Constants {
   }
 
   public static class Climber {
-    public static final int DIO_CLIMBER_TOP = 1; // placeholder
-    public static final int DIO_CLIMBER_BOTTOM = 2; // placeholder
+    public static final int DIO_CLIMBER_TOP = 6;
+    public static final int DIO_CLIMBER_BOTTOM = 7;
 
     public static final double MAX_ENCODER_REVS = 1000.0; // MotionMagic/PID stops if here; DO NOT PID CLIMB TO HIGHER THAN THIS
     public static final double CLIMBER_SPEED_TEST = 0.1;
