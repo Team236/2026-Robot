@@ -29,7 +29,6 @@ public class RunFeeder extends Command {
   @Override
   public void execute() {
     feeder.setFeederSpeed(speed);
-    SmartDashboard.putNumber("attempting feeder speed", speed);
   }
 
   // Called once the command ends or is interrupted.
