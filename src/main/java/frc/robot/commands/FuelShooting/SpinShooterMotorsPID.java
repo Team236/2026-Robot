@@ -11,8 +11,8 @@ import frc.robot.subsystems.FuelShooter;
 public class SpinShooterMotorsPID extends Command {
 
   private FuelShooter fuelShooter;
-  private double mainMotorSetRPM;
-  private double topMotorSetRPM;
+  private double mainMotorSetRPM, mainRPS;
+  private double topMotorSetRPM, topRPS;
 
   /** Creates a new SpinShooterMotors. */
   public SpinShooterMotorsPID(FuelShooter fuelShooter, double mainMotorSetRPM, double topMotorSetRPM) {
@@ -27,8 +27,8 @@ public class SpinShooterMotorsPID extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-   double mainRPS = mainMotorSetRPM / 60.0;
-   double topRPS = topMotorSetRPM / 60.0;
+   mainRPS = mainMotorSetRPM / 60.0;
+   topRPS = topMotorSetRPM / 60.0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
