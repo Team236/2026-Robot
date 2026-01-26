@@ -108,6 +108,7 @@ public class FuelShooter extends SubsystemBase {
 
   public void shootFuel(double targetMainVelocity, double targetTopVelocity) {
    //rightMainMotor and rightTopMotor will follow their corresponding left motor
+   //the target velocity below needs to be in revs per second
     leftMainMotor.setControl(leftMain_m_request.withVelocity(targetMainVelocity).withFeedForward(Constants.Shooter.KV_MAIN));
     leftTopMotor.setControl(leftTop_m_request.withVelocity(targetTopVelocity).withFeedForward(Constants.Shooter.KV_TOP));
   }
