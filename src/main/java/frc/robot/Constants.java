@@ -35,48 +35,33 @@ import frc.lib.util.COTSTalonFXSwerveConstants;
 public final class Constants {
   public static final double stickDeadband = 0.1;
 
+  public static final class Controller {
+   //USB port number of the xbox controllers
+   public static final int USB_DRIVECONTROLLER = 0;
+   public static final int USB_AUXCONTROLLER = 1;
+  }
+
   //AUTO SWITCHES
   public static final int DIO_AUTO_1 = 0;
   public static final int DIO_AUTO_2 = 1;
   public static final int DIO_AUTO_3 = 2;
   public static final int DIO_AUTO_4 = 3;
 
-  public static final class Controller {
-    //USB port number of the xbox controllers
-    public static final int USB_DRIVECONTROLLER = 0;
-    public static final int USB_AUXCONTROLLER = 1;
-  }
-
-
   public static class MotorControllers {
     public static final int SMART_CURRENT_LIMIT = 40;
-    
-    //Motor ID Numbers
-
-    // Fuel Shooter
+    //MOTOR ID NUMBERS (for swerve drive/steer motors - see Swerve below):
+    public static final int ID_BIN_REL = 8; //TBD get actual number
+    public static final int ID_INTAKE = 9; //FIND ACTUAL ID
+    public static final int ID_FEEDER = 10; //placeholder;
     public static final int ID_SHOOTER_LEFT_MAIN = 11;
     public static final int ID_SHOOTER_RIGHT_MAIN = 12;
     public static final int ID_SHOOTER_LEFT_TOP = 13;
     public static final int ID_SHOOTER_RIGHT_TOP = 14;
-    
-    // Shooter Pivot 
     public static final int ID_SHOOTER_PIVOT = 15;
-
-    // Bin Release
-    public static final int ID_BIN_REL = 8; //TBD get actual number
-
-    // Climber
     public static final int ID_CLIMBER = 16; //placeholder id
-
-    // Intake
-    public static final int ID_INTAKE = 9; //FIND ACTUAL ID
-    
-    // Feeder
-    public static final int ID_FEEDER = 10; //placeholder;
   }
 
-  public static class FuelShooter {
-
+  public static class Shooter {
     public static final double MAIN_MOTOR_RPM = 2250;
     public static final double TOP_MOTOR_RPM = 2000;
 
@@ -95,7 +80,7 @@ public final class Constants {
     public static final double KD_TOP = 0;
   }
 
-  public static final class BinRelease {
+  public static final class Bin {
     public static final double KP = 0.2;  
     public static final double KI = 0;
     public static final double KD = 0;
@@ -107,7 +92,7 @@ public final class Constants {
     public static final double POSITION1 = 50;
   }
 
-  public static class ShooterPvt {
+  public static class Pivot {
     public static final int DIO_EXT_LIMIT = 4;
     public static final int DIO_RET_LIMIT = 5;
     public static final double KP = 0.16; 
@@ -118,7 +103,7 @@ public final class Constants {
     public static final double CONSTANT_SPEED_TEST_VALUE = 0.1;
   }
 
-  public static class Climber {
+  public static class Climb {
     public static final int DIO_CLIMBER_TOP = 6;
     public static final int DIO_CLIMBER_BOTTOM = 7;
 
@@ -127,12 +112,12 @@ public final class Constants {
     public static final double TEST_MM_REVS = 0.0;
   }
 
-  public static  class FloorIntake {
+  public static  class Intake {
     public static final double INTAKE_SPEED = 0.1;
     public static final double OUTTAKE_SPEED = -0.1;
   }  
 
-  public static class Feeder {
+  public static class Feed {
     public static final double TEST_SPEED = 0.2;
   }
 

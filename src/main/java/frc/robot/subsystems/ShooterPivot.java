@@ -51,9 +51,9 @@ public class ShooterPivot extends SubsystemBase {
 
     // Configure onboard PID for PositionVoltage
     var slot0Configs = motorConfig.Slot0;  // start with 0, 0, 0
-    slot0Configs.kP = Constants.ShooterPvt.KP; // TODO tune
-    slot0Configs.kI = Constants.ShooterPvt.KI;
-    slot0Configs.kD = Constants.ShooterPvt.KD;
+    slot0Configs.kP = Constants.Pivot.KP; // TODO tune
+    slot0Configs.kI = Constants.Pivot.KI;
+    slot0Configs.kD = Constants.Pivot.KD;
 
     shooterPivotMotor.getConfigurator().apply(motorConfig);
 
@@ -61,7 +61,7 @@ public class ShooterPivot extends SubsystemBase {
 
     try {
       // This tries to make a new digital input, and if it fails, throws an error
-      shooterExtLimit = new DigitalInput(Constants.ShooterPvt.DIO_EXT_LIMIT);
+      shooterExtLimit = new DigitalInput(Constants.Pivot.DIO_EXT_LIMIT);
     } catch (Exception e) {
       isShooterPivotExtException = true;
       SmartDashboard.putBoolean(
@@ -71,7 +71,7 @@ public class ShooterPivot extends SubsystemBase {
 
     try {
       // This sets a bottom limit for the shooter, and if it fails, throws an error
-      shooterRetLimit = new DigitalInput(Constants.ShooterPvt.DIO_RET_LIMIT);
+      shooterRetLimit = new DigitalInput(Constants.Pivot.DIO_RET_LIMIT);
     } catch (Exception e) {
       isShooterPivotRetException = true;
       SmartDashboard.putBoolean(
@@ -80,8 +80,7 @@ public class ShooterPivot extends SubsystemBase {
     }
   }
 
-  // methods start here
-
+  //Methods start here
 
   public double getEncoderRevs() {
     // getPosition() returns a StatusSignal; .getValueAsDouble() gets the rotation count
@@ -142,7 +141,7 @@ public class ShooterPivot extends SubsystemBase {
   // }
 
   public boolean isFullyExtended() {
-    return (getEncoderRevs() >= Constants.ShooterPvt.ENC_REVS_MAX);
+    return (getEncoderRevs() >= Constants.Pivot.ENC_REVS_MAX);
   }
 
   public boolean isFullyRetracted()
@@ -180,7 +179,7 @@ public class ShooterPivot extends SubsystemBase {
     //                 and not perform anything after that line
     // Clamp target to software limits
     //TODO ENSURE TARGET REVS >0 for logic to work!!!
-    targetRevs = Math.max(0.0, Math.min(targetRevs, Constants.ShooterPvt.ENC_REVS_MAX));
+    targetRevs = Math.max(0.0, Math.min(targetRevs, Constants.Pivot.ENC_REVS_MAX));
 
     // Prevent driving further into limits
     if (targetRevs > getEncoderRevs() && (isShooterExtLimit() || isFullyExtended())) {
@@ -195,14 +194,6 @@ public class ShooterPivot extends SubsystemBase {
     }
     shooterPivotMotor.setControl(m_positionRequest.withPosition(targetRevs));
   }
-
-  // Begin things that may not be relevant
-  // these are things that might be useful in the future if we use CANSparkMax PID
-  // we are not currently using it
-
-  // !!!! SPARKMAX PID STUFF - USE SPARKMAX PID, NOT WPILib PID
-  // **** CHANGED BACK TO USING WPILib PID ****
-  // **** due to spurious encoder polarity changes when run multiple autos in a row ****
 
   @Override
   public void periodic() {

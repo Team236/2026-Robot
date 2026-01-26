@@ -58,13 +58,13 @@ public class Climber extends SubsystemBase {
 
     // LIMIT SWITCHES
     try {
-      topLimitSwitch = new DigitalInput(Constants.Climber.DIO_CLIMBER_TOP);
+      topLimitSwitch = new DigitalInput(Constants.Climb.DIO_CLIMBER_TOP);
     } catch (Exception e) {
       isTopException = true;
     }
     
     try {
-      bottomLimitSwitch = new DigitalInput(Constants.Climber.DIO_CLIMBER_BOTTOM);
+      bottomLimitSwitch = new DigitalInput(Constants.Climb.DIO_CLIMBER_BOTTOM);
     } catch (Exception e) {
       isBottomException = true;
     }
@@ -74,7 +74,7 @@ public class Climber extends SubsystemBase {
     if (isTopException) {
       return true;
     }
-    return topLimitSwitch.get() || getClimberEncoder() > Constants.Climber.MAX_ENCODER_REVS;
+    return topLimitSwitch.get() || getClimberEncoder() > Constants.Climb.MAX_ENCODER_REVS;
   }
 
   public boolean isBottomLimit() {
