@@ -22,7 +22,6 @@ import frc.robot.Constants;
 // for example, the SparkMax code is not currently used, but it is left in case we need it in the future.
 
 public class ShooterPivot extends SubsystemBase {
-
   private TalonFX shooterPivotMotor;
   private TalonFXConfiguration motorConfig;
 
@@ -41,11 +40,9 @@ public class ShooterPivot extends SubsystemBase {
     shooterPivotMotor = new TalonFX(Constants.MotorControllers.ID_SHOOTER_PIVOT, "usb");
     // --- Configuration ---
     motorConfig = new TalonFXConfiguration();
-    motorConfig.MotorOutput.Inverted =
-        InvertedValue.CounterClockwise_Positive; // Change to Clockwise_Positive if needed
+    motorConfig.MotorOutput.Inverted =  InvertedValue.CounterClockwise_Positive; // Change to Clockwise_Positive if needed
     motorConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
-    motorConfig.CurrentLimits.SupplyCurrentLimit =
-        Constants.MotorControllers.SMART_CURRENT_LIMIT;
+    motorConfig.CurrentLimits.SupplyCurrentLimit =  Constants.MotorControllers.SMART_CURRENT_LIMIT;
     motorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
 
@@ -80,7 +77,7 @@ public class ShooterPivot extends SubsystemBase {
     }
   }
 
-  //Methods start here
+  //METHODS START HERE:
 
   public double getEncoderRevs() {
     // getPosition() returns a StatusSignal; .getValueAsDouble() gets the rotation count
@@ -132,13 +129,9 @@ public class ShooterPivot extends SubsystemBase {
   // }
 
   public boolean isShooterRetLimit() {
-    //return isShooterPivotRetException ? true : ShooterRetLimit.get();
     return shooterRetLimit.get();
   }
 
-  // public boolean isFullyExtended() {
-  //   return (getShooterEncoder() <= Constants.ShooterPivot.ENC_REVS_MAX);
-  // }
 
   public boolean isFullyExtended() {
     return (getEncoderRevs() >= Constants.Pivot.ENC_REVS_MAX);

@@ -29,13 +29,11 @@ public class BinRelease extends SubsystemBase {
     private boolean isBinRetException;
     private boolean isBinExtException;
 
-   // private PIDController pidController;
     private PositionVoltage m_request;
 
-
-    public BinRelease() 
-    {
-        binReleaseMotor = new TalonFX(Constants.MotorControllers.ID_BIN_REL, "usb"); //tbd - will all be USB???
+    /** Creates a new BinRelease. */
+    public BinRelease() {
+        binReleaseMotor = new TalonFX(Constants.MotorControllers.ID_BIN_REL, "usb"); //will be rio not usb
 
         motorConfig = new TalonFXConfiguration();
         motorConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive; //tbd
@@ -49,115 +47,92 @@ public class BinRelease extends SubsystemBase {
         slot0Configs.kI = Constants.Bin.KI; // 0
         slot0Configs.kD = Constants.Bin.KD; // 0.1 
 
-        
         binReleaseMotor.getConfigurator().apply(motorConfig);
 
         m_request = new PositionVoltage(0).withSlot(0);
-        // pidController = new PIDController(0, 0, 0); //tbd
 
-        // attempts to make ret limit switch, if it fails, throws an error
-        try
-        {
+        // attempts to make retr. limit switch, if it fails, throws an error
+        try{
            maxRetractLimit = new DigitalInput(Constants.Bin.DIO_RET_LIMIT);
         } 
-        catch (Exception e)
-        {
+        catch (Exception e){
            isBinRetException = true;
            SmartDashboard.putBoolean("Exception thrown for binReleaseMaxRetractLimit: ", isBinRetException);
         }
-
-        // attempts to make ext limit switch, if it fails, throws an error
-        try
-        {
+        
+        // attempts to make ext. limit switch, if it fails, throws an error
+        try{
            maxExtendLimit = new DigitalInput(Constants.Bin.DIO_EXT_LIMIT);
         } 
-        catch (Exception e)
-        {
+        catch (Exception e){
            isBinRetException = true;
            SmartDashboard.putBoolean("Exception thrown for binReleaseMaxExtendLimit: ", isBinExtException);
         }
+
     }
 
     //METHODS START HERE:
 
-    public void resetEncoder()
-    {
+    public void resetEncoder(){
         binReleaseMotor.setPosition(0.0);
-    }
+        }
 
-    public double getEncoderRevolutions()
-    {
+    public double getEncoderRevolutions(){
         return binReleaseMotor.getPosition().getValueAsDouble();
-    }
+        }
 
-    public void stopMotor()
-    {  
-        // desired speed is zero
-        binReleaseMotor.set(0);
-    }
+    public void stopMotor(){  
+        binReleaseMotor.set(0); //set the speed to 0
+       // binReleaseMotor.stopMotor();//this is another way to stop it
+        }
 
-    // returns speed between -1 and 1
-    public double getMotorSpeed()
-    {   
+    // returnsspeed between -1 and 1
+    public double getMotorSpeed(){   
         return binReleaseMotor.get();
-    }
+        }
 
     // sets speed between -1 and 1
-    private void manualSetSpeed(double speed)
-    {
+    private void manualSetSpeed(double speed){
         binReleaseMotor.set(speed);
-    }
+        }
 
-    public boolean isFullyRetracted()
-    {   
+    public boolean isFullyRetracted(){   
         //want to zero the encoder when this limit is hit
         return maxRetractLimit.get();
-    }
+        }
 
-    public boolean isFullyExtended()
-    {   
+    public boolean isFullyExtended(){   
         // TBD make sure encoder reading is increasing as mechanism extends, so the ">" sign works below
         return (maxExtendLimit.get() || getEncoderRevolutions() > Constants.Bin.ENC_REVS_MAX); //set to a high value at first, for code testing
-    }
+        }
 
-
-    //EDC - renamed method below 1/23/26:
-    public void manualSetSpeedSafe(double speed)
-    {
-        if (isFullyRetracted())
-        {
+    public void manualSetSpeedSafe(double speed){
+        if (isFullyRetracted()) {
             resetEncoder();
             stopMotor();
-        } 
-        else if (isFullyExtended()) 
-        {
+          } 
+        else if (isFullyExtended()) {
             stopMotor();
-        } 
-        else 
-        {
+          } 
+        else {
             manualSetSpeed(speed);
+          }
         }
-    }
 
   
+    //uses position control with Kp, Ki and Kd to bring the motor to the desired encoder revolutions  
     public void PIDControlToPosition(double desiredRevs) {
-
-        if (isFullyRetracted() && (desiredRevs < getEncoderRevolutions())) 
-        {
+        if (isFullyRetracted() && (desiredRevs < getEncoderRevolutions())) {
             resetEncoder();
             stopMotor();
-        } else if (isFullyExtended() && (desiredRevs > getEncoderRevolutions())) 
-        {
+           }
+          else if (isFullyExtended() && (desiredRevs > getEncoderRevolutions())) {
             stopMotor();
-        } else 
-        {
+           } 
+           else {
             binReleaseMotor.setControl(m_request.withPosition(desiredRevs));   
+            }
         }
-
-        //uses position control with Kp, Ki and Kd to bring the motor to the desired encoder revolutions  
-        //double revolutionsError = desiredRevolutions - getEncoderRevolutions();
-        //double speed = pidController.calculate()
-    }
 
     @Override
     public void periodic()

@@ -13,12 +13,13 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Feeder extends SubsystemBase {
-  /** Creates a new Feeder. */
+
   private TalonFX feederMotor;
   private TalonFXConfiguration motorConfig;
 
+  /** Creates a new Feeder. */
   public Feeder() {
-    feederMotor = new TalonFX(Constants.MotorControllers.ID_FEEDER, "usb");
+    feederMotor = new TalonFX(Constants.MotorControllers.ID_FEEDER, "usb"); //will be rio bus
     
     motorConfig = new TalonFXConfiguration();
     motorConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
@@ -26,6 +27,8 @@ public class Feeder extends SubsystemBase {
     motorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     feederMotor.getConfigurator().apply(motorConfig);
   }
+
+  //METHODS START HERE:
 
   public double getFeederSpeed() {
     return feederMotor.get();

@@ -20,34 +20,24 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Intake extends SubsystemBase {
-  /** Creates a new Intake. */
 
   private TalonFX intakeMotor;
   private TalonFXConfigurator config;
   private TalonFXConfiguration talonConfig;
-
   private CurrentLimitsConfigs currentConfigs;
   private MotorOutputConfigs outputConfigs;
 
-
+  /** Creates a new Intake. */
   public Intake() {
-    // im bad at coding 
     intakeMotor = new TalonFX(Constants.MotorControllers.ID_INTAKE, "usb");
-
-    // config = new TalonFXConfigurator(null);
     talonConfig = new TalonFXConfiguration();
-
     // Motor Output Configs
     talonConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
     talonConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
     talonConfig.CurrentLimits.SupplyCurrentLimit = Constants.MotorControllers.SMART_CURRENT_LIMIT;
     talonConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-    // talonConfig.CurrentLimits = currentConfigs;
-
-    // config.apply(talonConfig);
 
     intakeMotor.getConfigurator().apply(talonConfig);
-
   }
 
   public void intakeStop() {
@@ -68,9 +58,9 @@ public class Intake extends SubsystemBase {
 
 
   @Override
-  public void periodic() {
-    SmartDashboard.putNumber("Intake speed", getIntakeSpeed());
-    
+  public void periodic() {     
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Intake speed", getIntakeSpeed());
+
   }
 }

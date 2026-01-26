@@ -31,12 +31,11 @@ public class FuelShooter extends SubsystemBase {
 
   private VelocityVoltage leftMain_m_request;
   private VelocityVoltage leftTop_m_request;
+
   /** Creates a new FuelShooter. */
   public FuelShooter() {
-
-    // TODO make sure this controller is on usb bus
-     leftMainMotor = new TalonFX(Constants.MotorControllers.ID_SHOOTER_LEFT_MAIN, "usb");
-     leftTopMotor = new TalonFX(Constants.MotorControllers.ID_SHOOTER_LEFT_TOP, "usb");
+     leftMainMotor = new TalonFX(Constants.MotorControllers.ID_SHOOTER_LEFT_MAIN, "usb"); //will be rio bus
+     leftTopMotor = new TalonFX(Constants.MotorControllers.ID_SHOOTER_LEFT_TOP, "usb"); //will be rio bus
 
         leftMainConfig = new TalonFXConfiguration();
         leftMainConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive; //tbd
@@ -50,33 +49,28 @@ public class FuelShooter extends SubsystemBase {
         leftTopConfig.CurrentLimits.SupplyCurrentLimit = Constants.MotorControllers.SMART_CURRENT_LIMIT; //tbd
         leftTopConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
-  // set slot 0 gains TODO tune these, find info online
+  // set slot 0 gains TODO tune these, find info online (velocity control - no Ks or kA)
   var slot0LMConfigs = leftMainConfig.Slot0;  
-    //slot0LMConfigs.kS = 0.25; // Add 0.25 V output to overcome static friction
     slot0LMConfigs.kV = Constants.Shooter.KV_MAIN; // FF. A velocity target of 1 rps results in 0.12 V output
-    //slot0LMConfigs.kA = 0.01; // An acceleration of 1 rps/s requires 0.01 V output
     slot0LMConfigs.kP = Constants.Shooter.KP_MAIN; //4.8
-    slot0LMConfigs.kI = Constants.Shooter.KI_MAIN; // no output for integrated error
+    slot0LMConfigs.kI = Constants.Shooter.KI_MAIN; 
     slot0LMConfigs.kD = Constants.Shooter.KD_MAIN;
 
   var slot0LTConfigs = leftTopConfig.Slot0;  
-    //slot0LTConfigs.kS = 0.25; // Add 0.25 V output to overcome static friction
     slot0LTConfigs.kV = Constants.Shooter.KV_TOP; // FF. A velocity target of 1 rps results in 0.12 V output
-    //slot0LTConfigs.kA = 0.01; // An acceleration of 1 rps/s requires 0.01 V output
     slot0LTConfigs.kP = Constants.Shooter.KP_TOP; //4.8
-    slot0LTConfigs.kI = Constants.Shooter.KI_TOP; // no output for integrated error
+    slot0LTConfigs.kI = Constants.Shooter.KI_TOP; 
     slot0LTConfigs.kD = Constants.Shooter.KD_TOP;
 
+    leftMainMotor.getConfigurator().apply(leftMainConfig);
+    leftTopMotor.getConfigurator().apply(leftTopConfig);
 
-  leftMainMotor.getConfigurator().apply(leftMainConfig);
-  leftTopMotor.getConfigurator().apply(leftTopConfig);
-
-   leftMain_m_request = new VelocityVoltage(0).withSlot(0);
-   leftTop_m_request = new VelocityVoltage(0).withSlot(0);
+  leftMain_m_request = new VelocityVoltage(0).withSlot(0);
+  leftTop_m_request = new VelocityVoltage(0).withSlot(0);
 
     //MAKE RIGHT FOLLOW LEFT 
-      rightMainMotor = new TalonFX(Constants.MotorControllers.ID_SHOOTER_RIGHT_MAIN, "usb");
-      rightTopMotor = new TalonFX(Constants.MotorControllers.ID_SHOOTER_RIGHT_TOP, "usb");
+    rightMainMotor = new TalonFX(Constants.MotorControllers.ID_SHOOTER_RIGHT_MAIN, "usb"); //will be rio bus
+    rightTopMotor = new TalonFX(Constants.MotorControllers.ID_SHOOTER_RIGHT_TOP, "usb"); //will be rio bus
 
         rightMainConfig = new TalonFXConfiguration();
         rightMainConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive; //tbd
@@ -92,21 +86,16 @@ public class FuelShooter extends SubsystemBase {
 
   // set slot 0 gains TODO tune these, find info online
   var slot0RMConfigs = rightMainConfig.Slot0;  
-   //slot0RMConfigs.kS = 0.25; // Add 0.25 V output to overcome static friction
     slot0RMConfigs.kV = Constants.Shooter.KV_MAIN; // FF. A velocity target of 1 rps results in 0.12 V output
-    // slot0RMConfigs.kA = 0.01; // An acceleration of 1 rps/s requires 0.01 V output
     slot0RMConfigs.kP = Constants.Shooter.KP_MAIN;//4.8
     slot0RMConfigs.kI = Constants.Shooter.KI_MAIN; // no output for integrated error
     slot0RMConfigs.kD = Constants.Shooter.KD_MAIN;
 
   var slot0RTConfigs = rightTopConfig.Slot0;  
-   //slot0RTConfigs.kS = 0.25; // Add 0.25 V output to overcome static friction
     slot0RTConfigs.kV = Constants.Shooter.KV_TOP; // FF. A velocity target of 1 rps results in 0.12 V output
-    // slot0RTConfigs.kA = 0.01; // An acceleration of 1 rps/s requires 0.01 V output
     slot0RTConfigs.kP = Constants.Shooter.KP_TOP;//4.8
     slot0RTConfigs.kI = Constants.Shooter.KI_TOP; // no output for integrated error
     slot0RTConfigs.kD = Constants.Shooter.KD_TOP;
-
 
     rightMainMotor.getConfigurator().apply(rightMainConfig);
     rightTopMotor.getConfigurator().apply(rightTopConfig);
@@ -115,7 +104,8 @@ public class FuelShooter extends SubsystemBase {
     rightTopMotor.setControl(new Follower(Constants.MotorControllers.ID_SHOOTER_LEFT_TOP, MotorAlignmentValue.Opposed));
   }
 
-  // Methods Start Here
+  // METHODS START HERE:
+
   public void shootFuel(double targetMainVelocity, double targetTopVelocity) {
    //rightMainMotor and rightTopMotor will follow their corresponding left motor
     leftMainMotor.setControl(leftMain_m_request.withVelocity(targetMainVelocity).withFeedForward(Constants.Shooter.KV_MAIN));
@@ -181,8 +171,6 @@ public class FuelShooter extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    
-    // SmartDashboard.putNumber("left velovity: ", getLeftMainVelocity());
     SmartDashboard.putNumber("left main velocity", getLeftVelocity());
     SmartDashboard.putNumber("left top velocity", getLeftVelocityTop());
     SmartDashboard.putNumber("right main velocity", getRightVelocity());

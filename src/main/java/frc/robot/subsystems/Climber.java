@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Climber extends SubsystemBase {
-  /** Creates a new Climber. */
+
   private TalonFX climbMotor;
   private TalonFXConfiguration motorConfig;
   private MotionMagicVoltage m_request;
@@ -26,11 +26,11 @@ public class Climber extends SubsystemBase {
   private boolean isBottomException = false;
   private DigitalInput topLimitSwitch;
   private DigitalInput bottomLimitSwitch;
-  
+
+  /** Creates a new Climber. */
   public Climber() {
     // MOTOR
-    
-    climbMotor = new TalonFX(Constants.MotorControllers.ID_CLIMBER, "usb");
+    climbMotor = new TalonFX(Constants.MotorControllers.ID_CLIMBER, "usb"); //will be rio bus
 
     motorConfig = new TalonFXConfiguration();
     motorConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
@@ -69,6 +69,8 @@ public class Climber extends SubsystemBase {
       isBottomException = true;
     }
   }
+
+  //METHODS START HERE:
 
   public boolean isTopLimit() {
     if (isTopException) {
