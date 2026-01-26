@@ -50,15 +50,15 @@ public final class Constants {
   public static class MotorControllers {
     public static final int SMART_CURRENT_LIMIT = 40;
     //MOTOR ID NUMBERS (for swerve drive/steer motors - see Swerve below):
-    public static final int ID_BIN_REL = 8; //TBD get actual number
-    public static final int ID_INTAKE = 9; //FIND ACTUAL ID
-    public static final int ID_FEEDER = 10; //placeholder;
+    public static final int ID_BIN_REL = 8; 
+    public static final int ID_INTAKE = 9; 
+    public static final int ID_FEEDER = 10; 
     public static final int ID_SHOOTER_LEFT_MAIN = 11;
     public static final int ID_SHOOTER_RIGHT_MAIN = 12;
     public static final int ID_SHOOTER_LEFT_TOP = 13;
     public static final int ID_SHOOTER_RIGHT_TOP = 14;
     public static final int ID_SHOOTER_PIVOT = 15;
-    public static final int ID_CLIMBER = 16; //placeholder id
+    public static final int ID_CLIMBER = 16; 
   }
 
   public static class Shooter {
@@ -107,7 +107,7 @@ public final class Constants {
     public static final int DIO_CLIMBER_TOP = 6;
     public static final int DIO_CLIMBER_BOTTOM = 7;
 
-    public static final double MAX_ENCODER_REVS = 1000.0; // MotionMagic/PID stops if here; DO NOT PID CLIMB TO HIGHER THAN THIS
+    public static final double MAX_ENCODER_REVS = 1000.0; // MotionMagic/PID stops if here; DO NOT PID CLIMB HIGHER 
     public static final double CLIMBER_SPEED_TEST = 0.1;
     public static final double TEST_MM_REVS = 0.0;
   }
@@ -122,7 +122,7 @@ public final class Constants {
   }
 
   public static final class Targeting {
-    //Use these do  MetricDriveFwdSideDist field centric robot to tag 
+    //Use these do MetricDriveFwdSideDist field centric robot to tag 
     public static final double DIST_ROBOT_CENTER_TO_FRONT_WITH_BUMPER = 18.25; // inches
     public static final double DIST_ROBOT_CENTER_TO_LL_SIDEWAYS = 8; //
     //use this with TargetPose-CameraSpace: inches
