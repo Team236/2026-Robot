@@ -33,7 +33,6 @@ public class ShooterMotorManual extends Command {
 public void execute() {
   fuelShooter.spinMainMotor(mainMotorSetSpeed);
   fuelShooter.spinTopMotor(topMotorSetSpeed);
-
 }
 
   // Called once the command ends or is interrupted.

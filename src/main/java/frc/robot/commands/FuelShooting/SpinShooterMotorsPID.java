@@ -26,13 +26,14 @@ public class SpinShooterMotorsPID extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+   double mainRPS = mainMotorSetRPM / 60.0;
+   double topRPS = topMotorSetRPM / 60.0;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
 public void execute() {
-  double mainRPS = mainMotorSetRPM / 60.0;
-  double topRPS = topMotorSetRPM / 60.0;
   fuelShooter.shootFuel(mainRPS, topRPS); 
 }
 
