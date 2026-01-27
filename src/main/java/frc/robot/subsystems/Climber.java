@@ -28,6 +28,7 @@ public class Climber extends SubsystemBase {
   private DigitalInput bottomLimitSwitch;
 
   /** Creates a new Climber. */
+  //This system uses a motor to lift the robot off the floor (climb), using MotionMagic position control
   public Climber() {
     // MOTOR
     climbMotor = new TalonFX(Constants.MotorControllers.ID_CLIMBER, "usb"); //will be rio bus

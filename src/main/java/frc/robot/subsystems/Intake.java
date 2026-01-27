@@ -28,6 +28,7 @@ public class Intake extends SubsystemBase {
   private MotorOutputConfigs outputConfigs;
 
   /** Creates a new Intake. */
+  //This system uses a motor to intake in , or spit out, fuel at a constant speed
   public Intake() {
     intakeMotor = new TalonFX(Constants.MotorControllers.ID_INTAKE, "usb");
     talonConfig = new TalonFXConfiguration();

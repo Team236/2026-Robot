@@ -26,9 +26,9 @@ import frc.robot.commands.FuelShooting.ShooterMotorManual;
 import frc.robot.commands.FuelShooting.SpinShooterMotorsPID;
 import frc.robot.commands.ClimberCommands.ClimberMotionMagic;
 import frc.robot.commands.ClimberCommands.ClimberSetSpeed;
+import frc.robot.commands.Floor.RunFloor;
 import frc.robot.commands.Intake.RunIntake;
 import frc.robot.commands.Intake.RunOuttake;
-import frc.robot.commands.Feeder.RunFeeder;
 // import frc.robot.commands.CoralHoldCommands.CoralSeqGrabCount;
 import frc.robot.commands.PathPlanner.SequentialPathTest;
 import frc.robot.commands.PathPlanner.SequentialPathTest2;
@@ -40,7 +40,7 @@ import frc.robot.commands.ShooterPivotCommands.PIDPivot;
 import frc.robot.subsystems.ShooterPivot;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Feeder;
+import frc.robot.subsystems.Floor;
 import frc.robot.subsystems.Swerve;
 import frc.robot.commands.BinRelease.ManualMove;
 import frc.robot.commands.BinRelease.PIDMove;
@@ -75,7 +75,7 @@ public class RobotContainer {
   private final Swerve s_Swerve = new Swerve();
   private final Climber climber = new Climber();
   private final Intake intake = new Intake();  
-  private final Feeder feeder = new Feeder();
+  private final Floor feeder = new Floor();
 
   // commands
   private final ManualPivot manualPivotExtend = new ManualPivot(shooterPivot, Constants.Pivot.CONSTANT_SPEED_TEST_VALUE);
@@ -91,7 +91,7 @@ public class RobotContainer {
   private final ShooterMotorManual shooterMotorManual = new ShooterMotorManual(fuelShooter, Constants.Shooter.MAIN_MOTOR_SPEED, Constants.Shooter.TOP_MOTOR_SPEED);
   private final RunIntake runIntakeTest = new RunIntake(intake, Constants.Intake.INTAKE_SPEED);
   private final RunOuttake runOuttakeTest = new RunOuttake(intake, Constants.Intake.OUTTAKE_SPEED);
-  private final RunFeeder runFeederTesting = new RunFeeder(feeder, Constants.Feed.TEST_SPEED);
+  private final RunFloor runFeederTesting = new RunFloor(feeder, Constants.Feed.TEST_SPEED);
   
   // robot container -- contains subsystems, OI devices, and commands
   public RobotContainer() {

@@ -33,6 +33,8 @@ public class FuelShooter extends SubsystemBase {
   private VelocityVoltage leftTop_m_request;
 
   /** Creates a new FuelShooter. */
+  //This system uses motors to shoot the fuel with a constant velocity which is 
+  //quickly brought up to speed and maintains that speed using PID velocity control
   public FuelShooter() {
      leftMainMotor = new TalonFX(Constants.MotorControllers.ID_SHOOTER_LEFT_MAIN, "usb"); //will be rio bus
      leftTopMotor = new TalonFX(Constants.MotorControllers.ID_SHOOTER_LEFT_TOP, "usb"); //will be rio bus

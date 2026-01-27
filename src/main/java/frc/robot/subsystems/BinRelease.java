@@ -32,6 +32,7 @@ public class BinRelease extends SubsystemBase {
     private PositionVoltage m_request;
 
     /** Creates a new BinRelease. */
+    //This system uses a motor to extend and retract the bin that holds the fuel
     public BinRelease() {
         binReleaseMotor = new TalonFX(Constants.MotorControllers.ID_BIN_REL, "usb"); //will be rio not usb
 

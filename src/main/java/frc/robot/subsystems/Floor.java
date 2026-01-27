@@ -12,39 +12,41 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class Feeder extends SubsystemBase {
+public class Floor extends SubsystemBase {
 
-  private TalonFX feederMotor;
+  private TalonFX floorMotor;
   private TalonFXConfiguration motorConfig;
 
-  /** Creates a new Feeder. */
-  public Feeder() {
-    feederMotor = new TalonFX(Constants.MotorControllers.ID_FEEDER, "usb"); //will be rio bus
+  /** Creates a new Floor. */
+  //This system is a motor that moves the fuel from the intake into the bin, toward the shooter feeder
+  // at a constant speed (and can eject fuel from the bin onto the floor at a set speed)
+  public Floor() {
+    floorMotor = new TalonFX(Constants.MotorControllers.ID_FEEDER, "usb"); //will be rio bus
     
     motorConfig = new TalonFXConfiguration();
     motorConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
     motorConfig.CurrentLimits.SupplyCurrentLimit = Constants.MotorControllers.SMART_CURRENT_LIMIT;
     motorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-    feederMotor.getConfigurator().apply(motorConfig);
+    floorMotor.getConfigurator().apply(motorConfig);
   }
 
   //METHODS START HERE:
 
-  public double getFeederSpeed() {
-    return feederMotor.get();
+  public double getFloorSpeed() {
+    return floorMotor.get();
   }
 
-  public void setFeederSpeed(double speed) {
-    feederMotor.set(speed);
+  public void setFloorSpeed(double speed) {
+    floorMotor.set(speed);
   }
 
-  public void stopFeeder() {
-    feederMotor.set(0);
+  public void stopFloor() {
+    floorMotor.set(0);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Feeder speed", getFeederSpeed());
+    SmartDashboard.putNumber("Floor speed", getFloorSpeed());
   }
 }

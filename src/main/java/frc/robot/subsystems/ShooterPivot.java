@@ -35,6 +35,7 @@ public class ShooterPivot extends SubsystemBase {
   private PositionVoltage m_request;
 
   /** Creates a new ShooterPivot. */
+  //This system uses motor to change the angle of the shooter, based on the motor encoder reading (PID position control)
   public ShooterPivot() {
 
     shooterPivotMotor = new TalonFX(Constants.MotorControllers.ID_SHOOTER_PIVOT, "usb");
