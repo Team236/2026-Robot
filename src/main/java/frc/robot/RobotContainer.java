@@ -75,7 +75,7 @@ public class RobotContainer {
   private final Swerve s_Swerve = new Swerve();
   private final Climber climber = new Climber();
   private final Intake intake = new Intake();  
-  private final Floor feeder = new Floor();
+  private final Floor floor = new Floor();
 
   // commands
   private final ManualPivot manualPivotExtend = new ManualPivot(shooterPivot, Constants.Pivot.CONSTANT_SPEED_TEST_VALUE);
@@ -91,7 +91,7 @@ public class RobotContainer {
   private final ShooterMotorManual shooterMotorManual = new ShooterMotorManual(fuelShooter, Constants.Shooter.MAIN_MOTOR_SPEED, Constants.Shooter.TOP_MOTOR_SPEED);
   private final RunIntake runIntakeTest = new RunIntake(intake, Constants.Intake.INTAKE_SPEED);
   private final RunOuttake runOuttakeTest = new RunOuttake(intake, Constants.Intake.OUTTAKE_SPEED);
-  private final RunFloor runFeederTesting = new RunFloor(feeder, Constants.Feed.TEST_SPEED);
+  private final RunFloor runFloorTesting = new RunFloor(floor, Constants.FloorC.TEST_SPEED);
   
   // robot container -- contains subsystems, OI devices, and commands
   public RobotContainer() {
@@ -171,7 +171,7 @@ public class RobotContainer {
     // b.whileTrue(runOuttakeTest);
 
     // Feeder
-    // b.whileTrue(runFeederTesting);
+    // b.whileTrue(runFloorTesting);
   }
 
   public Command getAutonomousCommand() {

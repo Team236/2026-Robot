@@ -117,7 +117,7 @@ public final class Constants {
     public static final double OUTTAKE_SPEED = -0.1;
   }  
 
-  public static class Feed {
+  public static class FloorC {
     public static final double TEST_SPEED = 0.2;
   }
 
