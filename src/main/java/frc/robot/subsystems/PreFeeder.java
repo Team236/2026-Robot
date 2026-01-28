@@ -12,36 +12,36 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class Feeder extends SubsystemBase {
-  /** Creates a new Feeder. */
-  private TalonFX feederMotor;
+public class PreFeeder extends SubsystemBase {
+  
+  private TalonFX preFeederMotor;
   private TalonFXConfiguration motorConfig;
 
-  public Feeder() {
-    feederMotor = new TalonFX(Constants.MotorControllers.ID_FEEDER, "usb");
+  public PreFeeder() {
+    preFeederMotor = new TalonFX(Constants.MotorControllers.ID_PRE_FEEDER, "usb");
     
     motorConfig = new TalonFXConfiguration();
     motorConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
     motorConfig.CurrentLimits.SupplyCurrentLimit = Constants.MotorControllers.SMART_CURRENT_LIMIT;
     motorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-    feederMotor.getConfigurator().apply(motorConfig);
+    preFeederMotor.getConfigurator().apply(motorConfig);
   }
 
-  public double getFeederSpeed() {
-    return feederMotor.get();
+  public double getPreFeederSpeed() {
+    return preFeederMotor.get();
   }
 
-  public void setFeederSpeed(double speed) {
-    feederMotor.set(speed);
+  public void setPreFeederSpeed(double speed) {
+    preFeederMotor.set(speed);
   }
 
-  public void stopFeeder() {
-    feederMotor.set(0);
+  public void stopPreFeeder() {
+    preFeederMotor.set(0);
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Feeder speed", getFeederSpeed());
+    
+    SmartDashboard.putNumber("PreFeeder speed:", getPreFeederSpeed());
   }
 }

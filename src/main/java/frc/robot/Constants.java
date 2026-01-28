@@ -49,7 +49,7 @@ public final class Constants {
   public static class MotorControllers {
     public static final int SMART_CURRENT_LIMIT = 40;
    //Motor ID Numbers
-    public static final int ID_FEEDER = 10; //placeholder;
+    public static final int ID_PRE_FEEDER = 10; //placeholder;
   }
 
   public static final class  Targeting { //TODO -- MUST ALL BE UPDATED
@@ -340,7 +340,7 @@ public static class CoralHold {
     public static final int DIO_ENC_B = 12;
   }
 
-  public static class Feeder {
+  public static class PreFeeder {
     public static final double TEST_SPEED = 0.2;
   }
   

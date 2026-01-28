@@ -22,13 +22,13 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.TeleopSwerve;
-import frc.robot.commands.Feeder.RunFeeder;
+import frc.robot.commands.PreFeeder.RunPreFeeder;
 // import frc.robot.commands.CoralHoldCommands.CoralSeqGrabCount;
 import frc.robot.commands.PathPlanner.SequentialPathTest;
 import frc.robot.commands.PathPlanner.SequentialPathTest2;
 import frc.robot.commands.PathPlanner.SequentialPathTest3;
 import frc.robot.commands.PathPlanner.SequentialPathsCombined;
-import frc.robot.subsystems.Feeder;
+import frc.robot.subsystems.PreFeeder;
 import frc.robot.subsystems.Swerve;
 
 
@@ -55,11 +55,10 @@ public class RobotContainer {
 
   // subsystems
   private final Swerve s_Swerve = new Swerve();
-  private final Feeder feeder = new Feeder();
+  private final PreFeeder preFeeder = new PreFeeder();
 
   // commands
-  private final RunFeeder 
-  runFeederTesting = new RunFeeder(feeder, Constants.Feeder.TEST_SPEED);
+  private final RunPreFeeder runPreFeederTesting = new RunPreFeeder(preFeeder, Constants.PreFeeder.TEST_SPEED);
   
   // robot container -- contains subsystems, OI devices, and commands
   public RobotContainer() {
@@ -88,7 +87,7 @@ public class RobotContainer {
 
     // driver controller
     JoystickButton a = new JoystickButton(driverController, Constants.XboxController.A);
-    JoystickButton b = new JoystickButton(driverController, Constants.XboxController.B);
+    JoystickButton b = new JoystickButton(driverController, Constants.XboxController.B); // feeder
     JoystickButton x = new JoystickButton(driverController, Constants.XboxController.X);
     JoystickButton y = new JoystickButton(driverController, Constants.XboxController.Y); // swerve
 
@@ -133,7 +132,7 @@ public class RobotContainer {
     // command binds
     //a.onTrue(algaeGrab).onTrue(l3_Score); *EXAMPLE
 
-    b.whileTrue(runFeederTesting);
+    b.whileTrue(runPreFeederTesting);
   }
 
   public Command getAutonomousCommand() {
