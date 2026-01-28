@@ -277,7 +277,7 @@ public static final class Swerve {
         public static final class Mod3 { //TODO: This must be tuned to specific robot
             public static final int driveMotorID = 1;
             public static final int angleMotorID = 10;
-            public static final int canCoderID = 0;
+            public static final int canCoderID = 0; // NOTICE THAT THIS IS ID 0 BUT MOD 3
             public static final Rotation2d angleOffset = Rotation2d.fromDegrees(131.22);//(-17.75+180);  TESTBED//130.87; old 130.95 // 1/27 was -99.84
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
