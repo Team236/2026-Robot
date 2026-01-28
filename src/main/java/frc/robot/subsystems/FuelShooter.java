@@ -124,16 +124,28 @@ public class FuelShooter extends SubsystemBase {
       rightTopMotor.getConfigurator().apply(rightTopConfig);
       rightTop_m_request = new VelocityVoltage(0).withSlot(0);
     // rightTopMotor.setControl(new Follower(Constants.MotorControllers.ID_SHOOTER_LEFT_TOP, MotorAlignmentValue.Opposed));
-
   }
 
   // METHODS START HERE:
 
-  public void shootFuel(double targetMainVelocity, double targetTopVelocity) {
-   //rightMainMotor and rightTopMotor will follow their corresponding left motor
-   //the target velocity below needs to be in revs per second
+  public void lefMainPID(double targetMainVelocity) {//the target velocity below needs to be in revs per second
     leftMainMotor.setControl(leftMain_m_request.withVelocity(targetMainVelocity).withFeedForward(Constants.Shooter.KV_MAIN));
+  }
+  
+  public void rightMainPID(double targetMainVelocity) { //the target velocity below needs to be in revs per second
+    rightMainMotor.setControl(rightMain_m_request.withVelocity(targetMainVelocity).withFeedForward(Constants.Shooter.KV_MAIN));
+  }
+  
+  public void midMainPID(double targetMainVelocity) {//the target velocity below needs to be in revs per second
+    midMainMotor.setControl(midMain_m_request.withVelocity(targetMainVelocity).withFeedForward(Constants.Shooter.KV_MAIN));
+  }
+  
+  public void leftTopPID(double targetTopVelocity) {//the target velocity below needs to be in revs per second
     leftTopMotor.setControl(leftTop_m_request.withVelocity(targetTopVelocity).withFeedForward(Constants.Shooter.KV_TOP));
+  }
+  
+  public void rightTopPID(double targetTopVelocity) { //the target velocity below needs to be in revs per second
+    rightTopMotor.setControl(rightTop_m_request.withVelocity(targetTopVelocity).withFeedForward(Constants.Shooter.KV_TOP));
   }
 
   public void spinLMainMotor (double manualMainSpeed) {
@@ -213,6 +225,23 @@ public void spinRMainMotor (double manualMainSpeed) {
     leftTopMotor.stopMotor();
     rightTopMotor.stopMotor();
   }
+    
+  public void stopLeftMain(){
+      leftMainMotor.stopMotor();
+    }
+  public void stopRightMain(){
+      rightMainMotor.stopMotor();
+    }  
+    public void stopMidMain(){
+      midMainMotor.stopMotor();
+    }  
+    public void stopLeftTop(){
+      leftTopMotor.stopMotor();
+    }  
+    public void stopRightTop(){
+      rightTopMotor.stopMotor();
+    }
+
 
   @Override
   public void periodic() {

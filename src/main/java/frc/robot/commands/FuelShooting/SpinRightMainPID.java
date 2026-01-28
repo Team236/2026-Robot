@@ -8,19 +8,16 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.FuelShooter;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class SpinShooterMotorsPID extends Command {
+public class SpinRightMainPID extends Command {
 
   private FuelShooter fuelShooter;
   private double mainMotorSetRPM, mainRPS;
-  private double topMotorSetRPM, topRPS;
 
-  /** Creates a new SpinShooterMotors. */
-  public SpinShooterMotorsPID(FuelShooter fuelShooter, double mainMotorSetRPM, double topMotorSetRPM) {
+  /** Creates a new SpinRightMainPID. */
+  public SpinRightMainPID(FuelShooter fuelShooter, double mainMotorSetRPM) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.fuelShooter = fuelShooter; 
     this.mainMotorSetRPM = mainMotorSetRPM; //tbd
-    this.topMotorSetRPM = topMotorSetRPM; //tbd
-
     addRequirements(fuelShooter);
   }
 
@@ -28,13 +25,12 @@ public class SpinShooterMotorsPID extends Command {
   @Override
   public void initialize() {
    mainRPS = mainMotorSetRPM / 60.0;
-   topRPS = topMotorSetRPM / 60.0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
 public void execute() {
-  fuelShooter.shootFuel(mainRPS, topRPS); 
+  fuelShooter.rightMainPID(mainRPS);
 }
 
   // Called once the command ends or is interrupted.

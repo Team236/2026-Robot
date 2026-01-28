@@ -22,8 +22,13 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.TeleopSwerve;
+import frc.robot.commands.FuelShooting.PIDShootAll;
 import frc.robot.commands.FuelShooting.ShooterMotorManual;
-import frc.robot.commands.FuelShooting.SpinShooterMotorsPID;
+import frc.robot.commands.FuelShooting.SpinLeftMainPID;
+import frc.robot.commands.FuelShooting.SpinLeftTopPID;
+import frc.robot.commands.FuelShooting.SpinMidMainPID;
+import frc.robot.commands.FuelShooting.SpinRightMainPID;
+import frc.robot.commands.FuelShooting.SpinRightTopPID;
 import frc.robot.commands.ClimberCommands.ClimberMotionMagic;
 import frc.robot.commands.ClimberCommands.ClimberSetSpeed;
 import frc.robot.commands.Floor.RunFloor;
@@ -87,8 +92,15 @@ public class RobotContainer {
   private final ClimberMotionMagic climberMotionMagicTest = new ClimberMotionMagic(climber, Constants.Climb.TEST_MM_REVS);
   private final ClimberSetSpeed climberManualUp = new ClimberSetSpeed(climber, Constants.Climb.CLIMBER_SPEED_TEST);
   private final ClimberSetSpeed climberManualDown = new ClimberSetSpeed(climber, -Constants.Climb.CLIMBER_SPEED_TEST);
-  private final SpinShooterMotorsPID spinShooterMotorsPID = new SpinShooterMotorsPID(fuelShooter, Constants.Shooter.MAIN_MOTOR_RPM, Constants.Shooter.TOP_MOTOR_RPM);
+
   private final ShooterMotorManual shooterMotorManual = new ShooterMotorManual(fuelShooter, Constants.Shooter.MAIN_MOTOR_SPEED, Constants.Shooter.TOP_MOTOR_SPEED);
+  private final SpinLeftMainPID spinLeftMainPID = new SpinLeftMainPID(fuelShooter, Constants.Shooter.MAIN_MOTOR_RPM);
+  private final SpinRightMainPID  spinRightMainPID = new SpinRightMainPID(fuelShooter, Constants.Shooter.MAIN_MOTOR_RPM);
+  private final SpinMidMainPID spinMidMainPID = new SpinMidMainPID(fuelShooter, Constants.Shooter.MAIN_MOTOR_RPM);
+  private final SpinLeftTopPID spinLeftTopPID = new SpinLeftTopPID(fuelShooter, Constants.Shooter.TOP_MOTOR_RPM);
+  private final SpinRightTopPID spinRightTopPID = new SpinRightTopPID(fuelShooter, Constants.Shooter.TOP_MOTOR_RPM);
+  private final PIDShootAll pidShootAll = new PIDShootAll(fuelShooter);
+    
   private final RunIntake runIntakeTest = new RunIntake(intake, Constants.Intake.INTAKE_SPEED);
   private final RunOuttake runOuttakeTest = new RunOuttake(intake, Constants.Intake.OUTTAKE_SPEED);
   private final RunFloor runFloorTesting = new RunFloor(floor, Constants.FloorC.TEST_SPEED);
@@ -159,7 +171,9 @@ public class RobotContainer {
 
     // Fuel Shooter
     // a.whileTrue(shooterMotorManual);
-    // b.whileTrue(spinShooterMotorsPID);
+    // b.whileTrue(spinLeftMainPID);
+    // y.whileTrue(spinLeftTopPID);
+    // x.whileTrue(pidShootAll);
 
     // Shooter Pivot
     // x.onTrue(pidPivot);
