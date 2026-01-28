@@ -8,6 +8,8 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
+import edu.wpi.first.wpilibj.Counter;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -17,6 +19,11 @@ public class PreFeeder extends SubsystemBase {
   private TalonFX preFeederMotor;
   private TalonFXConfiguration motorConfig;
 
+  public static Counter counter;
+  public boolean isCounterUnplugged = false;
+  public boolean isSensorUnplugged = false;
+  public DigitalInput lightSensorState;
+
   public PreFeeder() {
     preFeederMotor = new TalonFX(Constants.MotorControllers.ID_PRE_FEEDER, "usb");
     
@@ -25,6 +32,55 @@ public class PreFeeder extends SubsystemBase {
     motorConfig.CurrentLimits.SupplyCurrentLimit = Constants.MotorControllers.SMART_CURRENT_LIMIT;
     motorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     preFeederMotor.getConfigurator().apply(motorConfig);
+
+    try {
+      lightSensorState = new DigitalInput(Constants.CoralHold.DIO_COUNTER);
+    } catch (Exception e)
+    {
+      isSensorUnplugged = true;
+      SmartDashboard.putBoolean("is lightSensor unplugged:", isSensorUnplugged);
+    }
+
+
+    try {
+      counter = new Counter();
+      counter.setUpSource(Constants.CoralHold.DIO_COUNTER);
+      counter.reset();
+    }
+    catch (Exception e) {
+      isCounterUnplugged = true;
+    }
+
+    SmartDashboard.putBoolean("is counter unplugged:", isCounterUnplugged);
+    SmartDashboard.putBoolean("is sensor unplugged:", isSensorUnplugged);
+    counter.reset(); //sets counter to zero
+  }
+
+  public int getHCount() {
+    int count;
+    if (isCounterUnplugged) {
+      count = 0;
+      SmartDashboard.putBoolean("Intake counter unplugged:", isCounterUnplugged);
+    } else {
+      count =  counter.get();
+    }
+    return count;
+  }
+
+  public boolean getLightSensorState() {
+  boolean sensorState;
+    if (isSensorUnplugged) {
+      sensorState = false;
+      SmartDashboard.putBoolean("LightSensor is unplugged", isCounterUnplugged);
+    } else {
+      sensorState =  lightSensorState.get();
+    }
+    return sensorState;
+  }
+
+  public void resetCount() {
+    // automaticaly sets counter to 0 at start 
+    counter.reset();
   }
 
   public double getPreFeederSpeed() {
@@ -42,6 +98,7 @@ public class PreFeeder extends SubsystemBase {
   @Override
   public void periodic() {
     
+    SmartDashboard.putBoolean("Coral Light Sensor State is:", getLightSensorState());
     SmartDashboard.putNumber("PreFeeder speed:", getPreFeederSpeed());
   }
 }

@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.PreFeeder.RunPreFeeder;
+import frc.robot.commands.PreFeeder.RunPreFeederWithCounter;
 // import frc.robot.commands.CoralHoldCommands.CoralSeqGrabCount;
 import frc.robot.commands.PathPlanner.SequentialPathTest;
 import frc.robot.commands.PathPlanner.SequentialPathTest2;
@@ -59,6 +60,7 @@ public class RobotContainer {
 
   // commands
   private final RunPreFeeder runPreFeederTesting = new RunPreFeeder(preFeeder, Constants.PreFeeder.TEST_SPEED);
+  private final RunPreFeederWithCounter runPreFeederWithCounterTesting = new RunPreFeederWithCounter(preFeeder, Constants.PreFeeder.TEST_SPEED);
   
   // robot container -- contains subsystems, OI devices, and commands
   public RobotContainer() {
@@ -86,7 +88,7 @@ public class RobotContainer {
     zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
 
     // driver controller
-    JoystickButton a = new JoystickButton(driverController, Constants.XboxController.A);
+    JoystickButton a = new JoystickButton(driverController, Constants.XboxController.A); // feeder
     JoystickButton b = new JoystickButton(driverController, Constants.XboxController.B); // feeder
     JoystickButton x = new JoystickButton(driverController, Constants.XboxController.X);
     JoystickButton y = new JoystickButton(driverController, Constants.XboxController.Y); // swerve
@@ -130,8 +132,7 @@ public class RobotContainer {
     Trigger rt1 = new Trigger(() -> auxController.getRawAxis(Constants.XboxController.AxesXbox.RTrig) > 0.5);
 
     // command binds
-    //a.onTrue(algaeGrab).onTrue(l3_Score); *EXAMPLE
-
+    a.whileTrue(runPreFeederWithCounterTesting); // i believe the counter still is while, check tho
     b.whileTrue(runPreFeederTesting);
   }
 
