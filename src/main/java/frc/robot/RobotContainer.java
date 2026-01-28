@@ -95,6 +95,16 @@ public class RobotContainer {
   
   // robot container -- contains subsystems, OI devices, and commands
   public RobotContainer() {
+    s_Swerve.setDefaultCommand(
+      new TeleopSwerve(
+        s_Swerve, 
+        () -> -driverController.getRawAxis(translationAxis), 
+        () -> -driverController.getRawAxis(strafeAxis), 
+        () -> -driverController.getRawAxis(rotationAxis), 
+        () -> robotCentric.getAsBoolean()
+      )
+    );
+
     configureBindings();
   }
 
