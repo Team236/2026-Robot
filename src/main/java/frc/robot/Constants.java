@@ -55,6 +55,7 @@ public final class Constants {
     public static final int ID_FLOOR = 10; 
     public static final int ID_SHOOTER_LEFT_MAIN = 11;
     public static final int ID_SHOOTER_RIGHT_MAIN = 12;
+    public static final int ID_SHOOTER_MID_MAIN = 17;
     public static final int ID_SHOOTER_LEFT_TOP = 23; //13
     public static final int ID_SHOOTER_RIGHT_TOP = 14;
     public static final int ID_SHOOTER_PIVOT = 15;

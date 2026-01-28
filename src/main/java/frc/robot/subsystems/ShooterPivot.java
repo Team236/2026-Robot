@@ -101,33 +101,16 @@ public class ShooterPivot extends SubsystemBase {
     //returns shooter speed in rotations per second
     return shooterPivotMotor.getVelocity().getValueAsDouble();
   }
-
   
   public double getMotorSpeed()
     {    // returns speed between -1 and 1 
         return shooterPivotMotor.get();
     }
 
-      // public boolean isShooterExtLimit() {
-  //   if (isShooterPivotExtException) {
-  //     return true;
-  //   } else {
-  //     return ShooterExtLimit.get();
-  //   }
-  // }
-
   public boolean isShooterExtLimit() {
     //return isShooterPivotExtException ? true : ShooterExtLimit.get();
     return shooterExtLimit.get();
   }
-
-  // public boolean isShooterRetLimit() {
-  //   if (isShooterPivotRetException) {
-  //     return true;
-  //   } else {
-  //     return ShooterRetLimit.get();
-  //   }
-  // }
 
   public boolean isShooterRetLimit() {
     return shooterRetLimit.get();
