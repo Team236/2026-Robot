@@ -26,7 +26,6 @@ public class RunPreFeederWithCounter extends Command {
   @Override
   public void execute() {
     preFeeder.setPreFeederSpeed(speed);
-    SmartDashboard.putNumber("attempting prefeeder speed", speed);
   }
 
   @Override

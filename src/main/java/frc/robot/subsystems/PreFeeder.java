@@ -51,8 +51,7 @@ public class PreFeeder extends SubsystemBase {
       isCounterUnplugged = true;
     }
 
-    SmartDashboard.putBoolean("is counter unplugged:", isCounterUnplugged);
-    SmartDashboard.putBoolean("is sensor unplugged:", isSensorUnplugged);
+    
     counter.reset(); //sets counter to zero
   }
 
@@ -98,7 +97,9 @@ public class PreFeeder extends SubsystemBase {
   @Override
   public void periodic() {
     
-    SmartDashboard.putBoolean("Coral Light Sensor State is:", getLightSensorState());
+    SmartDashboard.putBoolean("is counter unplugged:", isCounterUnplugged);
+    SmartDashboard.putBoolean("is sensor unplugged:", isSensorUnplugged);
+    SmartDashboard.putBoolean("PreFeeder Sensor State is:", getLightSensorState());
     SmartDashboard.putNumber("PreFeeder speed:", getPreFeederSpeed());
   }
 }
