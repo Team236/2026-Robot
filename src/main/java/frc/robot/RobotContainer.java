@@ -181,7 +181,7 @@ public class RobotContainer {
     // b.whileTrue(runOuttakeTest);
 
     // Feeder
-    // b.whileTrue(runFloorTesting);
+     b.whileTrue(runFloorTesting);
   }
 
   public Command getAutonomousCommand() {

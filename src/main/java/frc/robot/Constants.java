@@ -52,10 +52,10 @@ public final class Constants {
     //MOTOR ID NUMBERS (for swerve drive/steer motors - see Swerve below):
     public static final int ID_BIN_REL = 8; 
     public static final int ID_INTAKE = 9; 
-    public static final int ID_FEEDER = 10; 
+    public static final int ID_FLOOR = 13; 
     public static final int ID_SHOOTER_LEFT_MAIN = 11;
     public static final int ID_SHOOTER_RIGHT_MAIN = 12;
-    public static final int ID_SHOOTER_LEFT_TOP = 13;
+    public static final int ID_SHOOTER_LEFT_TOP = 23; //13
     public static final int ID_SHOOTER_RIGHT_TOP = 14;
     public static final int ID_SHOOTER_PIVOT = 15;
     public static final int ID_CLIMBER = 16; 
@@ -118,7 +118,7 @@ public final class Constants {
   }  
 
   public static class FloorC {
-    public static final double TEST_SPEED = 0.2;
+    public static final double TEST_SPEED = -0.1;
   }
 
   public static final class Targeting {
