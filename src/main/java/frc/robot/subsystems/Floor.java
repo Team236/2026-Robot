@@ -21,7 +21,7 @@ public class Floor extends SubsystemBase {
   //This system is a motor that moves the fuel from the intake into the bin, toward the shooter feeder
   // at a constant speed (and can eject fuel from the bin onto the floor at a set speed)
   public Floor() {
-    floorMotor = new TalonFX(Constants.MotorControllers.ID_FEEDER, "usb"); //will be rio bus
+    floorMotor = new TalonFX(Constants.MotorControllers.ID_FLOOR, "usb"); //will be rio bus
     
     motorConfig = new TalonFXConfiguration();
     motorConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
