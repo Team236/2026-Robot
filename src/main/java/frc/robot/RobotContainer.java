@@ -177,11 +177,11 @@ public class RobotContainer {
     // a.whileTrue(climberManualDown);
     
     // Intake
-    // a.whileTrue(runIntakeTest);
-    // b.whileTrue(runOuttakeTest);
+     a.whileTrue(runIntakeTest);
+     b.whileTrue(runOuttakeTest);
 
     // Feeder
-     b.whileTrue(runFloorTesting);
+    // b.whileTrue(runFloorTesting);
   }
 
   public Command getAutonomousCommand() {
