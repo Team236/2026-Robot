@@ -40,7 +40,7 @@ import frc.robot.commands.PathPlanner.SequentialPathTest;
 import frc.robot.commands.PathPlanner.SequentialPathTest2;
 import frc.robot.commands.PathPlanner.SequentialPathTest3;
 import frc.robot.commands.PathPlanner.SequentialPathsCombined;
-import frc.robot.subsystems.FuelShooter;
+import frc.robot.subsystems.ShootMainRoller;
 import frc.robot.commands.ShooterPivotCommands.ManualPivot;
 import frc.robot.commands.ShooterPivotCommands.PIDPivot;
 import frc.robot.subsystems.ShooterPivot;
@@ -76,7 +76,7 @@ public class RobotContainer {
 
   // subsystems
   private final ShooterPivot shooterPivot = new ShooterPivot();
-  private final FuelShooter  fuelShooter = new FuelShooter();
+  private final ShootMainRoller  fuelShooter = new ShootMainRoller();
   private final BinRelease binRelease = new BinRelease();
   private final Swerve s_Swerve = new Swerve();
   private final Climber climber = new Climber();

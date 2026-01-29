@@ -5,39 +5,32 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.StatusSignal;
-import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import com.ctre.phoenix6.configs.TalonFXConfigurator;
 import com.ctre.phoenix6.controls.Follower;
-import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Main;
 
-public class FuelShooter extends SubsystemBase {
+public class ShootMainRoller extends SubsystemBase {
 
-  private TalonFX leftMainMotor, rightMainMotor, midMainMotor;
-  private TalonFX leftTopMotor, rightTopMotor;
+  private TalonFX leftMainMotor, rightMainMotor; //, midMainMotor;
 
-  private TalonFXConfiguration leftMainConfig, rightMainConfig, midMainConfig;
-  private TalonFXConfiguration leftTopConfig, rightTopConfig;
+  private TalonFXConfiguration leftMainConfig, rightMainConfig; //, midMainConfig;
 
-  private VelocityVoltage leftMain_m_request, rightMain_m_request, midMain_m_request;
-  private VelocityVoltage leftTop_m_request, rightTop_m_request;
+  private VelocityVoltage leftMain_m_request; 
 
-  /** Creates a new FuelShooter. */
+
+  /** Creates a new ShootMainRoller. */
   //This system uses motors to shoot the fuel with a constant velocity which is 
   //quickly brought up to speed and maintains that speed using PID velocity control
-  public FuelShooter() {
-  //MAKE EACH MOTOR INDEPENDENT - NOT FOLLOWERS (commented out Follower code far below)
-  
+  public ShootMainRoller() {
+
+  //MAKE RIGHT MOTOR FOLLOW LEFT
      leftMainMotor = new TalonFX(Constants.MotorControllers.ID_SHOOTER_LEFT_MAIN, "usb"); //will be rio bus
         leftMainConfig = new TalonFXConfiguration();
         leftMainConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive; //tbd
@@ -69,7 +62,6 @@ public class FuelShooter extends SubsystemBase {
         slot0RMConfigs.kD = Constants.Shooter.KD_MAIN;
 
       rightMainMotor.getConfigurator().apply(rightMainConfig);
-      rightMain_m_request = new VelocityVoltage(0).withSlot(0);
       rightMainMotor.setControl(new Follower(Constants.MotorControllers.ID_SHOOTER_LEFT_MAIN, MotorAlignmentValue.Opposed));
 
     /*midMainMotor = new TalonFX(Constants.MotorControllers.ID_SHOOTER_MID_MAIN, "usb"); //will be rio bus
@@ -86,43 +78,8 @@ public class FuelShooter extends SubsystemBase {
         slot0MMConfigs.kD = Constants.Shooter.KD_MAIN;
 
       midMainMotor.getConfigurator().apply(leftMainConfig);
-      midMain_m_request = new VelocityVoltage(0).withSlot(0);
       midMainMotor.setControl(new Follower(Constants.MotorControllers.ID_SHOOTER_LEFT_MAIN, MotorAlignmentValue.Opposed));
 */
-
-    leftTopMotor = new TalonFX(Constants.MotorControllers.ID_SHOOTER_LEFT_TOP, "usb"); //will be rio bus
-        leftTopConfig = new TalonFXConfiguration();
-        leftTopConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive; //tbd
-        leftTopConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
-        leftTopConfig.CurrentLimits.SupplyCurrentLimit = Constants.MotorControllers.SMART_CURRENT_LIMIT; //tbd
-        leftTopConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-        // set slot 0 gains TODO tune these, find info online (velocity control - no Ks or kA) 
-      var slot0LTConfigs = leftTopConfig.Slot0;  
-        slot0LTConfigs.kV = Constants.Shooter.KV_TOP; // FF. A velocity target of 1 rps results in 0.12 V output
-        slot0LTConfigs.kP = Constants.Shooter.KP_TOP; //4.8
-        slot0LTConfigs.kI = Constants.Shooter.KI_TOP; 
-        slot0LTConfigs.kD = Constants.Shooter.KD_TOP;
-
-      leftTopMotor.getConfigurator().apply(leftTopConfig);
-      leftTop_m_request = new VelocityVoltage(0).withSlot(0);
-
-
-    rightTopMotor = new TalonFX(Constants.MotorControllers.ID_SHOOTER_RIGHT_TOP, "usb"); //will be rio bus
-        rightTopConfig = new TalonFXConfiguration();
-        rightTopConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive; //tbd
-        rightTopConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
-        rightTopConfig.CurrentLimits.SupplyCurrentLimit = Constants.MotorControllers.SMART_CURRENT_LIMIT; //tbd
-        rightTopConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-    // set slot 0 gains TODO tune these, find info online
-      var slot0RTConfigs = rightTopConfig.Slot0;  
-        slot0RTConfigs.kV = Constants.Shooter.KV_TOP; // FF. A velocity target of 1 rps results in 0.12 V output
-        slot0RTConfigs.kP = Constants.Shooter.KP_TOP;//4.8
-        slot0RTConfigs.kI = Constants.Shooter.KI_TOP; // no output for integrated error
-        slot0RTConfigs.kD = Constants.Shooter.KD_TOP;
-
-      rightTopMotor.getConfigurator().apply(rightTopConfig);
-      rightTop_m_request = new VelocityVoltage(0).withSlot(0);
-      rightTopMotor.setControl(new Follower(Constants.MotorControllers.ID_SHOOTER_LEFT_TOP, MotorAlignmentValue.Opposed));
   }
 
   // METHODS START HERE:
@@ -130,62 +87,31 @@ public class FuelShooter extends SubsystemBase {
   public void MainPID(double targetMainVelocity) {//the target velocity below needs to be in revs per second
     leftMainMotor.setControl(leftMain_m_request.withVelocity(targetMainVelocity).withFeedForward(Constants.Shooter.KV_MAIN));
   }
-  
-  public void TopPID(double targetTopVelocity) {//the target velocity below needs to be in revs per second
-    leftTopMotor.setControl(leftTop_m_request.withVelocity(targetTopVelocity).withFeedForward(Constants.Shooter.KV_TOP));
-  }
-  
 
   public void spinMainMotor (double manualMainSpeed) {
     leftMainMotor.set(manualMainSpeed); // between -1 and 1
   }
-
-
-  // between -1 and 1
-  public void spinTopMotor (double manualTopSpeed) {
-    leftTopMotor.set(manualTopSpeed);
-  }
-
 
   // this is motor speed between -1.0 and 1.0
   public double getMainSpeed() {
     return leftMainMotor.get();
   }
 
-  public double getTopSpeed() {
-    return leftTopMotor.get();
-  }
-
-
   // this value is in RPS, rotations per second between -512 to 512
   public double getMainVelocity() {
     return leftMainMotor.getRotorVelocity().getValueAsDouble();
   }
 
-  public double getTopVelocity() {
-    return leftTopMotor.getRotorVelocity().getValueAsDouble();
-  }
 
-  public void stopShooter() {
-    leftMainMotor.stopMotor();
-    leftTopMotor.stopMotor();
-  }
-    
   public void stopMain(){
       leftMainMotor.stopMotor();
     }
-
-  public void stopTop(){
-      leftTopMotor.stopMotor();
-    } 
-
- 
 
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("main velocity: ", getMainVelocity());
-    SmartDashboard.putNumber("top velocity: ", getTopVelocity());
   }
+  
 }

@@ -5,17 +5,17 @@
 package frc.robot.commands.FuelShooting;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.FuelShooter;
+import frc.robot.subsystems.ShootMainRoller;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class ShooterMotorManual extends Command {
 
-  private FuelShooter fuelShooter;
+  private ShootMainRoller fuelShooter;
   private double mainMotorSetSpeed;
   private double topMotorSetSpeed;
 
   /** Creates a new SpinShooterMotors. */
-  public ShooterMotorManual(FuelShooter fuelShooter, double mainMotorSetSpeed, double topMotorSetSpeed) {
+  public ShooterMotorManual(ShootMainRoller fuelShooter, double mainMotorSetSpeed, double topMotorSetSpeed) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.fuelShooter = fuelShooter; 
     this.mainMotorSetSpeed = mainMotorSetSpeed;
