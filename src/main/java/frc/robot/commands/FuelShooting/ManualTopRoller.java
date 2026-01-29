@@ -3,44 +3,27 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands.FuelShooting;
+
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.ShootMainRoller;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class ShootPID extends Command {
-  /** Creates a new SpinMidMainPID. */
-  private ShootMainRoller fuelShooter;
-  private double mainMotorSetRPM, mainRPS;
-  private double topMotorSetRPM, topRPS;
-
-  /** Creates a new SpinMidMainPID. */
-  public ShootPID(ShootMainRoller fuelShooter, double mainMotorSetRPM, double topMotorSetRPM) {
+public class ManualTopRoller extends Command {
+  /** Creates a new ManualTopRoller. */
+  public ManualTopRoller() {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.fuelShooter = fuelShooter; 
-    this.mainMotorSetRPM = mainMotorSetRPM; //tbd
-    this.topMotorSetRPM = topMotorSetRPM; //tbd
-    addRequirements(fuelShooter);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-   mainRPS = mainMotorSetRPM / 60.0;
-   topRPS = topMotorSetRPM / 60.0;
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-public void execute() {
-  fuelShooter.MainPID(mainMotorSetRPM);
-  fuelShooter.TopPID(topMotorSetRPM);
-}
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    fuelShooter.stopShooter();
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

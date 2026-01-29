@@ -5,23 +5,12 @@
 package frc.robot.commands.FuelShooting;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.ShootMainRoller;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class ShooterMotorManual extends Command {
-
-  private ShootMainRoller fuelShooter;
-  private double mainMotorSetSpeed;
-  private double topMotorSetSpeed;
-
-  /** Creates a new SpinShooterMotors. */
-  public ShooterMotorManual(ShootMainRoller fuelShooter, double mainMotorSetSpeed, double topMotorSetSpeed) {
+public class ManualMainRoller extends Command {
+  /** Creates a new ManualMainRoller. */
+  public ManualMainRoller() {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.fuelShooter = fuelShooter; 
-    this.mainMotorSetSpeed = mainMotorSetSpeed;
-    this.topMotorSetSpeed = topMotorSetSpeed;
-
-    addRequirements(fuelShooter);
   }
 
   // Called when the command is initially scheduled.
@@ -30,16 +19,11 @@ public class ShooterMotorManual extends Command {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-public void execute() {
-  fuelShooter.spinMainMotor(mainMotorSetSpeed);
-  fuelShooter.spinTopMotor(topMotorSetSpeed);
-}
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    fuelShooter.stopShooter();
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
