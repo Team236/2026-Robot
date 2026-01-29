@@ -12,6 +12,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -27,9 +28,13 @@ public class Climber extends SubsystemBase {
   private DigitalInput topLimitSwitch;
   private DigitalInput bottomLimitSwitch;
 
+  private Servo lock;
+
   /** Creates a new Climber. */
   //This system uses a motor to lift the robot off the floor (climb), using MotionMagic position control
   public Climber() {
+    lock = new Servo(0);
+    
     // MOTOR
     climbMotor = new TalonFX(Constants.MotorControllers.ID_CLIMBER, "usb"); //will be rio bus
 
@@ -132,6 +137,11 @@ public class Climber extends SubsystemBase {
     }
   }
 
+    public void setLock(double desiredPosition) {
+    // position between 0 and 1 for linear actuator
+      lock.set(desiredPosition); 
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
@@ -142,4 +152,5 @@ public class Climber extends SubsystemBase {
     SmartDashboard.putBoolean("Climber top limit hit", isTopLimit());
     SmartDashboard.putBoolean("Climber bottom limit hit", isBottomLimit());
   }
+  
 }
