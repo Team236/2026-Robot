@@ -29,6 +29,7 @@ import frc.robot.commands.FuelShooting.SpinLeftTopPID;
 import frc.robot.commands.FuelShooting.SpinMidMainPID;
 import frc.robot.commands.FuelShooting.SpinRightMainPID;
 import frc.robot.commands.FuelShooting.SpinRightTopPID;
+import frc.robot.commands.ClimberCommands.ClimberLock;
 import frc.robot.commands.ClimberCommands.ClimberMotionMagic;
 import frc.robot.commands.ClimberCommands.ClimberSetSpeed;
 import frc.robot.commands.Floor.RunFloor;
@@ -90,8 +91,9 @@ public class RobotContainer {
   private final ManualMove manualRetract = new ManualMove(binRelease, Constants.Bin.MANUAL_RET_SPEED); // TBD TESTING VALUES
   private final PIDMove pidToPositionTestA = new PIDMove(binRelease, Constants.Bin.POSITION1); // TBD TESTING VALUES, PID VALUES NEEDED
   private final ClimberMotionMagic climberMotionMagicTest = new ClimberMotionMagic(climber, Constants.Climb.TEST_MM_REVS);
-  private final ClimberSetSpeed climberManualUp = new ClimberSetSpeed(climber, Constants.Climb.CLIMBER_SPEED_TEST);
-  private final ClimberSetSpeed climberManualDown = new ClimberSetSpeed(climber, -Constants.Climb.CLIMBER_SPEED_TEST);
+  private final ClimberSetSpeed climberManualUp = new ClimberSetSpeed(climber, Constants.Climb.CLIMBER_UP_SPEED);
+  private final ClimberSetSpeed climberManualDown = new ClimberSetSpeed(climber, Constants.Climb.CLIMBER_DOWN_SPEED);
+  private final ClimberLock climberLock = new ClimberLock(climber, 0.2); // TBD TESTING VALUE
 
   private final ShooterMotorManual shooterMotorManual = new ShooterMotorManual(fuelShooter, Constants.Shooter.MAIN_MOTOR_SPEED, Constants.Shooter.TOP_MOTOR_SPEED);
   private final SpinLeftMainPID spinLeftMainPID = new SpinLeftMainPID(fuelShooter, Constants.Shooter.MAIN_MOTOR_RPM);
@@ -189,6 +191,7 @@ public class RobotContainer {
     // x.onTrue(climberMotionMagicTest);
     // b.whileTrue(climberManualUp);
     // a.whileTrue(climberManualDown);
+    // y.whileTrue(climberLock);
     
     // Intake
      // a.whileTrue(runIntakeTest);
