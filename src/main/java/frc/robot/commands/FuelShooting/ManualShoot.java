@@ -5,15 +5,19 @@
 package frc.robot.commands.FuelShooting;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import frc.robot.Constants;
+import frc.robot.subsystems.MainRoller;
+import frc.robot.subsystems.TopRoller;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ManualShoot extends ParallelCommandGroup {
   /** Creates a new ManualShoot. */
-  public ManualShoot() {
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
-    addCommands();
+  public ManualShoot(MainRoller mainRoller, TopRoller topRoller) {
+    addCommands(
+     new ManualMainRoller(mainRoller, Constants.Shooter.MAIN_MOTOR_SPEED),
+     new ManualTopRoller(topRoller, Constants.Shooter.TOP_MOTOR_SPEED)
+    );
   }
 }

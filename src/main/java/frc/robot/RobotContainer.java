@@ -23,7 +23,7 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.FuelShooting.PIDShootAll;
-import frc.robot.commands.FuelShooting.ShooterMotorManual;
+import frc.robot.commands.FuelShooting.ShootManual;
 import frc.robot.commands.FuelShooting.SpinLeftMainPID;
 import frc.robot.commands.FuelShooting.SpinLeftTopPID;
 import frc.robot.commands.FuelShooting.ShootPID;
@@ -40,7 +40,7 @@ import frc.robot.commands.PathPlanner.SequentialPathTest;
 import frc.robot.commands.PathPlanner.SequentialPathTest2;
 import frc.robot.commands.PathPlanner.SequentialPathTest3;
 import frc.robot.commands.PathPlanner.SequentialPathsCombined;
-import frc.robot.subsystems.ShootMainRoller;
+import frc.robot.subsystems.MainRoller;
 import frc.robot.commands.ShooterPivotCommands.ManualPivot;
 import frc.robot.commands.ShooterPivotCommands.PIDPivot;
 import frc.robot.subsystems.ShooterPivot;
@@ -76,7 +76,7 @@ public class RobotContainer {
 
   // subsystems
   private final ShooterPivot shooterPivot = new ShooterPivot();
-  private final ShootMainRoller  fuelShooter = new ShootMainRoller();
+  private final MainRoller  fuelShooter = new MainRoller();
   private final BinRelease binRelease = new BinRelease();
   private final Swerve s_Swerve = new Swerve();
   private final Climber climber = new Climber();
@@ -95,7 +95,7 @@ public class RobotContainer {
   private final ClimberSetSpeed climberManualDown = new ClimberSetSpeed(climber, Constants.Climb.CLIMBER_DOWN_SPEED);
   private final ClimberLock climberLock = new ClimberLock(climber, 0.2); // TBD TESTING VALUE
 
-  private final ShooterMotorManual shooterMotorManual = new ShooterMotorManual(fuelShooter, Constants.Shooter.MAIN_MOTOR_SPEED, Constants.Shooter.TOP_MOTOR_SPEED);
+  private final ShootManual shooterMotorManual = new ShootManual(fuelShooter, Constants.Shooter.MAIN_MOTOR_SPEED, Constants.Shooter.TOP_MOTOR_SPEED);
   private final SpinLeftMainPID spinLeftMainPID = new SpinLeftMainPID(fuelShooter, Constants.Shooter.MAIN_MOTOR_RPM);
   private final SpinRightMainPID  spinRightMainPID = new SpinRightMainPID(fuelShooter, Constants.Shooter.MAIN_MOTOR_RPM);
   private final ShootPID spinMidMainPID = new ShootPID(fuelShooter, Constants.Shooter.MAIN_MOTOR_RPM);

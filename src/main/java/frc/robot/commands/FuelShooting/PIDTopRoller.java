@@ -5,25 +5,39 @@
 package frc.robot.commands.FuelShooting;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.TopRoller;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class PIDTopRoller extends Command {
-  /** Creates a new PIDTopRoller. */
-  public PIDTopRoller() {
+  private TopRoller topRoller;
+  private double topMotorSetRPM, topRPS;
+
+  /** Creates a new PIDTopRoller */
+  public PIDTopRoller(TopRoller topRoller, double topMotorSetRPM) {
     // Use addRequirements() here to declare subsystem dependencies.
+    this.topRoller = topRoller; 
+    this.topMotorSetRPM = topMotorSetRPM; //tbd
+
+    addRequirements(topRoller);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+   topRPS = topMotorSetRPM / 60.0;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+public void execute() {
+  topRoller.TopPID(topRPS);
+}
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    topRoller.stopTop();
+  }
 
   // Returns true when the command should end.
   @Override

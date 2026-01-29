@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class ShootMainRoller extends SubsystemBase {
+public class MainRoller extends SubsystemBase {
 
   private TalonFX leftMainMotor, rightMainMotor; //, midMainMotor;
 
@@ -25,10 +25,10 @@ public class ShootMainRoller extends SubsystemBase {
   private VelocityVoltage leftMain_m_request; 
 
 
-  /** Creates a new ShootMainRoller. */
+  /** Creates a new MainRoller. */
   //This system uses motors to shoot the fuel with a constant velocity which is 
   //quickly brought up to speed and maintains that speed using PID velocity control
-  public ShootMainRoller() {
+  public MainRoller() {
 
   //MAKE RIGHT MOTOR FOLLOW LEFT
      leftMainMotor = new TalonFX(Constants.MotorControllers.ID_SHOOTER_LEFT_MAIN, "usb"); //will be rio bus
@@ -77,14 +77,14 @@ public class ShootMainRoller extends SubsystemBase {
         slot0MMConfigs.kI = Constants.Shooter.KI_MAIN; 
         slot0MMConfigs.kD = Constants.Shooter.KD_MAIN;
 
-      midMainMotor.getConfigurator().apply(leftMainConfig);
+      midMainMotor.getConfigurator().apply(midMainConfig);
       midMainMotor.setControl(new Follower(Constants.MotorControllers.ID_SHOOTER_LEFT_MAIN, MotorAlignmentValue.Opposed));
 */
   }
 
   // METHODS START HERE:
 
-  public void MainPID(double targetMainVelocity) {//the target velocity below needs to be in revs per second
+  public void MainPID(double targetMainVelocity) {//the target velocity in revs per second
     leftMainMotor.setControl(leftMain_m_request.withVelocity(targetMainVelocity).withFeedForward(Constants.Shooter.KV_MAIN));
   }
 
@@ -113,5 +113,5 @@ public class ShootMainRoller extends SubsystemBase {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("main velocity: ", getMainVelocity());
   }
-  
+
 }

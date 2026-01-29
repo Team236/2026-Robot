@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 
-public class ShootTopRoller extends SubsystemBase {
+public class TopRoller extends SubsystemBase {
 
   private TalonFX leftTopMotor, rightTopMotor;
 
@@ -25,10 +25,10 @@ public class ShootTopRoller extends SubsystemBase {
 
   private VelocityVoltage leftTop_m_request, rightTop_m_request;
 
-  /** Creates a new FuelShooter. */
+  /** Creates a new TopRoller. */
   //This system uses motors to shoot the fuel with a constant velocity which is 
   //quickly brought up to speed and maintains that speed using PID velocity control
-  public ShootTopRoller() {
+  public TopRoller() {
 
   //MAKE RIGHT MOTOR BE A FOLLOWER OF THE LEFT
     leftTopMotor = new TalonFX(Constants.MotorControllers.ID_SHOOTER_LEFT_TOP, "usb"); //will be rio bus
