@@ -50,7 +50,7 @@ public final class Constants {
   public static class MotorControllers {
     public static final int SMART_CURRENT_LIMIT = 40;
     //MOTOR ID NUMBERS (for swerve drive/steer motors - see Swerve below):
-    public static final int ID_BIN_REL = 13; // 8
+    public static final int ID_BIN_REL = 8;
     public static final int ID_INTAKE = 9; 
     public static final int ID_FLOOR = 10; 
     public static final int ID_SHOOTER_LEFT_MAIN = 11;
@@ -58,7 +58,7 @@ public final class Constants {
     public static final int ID_SHOOTER_MID_MAIN = 17;
     public static final int ID_SHOOTER_LEFT_TOP = 23; //13
     public static final int ID_SHOOTER_RIGHT_TOP = 14;
-    public static final int ID_SHOOTER_PIVOT = 15;
+    public static final int ID_SHOOTER_PIVOT = 13; // 15
     public static final int ID_CLIMBER = 16; 
   }
 
@@ -100,8 +100,9 @@ public final class Constants {
     public static final double KI = 0;
     public static final double KD = 0;
     public static final double ENC_REVS_MAX = 1000; //TODO find actual
-    public static final double TARGET_REVS = 200;
-    public static final double CONSTANT_SPEED_TEST_VALUE = 0.1;
+    public static final double TARGET_REVS = 50;
+    public static final double CONSTANT_FORWARD_SPEED = 0.1;
+    public static final double CONSTANT_REVERSE_SPEED = -0.1;
   }
 
   public static class Climb {

@@ -83,8 +83,8 @@ public class RobotContainer {
   private final Floor floor = new Floor();
 
   // commands
-  private final ManualPivot manualPivotExtend = new ManualPivot(shooterPivot, Constants.Pivot.CONSTANT_SPEED_TEST_VALUE);
-  private final ManualPivot manualPivotRetract = new ManualPivot(shooterPivot, -Constants.Pivot.CONSTANT_SPEED_TEST_VALUE);
+  private final ManualPivot manualPivotExtend = new ManualPivot(shooterPivot, Constants.Pivot.CONSTANT_FORWARD_SPEED);
+  private final ManualPivot manualPivotRetract = new ManualPivot(shooterPivot, Constants.Pivot.CONSTANT_REVERSE_SPEED);
   private final PIDPivot pidPivot = new PIDPivot(shooterPivot, Constants.Pivot.TARGET_REVS);
   private final ManualMove manualExtend = new ManualMove(binRelease, Constants.Bin.MANUAL_EXT_SPEED); // TBD TESTING VALUES
   private final ManualMove manualRetract = new ManualMove(binRelease, Constants.Bin.MANUAL_RET_SPEED); // TBD TESTING VALUES
@@ -176,14 +176,14 @@ public class RobotContainer {
     // x.whileTrue(pidShootAll);
 
     // Shooter Pivot
-    // x.onTrue(pidPivot);
-    // b.whileTrue(manualPivotExtend);
-    // a.whileTrue(manualPivotRetract);
+     x.onTrue(pidPivot);
+     b.whileTrue(manualPivotExtend);
+     a.whileTrue(manualPivotRetract);
 
     // Bin Release
-     upPov.whileTrue(manualExtend);
-     downPov.whileTrue(manualRetract);
-     b.onTrue(pidToPositionTestA);
+    // upPov.whileTrue(manualExtend);
+    // downPov.whileTrue(manualRetract);
+    // b.onTrue(pidToPositionTestA);
 
     // Climber
     // x.onTrue(climberMotionMagicTest);
