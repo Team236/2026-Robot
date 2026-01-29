@@ -26,7 +26,7 @@ import frc.robot.commands.FuelShooting.PIDShootAll;
 import frc.robot.commands.FuelShooting.ShooterMotorManual;
 import frc.robot.commands.FuelShooting.SpinLeftMainPID;
 import frc.robot.commands.FuelShooting.SpinLeftTopPID;
-import frc.robot.commands.FuelShooting.SpinMidMainPID;
+import frc.robot.commands.FuelShooting.ShootPID;
 import frc.robot.commands.FuelShooting.SpinRightMainPID;
 import frc.robot.commands.FuelShooting.SpinRightTopPID;
 import frc.robot.commands.ClimberCommands.ClimberLock;
@@ -98,7 +98,7 @@ public class RobotContainer {
   private final ShooterMotorManual shooterMotorManual = new ShooterMotorManual(fuelShooter, Constants.Shooter.MAIN_MOTOR_SPEED, Constants.Shooter.TOP_MOTOR_SPEED);
   private final SpinLeftMainPID spinLeftMainPID = new SpinLeftMainPID(fuelShooter, Constants.Shooter.MAIN_MOTOR_RPM);
   private final SpinRightMainPID  spinRightMainPID = new SpinRightMainPID(fuelShooter, Constants.Shooter.MAIN_MOTOR_RPM);
-  private final SpinMidMainPID spinMidMainPID = new SpinMidMainPID(fuelShooter, Constants.Shooter.MAIN_MOTOR_RPM);
+  private final ShootPID spinMidMainPID = new ShootPID(fuelShooter, Constants.Shooter.MAIN_MOTOR_RPM);
   private final SpinLeftTopPID spinLeftTopPID = new SpinLeftTopPID(fuelShooter, Constants.Shooter.TOP_MOTOR_RPM);
   private final SpinRightTopPID spinRightTopPID = new SpinRightTopPID(fuelShooter, Constants.Shooter.TOP_MOTOR_RPM);
   private final PIDShootAll pidShootAll = new PIDShootAll(fuelShooter);
@@ -173,8 +173,8 @@ public class RobotContainer {
 
     // Fuel Shooter
     // a.whileTrue(shooterMotorManual);
-    // b.whileTrue(spinLeftMainPID);
-    // y.whileTrue(spinLeftTopPID);
+    // b.whileTrue(spinMain);
+    // y.whileTrue(spinTopPID);
     // x.whileTrue(pidShootAll);
 
     // Shooter Pivot

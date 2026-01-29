@@ -31,11 +31,8 @@ public class ShooterMotorManual extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
 public void execute() {
-  fuelShooter.spinLMainMotor(mainMotorSetSpeed);
-  fuelShooter.spinMidMainMotor(mainMotorSetSpeed);
-  fuelShooter.spinRMainMotor(mainMotorSetSpeed);
-  fuelShooter.spinTopLeftMotor(topMotorSetSpeed);
-  fuelShooter.spinTopRightMotor(topMotorSetSpeed);
+  fuelShooter.spinMainMotor(mainMotorSetSpeed);
+  fuelShooter.spinTopMotor(topMotorSetSpeed);
 }
 
   // Called once the command ends or is interrupted.

@@ -70,10 +70,9 @@ public class FuelShooter extends SubsystemBase {
 
       rightMainMotor.getConfigurator().apply(rightMainConfig);
       rightMain_m_request = new VelocityVoltage(0).withSlot(0);
-      //rightMainMotor.setControl(new Follower(Constants.MotorControllers.ID_SHOOTER_LEFT_MAIN, MotorAlignmentValue.Opposed));
+      rightMainMotor.setControl(new Follower(Constants.MotorControllers.ID_SHOOTER_LEFT_MAIN, MotorAlignmentValue.Opposed));
 
-
-    midMainMotor = new TalonFX(Constants.MotorControllers.ID_SHOOTER_MID_MAIN, "usb"); //will be rio bus
+    /*midMainMotor = new TalonFX(Constants.MotorControllers.ID_SHOOTER_MID_MAIN, "usb"); //will be rio bus
         midMainConfig = new TalonFXConfiguration();
         midMainConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive; //tbd
         midMainConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
@@ -88,8 +87,8 @@ public class FuelShooter extends SubsystemBase {
 
       midMainMotor.getConfigurator().apply(leftMainConfig);
       midMain_m_request = new VelocityVoltage(0).withSlot(0);
-      //midMainMotor.setControl(new Follower(Constants.MotorControllers.ID_SHOOTER_LEFT_MAIN, MotorAlignmentValue.Opposed));
-
+      midMainMotor.setControl(new Follower(Constants.MotorControllers.ID_SHOOTER_LEFT_MAIN, MotorAlignmentValue.Opposed));
+*/
 
     leftTopMotor = new TalonFX(Constants.MotorControllers.ID_SHOOTER_LEFT_TOP, "usb"); //will be rio bus
         leftTopConfig = new TalonFXConfiguration();
@@ -123,135 +122,70 @@ public class FuelShooter extends SubsystemBase {
 
       rightTopMotor.getConfigurator().apply(rightTopConfig);
       rightTop_m_request = new VelocityVoltage(0).withSlot(0);
-    // rightTopMotor.setControl(new Follower(Constants.MotorControllers.ID_SHOOTER_LEFT_TOP, MotorAlignmentValue.Opposed));
+      rightTopMotor.setControl(new Follower(Constants.MotorControllers.ID_SHOOTER_LEFT_TOP, MotorAlignmentValue.Opposed));
   }
 
   // METHODS START HERE:
 
-  public void lefMainPID(double targetMainVelocity) {//the target velocity below needs to be in revs per second
+  public void MainPID(double targetMainVelocity) {//the target velocity below needs to be in revs per second
     leftMainMotor.setControl(leftMain_m_request.withVelocity(targetMainVelocity).withFeedForward(Constants.Shooter.KV_MAIN));
   }
   
-  public void rightMainPID(double targetMainVelocity) { //the target velocity below needs to be in revs per second
-    rightMainMotor.setControl(rightMain_m_request.withVelocity(targetMainVelocity).withFeedForward(Constants.Shooter.KV_MAIN));
-  }
-  
-  public void midMainPID(double targetMainVelocity) {//the target velocity below needs to be in revs per second
-    midMainMotor.setControl(midMain_m_request.withVelocity(targetMainVelocity).withFeedForward(Constants.Shooter.KV_MAIN));
-  }
-  
-  public void leftTopPID(double targetTopVelocity) {//the target velocity below needs to be in revs per second
+  public void TopPID(double targetTopVelocity) {//the target velocity below needs to be in revs per second
     leftTopMotor.setControl(leftTop_m_request.withVelocity(targetTopVelocity).withFeedForward(Constants.Shooter.KV_TOP));
   }
   
-  public void rightTopPID(double targetTopVelocity) { //the target velocity below needs to be in revs per second
-    rightTopMotor.setControl(rightTop_m_request.withVelocity(targetTopVelocity).withFeedForward(Constants.Shooter.KV_TOP));
-  }
 
-  public void spinLMainMotor (double manualMainSpeed) {
+  public void spinMainMotor (double manualMainSpeed) {
     leftMainMotor.set(manualMainSpeed); // between -1 and 1
   }
-public void spinRMainMotor (double manualMainSpeed) {
-    rightMainMotor.set(manualMainSpeed); // between -1 and 1
-  }
-  public void spinMidMainMotor (double manualMainSpeed) {
-    midMainMotor.set(manualMainSpeed); // between -1 and 1
-  }
+
 
   // between -1 and 1
-  public void spinTopLeftMotor (double manualTopSpeed) {
+  public void spinTopMotor (double manualTopSpeed) {
     leftTopMotor.set(manualTopSpeed);
   }
 
-   // between -1 and 1
-  public void spinTopRightMotor (double manualTopSpeed) {
-    rightTopMotor.set(manualTopSpeed);
-  }
 
   // this is motor speed between -1.0 and 1.0
-  public double getLeftMainSpeed() {
+  public double getMainSpeed() {
     return leftMainMotor.get();
   }
 
-  public double getLeftTopSpeed() {
+  public double getTopSpeed() {
     return leftTopMotor.get();
   }
 
-  // this is motor speed between -1.0 and 1.0
-  public double getRightMainSpeed() {
-    return rightMainMotor.get();
-  }
-
-  public double getRightTopSpeed() {
-    return rightTopMotor.get();
-  }
-
-  // this is motor speed between -1.0 and 1.0
-  public double getAvgMainSpeed() {
-    return (rightMainMotor.get() + leftMainMotor.get() + midMainMotor.get()) / 3;
-  }
-
-    // this is motor speed between -1.0 and 1.0
-  public double getAvgTopSpeed() {
-    return (rightTopMotor.get() + leftTopMotor.get()) / 2;
-  }
 
   // this value is in RPS, rotations per second between -512 to 512
-  public double getLeftMainVelocity() {
+  public double getMainVelocity() {
     return leftMainMotor.getRotorVelocity().getValueAsDouble();
   }
 
-  // this value is in RPS, rotations per second
-  public double getRightMainVelocity() {
-    return rightMainMotor.getRotorVelocity().getValueAsDouble();
-  }
-
-  public double getMidMainVelocity() {
-    return midMainMotor.getRotorVelocity().getValueAsDouble();
-  }
-
-  public double getLeftTopVelocity() {
+  public double getTopVelocity() {
     return leftTopMotor.getRotorVelocity().getValueAsDouble();
-  }
-
-  public double getRightTopVelocity() {
-    return rightTopMotor.getRotorVelocity().getValueAsDouble();
   }
 
   public void stopShooter() {
     leftMainMotor.stopMotor();
-    rightMainMotor.stopMotor();
-    midMainMotor.stopMotor();
     leftTopMotor.stopMotor();
-    rightTopMotor.stopMotor();
   }
     
-  public void stopLeftMain(){
+  public void stopMain(){
       leftMainMotor.stopMotor();
     }
-  public void stopRightMain(){
-      rightMainMotor.stopMotor();
-    }  
-    public void stopMidMain(){
-      midMainMotor.stopMotor();
-    }  
-    public void stopLeftTop(){
+
+  public void stopTop(){
       leftTopMotor.stopMotor();
-    }  
-    public void stopRightTop(){
-      rightTopMotor.stopMotor();
-    }
+    } 
+
+ 
 
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("left main velocity: ", getLeftMainVelocity());
-    SmartDashboard.putNumber("right main velocity: ", getRightMainVelocity());
-    SmartDashboard.putNumber("middle main velocity: ", getMidMainVelocity());
-   
-    SmartDashboard.putNumber("left top velocity: ", getLeftTopVelocity());
-    SmartDashboard.putNumber("right top velocity: ", getRightTopVelocity());
-
+    SmartDashboard.putNumber("main velocity: ", getMainVelocity());
+    SmartDashboard.putNumber("top velocity: ", getTopVelocity());
   }
 }
