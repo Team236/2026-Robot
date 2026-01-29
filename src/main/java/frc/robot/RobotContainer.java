@@ -22,13 +22,12 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.TeleopSwerve;
-import frc.robot.commands.FuelShooting.PIDShootAll;
-import frc.robot.commands.FuelShooting.ShootManual;
-import frc.robot.commands.FuelShooting.SpinLeftMainPID;
-import frc.robot.commands.FuelShooting.SpinLeftTopPID;
-import frc.robot.commands.FuelShooting.ShootPID;
-import frc.robot.commands.FuelShooting.SpinRightMainPID;
-import frc.robot.commands.FuelShooting.SpinRightTopPID;
+import frc.robot.commands.FuelShooting.ManualMainRoller;
+import frc.robot.commands.FuelShooting.ManualShoot;
+import frc.robot.commands.FuelShooting.ManualTopRoller;
+import frc.robot.commands.FuelShooting.PIDMainRoller;
+import frc.robot.commands.FuelShooting.PIDShoot;
+import frc.robot.commands.FuelShooting.PIDTopRoller;
 import frc.robot.commands.ClimberCommands.ClimberLock;
 import frc.robot.commands.ClimberCommands.ClimberMotionMagic;
 import frc.robot.commands.ClimberCommands.ClimberSetSpeed;
@@ -48,6 +47,7 @@ import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Floor;
 import frc.robot.subsystems.Swerve;
+import frc.robot.subsystems.TopRoller;
 import frc.robot.commands.BinRelease.ManualMove;
 import frc.robot.commands.BinRelease.PIDMove;
 import frc.robot.subsystems.BinRelease;
@@ -76,38 +76,42 @@ public class RobotContainer {
 
   // subsystems
   private final ShooterPivot shooterPivot = new ShooterPivot();
-  private final MainRoller  fuelShooter = new MainRoller();
+  private final MainRoller  mainRoller = new MainRoller();
+  private final TopRoller  topRoller = new TopRoller();
   private final BinRelease binRelease = new BinRelease();
   private final Swerve s_Swerve = new Swerve();
   private final Climber climber = new Climber();
   private final Intake intake = new Intake();  
   private final Floor floor = new Floor();
 
-  // commands
+  //COMMANDS:
+
+//PIVOT
   private final ManualPivot manualPivotExtend = new ManualPivot(shooterPivot, Constants.Pivot.CONSTANT_FORWARD_SPEED);
   private final ManualPivot manualPivotRetract = new ManualPivot(shooterPivot, Constants.Pivot.CONSTANT_REVERSE_SPEED);
   private final PIDPivot pidPivot = new PIDPivot(shooterPivot, Constants.Pivot.TARGET_REVS);
+//BIN RELEASE
   private final ManualMove manualExtend = new ManualMove(binRelease, Constants.Bin.MANUAL_EXT_SPEED); // TBD TESTING VALUES
   private final ManualMove manualRetract = new ManualMove(binRelease, Constants.Bin.MANUAL_RET_SPEED); // TBD TESTING VALUES
   private final PIDMove pidToPositionTestA = new PIDMove(binRelease, Constants.Bin.POSITION1); // TBD TESTING VALUES, PID VALUES NEEDED
+//CLIMBER
   private final ClimberMotionMagic climberMotionMagicTest = new ClimberMotionMagic(climber, Constants.Climb.TEST_MM_REVS);
   private final ClimberSetSpeed climberManualUp = new ClimberSetSpeed(climber, Constants.Climb.CLIMBER_UP_SPEED);
   private final ClimberSetSpeed climberManualDown = new ClimberSetSpeed(climber, Constants.Climb.CLIMBER_DOWN_SPEED);
   private final ClimberLock climberLock = new ClimberLock(climber, 0.2); // TBD TESTING VALUE
-
-  private final ShootManual shooterMotorManual = new ShootManual(fuelShooter, Constants.Shooter.MAIN_MOTOR_SPEED, Constants.Shooter.TOP_MOTOR_SPEED);
-  private final SpinLeftMainPID spinLeftMainPID = new SpinLeftMainPID(fuelShooter, Constants.Shooter.MAIN_MOTOR_RPM);
-  private final SpinRightMainPID  spinRightMainPID = new SpinRightMainPID(fuelShooter, Constants.Shooter.MAIN_MOTOR_RPM);
-  private final ShootPID spinMidMainPID = new ShootPID(fuelShooter, Constants.Shooter.MAIN_MOTOR_RPM);
-  private final SpinLeftTopPID spinLeftTopPID = new SpinLeftTopPID(fuelShooter, Constants.Shooter.TOP_MOTOR_RPM);
-  private final SpinRightTopPID spinRightTopPID = new SpinRightTopPID(fuelShooter, Constants.Shooter.TOP_MOTOR_RPM);
-  private final PIDShootAll pidShootAll = new PIDShootAll(fuelShooter);
-    
+//SHOOTER
+  private final ManualMainRoller manualMainRoller = new ManualMainRoller(mainRoller, Constants.Shooter.MAIN_MOTOR_SPEED);
+  private final ManualTopRoller manualTopRoller = new ManualTopRoller(topRoller, Constants.Shooter.TOP_MOTOR_SPEED);
+  private final ManualShoot manualShoot = new ManualShoot(mainRoller, topRoller);
+  private final PIDMainRoller pidMainRoller = new PIDMainRoller(mainRoller, Constants.Shooter.MAIN_MOTOR_RPM);
+  private final PIDTopRoller pidTopRoller = new PIDTopRoller(topRoller, Constants.Shooter.TOP_MOTOR_RPM);
+  private final PIDShoot pidShoot = new PIDShoot(mainRoller, topRoller);
+//INTAKE  
   private final RunIntake runIntakeTest = new RunIntake(intake, Constants.Intake.INTAKE_SPEED);
   private final RunOuttake runOuttakeTest = new RunOuttake(intake, Constants.Intake.OUTTAKE_SPEED);
   private final RunFloor runFloorTesting = new RunFloor(floor, Constants.FloorC.TEST_SPEED);
   
-  // robot container -- contains subsystems, OI devices, and commands
+// robot container -- contains subsystems, OI devices, and commands
   public RobotContainer() {
     s_Swerve.setDefaultCommand(
       new TeleopSwerve(
@@ -172,15 +176,17 @@ public class RobotContainer {
     // a.onTrue(algaeGrab).onTrue(l3_Score); *EXAMPLE
 
     // Fuel Shooter
-    // a.whileTrue(shooterMotorManual);
-    // b.whileTrue(spinMain);
-    // y.whileTrue(spinTopPID);
-    // x.whileTrue(pidShootAll);
+     a.whileTrue(manualMainRoller);
+     b.whileTrue(manualTopRoller);
+     y.whileTrue(manualShoot);
+     downPov.whileTrue(pidMainRoller);
+     upPov.whileTrue(pidTopRoller);
+     x.whileTrue(pidShoot);
 
     // Shooter Pivot
-     x.onTrue(pidPivot);
-     b.whileTrue(manualPivotExtend);
-     a.whileTrue(manualPivotRetract);
+    // x.onTrue(pidPivot);
+   //  b.whileTrue(manualPivotExtend);
+    // a.whileTrue(manualPivotRetract);
 
     // Bin Release
     // upPov.whileTrue(manualExtend);
