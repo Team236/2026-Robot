@@ -17,11 +17,11 @@ public class PIDShootAll extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new SpinLeftMainPID(fuelshooter, Constants.Shooter.MAIN_MOTOR_RPM),
-      new SpinMidMainPID(fuelshooter, Constants.Shooter.MAIN_MOTOR_RPM),
-      new SpinRightMainPID(fuelshooter, Constants.Shooter.MAIN_MOTOR_RPM),
-      new SpinLeftTopPID(fuelshooter, Constants.Shooter.TOP_MOTOR_RPM),
-      new SpinRightTopPID(fuelshooter, Constants.Shooter.TOP_MOTOR_RPM)
+      new SpinLeftMainPID(fuelshooter, Constants.Shooter.MAIN_MOTOR_RPM)
+    // new SpinMidMainPID(fuelshooter, Constants.Shooter.MAIN_MOTOR_RPM),
+     // new SpinRightMainPID(fuelshooter, Constants.Shooter.MAIN_MOTOR_RPM),
+     // new SpinLeftTopPID(fuelshooter, Constants.Shooter.TOP_MOTOR_RPM),
+     // new SpinRightTopPID(fuelshooter, Constants.Shooter.TOP_MOTOR_RPM)
     );
   }
 }

@@ -181,9 +181,9 @@ public class RobotContainer {
     // a.whileTrue(manualPivotRetract);
 
     // Bin Release
-    // upPov.whileTrue(manualExtend);
-    // downPov.whileTrue(manualRetract);
-    // rb.onTrue(pidToPositionTestA);
+     upPov.whileTrue(manualExtend);
+     downPov.whileTrue(manualRetract);
+     b.onTrue(pidToPositionTestA);
 
     // Climber
     // x.onTrue(climberMotionMagicTest);
@@ -191,8 +191,8 @@ public class RobotContainer {
     // a.whileTrue(climberManualDown);
     
     // Intake
-     a.whileTrue(runIntakeTest);
-     b.whileTrue(runOuttakeTest);
+     // a.whileTrue(runIntakeTest);
+    // b.whileTrue(runOuttakeTest);
 
     // Feeder
     // b.whileTrue(runFloorTesting);
