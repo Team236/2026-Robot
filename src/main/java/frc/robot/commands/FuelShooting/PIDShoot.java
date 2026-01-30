@@ -16,8 +16,8 @@ public class PIDShoot extends ParallelCommandGroup {
   /** Creates a new PIDShoot. */
   public PIDShoot(MainRoller mainRoller, TopRoller topRoller) {
     addCommands(
-     new PIDMainRoller(mainRoller, Constants.Shooter.MAIN_MOTOR_SPEED),
-     new PIDTopRoller(topRoller, Constants.Shooter.TOP_MOTOR_SPEED)
+     new PIDMainRoller(mainRoller, Constants.Shooter.MAIN_MOTOR_RPM),
+     new PIDTopRoller(topRoller, Constants.Shooter.TOP_MOTOR_RPM)
     );
   }
 }
