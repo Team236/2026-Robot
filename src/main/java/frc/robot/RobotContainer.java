@@ -98,7 +98,10 @@ public class RobotContainer {
   private final ClimberMotionMagic climberMotionMagicTest = new ClimberMotionMagic(climber, Constants.Climb.TEST_MM_REVS);
   private final ClimberSetSpeed climberManualUp = new ClimberSetSpeed(climber, Constants.Climb.CLIMBER_UP_SPEED);
   private final ClimberSetSpeed climberManualDown = new ClimberSetSpeed(climber, Constants.Climb.CLIMBER_DOWN_SPEED);
-  private final ClimberLock climberLock = new ClimberLock(climber, 0.2); // TBD TESTING VALUE
+  private final ClimberLock climberLock = new ClimberLock(climber, 1.0); // TBD TESTING VALUE
+  private final ClimberLock climberUnlock = new ClimberLock(climber, 0.25); // TBD TESTING VALUE
+
+
 //SHOOTER
   private final ManualMainRoller manualMainRoller = new ManualMainRoller(mainRoller, Constants.Shooter.MAIN_MOTOR_SPEED);
   private final ManualTopRoller manualTopRoller = new ManualTopRoller(topRoller, Constants.Shooter.TOP_MOTOR_SPEED);
@@ -135,7 +138,7 @@ public class RobotContainer {
     JoystickButton y = new JoystickButton(driverController, Constants.XboxController.Y); // swerve
 
     JoystickButton lb = new JoystickButton(driverController, Constants.XboxController.LB); // swerve
-    JoystickButton rb = new JoystickButton(driverController, Constants.XboxController.RB); // bin (testing)
+    JoystickButton rb = new JoystickButton(driverController, Constants.XboxController.RB); 
     JoystickButton lm = new JoystickButton(driverController, Constants.XboxController.LM);
     JoystickButton rm = new JoystickButton(driverController, Constants.XboxController.RM);
 
@@ -144,8 +147,8 @@ public class RobotContainer {
 
     POVButton rightPov = new POVButton(driverController,Constants.XboxController.POVXbox.RIGHT_ANGLE);
     POVButton leftPov = new POVButton(driverController,Constants.XboxController.POVXbox.LEFT_ANGLE);
-    POVButton upPov = new POVButton(driverController,Constants.XboxController.POVXbox.UP_ANGLE); // bin (testing)
-    POVButton downPov = new POVButton(driverController,Constants.XboxController.POVXbox.DOWN_ANGLE); // bin (testing)
+    POVButton upPov = new POVButton(driverController,Constants.XboxController.POVXbox.UP_ANGLE); 
+    POVButton downPov = new POVButton(driverController,Constants.XboxController.POVXbox.DOWN_ANGLE); 
 
     Trigger lt = new Trigger(() -> driverController.getRawAxis(Constants.XboxController.AxesXbox.LTrig) > 0.5);
     Trigger rt = new Trigger(() -> driverController.getRawAxis(Constants.XboxController.AxesXbox.RTrig) > 0.5);
@@ -176,12 +179,12 @@ public class RobotContainer {
     // a.onTrue(algaeGrab).onTrue(l3_Score); *EXAMPLE
 
     // Fuel Shooter
-     a.whileTrue(manualMainRoller);
-     b.whileTrue(manualTopRoller);
-     y.whileTrue(manualShoot);
-     downPov.whileTrue(pidMainRoller);
-     upPov.whileTrue(pidTopRoller);
-     x.whileTrue(pidShoot);
+    //  a.whileTrue(manualMainRoller);
+    //  b.whileTrue(manualTopRoller);
+    //  y.whileTrue(manualShoot);
+    //  downPov.whileTrue(pidMainRoller);
+    //  upPov.whileTrue(pidTopRoller);
+    //  x.whileTrue(pidShoot);
 
     // Shooter Pivot
     // x.onTrue(pidPivot);
@@ -194,10 +197,11 @@ public class RobotContainer {
     // b.onTrue(pidToPositionTestA);
 
     // Climber
-    // x.onTrue(climberMotionMagicTest);
-    // b.whileTrue(climberManualUp);
-    // a.whileTrue(climberManualDown);
-    // y.whileTrue(climberLock);
+    x.onTrue(climberMotionMagicTest);
+    b.whileTrue(climberManualUp);
+    a.whileTrue(climberManualDown);
+    upPov.onTrue(climberLock);
+    downPov.onTrue(climberUnlock);
     
     // Intake
      // a.whileTrue(runIntakeTest);

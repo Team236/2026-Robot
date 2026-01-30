@@ -141,6 +141,10 @@ public class Climber extends SubsystemBase {
     // position between 0 and 1 for linear actuator
       lock.set(desiredPosition); 
   }
+  
+    public void retractLock(){
+      lock.set(0.0);
+    }
 
   @Override
   public void periodic() {

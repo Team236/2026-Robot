@@ -109,10 +109,10 @@ public final class Constants {
     public static final int DIO_CLIMBER_TOP = 6;
     public static final int DIO_CLIMBER_BOTTOM = 7;
 
-    public static final double MAX_ENCODER_REVS = 1000.0; // MotionMagic/PID stops if here; DO NOT PID CLIMB HIGHER 
+    public static final double MAX_ENCODER_REVS = 50.0; // MotionMagic/PID stops if here; DO NOT PID CLIMB HIGHER 
     public static final double CLIMBER_UP_SPEED = 0.1;
     public static final double CLIMBER_DOWN_SPEED = -0.1;
-    public static final double TEST_MM_REVS = 0.0;
+    public static final double TEST_MM_REVS = 35.0;
   }
 
   public static  class Intake {
