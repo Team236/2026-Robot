@@ -9,8 +9,10 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 
 public class AutoPivotTowardHub extends Command {
@@ -34,14 +36,14 @@ public class AutoPivotTowardHub extends Command {
 
     // need help understanding what k (difference) and d (rate) should be
     pidController = new PIDController(
-        0.0,
+        4,
         0.0,
         0.0);
 
     // used for shortest route (angle measurement that wraps around)
     pidController.enableContinuousInput(-Math.PI, Math.PI);
     // tolerance is to prevent gittering (this will need to be tuned)
-    pidController.setTolerance(Math.toRadians(1.0));
+    pidController.setTolerance(Math.toRadians(0.1));
     pidController.setSetpoint(0.0);
   }
 
@@ -71,13 +73,13 @@ public class AutoPivotTowardHub extends Command {
       Pose2d currentPose = s_Swerve.getPose();
 
       // needs to be in radians for math.atan2()
-      double dx = HUBX - currentPose.getX();
-      double dy = HUBY - currentPose.getY();
+      double dx = HUBX - Units.metersToInches(currentPose.getX()); // pose is in meters, hub coordinates are in inches; must convert
+      double dy = HUBY - Units.metersToInches(currentPose.getY());
       double targetAngle = Math.atan2(dy, dx);
 
       double pidOutput = pidController.calculate(currentPose.getRotation().getRadians(), targetAngle);
 
-      double newRotation = MathUtil.clamp(pidOutput, -1.0, 1.0);
+      double newRotation = pidOutput;//MathUtil.clamp(pidOutput, -Constants.Swerve.maxAngularVelocity, Constants.Swerve.maxAngularVelocity);
 
       // if driver wants to turn while holding and it gets springed back
       // use: newRotationVal = (newRotation * .75) + (rotaionVal * .25)
@@ -85,10 +87,16 @@ public class AutoPivotTowardHub extends Command {
     //   if (pidController.atSetpoint()) {
     //     newRotation = 0;
     // }
+    SmartDashboard.putNumber("dx", dx);
+    SmartDashboard.putNumber("dy", dy);
+    SmartDashboard.putNumber("pidOutput", pidOutput);
+    SmartDashboard.putNumber("newRotation", newRotation);
+    SmartDashboard.putNumber("current rotation (deg)", (currentPose.getRotation().getDegrees()));
+    SmartDashboard.putNumber("desired rotation (deg)", Units.radiansToDegrees(targetAngle));
 
     s_Swerve.drive(
         new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed),
-        newRotation * Constants.Swerve.maxAngularVelocity,
+        MathUtil.clamp(newRotation, -Constants.Swerve.maxAngularVelocity, Constants.Swerve.maxAngularVelocity),
         !robotCentricSup.getAsBoolean(), // this might need to be set only true
         true
     );
