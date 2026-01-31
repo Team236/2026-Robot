@@ -197,16 +197,16 @@ public class RobotContainer {
     // b.onTrue(pidToPositionTestA);
 
     // Climber
-    x.onTrue(climberMotionMagicTest);
-    b.whileTrue(climberManualUp);
-    a.whileTrue(climberManualDown);
-    upPov.onTrue(climberLock);
-    downPov.onTrue(climberUnlock);
+   // x.onTrue(climberMotionMagicTest);
+   // b.whileTrue(climberManualUp);
+   // a.whileTrue(climberManualDown);
+   // upPov.onTrue(climberLock);
+   // downPov.onTrue(climberUnlock);
 
     
     // Intake
-    // a.whileTrue(runIntakeTest);
-    // b.whileTrue(runOuttakeTest);
+     a.whileTrue(runIntakeTest);
+     b.whileTrue(runOuttakeTest);
 
     // Feeder
     // b.whileTrue(runFloorTesting);

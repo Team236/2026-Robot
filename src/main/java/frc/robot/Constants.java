@@ -59,7 +59,7 @@ public final class Constants {
     public static final int ID_SHOOTER_LEFT_TOP = 13;
     public static final int ID_SHOOTER_RIGHT_TOP = 14;
     public static final int ID_SHOOTER_PIVOT = 15;
-    public static final int ID_CLIMBER = 13; // 16 
+    public static final int ID_CLIMBER = 16; 
   }
 
   public static class Shooter {
