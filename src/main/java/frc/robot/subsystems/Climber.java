@@ -33,7 +33,9 @@ public class Climber extends SubsystemBase {
   /** Creates a new Climber. */
   //This system uses a motor to lift the robot off the floor (climb), using MotionMagic position control
   public Climber() {
-    lock = new Servo(0);
+    lock = new Servo (Constants.Climb.PWM_CLIMB_LOCK);
+    lock.setBoundsMicroseconds(2000, 1500, 1500, 1500, 1000); // changes PWM signal range to allow full range of motion for the Lock
+    // You can use setBoundsMicroseconds to modify the range of PWM pulse width so you can use 0.0 and 1.0 as bounds with set.
     
     // MOTOR
     climbMotor = new TalonFX(Constants.MotorControllers.ID_CLIMBER, "usb"); //will be rio bus
@@ -61,6 +63,8 @@ public class Climber extends SubsystemBase {
     climbMotor.getConfigurator().apply(motorConfig);
 
     m_request = new MotionMagicVoltage(0);
+
+
 
     // LIMIT SWITCHES
     try {
@@ -146,6 +150,14 @@ public class Climber extends SubsystemBase {
       lock.set(0.0);
     }
 
+    public double getLockPosition() {
+      return lock.get();
+    }
+
+    public void latchLock() {
+      lock.setZeroLatch();
+    }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
@@ -155,6 +167,7 @@ public class Climber extends SubsystemBase {
     SmartDashboard.putBoolean("Climber bottom limit EXCEPTION", isBottomException);
     SmartDashboard.putBoolean("Climber top limit hit", isTopLimit());
     SmartDashboard.putBoolean("Climber bottom limit hit", isBottomLimit());
+    SmartDashboard.putNumber("Lock Position: ", getLockPosition());
   }
   
 }

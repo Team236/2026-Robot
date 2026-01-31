@@ -99,7 +99,7 @@ public class RobotContainer {
   private final ClimberSetSpeed climberManualUp = new ClimberSetSpeed(climber, Constants.Climb.CLIMBER_UP_SPEED);
   private final ClimberSetSpeed climberManualDown = new ClimberSetSpeed(climber, Constants.Climb.CLIMBER_DOWN_SPEED);
   private final ClimberLock climberLock = new ClimberLock(climber, 1.0); // TBD TESTING VALUE
-  private final ClimberLock climberUnlock = new ClimberLock(climber, 0.25); // TBD TESTING VALUE
+  private final ClimberLock climberUnlock = new ClimberLock(climber, 0.0); // TBD TESTING VALUE
 
 
 //SHOOTER
@@ -202,6 +202,7 @@ public class RobotContainer {
     a.whileTrue(climberManualDown);
     upPov.onTrue(climberLock);
     downPov.onTrue(climberUnlock);
+
     
     // Intake
     // a.whileTrue(runIntakeTest);

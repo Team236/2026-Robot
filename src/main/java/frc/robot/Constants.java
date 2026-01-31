@@ -59,7 +59,7 @@ public final class Constants {
     public static final int ID_SHOOTER_LEFT_TOP = 13;
     public static final int ID_SHOOTER_RIGHT_TOP = 14;
     public static final int ID_SHOOTER_PIVOT = 15;
-    public static final int ID_CLIMBER = 16; 
+    public static final int ID_CLIMBER = 13; // 16 
   }
 
   public static class Shooter {
@@ -113,6 +113,7 @@ public final class Constants {
     public static final double CLIMBER_UP_SPEED = 0.1;
     public static final double CLIMBER_DOWN_SPEED = -0.1;
     public static final double TEST_MM_REVS = 35.0;
+    public static final int PWM_CLIMB_LOCK = 0;
   }
 
   public static  class Intake {
