@@ -8,35 +8,29 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Climber;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class ClimberSetSpeed extends Command {
+public class ClimberLock extends Command {
   private Climber climber;  
-  private double speed;
-
-  /** Creates a new ClimberSetSpeed. */
-  public ClimberSetSpeed(Climber climber, double speed) {
+  private double position;
+  /** Creates a new ClimberLock. */
+  public ClimberLock(Climber climber, double position) {
     this.climber = climber;
-    this.speed = speed;
+    this.position = position;
     addRequirements(this.climber);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    if(climber.isBottomLimit()){
-      climber.resetClimberEncoder();
-    }
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    climber.setClimberSpeed(speed);
+     climber.setLock(position);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    climber.stopClimber();
   }
 
   // Returns true when the command should end.

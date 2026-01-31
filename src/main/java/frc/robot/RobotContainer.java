@@ -22,8 +22,13 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.TeleopSwerve;
-import frc.robot.commands.FuelShooting.ShooterMotorManual;
-import frc.robot.commands.FuelShooting.SpinShooterMotorsPID;
+import frc.robot.commands.FuelShooting.ManualMainRoller;
+import frc.robot.commands.FuelShooting.ManualShoot;
+import frc.robot.commands.FuelShooting.ManualTopRoller;
+import frc.robot.commands.FuelShooting.PIDMainRoller;
+import frc.robot.commands.FuelShooting.PIDShoot;
+import frc.robot.commands.FuelShooting.PIDTopRoller;
+import frc.robot.commands.ClimberCommands.ClimberLock;
 import frc.robot.commands.ClimberCommands.ClimberMotionMagic;
 import frc.robot.commands.ClimberCommands.ClimberSetSpeed;
 import frc.robot.commands.Floor.RunFloor;
@@ -34,7 +39,7 @@ import frc.robot.commands.PathPlanner.SequentialPathTest;
 import frc.robot.commands.PathPlanner.SequentialPathTest2;
 import frc.robot.commands.PathPlanner.SequentialPathTest3;
 import frc.robot.commands.PathPlanner.SequentialPathsCombined;
-import frc.robot.subsystems.FuelShooter;
+import frc.robot.subsystems.MainRoller;
 import frc.robot.commands.ShooterPivotCommands.ManualPivot;
 import frc.robot.commands.ShooterPivotCommands.PIDPivot;
 import frc.robot.subsystems.ShooterPivot;
@@ -42,6 +47,7 @@ import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Floor;
 import frc.robot.subsystems.Swerve;
+import frc.robot.subsystems.TopRoller;
 import frc.robot.commands.BinRelease.ManualMove;
 import frc.robot.commands.BinRelease.PIDMove;
 import frc.robot.subsystems.BinRelease;
@@ -70,30 +76,45 @@ public class RobotContainer {
 
   // subsystems
   private final ShooterPivot shooterPivot = new ShooterPivot();
-  private final FuelShooter  fuelShooter = new FuelShooter();
+  private final MainRoller  mainRoller = new MainRoller();
+  private final TopRoller  topRoller = new TopRoller();
   private final BinRelease binRelease = new BinRelease();
   private final Swerve s_Swerve = new Swerve();
   private final Climber climber = new Climber();
   private final Intake intake = new Intake();  
   private final Floor floor = new Floor();
 
-  // commands
-  private final ManualPivot manualPivotExtend = new ManualPivot(shooterPivot, Constants.Pivot.CONSTANT_SPEED_TEST_VALUE);
-  private final ManualPivot manualPivotRetract = new ManualPivot(shooterPivot, -Constants.Pivot.CONSTANT_SPEED_TEST_VALUE);
+  //COMMANDS:
+
+//PIVOT
+  private final ManualPivot manualPivotExtend = new ManualPivot(shooterPivot, Constants.Pivot.CONSTANT_FORWARD_SPEED);
+  private final ManualPivot manualPivotRetract = new ManualPivot(shooterPivot, Constants.Pivot.CONSTANT_REVERSE_SPEED);
   private final PIDPivot pidPivot = new PIDPivot(shooterPivot, Constants.Pivot.TARGET_REVS);
+//BIN RELEASE
   private final ManualMove manualExtend = new ManualMove(binRelease, Constants.Bin.MANUAL_EXT_SPEED); // TBD TESTING VALUES
   private final ManualMove manualRetract = new ManualMove(binRelease, Constants.Bin.MANUAL_RET_SPEED); // TBD TESTING VALUES
   private final PIDMove pidToPositionTestA = new PIDMove(binRelease, Constants.Bin.POSITION1); // TBD TESTING VALUES, PID VALUES NEEDED
+//CLIMBER
   private final ClimberMotionMagic climberMotionMagicTest = new ClimberMotionMagic(climber, Constants.Climb.TEST_MM_REVS);
-  private final ClimberSetSpeed climberManualUp = new ClimberSetSpeed(climber, Constants.Climb.CLIMBER_SPEED_TEST);
-  private final ClimberSetSpeed climberManualDown = new ClimberSetSpeed(climber, -Constants.Climb.CLIMBER_SPEED_TEST);
-  private final SpinShooterMotorsPID spinShooterMotorsPID = new SpinShooterMotorsPID(fuelShooter, Constants.Shooter.MAIN_MOTOR_RPM, Constants.Shooter.TOP_MOTOR_RPM);
-  private final ShooterMotorManual shooterMotorManual = new ShooterMotorManual(fuelShooter, Constants.Shooter.MAIN_MOTOR_SPEED, Constants.Shooter.TOP_MOTOR_SPEED);
+  private final ClimberSetSpeed climberManualUp = new ClimberSetSpeed(climber, Constants.Climb.CLIMBER_UP_SPEED);
+  private final ClimberSetSpeed climberManualDown = new ClimberSetSpeed(climber, Constants.Climb.CLIMBER_DOWN_SPEED);
+  private final ClimberLock climberLock = new ClimberLock(climber, 1.0); // TBD TESTING VALUE
+  private final ClimberLock climberUnlock = new ClimberLock(climber, 0.25); // TBD TESTING VALUE
+
+
+//SHOOTER
+  private final ManualMainRoller manualMainRoller = new ManualMainRoller(mainRoller, Constants.Shooter.MAIN_MOTOR_SPEED);
+  private final ManualTopRoller manualTopRoller = new ManualTopRoller(topRoller, Constants.Shooter.TOP_MOTOR_SPEED);
+  private final ManualShoot manualShoot = new ManualShoot(mainRoller, topRoller);
+  private final PIDMainRoller pidMainRoller = new PIDMainRoller(mainRoller, Constants.Shooter.MAIN_MOTOR_RPM);
+  private final PIDTopRoller pidTopRoller = new PIDTopRoller(topRoller, Constants.Shooter.TOP_MOTOR_RPM);
+  private final PIDShoot pidShoot = new PIDShoot(mainRoller, topRoller);
+//INTAKE  
   private final RunIntake runIntakeTest = new RunIntake(intake, Constants.Intake.INTAKE_SPEED);
   private final RunOuttake runOuttakeTest = new RunOuttake(intake, Constants.Intake.OUTTAKE_SPEED);
   private final RunFloor runFloorTesting = new RunFloor(floor, Constants.FloorC.TEST_SPEED);
   
-  // robot container -- contains subsystems, OI devices, and commands
+// robot container -- contains subsystems, OI devices, and commands
   public RobotContainer() {
     s_Swerve.setDefaultCommand(
       new TeleopSwerve(
@@ -117,7 +138,7 @@ public class RobotContainer {
     JoystickButton y = new JoystickButton(driverController, Constants.XboxController.Y); // swerve
 
     JoystickButton lb = new JoystickButton(driverController, Constants.XboxController.LB); // swerve
-    JoystickButton rb = new JoystickButton(driverController, Constants.XboxController.RB); // bin (testing)
+    JoystickButton rb = new JoystickButton(driverController, Constants.XboxController.RB); 
     JoystickButton lm = new JoystickButton(driverController, Constants.XboxController.LM);
     JoystickButton rm = new JoystickButton(driverController, Constants.XboxController.RM);
 
@@ -126,8 +147,8 @@ public class RobotContainer {
 
     POVButton rightPov = new POVButton(driverController,Constants.XboxController.POVXbox.RIGHT_ANGLE);
     POVButton leftPov = new POVButton(driverController,Constants.XboxController.POVXbox.LEFT_ANGLE);
-    POVButton upPov = new POVButton(driverController,Constants.XboxController.POVXbox.UP_ANGLE); // bin (testing)
-    POVButton downPov = new POVButton(driverController,Constants.XboxController.POVXbox.DOWN_ANGLE); // bin (testing)
+    POVButton upPov = new POVButton(driverController,Constants.XboxController.POVXbox.UP_ANGLE); 
+    POVButton downPov = new POVButton(driverController,Constants.XboxController.POVXbox.DOWN_ANGLE); 
 
     Trigger lt = new Trigger(() -> driverController.getRawAxis(Constants.XboxController.AxesXbox.LTrig) > 0.5);
     Trigger rt = new Trigger(() -> driverController.getRawAxis(Constants.XboxController.AxesXbox.RTrig) > 0.5);
@@ -158,27 +179,33 @@ public class RobotContainer {
     // a.onTrue(algaeGrab).onTrue(l3_Score); *EXAMPLE
 
     // Fuel Shooter
-    // a.whileTrue(shooterMotorManual);
-    // b.whileTrue(spinShooterMotorsPID);
+    //  a.whileTrue(manualMainRoller);
+    //  b.whileTrue(manualTopRoller);
+    //  y.whileTrue(manualShoot);
+    //  downPov.whileTrue(pidMainRoller);
+    //  upPov.whileTrue(pidTopRoller);
+    //  x.whileTrue(pidShoot);
 
     // Shooter Pivot
     // x.onTrue(pidPivot);
-    // b.whileTrue(manualPivotExtend);
+   //  b.whileTrue(manualPivotExtend);
     // a.whileTrue(manualPivotRetract);
 
     // Bin Release
     // upPov.whileTrue(manualExtend);
     // downPov.whileTrue(manualRetract);
-    // rb.onTrue(pidToPositionTestA);
+    // b.onTrue(pidToPositionTestA);
 
     // Climber
-    // x.onTrue(climberMotionMagicTest);
-    // b.whileTrue(climberManualUp);
-    // a.whileTrue(climberManualDown);
+    x.onTrue(climberMotionMagicTest);
+    b.whileTrue(climberManualUp);
+    a.whileTrue(climberManualDown);
+    upPov.onTrue(climberLock);
+    downPov.onTrue(climberUnlock);
     
     // Intake
-     a.whileTrue(runIntakeTest);
-     b.whileTrue(runOuttakeTest);
+     // a.whileTrue(runIntakeTest);
+    // b.whileTrue(runOuttakeTest);
 
     // Feeder
     // b.whileTrue(runFloorTesting);

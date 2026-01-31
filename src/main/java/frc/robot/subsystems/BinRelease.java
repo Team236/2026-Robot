@@ -109,6 +109,7 @@ public class BinRelease extends SubsystemBase {
 
     public void manualSetSpeedSafe(double speed){
         if (isFullyRetracted()) {
+            SmartDashboard.putBoolean("Full Retract so reset encoder", isFullyRetracted());
             resetEncoder();
             stopMotor();
           } 
