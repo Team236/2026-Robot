@@ -49,9 +49,9 @@ public class ShooterPivot extends SubsystemBase {
 
     // Configure onboard PID for PositionVoltage
     var slot0Configs = motorConfig.Slot0;  // start with 0, 0, 0
-    slot0Configs.kP = Constants.Pivot.KP; // TODO tune
-    slot0Configs.kI = Constants.Pivot.KI;
-    slot0Configs.kD = Constants.Pivot.KD;
+    slot0Configs.kP = Constants.ShooterPivotConstants.KP; // TODO tune
+    slot0Configs.kI = Constants.ShooterPivotConstants.KI;
+    slot0Configs.kD = Constants.ShooterPivotConstants.KD;
 
     shooterPivotMotor.getConfigurator().apply(motorConfig);
 
@@ -59,7 +59,7 @@ public class ShooterPivot extends SubsystemBase {
 
     try {
       // This tries to make a new digital input, and if it fails, throws an error
-      shooterExtLimit = new DigitalInput(Constants.Pivot.DIO_EXT_LIMIT);
+      shooterExtLimit = new DigitalInput(Constants.ShooterPivotConstants.DIO_EXT_LIMIT);
     } catch (Exception e) {
       isShooterPivotExtException = true;
       SmartDashboard.putBoolean(
@@ -69,7 +69,7 @@ public class ShooterPivot extends SubsystemBase {
 
     try {
       // This sets a bottom limit for the shooter, and if it fails, throws an error
-      shooterRetLimit = new DigitalInput(Constants.Pivot.DIO_RET_LIMIT);
+      shooterRetLimit = new DigitalInput(Constants.ShooterPivotConstants.DIO_RET_LIMIT);
     } catch (Exception e) {
       isShooterPivotRetException = true;
       SmartDashboard.putBoolean(
@@ -118,7 +118,7 @@ public class ShooterPivot extends SubsystemBase {
 
 
   public boolean isFullyExtended() {
-    return (getEncoderRevs() >= Constants.Pivot.ENC_REVS_MAX);
+    return (getEncoderRevs() >= Constants.ShooterPivotConstants.ENC_REVS_MAX);
   }
 
   public boolean isFullyRetracted()
@@ -156,7 +156,7 @@ public class ShooterPivot extends SubsystemBase {
     //                 and not perform anything after that line
     // Clamp target to software limits
     //TODO ENSURE TARGET REVS >0 for logic to work!!!
-    targetRevs = Math.max(0.0, Math.min(targetRevs, Constants.Pivot.ENC_REVS_MAX));
+    targetRevs = Math.max(0.0, Math.min(targetRevs, Constants.ShooterPivotConstants.ENC_REVS_MAX));
 
     // Prevent driving further into limits
     if (targetRevs > getEncoderRevs() && (isShooterExtLimit() || isFullyExtended())) {

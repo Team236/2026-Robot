@@ -33,7 +33,7 @@ public class Climber extends SubsystemBase {
   /** Creates a new Climber. */
   //This system uses a motor to lift the robot off the floor (climb), using MotionMagic position control
   public Climber() {
-    lock = new Servo (Constants.Climb.PWM_CLIMB_LOCK);
+    lock = new Servo (Constants.ClimberConstants.PWM_CLIMB_LOCK);
     lock.setBoundsMicroseconds(2000, 1500, 1500, 1500, 1000); // changes PWM signal range to allow full range of motion for the Lock
     // You can use setBoundsMicroseconds to modify the range of PWM pulse width so you can use 0.0 and 1.0 as bounds with set.
     
@@ -68,13 +68,13 @@ public class Climber extends SubsystemBase {
 
     // LIMIT SWITCHES
     try {
-      topLimitSwitch = new DigitalInput(Constants.Climb.DIO_CLIMBER_TOP);
+      topLimitSwitch = new DigitalInput(Constants.ClimberConstants.DIO_CLIMBER_TOP);
     } catch (Exception e) {
       isTopException = true;
     }
     
     try {
-      bottomLimitSwitch = new DigitalInput(Constants.Climb.DIO_CLIMBER_BOTTOM);
+      bottomLimitSwitch = new DigitalInput(Constants.ClimberConstants.DIO_CLIMBER_BOTTOM);
     } catch (Exception e) {
       isBottomException = true;
     }
@@ -86,7 +86,7 @@ public class Climber extends SubsystemBase {
     if (isTopException) {
       return true;
     }
-    return topLimitSwitch.get() || getClimberEncoder() > Constants.Climb.MAX_ENCODER_REVS;
+    return topLimitSwitch.get() || getClimberEncoder() > Constants.ClimberConstants.MAX_ENCODER_REVS;
   }
 
   public boolean isBottomLimit() {

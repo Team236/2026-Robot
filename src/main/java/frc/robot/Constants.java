@@ -63,7 +63,7 @@ public final class Constants {
     public static final int ID_PRE_FEEDER = 17; //placeholder;
   }
 
-  public static class Shooter {
+  public static class ShooterConstants {
     public static final double MAIN_MOTOR_RPM = 2250;
     public static final double TOP_MOTOR_RPM = 2000;
 
@@ -82,7 +82,7 @@ public final class Constants {
     public static final double KD_TOP = 0;
   }
 
-  public static final class Bin {
+  public static final class BinReleaseConstants {
     public static final double KP = 0.2;  
     public static final double KI = 0;
     public static final double KD = 0;
@@ -94,7 +94,7 @@ public final class Constants {
     public static final double POSITION1 = 50;
   }
 
-  public static class Pivot {
+  public static class ShooterPivotConstants {
     public static final int DIO_EXT_LIMIT = 4;
     public static final int DIO_RET_LIMIT = 5;
     public static final double KP = 0.16; 
@@ -106,7 +106,7 @@ public final class Constants {
     public static final double CONSTANT_REVERSE_SPEED = -0.1;
   }
 
-  public static class Climb {
+  public static class ClimberConstants {
     public static final int DIO_CLIMBER_TOP = 6;
     public static final int DIO_CLIMBER_BOTTOM = 7;
 
@@ -117,16 +117,16 @@ public final class Constants {
     public static final int PWM_CLIMB_LOCK = 0;
   }
 
-  public static  class Intake {
+  public static  class IntakeConstants {
     public static final double INTAKE_SPEED = 0.1;
     public static final double OUTTAKE_SPEED = -0.1;
   }  
 
-  public static class FloorC {
+  public static class FloorConstants {
     public static final double TEST_SPEED = -0.1;
   }
 
-  public static class PreFeed {
+  public static class PreFeederConstants {
     public static final double TEST_SPEED = -0.1;
     public static final int DIO_COUNTER = 9;
   }

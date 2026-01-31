@@ -86,41 +86,41 @@ public class RobotContainer {
   private final Climber climber = new Climber();
   private final Intake intake = new Intake();  
   private final Floor floor = new Floor();
+  private final PreFeeder preFeeder = new PreFeeder();
 
   //COMMANDS:
 
 //PIVOT
-  private final ManualPivot manualPivotExtend = new ManualPivot(shooterPivot, Constants.Pivot.CONSTANT_FORWARD_SPEED);
-  private final ManualPivot manualPivotRetract = new ManualPivot(shooterPivot, Constants.Pivot.CONSTANT_REVERSE_SPEED);
-  private final PIDPivot pidPivot = new PIDPivot(shooterPivot, Constants.Pivot.TARGET_REVS);
+  private final ManualPivot manualPivotExtend = new ManualPivot(shooterPivot, Constants.ShooterPivotConstants.CONSTANT_FORWARD_SPEED);
+  private final ManualPivot manualPivotRetract = new ManualPivot(shooterPivot, Constants.ShooterPivotConstants.CONSTANT_REVERSE_SPEED);
+  private final PIDPivot pidPivot = new PIDPivot(shooterPivot, Constants.ShooterPivotConstants.TARGET_REVS);
 //BIN RELEASE
-  private final ManualMove manualExtend = new ManualMove(binRelease, Constants.Bin.MANUAL_EXT_SPEED); // TBD TESTING VALUES
-  private final ManualMove manualRetract = new ManualMove(binRelease, Constants.Bin.MANUAL_RET_SPEED); // TBD TESTING VALUES
-  private final PIDMove pidToPositionTestA = new PIDMove(binRelease, Constants.Bin.POSITION1); // TBD TESTING VALUES, PID VALUES NEEDED
+  private final ManualMove manualExtend = new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_EXT_SPEED); // TBD TESTING VALUES
+  private final ManualMove manualRetract = new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_RET_SPEED); // TBD TESTING VALUES
+  private final PIDMove pidToPositionTestA = new PIDMove(binRelease, Constants.BinReleaseConstants.POSITION1); // TBD TESTING VALUES, PID VALUES NEEDED
 //CLIMBER
-  private final ClimberMotionMagic climberMotionMagicTest = new ClimberMotionMagic(climber, Constants.Climb.TEST_MM_REVS);
-  private final ClimberSetSpeed climberManualUp = new ClimberSetSpeed(climber, Constants.Climb.CLIMBER_UP_SPEED);
-  private final ClimberSetSpeed climberManualDown = new ClimberSetSpeed(climber, Constants.Climb.CLIMBER_DOWN_SPEED);
+  private final ClimberMotionMagic climberMotionMagicTest = new ClimberMotionMagic(climber, Constants.ClimberConstants.TEST_MM_REVS);
+  private final ClimberSetSpeed climberManualUp = new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_UP_SPEED);
+  private final ClimberSetSpeed climberManualDown = new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_DOWN_SPEED);
   private final ClimberLock climberLock = new ClimberLock(climber, 1.0); // TBD TESTING VALUE
   private final ClimberLock climberUnlock = new ClimberLock(climber, 0.0); // TBD TESTING VALUE
 
 
 //SHOOTER
-  private final ManualMainRoller manualMainRoller = new ManualMainRoller(mainRoller, Constants.Shooter.MAIN_MOTOR_SPEED);
-  private final ManualTopRoller manualTopRoller = new ManualTopRoller(topRoller, Constants.Shooter.TOP_MOTOR_SPEED);
-  private final ManualShoot manualShoot = new ManualShoot(mainRoller, topRoller);
-  private final PIDMainRoller pidMainRoller = new PIDMainRoller(mainRoller, Constants.Shooter.MAIN_MOTOR_RPM);
-  private final PIDTopRoller pidTopRoller = new PIDTopRoller(topRoller, Constants.Shooter.TOP_MOTOR_RPM);
-  private final PIDShoot pidShoot = new PIDShoot(mainRoller, topRoller);
+  private final ManualMainRoller manualMainRoller = new ManualMainRoller(mainRoller, Constants.ShooterConstants.MAIN_MOTOR_SPEED);
+  private final ManualTopRoller manualTopRoller = new ManualTopRoller(topRoller, Constants.ShooterConstants.TOP_MOTOR_SPEED);
+  private final ManualShoot manualShoot = new ManualShoot(mainRoller, topRoller, preFeeder);
+  private final PIDMainRoller pidMainRoller = new PIDMainRoller(mainRoller, Constants.ShooterConstants.MAIN_MOTOR_RPM);
+  private final PIDTopRoller pidTopRoller = new PIDTopRoller(topRoller, Constants.ShooterConstants.TOP_MOTOR_RPM);
+  private final PIDShoot pidShoot = new PIDShoot(mainRoller, topRoller, preFeeder);
 //INTAKE  
-  private final RunIntake runIntakeTest = new RunIntake(intake, Constants.Intake.INTAKE_SPEED);
-  private final RunOuttake runOuttakeTest = new RunOuttake(intake, Constants.Intake.OUTTAKE_SPEED);
-  private final RunFloor runFloorTesting = new RunFloor(floor, Constants.FloorC.TEST_SPEED);
-  private final PreFeeder preFeeder = new PreFeeder();
+  private final RunIntake runIntakeTest = new RunIntake(intake, Constants.IntakeConstants.INTAKE_SPEED);
+  private final RunOuttake runOuttakeTest = new RunOuttake(intake, Constants.IntakeConstants.OUTTAKE_SPEED);
+  private final RunFloor runFloorTesting = new RunFloor(floor, Constants.FloorConstants.TEST_SPEED);
 
-  // commands
-  private final RunPreFeeder runPreFeederTesting = new RunPreFeeder(preFeeder, Constants.PreFeed.TEST_SPEED);
-  private final RunPreFeederWithCounter runPreFeederWithCounterTesting = new RunPreFeederWithCounter(preFeeder, Constants.PreFeed.TEST_SPEED);
+  // PREFEEDER
+  private final RunPreFeeder runPreFeederTesting = new RunPreFeeder(preFeeder, Constants.PreFeederConstants.TEST_SPEED);
+  private final RunPreFeederWithCounter runPreFeederWithCounterTesting = new RunPreFeederWithCounter(preFeeder, Constants.PreFeederConstants.TEST_SPEED);
   
 // robot container -- contains subsystems, OI devices, and commands
   public RobotContainer() {
@@ -190,9 +190,9 @@ public class RobotContainer {
     //  a.whileTrue(manualMainRoller);
     //  b.whileTrue(manualTopRoller);
     //  y.whileTrue(manualShoot);
-    //  downPov.whileTrue(pidMainRoller);
+    downPov.whileTrue(pidMainRoller);
     //  upPov.whileTrue(pidTopRoller);
-    //  x.whileTrue(pidShoot);
+    upPov.whileTrue(pidShoot);
 
     // Shooter Pivot
     // x.onTrue(pidPivot);

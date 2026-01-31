@@ -39,10 +39,10 @@ public class MainRoller extends SubsystemBase {
         leftMainConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
         // set slot 0 gains TODO tune these, find info online (velocity control - no Ks or kA)
       var slot0LMConfigs = leftMainConfig.Slot0;  
-        slot0LMConfigs.kV = Constants.Shooter.KV_MAIN; // FF. A velocity target of 1 rps results in 0.12 V output
-        slot0LMConfigs.kP = Constants.Shooter.KP_MAIN; //4.8
-        slot0LMConfigs.kI = Constants.Shooter.KI_MAIN; 
-        slot0LMConfigs.kD = Constants.Shooter.KD_MAIN;
+        slot0LMConfigs.kV = Constants.ShooterConstants.KV_MAIN; // FF. A velocity target of 1 rps results in 0.12 V output
+        slot0LMConfigs.kP = Constants.ShooterConstants.KP_MAIN; //4.8
+        slot0LMConfigs.kI = Constants.ShooterConstants.KI_MAIN; 
+        slot0LMConfigs.kD = Constants.ShooterConstants.KD_MAIN;
 
       leftMainMotor.getConfigurator().apply(leftMainConfig);
       leftMain_m_request = new VelocityVoltage(0).withSlot(0);
@@ -56,10 +56,10 @@ public class MainRoller extends SubsystemBase {
         rightMainConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
       // set slot 0 gains TODO tune these, find info online
       var slot0RMConfigs = rightMainConfig.Slot0;  
-        slot0RMConfigs.kV = Constants.Shooter.KV_MAIN; // FF. A velocity target of 1 rps results in 0.12 V output
-        slot0RMConfigs.kP = Constants.Shooter.KP_MAIN;//4.8
-        slot0RMConfigs.kI = Constants.Shooter.KI_MAIN; // no output for integrated error
-        slot0RMConfigs.kD = Constants.Shooter.KD_MAIN;
+        slot0RMConfigs.kV = Constants.ShooterConstants.KV_MAIN; // FF. A velocity target of 1 rps results in 0.12 V output
+        slot0RMConfigs.kP = Constants.ShooterConstants.KP_MAIN;//4.8
+        slot0RMConfigs.kI = Constants.ShooterConstants.KI_MAIN; // no output for integrated error
+        slot0RMConfigs.kD = Constants.ShooterConstants.KD_MAIN;
 
       rightMainMotor.getConfigurator().apply(rightMainConfig);
       rightMainMotor.setControl(new Follower(Constants.MotorControllers.ID_SHOOTER_LEFT_MAIN, MotorAlignmentValue.Opposed));
@@ -85,7 +85,7 @@ public class MainRoller extends SubsystemBase {
   // METHODS START HERE:
 
   public void MainPID(double targetMainVelocity) {//the target velocity in revs per second
-    leftMainMotor.setControl(leftMain_m_request.withVelocity(targetMainVelocity).withFeedForward(Constants.Shooter.KV_MAIN));
+    leftMainMotor.setControl(leftMain_m_request.withVelocity(targetMainVelocity).withFeedForward(Constants.ShooterConstants.KV_MAIN));
   }
 
   public void spinMainMotor (double manualMainSpeed) {

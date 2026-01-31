@@ -6,7 +6,9 @@ package frc.robot.commands.FuelShooting;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.Constants;
+import frc.robot.commands.PreFeeder.RunPreFeeder;
 import frc.robot.subsystems.MainRoller;
+import frc.robot.subsystems.PreFeeder;
 import frc.robot.subsystems.TopRoller;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -14,10 +16,11 @@ import frc.robot.subsystems.TopRoller;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class PIDShoot extends ParallelCommandGroup {
   /** Creates a new PIDShoot. */
-  public PIDShoot(MainRoller mainRoller, TopRoller topRoller) {
+  public PIDShoot(MainRoller mainRoller, TopRoller topRoller, PreFeeder preFeeder) {
     addCommands(
-     new PIDMainRoller(mainRoller, Constants.Shooter.MAIN_MOTOR_RPM),
-     new PIDTopRoller(topRoller, Constants.Shooter.TOP_MOTOR_RPM)
+      new PIDMainRoller(mainRoller, Constants.ShooterConstants.MAIN_MOTOR_RPM),
+    //  new PIDTopRoller(topRoller, Constants.Shooter.TOP_MOTOR_RPM)
+      new RunPreFeeder(preFeeder, Constants.PreFeederConstants.TEST_SPEED)
     );
   }
 }

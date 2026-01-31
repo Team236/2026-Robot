@@ -34,7 +34,7 @@ public class PreFeeder extends SubsystemBase {
     preFeederMotor.getConfigurator().apply(motorConfig);
 
     try {
-      lightSensorState = new DigitalInput(Constants.PreFeed.DIO_COUNTER);
+      lightSensorState = new DigitalInput(Constants.PreFeederConstants.DIO_COUNTER);
     } catch (Exception e)
     {
       isSensorUnplugged = true;
@@ -44,7 +44,7 @@ public class PreFeeder extends SubsystemBase {
 
     try {
       counter = new Counter();
-      counter.setUpSource(Constants.PreFeed.DIO_COUNTER);
+      counter.setUpSource(Constants.PreFeederConstants.DIO_COUNTER);
       counter.reset();
     }
     catch (Exception e) {

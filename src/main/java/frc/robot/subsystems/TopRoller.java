@@ -39,10 +39,10 @@ public class TopRoller extends SubsystemBase {
         leftTopConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
         // set slot 0 gains TODO tune these, find info online (velocity control - no Ks or kA) 
       var slot0LTConfigs = leftTopConfig.Slot0;  
-        slot0LTConfigs.kV = Constants.Shooter.KV_TOP; // FF. A velocity target of 1 rps results in 0.12 V output
-        slot0LTConfigs.kP = Constants.Shooter.KP_TOP; //4.8
-        slot0LTConfigs.kI = Constants.Shooter.KI_TOP; 
-        slot0LTConfigs.kD = Constants.Shooter.KD_TOP;
+        slot0LTConfigs.kV = Constants.ShooterConstants.KV_TOP; // FF. A velocity target of 1 rps results in 0.12 V output
+        slot0LTConfigs.kP = Constants.ShooterConstants.KP_TOP; //4.8
+        slot0LTConfigs.kI = Constants.ShooterConstants.KI_TOP; 
+        slot0LTConfigs.kD = Constants.ShooterConstants.KD_TOP;
 
       leftTopMotor.getConfigurator().apply(leftTopConfig);
       leftTop_m_request = new VelocityVoltage(0).withSlot(0);
@@ -56,10 +56,10 @@ public class TopRoller extends SubsystemBase {
         rightTopConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     // set slot 0 gains TODO tune these, find info online
       var slot0RTConfigs = rightTopConfig.Slot0;  
-        slot0RTConfigs.kV = Constants.Shooter.KV_TOP; // FF. A velocity target of 1 rps results in 0.12 V output
-        slot0RTConfigs.kP = Constants.Shooter.KP_TOP;//4.8
-        slot0RTConfigs.kI = Constants.Shooter.KI_TOP; // no output for integrated error
-        slot0RTConfigs.kD = Constants.Shooter.KD_TOP;
+        slot0RTConfigs.kV = Constants.ShooterConstants.KV_TOP; // FF. A velocity target of 1 rps results in 0.12 V output
+        slot0RTConfigs.kP = Constants.ShooterConstants.KP_TOP;//4.8
+        slot0RTConfigs.kI = Constants.ShooterConstants.KI_TOP; // no output for integrated error
+        slot0RTConfigs.kD = Constants.ShooterConstants.KD_TOP;
 
       rightTopMotor.getConfigurator().apply(rightTopConfig);
 
@@ -68,7 +68,7 @@ public class TopRoller extends SubsystemBase {
 
   // METHODS START HERE:
   public void TopPID(double targetTopVelocity) {//the target velocity below needs to be in revs per second
-    leftTopMotor.setControl(leftTop_m_request.withVelocity(targetTopVelocity).withFeedForward(Constants.Shooter.KV_TOP));
+    leftTopMotor.setControl(leftTop_m_request.withVelocity(targetTopVelocity).withFeedForward(Constants.ShooterConstants.KV_TOP));
   }
   
   // between -1 and 1
