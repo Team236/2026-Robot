@@ -34,6 +34,8 @@ import frc.robot.commands.ClimberCommands.ClimberSetSpeed;
 import frc.robot.commands.Floor.RunFloor;
 import frc.robot.commands.Intake.RunIntake;
 import frc.robot.commands.Intake.RunOuttake;
+import frc.robot.commands.PreFeeder.RunPreFeeder;
+import frc.robot.commands.PreFeeder.RunPreFeederWithCounter;
 // import frc.robot.commands.CoralHoldCommands.CoralSeqGrabCount;
 import frc.robot.commands.PathPlanner.SequentialPathTest;
 import frc.robot.commands.PathPlanner.SequentialPathTest2;
@@ -46,6 +48,7 @@ import frc.robot.subsystems.ShooterPivot;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Floor;
+import frc.robot.subsystems.PreFeeder;
 import frc.robot.subsystems.Swerve;
 import frc.robot.subsystems.TopRoller;
 import frc.robot.commands.BinRelease.ManualMove;
@@ -113,6 +116,11 @@ public class RobotContainer {
   private final RunIntake runIntakeTest = new RunIntake(intake, Constants.Intake.INTAKE_SPEED);
   private final RunOuttake runOuttakeTest = new RunOuttake(intake, Constants.Intake.OUTTAKE_SPEED);
   private final RunFloor runFloorTesting = new RunFloor(floor, Constants.FloorC.TEST_SPEED);
+  private final PreFeeder preFeeder = new PreFeeder();
+
+  // commands
+  private final RunPreFeeder runPreFeederTesting = new RunPreFeeder(preFeeder, Constants.PreFeed.TEST_SPEED);
+  private final RunPreFeederWithCounter runPreFeederWithCounterTesting = new RunPreFeederWithCounter(preFeeder, Constants.PreFeed.TEST_SPEED);
   
 // robot container -- contains subsystems, OI devices, and commands
   public RobotContainer() {
@@ -132,8 +140,8 @@ public class RobotContainer {
   private void configureBindings() {
 
     // driver controller
-    JoystickButton a = new JoystickButton(driverController, Constants.XboxController.A);
-    JoystickButton b = new JoystickButton(driverController, Constants.XboxController.B);
+    JoystickButton a = new JoystickButton(driverController, Constants.XboxController.A); // feeder
+    JoystickButton b = new JoystickButton(driverController, Constants.XboxController.B); // feeder
     JoystickButton x = new JoystickButton(driverController, Constants.XboxController.X);
     JoystickButton y = new JoystickButton(driverController, Constants.XboxController.Y); // swerve
 
@@ -187,9 +195,9 @@ public class RobotContainer {
     //  x.whileTrue(pidShoot);
 
     // Shooter Pivot
-     x.onTrue(pidPivot);
-     b.whileTrue(manualPivotExtend);
-     a.whileTrue(manualPivotRetract);
+    // x.onTrue(pidPivot);
+    // b.whileTrue(manualPivotExtend);
+    // a.whileTrue(manualPivotRetract);
 
     // Bin Release
     // upPov.whileTrue(manualExtend);
@@ -210,9 +218,12 @@ public class RobotContainer {
 
     // Feeder
     // b.whileTrue(runFloorTesting);
+    a.whileTrue(runPreFeederWithCounterTesting); // i believe the counter still is while, check tho
+    b.whileTrue(runPreFeederTesting);
   }
-
-  public Command getAutonomousCommand() {
+  
+    public Command getAutonomousCommand() {
     return AutoSwitchHelpers.getCommand();
   }
+
 }

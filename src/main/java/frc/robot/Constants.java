@@ -60,6 +60,7 @@ public final class Constants {
     public static final int ID_SHOOTER_RIGHT_TOP = 14;
     public static final int ID_SHOOTER_PIVOT = 15;
     public static final int ID_CLIMBER = 16; 
+    public static final int ID_PRE_FEEDER = 17; //placeholder;
   }
 
   public static class Shooter {
@@ -86,7 +87,7 @@ public final class Constants {
     public static final double KI = 0;
     public static final double KD = 0;
     public static final int DIO_EXT_LIMIT = 8;
-    public static final int DIO_RET_LIMIT = 9;
+    public static final int DIO_RET_LIMIT = 10;
     public static final int ENC_REVS_MAX = 1000; //TBD
     public static final double MANUAL_EXT_SPEED = 0.1;
     public static final double MANUAL_RET_SPEED = -0.1;
@@ -123,6 +124,11 @@ public final class Constants {
 
   public static class FloorC {
     public static final double TEST_SPEED = -0.1;
+  }
+
+  public static class PreFeed {
+    public static final double TEST_SPEED = -0.1;
+    public static final int DIO_COUNTER = 9;
   }
 
   public static final class Targeting {
