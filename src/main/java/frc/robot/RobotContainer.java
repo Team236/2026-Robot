@@ -135,8 +135,9 @@ public class RobotContainer {
     a.whileTrue(runPreFeederWithCounterTesting); // i believe the counter still is while, check tho
     b.whileTrue(runPreFeederTesting);
   }
-
-  public Command getAutonomousCommand() {
+  
+    public Command getAutonomousCommand() {
     return AutoSwitchHelpers.getCommand();
   }
+
 }

@@ -49,13 +49,16 @@ public class PreFeeder extends SubsystemBase {
     }
     catch (Exception e) {
       isCounterUnplugged = true;
+      SmartDashboard.putBoolean("is lightSensor unplugged:", isSensorUnplugged);
     }
 
-    
-    counter.reset(); //sets counter to zero
+  //
+   // counter.reset(); //sets counter to zero
   }
 
-  public int getHCount() {
+  //METHODS START HERE:
+
+  public int getCount() {
     int count;
     if (isCounterUnplugged) {
       count = 0;
@@ -96,7 +99,6 @@ public class PreFeeder extends SubsystemBase {
 
   @Override
   public void periodic() {
-    
     SmartDashboard.putBoolean("is counter unplugged:", isCounterUnplugged);
     SmartDashboard.putBoolean("is sensor unplugged:", isSensorUnplugged);
     SmartDashboard.putBoolean("PreFeeder Sensor State is:", getLightSensorState());
