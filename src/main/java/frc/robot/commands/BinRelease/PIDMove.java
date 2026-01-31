@@ -16,9 +16,10 @@ public class PIDMove extends Command {
     }
 
     @Override 
-    public void initialize()
-    {
-
+    public void initialize() {
+        if(binRelease.isFullyRetracted()){
+      binRelease.resetEncoder();
+        }
     }
 
     @Override

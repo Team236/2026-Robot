@@ -16,7 +16,11 @@ public class ManualMove extends Command
     }
 
     @Override
-    public void initialize(){}
+    public void initialize(){
+        if(binRelease.isFullyRetracted()){
+      binRelease.resetEncoder();
+    }
+    }
 
     @Override
     public void execute()
