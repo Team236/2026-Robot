@@ -8,6 +8,7 @@ package frc.robot;
 import java.util.Set;
 
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -139,6 +140,6 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return AutoSwitchHelpers.getCommand();
+    return new PathPlannerAuto("Test Path");
   }
 }
