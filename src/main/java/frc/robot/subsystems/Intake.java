@@ -42,18 +42,18 @@ public class Intake extends SubsystemBase {
     talonConfigLeft.CurrentLimits.SupplyCurrentLimit = Constants.MotorControllers.SMART_CURRENT_LIMIT;
     talonConfigLeft.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
-    // Right motor
-    intakeMotorRight = new TalonFX(Constants.MotorControllers.ID_INTAKE_RIGHT, "usb");
-    talonConfigRight = new TalonFXConfiguration();
-    // Motor Output Configs
-    talonConfigRight.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
-    talonConfigRight.CurrentLimits.SupplyCurrentLimitEnable = true;
-    talonConfigRight.CurrentLimits.SupplyCurrentLimit = Constants.MotorControllers.SMART_CURRENT_LIMIT;
-    talonConfigRight.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+    // // Right motor
+    // intakeMotorRight = new TalonFX(Constants.MotorControllers.ID_INTAKE_RIGHT, "usb");
+    // talonConfigRight = new TalonFXConfiguration();
+    // // Motor Output Configs
+    // talonConfigRight.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+    // talonConfigRight.CurrentLimits.SupplyCurrentLimitEnable = true;
+    // talonConfigRight.CurrentLimits.SupplyCurrentLimit = Constants.MotorControllers.SMART_CURRENT_LIMIT;
+    // talonConfigRight.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
-    intakeMotorLeft.getConfigurator().apply(talonConfigRight);
+    // intakeMotorLeft.getConfigurator().apply(talonConfigRight);
 
-    intakeMotorRight.setControl(new Follower(Constants.MotorControllers.ID_INTAKE_LEFT, MotorAlignmentValue.Opposed));
+    // intakeMotorRight.setControl(new Follower(Constants.MotorControllers.ID_INTAKE_LEFT, MotorAlignmentValue.Opposed));
   }
 
   public void intakeStop() {

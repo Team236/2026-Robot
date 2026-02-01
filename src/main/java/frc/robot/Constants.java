@@ -30,7 +30,7 @@ import frc.lib.util.COTSTalonFXSwerveConstants;
  * globally (i.e. public static). Do not put anything functional in this class.
  *
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
- * constants are needed, to reduce verbosity.
+ * constants are needed, to reduce verbosity.F
  */
 public final class Constants {
   public static final double stickDeadband = 0.1;
@@ -52,7 +52,6 @@ public final class Constants {
     //MOTOR ID NUMBERS (for swerve drive/steer motors - see Swerve below):
     public static final int ID_BIN_REL = 8;
     public static final int ID_INTAKE_LEFT = 9; 
-    public static final int ID_INTAKE_RIGHT = 18;
     public static final int ID_FLOOR = 10; 
     public static final int ID_SHOOTER_LEFT_MAIN = 11;
     public static final int ID_SHOOTER_RIGHT_MAIN = 12;
@@ -65,7 +64,7 @@ public final class Constants {
   }
 
   public static class ShooterConstants {
-    public static final double MAIN_MOTOR_RPM = 2250;
+    public static final double MAIN_MOTOR_RPM = 2450;
     public static final double TOP_MOTOR_RPM = 2000;
 
     public static final double MAIN_MOTOR_SPEED = -0.5;
@@ -128,7 +127,7 @@ public final class Constants {
   }
 
   public static class PreFeederConstants {
-    public static final double TEST_SPEED = -0.1;
+    public static final double TEST_SPEED = -0.3;
     public static final int DIO_COUNTER = 9;
   }
 
