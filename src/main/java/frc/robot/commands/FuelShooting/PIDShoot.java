@@ -5,22 +5,30 @@
 package frc.robot.commands.FuelShooting;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.commands.PreFeeder.RunPreFeeder;
 import frc.robot.subsystems.MainRoller;
 import frc.robot.subsystems.PreFeeder;
 import frc.robot.subsystems.TopRoller;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
+//Runs Main shooter motors right away, and waits a bit to run the Prefeeder motor in parallel,
+//so the Main motors have a chance to come up to speed before fuel arrives
+
 public class PIDShoot extends ParallelCommandGroup {
-  /** Creates a new PIDShoot. */
+  /** Creates a new PIDMainandFeed*/
   public PIDShoot(MainRoller mainRoller, TopRoller topRoller, PreFeeder preFeeder) {
     addCommands(
+
       new PIDMainRoller(mainRoller, Constants.ShooterConstants.MAIN_MOTOR_RPM),
-    //  new PIDTopRoller(topRoller, Constants.Shooter.TOP_MOTOR_RPM)
-      new RunPreFeeder(preFeeder, Constants.PreFeederConstants.TEST_SPEED)
+    //new PIDTopRoller(topRoller, Constants.Shooter.TOP_MOTOR_RPM)
+     
+      new SequentialCommandGroup(
+        new WaitCommand(0.25), //adjust as needed to get shooter motors to speed 
+        new RunPreFeeder(preFeeder, Constants.PreFeederConstants.TEST_SPEED)
+      )
+    
     );
   }
 }
