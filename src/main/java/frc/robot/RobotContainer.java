@@ -190,9 +190,9 @@ public class RobotContainer {
     //  a.whileTrue(manualMainRoller);
     //  b.whileTrue(manualTopRoller);
     //  y.whileTrue(manualShoot);
-    downPov.whileTrue(pidMainRoller);
+    //downPov.whileTrue(pidMainRoller);
     //  upPov.whileTrue(pidTopRoller);
-    upPov.whileTrue(pidShoot);
+    //upPov.whileTrue(pidShoot);
 
     // Shooter Pivot
     // x.onTrue(pidPivot);
@@ -218,11 +218,13 @@ public class RobotContainer {
 
     // Feeder
     // b.whileTrue(runFloorTesting);
-    a.whileTrue(runPreFeederWithCounterTesting); // i believe the counter still is while, check tho
-    b.whileTrue(runPreFeederTesting);
+    //a.whileTrue(runPreFeederWithCounterTesting); // i believe the counter still is while, check tho
+    //b.whileTrue(runPreFeederTesting);
 
-    x.whileTrue(pidShoot);
-    rb.whileTrue(manualShoot);
+    //x.whileTrue(pidShoot);
+    //rb.whileTrue(manualShoot);
+
+    a.whileTrue(runIntakeTest);
   }
   
     public Command getAutonomousCommand() {
