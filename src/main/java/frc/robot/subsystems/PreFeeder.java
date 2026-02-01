@@ -5,7 +5,9 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.wpilibj.Counter;
@@ -13,11 +15,13 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Constants.PreFeederConstants;
 
 public class PreFeeder extends SubsystemBase {
   
   private TalonFX preFeederMotor;
   private TalonFXConfiguration motorConfig;
+  private VelocityVoltage m_request;
 
   public static Counter counter;
   public boolean isCounterUnplugged = false;
@@ -28,10 +32,24 @@ public class PreFeeder extends SubsystemBase {
     preFeederMotor = new TalonFX(Constants.MotorControllers.ID_PRE_FEEDER, "usb");
     
     motorConfig = new TalonFXConfiguration();
+    
+    motorConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive; //tbd
     motorConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
     motorConfig.CurrentLimits.SupplyCurrentLimit = Constants.MotorControllers.SMART_CURRENT_LIMIT;
     motorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-    preFeederMotor.getConfigurator().apply(motorConfig);
+  
+      // set slot 0 gains TODO tune these, find info online (velocity control - no Ks or kA) 
+      var slot0Configs = motorConfig.Slot0;  
+        slot0Configs.kV = Constants.PreFeederConstants.KV_PF; // FF. A velocity target of 1 rps results in 0.12 V output
+        slot0Configs.kP = PreFeederConstants.KP_PF; //4.8
+        slot0Configs.kI = PreFeederConstants.KI_PF;
+        slot0Configs.kD = PreFeederConstants.KD_PF;
+
+      preFeederMotor.getConfigurator().apply(motorConfig);
+
+      m_request = new VelocityVoltage(0).withSlot(0);
+
+
 
     try {
       lightSensorState = new DigitalInput(Constants.PreFeederConstants.DIO_COUNTER);
@@ -93,6 +111,15 @@ public class PreFeeder extends SubsystemBase {
     preFeederMotor.set(speed);
   }
 
+  public void PreFeederPID(double targetTopVelocity) {//the target velocity below needs to be in revs per second
+    preFeederMotor.setControl(m_request.withVelocity(targetTopVelocity).withFeedForward(Constants.PreFeederConstants.KV_PF));
+  }
+
+    public double getPreFeederVelocity() {
+    return preFeederMotor.getRotorVelocity().getValueAsDouble();
+  }
+  
+
   public void stopPreFeeder() {
     preFeederMotor.set(0);
   }
@@ -103,5 +130,6 @@ public class PreFeeder extends SubsystemBase {
     SmartDashboard.putBoolean("is sensor unplugged:", isSensorUnplugged);
     SmartDashboard.putBoolean("PreFeeder Sensor State is:", getLightSensorState());
     SmartDashboard.putNumber("PreFeeder speed:", getPreFeederSpeed());
+    SmartDashboard.putNumber("PreFeeder velocity: ", getPreFeederVelocity());
   }
 }

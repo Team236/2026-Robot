@@ -109,12 +109,12 @@ public final class Constants {
   public static class ClimberConstants {
     public static final int DIO_CLIMBER_TOP = 6;
     public static final int DIO_CLIMBER_BOTTOM = 7;
-
+  public static final int PWM_CLIMB_LOCK = 0;
     public static final double MAX_ENCODER_REVS = 50.0; // MotionMagic/PID stops if here; DO NOT PID CLIMB HIGHER 
     public static final double CLIMBER_UP_SPEED = 0.1;
     public static final double CLIMBER_DOWN_SPEED = -0.1;
     public static final double TEST_MM_REVS = 35.0;
-    public static final int PWM_CLIMB_LOCK = 0;
+  
   }
 
   public static  class IntakeConstants {
@@ -129,6 +129,11 @@ public final class Constants {
   public static class PreFeederConstants {
     public static final double TEST_SPEED = -0.3;
     public static final int DIO_COUNTER = 9;
+    //Needs tuning - we did not tune prefeeder yet!!!!
+    public static final double KV_PF = 0.116; // feed forward
+    public static final double KP_PF = 0.4;
+    public static final double KI_PF = 0;
+    public static final double KD_PF = 0;
   }
 
   public static final class Targeting {
