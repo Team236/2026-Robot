@@ -12,22 +12,22 @@ import frc.robot.subsystems.PreFeeder;
 public class PIDPrefeeder extends Command {
  
   private PreFeeder  preFeeder;
-  private double speed;
+  private double preFeedRPS, preFeedRPM;
 
-  public PIDPrefeeder(PreFeeder feeder, double speed) {
+  public PIDPrefeeder(PreFeeder feeder, double preFeedRPM) {
     this.preFeeder = feeder;
-    this.speed = speed;
+    this.preFeedRPM = preFeedRPM;
     addRequirements(this.preFeeder);
   }
 
   @Override
   public void initialize() {
-
+  preFeedRPS = preFeedRPM / 60.0;
   }
 
   @Override
   public void execute() {
-    preFeeder.setPreFeederSpeed(speed);
+    preFeeder.PreFeederPID(preFeedRPS);
 
   }
 

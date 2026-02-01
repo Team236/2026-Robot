@@ -129,6 +129,7 @@ public final class Constants {
   public static class PreFeederConstants {
     public static final double TEST_SPEED = -0.3;
     public static final int DIO_COUNTER = 9;
+    public static final int DESIRED_RPM = 2000;
     //Needs tuning - we did not tune prefeeder yet!!!!
     public static final double KV_PF = 0.116; // feed forward
     public static final double KP_PF = 0.4;

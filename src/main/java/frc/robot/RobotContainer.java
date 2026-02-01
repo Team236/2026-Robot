@@ -34,6 +34,7 @@ import frc.robot.commands.ClimberCommands.ClimberSetSpeed;
 import frc.robot.commands.Floor.RunFloor;
 import frc.robot.commands.Intake.RunIntake;
 import frc.robot.commands.Intake.RunOuttake;
+import frc.robot.commands.PreFeeder.PIDPrefeeder;
 import frc.robot.commands.PreFeeder.RunPreFeeder;
 import frc.robot.commands.PreFeeder.RunPreFeederWithCounter;
 // import frc.robot.commands.CoralHoldCommands.CoralSeqGrabCount;
@@ -121,6 +122,7 @@ public class RobotContainer {
   // PREFEEDER
   private final RunPreFeeder runPreFeederTesting = new RunPreFeeder(preFeeder, Constants.PreFeederConstants.TEST_SPEED);
   private final RunPreFeederWithCounter runPreFeederWithCounterTesting = new RunPreFeederWithCounter(preFeeder, Constants.PreFeederConstants.TEST_SPEED);
+  private final PIDPrefeeder pidPrefeeder = new PIDPrefeeder(preFeeder, Constants.PreFeederConstants.DESIRED_RPM);
   
 // robot container -- contains subsystems, OI devices, and commands
   public RobotContainer() {
