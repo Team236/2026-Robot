@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
+import frc.robot.commands.PreFeeder.PIDPrefeeder;
 import frc.robot.commands.PreFeeder.RunPreFeeder;
 import frc.robot.subsystems.MainRoller;
 import frc.robot.subsystems.PreFeeder;
@@ -25,8 +26,8 @@ public class PIDShoot extends ParallelCommandGroup {
     //new PIDTopRoller(topRoller, Constants.Shooter.TOP_MOTOR_RPM)
      
       new SequentialCommandGroup(
-        new WaitCommand(0.25), //adjust as needed to get shooter motors to speed 
-        new RunPreFeeder(preFeeder, Constants.PreFeederConstants.TEST_SPEED)
+        new WaitCommand(2), //adjust as needed to get shooter motors to speed 
+        new PIDPrefeeder(preFeeder, Constants.PreFeederConstants.DESIRED_RPM)
       )
     
     );

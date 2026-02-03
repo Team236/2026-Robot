@@ -81,7 +81,7 @@ public class TopRoller extends SubsystemBase {
   }
 
   public double getTopVelocity() {
-    return leftTopMotor.getRotorVelocity().getValueAsDouble();
+    return 60 * leftTopMotor.getRotorVelocity().getValueAsDouble();
   }
 
   public void stopTop(){

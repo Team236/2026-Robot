@@ -116,7 +116,7 @@ public class PreFeeder extends SubsystemBase {
   }
 
     public double getPreFeederVelocity() {
-    return preFeederMotor.getRotorVelocity().getValueAsDouble();
+    return -60 * preFeederMotor.getRotorVelocity().getValueAsDouble();
   }
   
 

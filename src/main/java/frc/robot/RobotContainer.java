@@ -223,7 +223,10 @@ public class RobotContainer {
     //a.whileTrue(runPreFeederWithCounterTesting); // i believe the counter still is while, check tho
     //b.whileTrue(runPreFeederTesting);
 
-    a.whileTrue(pidShoot);
+    x.whileTrue(pidPrefeeder);
+
+    a.whileTrue(pidMainRoller);
+    b.whileTrue(pidShoot);
     //rb.whileTrue(manualShoot);
 
     // a.whileTrue(runIntakeTest);

@@ -99,7 +99,7 @@ public class MainRoller extends SubsystemBase {
 
   // this value is in RPS, rotations per second between -512 to 512
   public double getMainVelocity() {
-    return leftMainMotor.getRotorVelocity().getValueAsDouble();
+    return 60 * leftMainMotor.getRotorVelocity().getValueAsDouble();
   }
 
 
