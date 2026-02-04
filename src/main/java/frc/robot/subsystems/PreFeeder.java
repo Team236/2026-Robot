@@ -115,7 +115,7 @@ public class PreFeeder extends SubsystemBase {
     preFeederMotor.setControl(m_request.withVelocity(targetTopVelocity).withFeedForward(Constants.PreFeederConstants.KV_PF));
   }
 
-    public double getPreFeederVelocity() {
+    public double getPreFeederVelocity() { //Returns velocity in RPM
     return 60 * preFeederMotor.getRotorVelocity().getValueAsDouble();
   }
   

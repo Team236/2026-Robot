@@ -80,7 +80,7 @@ public class TopRoller extends SubsystemBase {
     return leftTopMotor.get();
   }
 
-  public double getTopVelocity() {
+  public double getTopVelocity() {//Returns velocity in RPM
     return 60 * leftTopMotor.getRotorVelocity().getValueAsDouble();
   }
 
