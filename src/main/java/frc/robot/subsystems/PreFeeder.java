@@ -32,15 +32,15 @@ public class PreFeeder extends SubsystemBase {
     preFeederMotor = new TalonFX(Constants.MotorControllers.ID_PRE_FEEDER, "usb");
     
     motorConfig = new TalonFXConfiguration();
-    
-    motorConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive; //tbd
+
+    motorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
     motorConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
     motorConfig.CurrentLimits.SupplyCurrentLimit = Constants.MotorControllers.SMART_CURRENT_LIMIT;
     motorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
   
       // set slot 0 gains TODO tune these, find info online (velocity control - no Ks or kA) 
       var slot0Configs = motorConfig.Slot0;  
-        slot0Configs.kV = Constants.PreFeederConstants.KV_PF; // FF. A velocity target of 1 rps results in 0.12 V output
+        slot0Configs.kV = Constants.PreFeederConstants.KV_PF; // FF
         slot0Configs.kP = PreFeederConstants.KP_PF; //4.8
         slot0Configs.kI = PreFeederConstants.KI_PF;
         slot0Configs.kD = PreFeederConstants.KD_PF;
@@ -116,7 +116,7 @@ public class PreFeeder extends SubsystemBase {
   }
 
     public double getPreFeederVelocity() {
-    return -60 * preFeederMotor.getRotorVelocity().getValueAsDouble();
+    return 60 * preFeederMotor.getRotorVelocity().getValueAsDouble();
   }
   
 

@@ -84,7 +84,7 @@ public class MainRoller extends SubsystemBase {
 
   // METHODS START HERE:
 
-  public void MainPID(double targetMainVelocity) {//the target velocity in revs per second
+  public void MainPID(double targetMainVelocity) {//the target velocity must be in revs per second
     leftMainMotor.setControl(leftMain_m_request.withVelocity(targetMainVelocity).withFeedForward(Constants.ShooterConstants.KV_MAIN));
   }
 

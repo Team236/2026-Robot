@@ -14,10 +14,12 @@ public class PIDMainRoller extends Command {
   private double mainMotorSetRPM, mainRPS;
 
   /** Creates a new PIDMainRoller */
+
+  //MUST PASS IN DESIRED VELOCITY IN RPM IN THIS COMMAND
   public PIDMainRoller(MainRoller mainRoller, double mainMotorSetRPM) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.mainRoller = mainRoller; 
-    this.mainMotorSetRPM = mainMotorSetRPM; //tbd
+    this.mainMotorSetRPM = mainMotorSetRPM; 
     addRequirements(mainRoller);
   }
 

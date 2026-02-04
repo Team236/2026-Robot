@@ -13,6 +13,8 @@ public class PIDTopRoller extends Command {
   private double topMotorSetRPM, topRPS;
 
   /** Creates a new PIDTopRoller */
+
+  //MUST PASS IN DESIRED VELOCITY IN RPM IN THIS COMMAND
   public PIDTopRoller(TopRoller topRoller, double topMotorSetRPM) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.topRoller = topRoller; 

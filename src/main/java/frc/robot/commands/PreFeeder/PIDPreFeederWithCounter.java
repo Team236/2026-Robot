@@ -14,6 +14,7 @@ public class PIDPreFeederWithCounter extends Command {
   private PreFeeder  preFeeder;
   private double preFeedRPS, preFeedRPM;
 
+  //MUST PASS IN DESIRED VELOCITY IN RPM IN THIS COMMAND
   public PIDPreFeederWithCounter(PreFeeder feeder, double preFeedRPM) {
     this.preFeeder = feeder;
     this.preFeedRPM = preFeedRPM;
