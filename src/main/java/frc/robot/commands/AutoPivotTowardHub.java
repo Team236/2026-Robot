@@ -36,7 +36,7 @@ public class AutoPivotTowardHub extends Command {
 
     // need help understanding what k (difference) and d (rate) should be
     pidController = new PIDController(
-        4,
+        5,
         0.0,
         0.0);
 
