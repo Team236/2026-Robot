@@ -22,7 +22,7 @@ public class MainRoller extends SubsystemBase {
 
   private TalonFXConfiguration leftMainConfig, rightMainConfig; //, midMainConfig;
 
-  private VelocityVoltage leftMain_m_request; 
+  private VelocityVoltage leftMain_m_request, rightMain_m_request;
 
 
   /** Creates a new MainRoller. */
@@ -62,8 +62,9 @@ public class MainRoller extends SubsystemBase {
         slot0RMConfigs.kD = Constants.ShooterConstants.KD_MAIN;
 
       rightMainMotor.getConfigurator().apply(rightMainConfig);
-      rightMainMotor.setControl(new Follower(Constants.MotorControllers.ID_SHOOTER_LEFT_MAIN, MotorAlignmentValue.Opposed));
+      leftMain_m_request = new VelocityVoltage(0).withSlot(0);
 
+      // rightMainMotor.setControl(new Follower(Constants.MotorControllers.ID_SHOOTER_LEFT_MAIN, MotorAlignmentValue.Opposed));
     /*midMainMotor = new TalonFX(Constants.MotorControllers.ID_SHOOTER_MID_MAIN, "usb"); //will be rio bus
         midMainConfig = new TalonFXConfiguration();
         midMainConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive; //tbd
@@ -86,31 +87,42 @@ public class MainRoller extends SubsystemBase {
 
   public void MainPID(double targetMainVelocity) {//the target velocity must be in revs per second
     leftMainMotor.setControl(leftMain_m_request.withVelocity(targetMainVelocity).withFeedForward(Constants.ShooterConstants.KV_MAIN));
+    rightMainMotor.setControl(rightMain_m_request.withVelocity(targetMainVelocity).withFeedForward(Constants.ShooterConstants.KV_MAIN));
   }
 
   public void spinMainMotor (double manualMainSpeed) {
     leftMainMotor.set(manualMainSpeed); // between -1 and 1
+    rightMainMotor.set(manualMainSpeed); // between -1 and 1
   }
 
   // this is motor speed between -1.0 and 1.0
-  public double getMainSpeed() {
+  public double getLeftMainSpeed() {
     return leftMainMotor.get();
   }
 
-  public double getMainVelocity() { //Returns velocity in RPM
+  public double getRightMainSpeed() {
+    return rightMainMotor.get();
+  }
+
+  public double getLeftMainVelocity() { //Returns velocity in RPM
     return 60 * leftMainMotor.getRotorVelocity().getValueAsDouble();
   }
 
+  public double getRightMainVelocity() {
+    return 60 * rightMainMotor.getRotorVelocity().getValueAsDouble();
+  }
 
   public void stopMain(){
       leftMainMotor.stopMotor();
+      rightMainMotor.stopMotor();
     }
 
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("main velocity: ", getMainVelocity());
+    SmartDashboard.putNumber("left main velocity: ", getLeftMainVelocity());
+    SmartDashboard.putNumber("right main velocity: ", getRightMainVelocity());
   }
 
 }

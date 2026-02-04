@@ -239,7 +239,7 @@ public class RobotContainer {
     // b.whileTrue(runOuttakeTest);
   }
   
-    public Command getAutonomousCommand() {
+  public Command getAutonomousCommand() {
     return AutoSwitchHelpers.getCommand();
   }
 
