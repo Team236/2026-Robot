@@ -34,6 +34,7 @@ import frc.robot.commands.ClimberCommands.ClimberSetSpeed;
 import frc.robot.commands.Floor.RunFloor;
 import frc.robot.commands.Intake.RunIntake;
 import frc.robot.commands.Intake.RunOuttake;
+import frc.robot.commands.PreFeeder.PIDPreFeederWithCounter;
 import frc.robot.commands.PreFeeder.PIDPrefeeder;
 import frc.robot.commands.PreFeeder.RunPreFeeder;
 import frc.robot.commands.PreFeeder.RunPreFeederWithCounter;
@@ -123,6 +124,7 @@ public class RobotContainer {
   private final RunPreFeeder runPreFeederTesting = new RunPreFeeder(preFeeder, Constants.PreFeederConstants.TEST_SPEED);
   private final RunPreFeederWithCounter runPreFeederWithCounterTesting = new RunPreFeederWithCounter(preFeeder, Constants.PreFeederConstants.TEST_SPEED);
   private final PIDPrefeeder pidPrefeeder = new PIDPrefeeder(preFeeder, Constants.PreFeederConstants.DESIRED_RPM);
+  private final PIDPreFeederWithCounter pidPreFeederWithCounter = new PIDPreFeederWithCounter(preFeeder, Constants.PreFeederConstants.DESIRED_RPM);
   
 // robot container -- contains subsystems, OI devices, and commands
   public RobotContainer() {
@@ -217,16 +219,20 @@ public class RobotContainer {
     // Intake
     // a.whileTrue(runIntakeTest);
     // b.whileTrue(runOuttakeTest);
-
+  
     // Feeder
     // b.whileTrue(runFloorTesting);
     //a.whileTrue(runPreFeederWithCounterTesting); // i believe the counter still is while, check tho
     //b.whileTrue(runPreFeederTesting);
 
-    x.whileTrue(pidPrefeeder);
+    rightPov.whileTrue(pidPrefeeder);
+    leftPov.whileTrue(pidMainRoller);
 
-    a.whileTrue(pidMainRoller);
-    b.whileTrue(pidShoot);
+    lb.whileTrue(pidPreFeederWithCounter);
+
+
+
+    upPov.whileTrue(pidShoot);
     //rb.whileTrue(manualShoot);
 
     // a.whileTrue(runIntakeTest);
