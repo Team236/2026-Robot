@@ -1,4 +1,3 @@
-
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
@@ -8,7 +7,6 @@ package frc.robot;
 import java.util.Set;
 
 import com.pathplanner.lib.auto.NamedCommands;
-import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -23,18 +21,47 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.AutoPivotTowardHub;
 import frc.robot.commands.TeleopSwerve;
+import frc.robot.subsystems.Swerve;
+/*
+import frc.robot.commands.FuelShooting.ManualMainRoller;
+import frc.robot.commands.FuelShooting.ManualShoot;
+import frc.robot.commands.FuelShooting.ManualTopRoller;
+import frc.robot.commands.FuelShooting.PIDMainRoller;
+import frc.robot.commands.FuelShooting.PIDShoot;
+import frc.robot.commands.FuelShooting.PIDTopRoller;
+import frc.robot.commands.ClimberCommands.ClimberLock;
+import frc.robot.commands.ClimberCommands.ClimberMotionMagic;
+import frc.robot.commands.ClimberCommands.ClimberSetSpeed;
+import frc.robot.commands.Floor.RunFloor;
+import frc.robot.commands.Intake.RunIntake;
+import frc.robot.commands.Intake.RunOuttake;
+import frc.robot.commands.PreFeeder.PIDPreFeederWithCounter;
+import frc.robot.commands.PreFeeder.PIDPrefeeder;
+import frc.robot.commands.PreFeeder.RunPreFeeder;
+import frc.robot.commands.PreFeeder.RunPreFeederWithCounter;
 // import frc.robot.commands.CoralHoldCommands.CoralSeqGrabCount;
 import frc.robot.commands.PathPlanner.SequentialPathTest;
 import frc.robot.commands.PathPlanner.SequentialPathTest2;
 import frc.robot.commands.PathPlanner.SequentialPathTest3;
 import frc.robot.commands.PathPlanner.SequentialPathsCombined;
+import frc.robot.subsystems.MainRoller;
+import frc.robot.commands.ShooterPivotCommands.ManualPivot;
+import frc.robot.commands.ShooterPivotCommands.PIDPivot;
+import frc.robot.subsystems.ShooterPivot;
+import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Floor;
+import frc.robot.subsystems.PreFeeder;
 import frc.robot.subsystems.Swerve;
+import frc.robot.subsystems.TopRoller;
+import frc.robot.commands.BinRelease.ManualMove;
+import frc.robot.commands.BinRelease.PIDMove;
+import frc.robot.subsystems.BinRelease;
 
-
+*/
 public class RobotContainer {
-
+  
   // controllers
   XboxController driverController = new XboxController(Constants.Controller.USB_DRIVECONTROLLER);
   XboxController auxController = new XboxController(Constants.Controller.USB_AUXCONTROLLER);
@@ -53,17 +80,56 @@ public class RobotContainer {
   // drive buttons
   private final JoystickButton zeroGyro = new JoystickButton(driverController, XboxController.Button.kY.value);
   private final JoystickButton robotCentric = new JoystickButton(driverController, XboxController.Button.kLeftBumper.value);
-
+/* 
   // subsystems
-  private final Swerve s_Swerve = new Swerve();
+  private final ShooterPivot shooterPivot = new ShooterPivot();
+  private final MainRoller  mainRoller = new MainRoller();
+  private final TopRoller  topRoller = new TopRoller();
+  private final BinRelease binRelease = new BinRelease();
+  private final Climber climber = new Climber();
+  private final Intake intake = new Intake();  
+  private final Floor floor = new Floor();
+  private final PreFeeder preFeeder = new PreFeeder();
+ */
+private final Swerve s_Swerve = new Swerve();
+  //COMMANDS:
+/* 
+//PIVOT
+  private final ManualPivot manualPivotExtend = new ManualPivot(shooterPivot, Constants.ShooterPivotConstants.CONSTANT_FORWARD_SPEED);
+  private final ManualPivot manualPivotRetract = new ManualPivot(shooterPivot, Constants.ShooterPivotConstants.CONSTANT_REVERSE_SPEED);
+  private final PIDPivot pidPivot = new PIDPivot(shooterPivot, Constants.ShooterPivotConstants.TARGET_REVS);
+//BIN RELEASE
+  private final ManualMove manualExtend = new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_EXT_SPEED); // TBD TESTING VALUES
+  private final ManualMove manualRetract = new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_RET_SPEED); // TBD TESTING VALUES
+  private final PIDMove pidToPositionTestA = new PIDMove(binRelease, Constants.BinReleaseConstants.POSITION1); // TBD TESTING VALUES, PID VALUES NEEDED
+//CLIMBER
+  private final ClimberMotionMagic climberMotionMagicTest = new ClimberMotionMagic(climber, Constants.ClimberConstants.TEST_MM_REVS);
+  private final ClimberSetSpeed climberManualUp = new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_UP_SPEED);
+  private final ClimberSetSpeed climberManualDown = new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_DOWN_SPEED);
+  private final ClimberLock climberLock = new ClimberLock(climber, 1.0); // TBD TESTING VALUE
+  private final ClimberLock climberUnlock = new ClimberLock(climber, 0.0); // TBD TESTING VALUE
 
-  // commands
-  
-  // robot container -- contains subsystems, OI devices, and commands
+
+//SHOOTER
+  private final ManualMainRoller manualMainRoller = new ManualMainRoller(mainRoller, Constants.ShooterConstants.MAIN_MOTOR_SPEED);
+  private final ManualTopRoller manualTopRoller = new ManualTopRoller(topRoller, Constants.ShooterConstants.TOP_MOTOR_SPEED);
+  private final ManualShoot manualShoot = new ManualShoot(mainRoller, topRoller, preFeeder);
+  private final PIDMainRoller pidMainRoller = new PIDMainRoller(mainRoller, Constants.ShooterConstants.MAIN_MOTOR_RPM);
+  private final PIDTopRoller pidTopRoller = new PIDTopRoller(topRoller, Constants.ShooterConstants.TOP_MOTOR_RPM);
+  private final PIDShoot pidShoot = new PIDShoot(mainRoller, topRoller, preFeeder);
+//INTAKE  
+  private final RunIntake runIntakeTest = new RunIntake(intake, Constants.IntakeConstants.INTAKE_SPEED);
+  private final RunOuttake runOuttakeTest = new RunOuttake(intake, Constants.IntakeConstants.OUTTAKE_SPEED);
+  private final RunFloor runFloorTesting = new RunFloor(floor, Constants.FloorConstants.TEST_SPEED);
+
+  // PREFEEDER
+  private final RunPreFeeder runPreFeederTesting = new RunPreFeeder(preFeeder, Constants.PreFeederConstants.TEST_SPEED);
+  private final RunPreFeederWithCounter runPreFeederWithCounterTesting = new RunPreFeederWithCounter(preFeeder, Constants.PreFeederConstants.TEST_SPEED);
+  private final PIDPrefeeder pidPrefeeder = new PIDPrefeeder(preFeeder, Constants.PreFeederConstants.DESIRED_RPM);
+  private final PIDPreFeederWithCounter pidPreFeederWithCounter = new PIDPreFeederWithCounter(preFeeder, Constants.PreFeederConstants.DESIRED_RPM);
+  */
+// robot container -- contains subsystems, OI devices, and commands
   public RobotContainer() {
-    // auto maps
-    //AutoSwitchHelpers.put(new boolean[] {true, true, true, true}, Commands.none()); *EXAMPLE
-
     s_Swerve.setDefaultCommand(
       new TeleopSwerve(
         s_Swerve, 
@@ -73,25 +139,22 @@ public class RobotContainer {
         () -> robotCentric.getAsBoolean()
       )
     );
-      
-    // named commands
-    //NamedCommands.registerCommand("coralGrab", coralGrab); *EXAMPLE
 
     configureBindings();
+
+    
   }
 
   private void configureBindings() {
-    
-    zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
 
     // driver controller
-    JoystickButton a = new JoystickButton(driverController, Constants.XboxController.A);
-    JoystickButton b = new JoystickButton(driverController, Constants.XboxController.B);
+    JoystickButton a = new JoystickButton(driverController, Constants.XboxController.A); // feeder
+    JoystickButton b = new JoystickButton(driverController, Constants.XboxController.B); // feeder
     JoystickButton x = new JoystickButton(driverController, Constants.XboxController.X);
     JoystickButton y = new JoystickButton(driverController, Constants.XboxController.Y); // swerve
 
     JoystickButton lb = new JoystickButton(driverController, Constants.XboxController.LB); // swerve
-    JoystickButton rb = new JoystickButton(driverController, Constants.XboxController.RB);
+    JoystickButton rb = new JoystickButton(driverController, Constants.XboxController.RB); 
     JoystickButton lm = new JoystickButton(driverController, Constants.XboxController.LM);
     JoystickButton rm = new JoystickButton(driverController, Constants.XboxController.RM);
 
@@ -100,8 +163,8 @@ public class RobotContainer {
 
     POVButton rightPov = new POVButton(driverController,Constants.XboxController.POVXbox.RIGHT_ANGLE);
     POVButton leftPov = new POVButton(driverController,Constants.XboxController.POVXbox.LEFT_ANGLE);
-    POVButton upPov = new POVButton(driverController,Constants.XboxController.POVXbox.UP_ANGLE);
-    POVButton downPov = new POVButton(driverController,Constants.XboxController.POVXbox.DOWN_ANGLE);
+    POVButton upPov = new POVButton(driverController,Constants.XboxController.POVXbox.UP_ANGLE); 
+    POVButton downPov = new POVButton(driverController,Constants.XboxController.POVXbox.DOWN_ANGLE); 
 
     Trigger lt = new Trigger(() -> driverController.getRawAxis(Constants.XboxController.AxesXbox.LTrig) > 0.5);
     Trigger rt = new Trigger(() -> driverController.getRawAxis(Constants.XboxController.AxesXbox.RTrig) > 0.5);
@@ -129,17 +192,59 @@ public class RobotContainer {
     Trigger rt1 = new Trigger(() -> auxController.getRawAxis(Constants.XboxController.AxesXbox.RTrig) > 0.5);
 
     // command binds
-    //a.onTrue(algaeGrab).onTrue(l3_Score); *EXAMPLE
-    lt.whileTrue(new AutoPivotTowardHub(
-      s_Swerve, 
-      () -> -driverController.getRawAxis(translationAxis), 
-      () -> -driverController.getRawAxis(strafeAxis), 
-      () -> -driverController.getRawAxis(rotationAxis), 
-      () -> robotCentric.getAsBoolean()
-    ));
+    // a.onTrue(algaeGrab).onTrue(l3_Score); *EXAMPLE
+
+    // Fuel Shooter
+    //  a.whileTrue(manualMainRoller);
+    //  b.whileTrue(manualTopRoller);
+    //  y.whileTrue(manualShoot);
+    //downPov.whileTrue(pidMainRoller);
+    //  upPov.whileTrue(pidTopRoller);
+    //upPov.whileTrue(pidShoot);
+
+    // Shooter Pivot
+    // x.onTrue(pidPivot);
+    // b.whileTrue(manualPivotExtend);
+    // a.whileTrue(manualPivotRetract);
+
+    // Bin Release
+    // upPov.whileTrue(manualExtend);
+    // downPov.whileTrue(manualRetract);
+    // b.onTrue(pidToPositionTestA);
+
+    // Climber
+   // x.onTrue(climberMotionMagicTest);
+   // b.whileTrue(climberManualUp);
+   // a.whileTrue(climberManualDown);
+   // upPov.onTrue(climberLock);
+   // downPov.onTrue(climberUnlock);
+
+    
+    // Intake
+    // a.whileTrue(runIntakeTest);
+    // b.whileTrue(runOuttakeTest);
+  
+    // Feeder
+    // b.whileTrue(runFloorTesting);
+    //a.whileTrue(runPreFeederWithCounterTesting); // i believe the counter still is while, check tho
+    //b.whileTrue(runPreFeederTesting);
+
+    //a.whileTrue(pidPrefeeder);
+    //b.whileTrue(pidMainRoller);
+
+    //lb.whileTrue(pidPreFeederWithCounter);
+
+    //upPov.whileTrue(pidShoot);
+    //rb.whileTrue(manualShoot);
+
+    // a.whileTrue(runIntakeTest);
+    // b.whileTrue(runOuttakeTest);
+    upPov.onTrue(Commands.defer(() -> s_Swerve.followPathCommand("hub-center-to-tower-left"), Set.of(s_Swerve)));
+    downPov.onTrue(Commands.defer(() -> s_Swerve.followPathCommand("hub-center-to-tower-right"), Set.of(s_Swerve)));
+  }
+  
+    public Command getAutonomousCommand() {
+    return AutoSwitchHelpers.getCommand();
   }
 
-  public Command getAutonomousCommand() {
-    return new PathPlannerAuto("AutoTest");
-  }
 }
