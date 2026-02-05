@@ -50,7 +50,7 @@ public class MainRoller extends SubsystemBase {
 
     rightMainMotor = new TalonFX(Constants.MotorControllers.ID_SHOOTER_RIGHT_MAIN, "usb"); //will be rio bus
         rightMainConfig = new TalonFXConfiguration();
-        rightMainConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive; //tbd
+        rightMainConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive; //tbd
         rightMainConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
         rightMainConfig.CurrentLimits.SupplyCurrentLimit = Constants.MotorControllers.SMART_CURRENT_LIMIT; //tbd
         rightMainConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
@@ -62,9 +62,9 @@ public class MainRoller extends SubsystemBase {
         slot0RMConfigs.kD = Constants.ShooterConstants.KD_MAIN;
 
       rightMainMotor.getConfigurator().apply(rightMainConfig);
-      leftMain_m_request = new VelocityVoltage(0).withSlot(0);
-
+      rightMain_m_request = new VelocityVoltage(0).withSlot(0);
       // rightMainMotor.setControl(new Follower(Constants.MotorControllers.ID_SHOOTER_LEFT_MAIN, MotorAlignmentValue.Opposed));
+
     /*midMainMotor = new TalonFX(Constants.MotorControllers.ID_SHOOTER_MID_MAIN, "usb"); //will be rio bus
         midMainConfig = new TalonFXConfiguration();
         midMainConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive; //tbd

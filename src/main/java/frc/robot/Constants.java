@@ -53,14 +53,14 @@ public final class Constants {
     public static final int ID_BIN_REL = 8;
     public static final int ID_INTAKE_LEFT = 9; 
     public static final int ID_FLOOR = 10; 
-    public static final int ID_SHOOTER_LEFT_MAIN = 11;
-    public static final int ID_SHOOTER_RIGHT_MAIN = 12;
+    public static final int ID_SHOOTER_LEFT_MAIN = 12; // 11
+    public static final int ID_SHOOTER_RIGHT_MAIN = 14; // 12
    // public static final int ID_SHOOTER_MID_MAIN = 17;
     public static final int ID_SHOOTER_LEFT_TOP = 16;
     public static final int ID_SHOOTER_RIGHT_TOP = 17;
     public static final int ID_SHOOTER_PIVOT = 15;
     public static final int ID_CLIMBER = 13; 
-    public static final int ID_PRE_FEEDER = 14; //placeholder;
+    public static final int ID_PRE_FEEDER = 11; //14
   }
 
   public static class ShooterConstants {
@@ -128,7 +128,7 @@ public final class Constants {
 
   public static class PreFeederConstants {
     public static final int DIO_COUNTER = 9;
-    public static final double TEST_SPEED = -0.3;
+    public static final double TEST_SPEED = 0.3;
     public static final int DESIRED_RPM = 2000;
     public static final double KV_PF = 0.112; // feed forward
     public static final double KP_PF = 0.35;

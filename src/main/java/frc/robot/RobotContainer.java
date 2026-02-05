@@ -225,15 +225,18 @@ public class RobotContainer {
     //a.whileTrue(runPreFeederWithCounterTesting); // i believe the counter still is while, check tho
     //b.whileTrue(runPreFeederTesting);
 
-    rightPov.whileTrue(pidPrefeeder);
-    leftPov.whileTrue(pidMainRoller);
+    // rightPov.whileTrue(pidPrefeeder);
+    // leftPov.whileTrue(pidMainRoller);
 
-    lb.whileTrue(pidPreFeederWithCounter);
+    // lb.whileTrue(pidPreFeederWithCounter);
 
 
-
+    rb.whileTrue(runPreFeederTesting);
+    x.whileTrue(pidPrefeeder);
     upPov.whileTrue(pidShoot);
-    //rb.whileTrue(manualShoot);
+    rightPov.whileTrue(manualShoot);
+    downPov.whileTrue(pidMainRoller);
+    leftPov.whileTrue(manualMainRoller);
 
     // a.whileTrue(runIntakeTest);
     // b.whileTrue(runOuttakeTest);
