@@ -231,8 +231,10 @@ public class RobotContainer {
     // lb.whileTrue(pidPreFeederWithCounter);
 
 
-    rb.whileTrue(runPreFeederTesting);
     x.whileTrue(pidPrefeeder);
+    rb.whileTrue(runPreFeederTesting);
+    a.whileTrue(pidPreFeederWithCounter);
+    b.whileTrue(runPreFeederWithCounterTesting);
     upPov.whileTrue(pidShoot);
     rightPov.whileTrue(manualShoot);
     downPov.whileTrue(pidMainRoller);
