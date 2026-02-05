@@ -241,6 +241,7 @@ private final Swerve s_Swerve = new Swerve();
     // b.whileTrue(runOuttakeTest);
     upPov.onTrue(Commands.defer(() -> s_Swerve.followPathCommand("hub-center-to-tower-left"), Set.of(s_Swerve)));
     downPov.onTrue(Commands.defer(() -> s_Swerve.followPathCommand("hub-center-to-tower-right"), Set.of(s_Swerve)));
+    rightPov.onTrue(Commands.defer(() -> s_Swerve.followPathCommand("hub-center-to-depot-center"), Set.of(s_Swerve)));
   }
   
     public Command getAutonomousCommand() {
