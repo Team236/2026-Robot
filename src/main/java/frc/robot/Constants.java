@@ -166,8 +166,8 @@ public final class Constants {
 }
 
 public static final class PathPlanner {
-  public static final PIDConstants TRANSLATION_PID_CONSTANTS = new PIDConstants(4.5, 0.0, 0.0); // seems like these affect movement of robot when it tries to correct itself (goes off path), not for just regular movement
-  public static final PIDConstants ROTATION_PID_CONSTANTS = new PIDConstants(5.0, 0.0, 0.0); // ^^^^
+  public static final PIDConstants TRANSLATION_PID_CONSTANTS = new PIDConstants(7.267, 0.0, 0.0); // seems like these affect movement of robot when it tries to correct itself (goes off path), not for just regular movement
+  public static final PIDConstants ROTATION_PID_CONSTANTS = new PIDConstants(5, 0.0, 0.0); // ^^^^
 }
 
 public static final class Swerve {
