@@ -50,10 +50,10 @@ public final class Constants {
   public static class MotorControllers {
     public static final int SMART_CURRENT_LIMIT = 40;
     //MOTOR ID NUMBERS (for swerve drive/steer motors - see Swerve below):
-    public static final int ID_BIN_REL = 8;
+    public static final int ID_BIN_REL = 11; //8
     public static final int ID_INTAKE_LEFT = 9; 
     public static final int ID_FLOOR = 10; 
-    public static final int ID_SHOOTER_LEFT_MAIN = 11; // 11
+    public static final int ID_SHOOTER_LEFT_MAIN = 8; // 11
     public static final int ID_SHOOTER_RIGHT_MAIN = 12; // 12
    // public static final int ID_SHOOTER_MID_MAIN = 17;
     public static final int ID_SHOOTER_LEFT_TOP = 16;
@@ -86,12 +86,15 @@ public final class Constants {
     public static final double KP = 0.2;  
     public static final double KI = 0;
     public static final double KD = 0;
-    public static final int DIO_EXT_LIMIT = 8;
-    public static final int DIO_RET_LIMIT = 10;
+    public static final int DIO_EXT_LIMIT = 6; //8
+    public static final int DIO_RET_LIMIT = 7; //10
     public static final int ENC_REVS_MAX = 1000; //TBD
     public static final double MANUAL_EXT_SPEED = 0.1;
     public static final double MANUAL_RET_SPEED = -0.1;
     public static final double POSITION1 = 50;
+    public static final double AGITATE_POSITION = 7.0; // revs
+    public static final double AGITATE_TOLERANCE = 0.5; // revs
+    public static final double AGITATE_TEST_SPEED = 0.1; // seconds for one full cycle
   }
 
   public static class ShooterPivotConstants {
@@ -107,8 +110,8 @@ public final class Constants {
   }
 
   public static class ClimberConstants {
-    public static final int DIO_CLIMBER_TOP = 6;
-    public static final int DIO_CLIMBER_BOTTOM = 7;
+    public static final int DIO_CLIMBER_TOP = 8; //6
+    public static final int DIO_CLIMBER_BOTTOM = 10; //7
     public static final int PWM_CLIMB_LOCK = 0;
     public static final double MAX_ENCODER_REVS = 50.0;//TBD MotionMagic/PID stops if here; DO NOT PID CLIMB HIGHER 
     public static final double CLIMBER_UP_SPEED = 0.1;

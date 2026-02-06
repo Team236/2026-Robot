@@ -17,6 +17,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
@@ -54,6 +56,7 @@ import frc.robot.subsystems.PreFeeder;
 import frc.robot.subsystems.Swerve;
 import frc.robot.subsystems.TopRoller;
 import frc.robot.commands.BinRelease.ManualMove;
+import frc.robot.commands.BinRelease.OtherAgitate;
 import frc.robot.commands.BinRelease.PIDMove;
 import frc.robot.subsystems.BinRelease;
 
@@ -231,14 +234,20 @@ public class RobotContainer {
     // lb.whileTrue(pidPreFeederWithCounter);
 
 
-    x.whileTrue(pidPrefeeder);
-    rb.whileTrue(runPreFeederTesting);
-    a.whileTrue(pidPreFeederWithCounter);
-    b.whileTrue(runPreFeederWithCounterTesting);
-    upPov.whileTrue(pidShoot);
-    rightPov.whileTrue(manualShoot);
-    downPov.whileTrue(pidMainRoller);
-    leftPov.whileTrue(manualMainRoller);
+    // x.whileTrue(pidPrefeeder);
+    // rb.whileTrue(runPreFeederTesting);
+    // a.whileTrue(pidPreFeederWithCounter);
+    // b.whileTrue(runPreFeederWithCounterTesting);
+    // upPov.whileTrue(pidShoot);
+    // rightPov.whileTrue(manualShoot);
+    // downPov.whileTrue(pidMainRoller);
+    // leftPov.whileTrue(manualMainRoller);
+    upPov.onTrue(
+      new SequentialCommandGroup(
+        new OtherAgitate(binRelease, Constants.BinReleaseConstants.AGITATE_POSITION),
+        new OtherAgitate(binRelease, 0)
+      )
+    );
 
     // a.whileTrue(runIntakeTest);
     // b.whileTrue(runOuttakeTest);

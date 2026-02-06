@@ -127,14 +127,27 @@ public class BinRelease extends SubsystemBase {
         if (isFullyRetracted() && (desiredRevs < getEncoderRevolutions())) {
             resetEncoder();
             stopMotor();
-           }
-          else if (isFullyExtended() && (desiredRevs > getEncoderRevolutions())) {
-            stopMotor();
-           } 
-           else {
-            binReleaseMotor.setControl(m_request.withPosition(desiredRevs));   
-            }
         }
+        else if (isFullyExtended() && (desiredRevs > getEncoderRevolutions())) {
+            stopMotor();
+        } 
+        else {
+            binReleaseMotor.setControl(m_request.withPosition(desiredRevs));   
+        }
+    }
+
+    public void PIDControlToPositionWithFF(double desiredRevs, double feedForward) {
+        if (isFullyRetracted() && (desiredRevs < getEncoderRevolutions())) {
+            resetEncoder();
+            stopMotor();
+        }
+        else if (isFullyExtended() && (desiredRevs > getEncoderRevolutions())) {
+            stopMotor();
+        } 
+        else {
+            binReleaseMotor.setControl(m_request.withPosition(desiredRevs).withFeedForward(feedForward));   
+        }
+    }
 
     @Override
     public void periodic()
