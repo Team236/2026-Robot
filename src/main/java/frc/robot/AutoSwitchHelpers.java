@@ -3,7 +3,9 @@ package frc.robot;
 import java.util.HashMap;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 
 public class AutoSwitchHelpers {
 
@@ -21,9 +23,7 @@ public class AutoSwitchHelpers {
         autoSwitch4 = new DigitalInput(Constants.DIO_AUTO_4);
     }
 
-    private AutoSwitchHelpers() {
-
-    }
+    private AutoSwitchHelpers() {}
 
     public static void put(boolean[] input, Command command) {
 
@@ -50,8 +50,14 @@ public class AutoSwitchHelpers {
     }
 
     public static Command getCommand() {
+        Command autoCommandToRun = autoMap.get(getSwitchMask());
         
-        return autoMap.get(getSwitchMask());
+        if (autoCommandToRun == null) { 
+            // SmartDashboard.putString("Auto", "No command set");
+            return Commands.none(); 
+        }
+        
+        return autoCommandToRun;
     }
 
     private static int convertToMask(boolean[] input)

@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
@@ -69,11 +70,12 @@ public class RobotContainer {
   XboxController driverController = new XboxController(Constants.Controller.USB_DRIVECONTROLLER);
   XboxController auxController = new XboxController(Constants.Controller.USB_AUXCONTROLLER);
 
-  // auto switches
-  private static DigitalInput autoSwitch1 = new DigitalInput(Constants.DIO_AUTO_1);
-  private static DigitalInput autoSwitch2 = new DigitalInput(Constants.DIO_AUTO_2);
-  private static DigitalInput autoSwitch3 = new DigitalInput(Constants.DIO_AUTO_3);
-  private static DigitalInput autoSwitch4 = new DigitalInput(Constants.DIO_AUTO_4);
+  // // auto switches
+  // commented out because these are now declared in AutoSwitchHelpers
+  // private static DigitalInput autoSwitch1 = new DigitalInput(Constants.DIO_AUTO_1);
+  // private static DigitalInput autoSwitch2 = new DigitalInput(Constants.DIO_AUTO_2);
+  // private static DigitalInput autoSwitch3 = new DigitalInput(Constants.DIO_AUTO_3);
+  // private static DigitalInput autoSwitch4 = new DigitalInput(Constants.DIO_AUTO_4);
 
   // drive controls
   private final int translationAxis = XboxController.Axis.kLeftY.value;
@@ -260,6 +262,12 @@ public class RobotContainer {
   }
   
   public Command getAutonomousCommand() {
+    SmartDashboard.putString("Auto", "nonthing yet");
+    AutoSwitchHelpers.put(new boolean[] {false, false, false, false}, new InstantCommand(() -> SmartDashboard.putString("Auto", "ffff")));
+    AutoSwitchHelpers.put(new boolean[] {false, true, false, true}, new InstantCommand(() -> SmartDashboard.putString("Auto", "ftft")));
+    AutoSwitchHelpers.put(new boolean[] {true, false, true, false}, new InstantCommand(() -> SmartDashboard.putString("Auto", "tftf")));
+    AutoSwitchHelpers.put(new boolean[] {true, true, true, true}, new InstantCommand(() -> SmartDashboard.putString("Auto", "tttt")));
+
     return AutoSwitchHelpers.getCommand();
   }
 
