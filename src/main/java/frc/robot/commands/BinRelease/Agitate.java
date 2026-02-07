@@ -10,11 +10,11 @@ import frc.robot.Constants;
 import frc.robot.subsystems.BinRelease;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class OtherAgitate extends Command {
+public class Agitate extends Command {
   private BinRelease binRelease;
   private double position;
   /** Creates a new OtherAgitate. */
-  public OtherAgitate(BinRelease binRelease, double position) {
+  public Agitate(BinRelease binRelease, double position) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.binRelease = binRelease;
     this.position = position;
