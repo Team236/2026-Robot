@@ -33,6 +33,7 @@ import frc.robot.commands.FuelShooting.PIDShoot;
 import frc.robot.commands.FuelShooting.PIDTopRoller;
 import frc.robot.commands.ClimberCommands.ClimberLock;
 import frc.robot.commands.ClimberCommands.ClimberMotionMagic;
+import frc.robot.commands.ClimberCommands.ClimberPID;
 import frc.robot.commands.ClimberCommands.ClimberSetSpeed;
 import frc.robot.commands.Floor.RunFloor;
 import frc.robot.commands.Intake.RunIntake;
@@ -243,13 +244,16 @@ public class RobotContainer {
     // rightPov.whileTrue(manualShoot);
     // downPov.whileTrue(pidMainRoller);
     // leftPov.whileTrue(manualMainRoller);
-    upPov.onTrue(
-      new SequentialCommandGroup(
-        new Agitate(binRelease, Constants.BinReleaseConstants.AGITATE_POSITION),
-        new Agitate(binRelease, 0),
-        new WaitCommand(0.3)
-      ).repeatedly().until(() -> !upPov.getAsBoolean()).andThen(new Agitate(binRelease, 0))
-    );
+    // upPov.onTrue(
+    //   new SequentialCommandGroup(
+    //     new Agitate(binRelease, Constants.BinReleaseConstants.AGITATE_POSITION),
+    //     new Agitate(binRelease, 0),
+    //     new WaitCommand(0.3)
+    //   ).repeatedly().until(() -> !upPov.getAsBoolean()).andThen(new Agitate(binRelease, 0))
+    // );
+    // upPov.onTrue(new ClimberPID(climber, Constants.ClimberConstants.TEST_MM_REVS));
+    // rightPov.onTrue(new ClimberMotionMagic(climber, Constants.ClimberConstants.TEST_MM_REVS));
+    // downPov.whileTrue(new ClimberSetSpeed(climber, -0.1));
 
     // a.whileTrue(runIntakeTest);
     // b.whileTrue(runOuttakeTest);

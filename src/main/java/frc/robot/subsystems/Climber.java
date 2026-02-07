@@ -8,6 +8,7 @@ import com.ctre.phoenix6.configs.MotionMagicConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
+import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
@@ -22,6 +23,7 @@ public class Climber extends SubsystemBase {
   private TalonFX climbMotor;
   private TalonFXConfiguration motorConfig;
   private MotionMagicVoltage m_request;
+  private PositionVoltage m_positionRequest;
 
   private boolean isTopException = false;
   private boolean isBottomException = false;
@@ -62,9 +64,8 @@ public class Climber extends SubsystemBase {
 
     climbMotor.getConfigurator().apply(motorConfig);
 
-    m_request = new MotionMagicVoltage(0);
-
-
+    m_request = new MotionMagicVoltage(0).withSlot(0);
+    m_positionRequest = new PositionVoltage(0);
 
     // LIMIT SWITCHES
     try {
@@ -93,7 +94,7 @@ public class Climber extends SubsystemBase {
     if (isBottomException) {
       return true;
     }
-    return bottomLimitSwitch.get() || getClimberEncoder() < 0;
+    return bottomLimitSwitch.get() || getClimberEncoder() <= 0;
   }
 
   public double getClimberEncoder() {
@@ -114,7 +115,6 @@ public class Climber extends SubsystemBase {
       stopClimber();
     } else if (speed > 0 && isTopLimit()) {
       stopClimber();
-
     } else {
       setClimberSpeedOverride(speed);
     }
@@ -141,7 +141,21 @@ public class Climber extends SubsystemBase {
     }
   }
 
-    public void setLock(double desiredPosition) {
+  //uses position control with Kp, Ki and Kd to bring the motor to the desired encoder revolutions  
+    public void PIDControlToPosition(double desiredRevs) {
+      if (isBottomLimit() && (desiredRevs < getClimberEncoder())) {
+        resetClimberEncoder();
+        stopClimber();
+      }
+      else if (isTopLimit() && (desiredRevs > getClimberEncoder())) {
+        stopClimber();
+      } 
+      else {
+        climbMotor.setControl(m_positionRequest.withPosition(desiredRevs));   
+      }
+    }
+
+  public void setLock(double desiredPosition) {
     // position between 0 and 1 for linear actuator
       lock.set(desiredPosition); 
   }

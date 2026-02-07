@@ -28,6 +28,7 @@ public class Agitate extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    // runs motor at constant speed in the direction of target revs
     binRelease.manualSetSpeedSafe(Constants.BinReleaseConstants.AGITATE_TEST_SPEED * Math.signum(position - binRelease.getEncoderRevolutions()));
   }
 
