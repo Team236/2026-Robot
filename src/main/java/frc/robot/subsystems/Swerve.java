@@ -860,6 +860,7 @@ public Trajectory getTargetingTrajectory(double fwdDist1, double sideDist1, doub
        SmartDashboard.putNumber("Limelight temp, C", NetworkTableInstance.getDefault().getTable("limelight").getEntry("hw").getDoubleArray(new double[1])[0]);
        SmartDashboard.putNumber("Limelight throttle", NetworkTableInstance.getDefault().getTable("limelight").getEntry("throttle-set").getInteger(0));
        SmartDashboard.putData(CommandScheduler.getInstance());
+       SmartDashboard.putNumber("Gryo Angle", getGyroYaw().getDegrees());
 
     //    System.out.println(swerveOdometry.getPoseMeters().getX() + " " + swerveOdometry.getPoseMeters().getY() + " Rotation: " + swerveOdometry.getPoseMeters().getRotation().getDegrees());
 
