@@ -50,16 +50,16 @@ public final class Constants {
   public static class MotorControllers {
     public static final int SMART_CURRENT_LIMIT = 40;
     //MOTOR ID NUMBERS (for swerve drive/steer motors - see Swerve below):
-    public static final int ID_BIN_REL = 13; //8
+    public static final int ID_BIN_REL = 8; //8
     public static final int ID_INTAKE_LEFT = 9; 
     public static final int ID_FLOOR = 10; 
-    public static final int ID_SHOOTER_LEFT_MAIN = 8; // 11
+    public static final int ID_SHOOTER_LEFT_MAIN = 11; // 11
     public static final int ID_SHOOTER_RIGHT_MAIN = 12; // 12
    // public static final int ID_SHOOTER_MID_MAIN = 17;
     public static final int ID_SHOOTER_LEFT_TOP = 16;
     public static final int ID_SHOOTER_RIGHT_TOP = 17;
     public static final int ID_SHOOTER_PIVOT = 15;
-    public static final int ID_CLIMBER = 11; //13
+    public static final int ID_CLIMBER = 13; //13
     public static final int ID_PRE_FEEDER = 14; //14
   }
 
