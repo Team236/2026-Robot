@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
+import com.ctre.phoenix6.configs.Slot1Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.PositionVoltage;
@@ -56,6 +57,12 @@ public class Climber extends SubsystemBase {
     slot0Configs.kI = 0; // no output for integrated error
     slot0Configs.kD = 0.1; // A velocity error of 1 rps results in 0.1 V output
 
+    Slot1Configs slot1Configs = motorConfig.Slot1;
+    //used for non motion magic
+    slot1Configs.kP = 0.7;
+    slot1Configs.kI = 0;
+    slot1Configs.kD = 0;
+
     MotionMagicConfigs motionMagicConfigs = motorConfig.MotionMagic;
     // TUNE THESE -- COPIED FROM 2025 FOR NOW
     motionMagicConfigs.MotionMagicCruiseVelocity = 80;//80; // Target cruise velocity of 80 rps
@@ -65,7 +72,7 @@ public class Climber extends SubsystemBase {
     climbMotor.getConfigurator().apply(motorConfig);
 
     m_request = new MotionMagicVoltage(0).withSlot(0);
-    m_positionRequest = new PositionVoltage(0);
+    m_positionRequest = new PositionVoltage(0).withSlot(1);
 
     // LIMIT SWITCHES
     try {
