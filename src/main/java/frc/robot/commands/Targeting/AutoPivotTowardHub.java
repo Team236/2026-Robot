@@ -25,15 +25,10 @@ public class AutoPivotTowardHub extends Command {
   private double HUBY;
   private double newRotation;
 
-  public AutoPivotTowardHub(Swerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, DoubleSupplier rotationSup, BooleanSupplier robotCentricSup) {
+  public AutoPivotTowardHub(Swerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, BooleanSupplier robotCentricSup) {
     // USING SWERVE FOR TAKING OVER ROTATION
     this.s_Swerve = s_Swerve;
     addRequirements(s_Swerve);
-    
-    // NOT USED 
-    this.translationSup = translationSup;
-    this.strafeSup = strafeSup;
-    this.robotCentricSup = robotCentricSup;
   }
 
   @Override
@@ -56,14 +51,14 @@ public class AutoPivotTowardHub extends Command {
       double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.stickDeadband);
       double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.stickDeadband);
 
-      // math concepts at https://tinyurl.com/mvjft42z
+      // MATH IS AT https://tinyurl.com/mvjft42z
       newRotation = this.s_Swerve.getTargetingAngle(HUBX, HUBY);
 
     // DRIVING COMMAND THAT JUST INPUTS COMPUTERS ROTATION
     s_Swerve.drive(
         new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed),
         MathUtil.clamp(newRotation, -Constants.Swerve.maxAngularVelocity, Constants.Swerve.maxAngularVelocity),
-        !robotCentricSup.getAsBoolean(), // this might need to be set only true
+        !robotCentricSup.getAsBoolean(),
         true
     );
   }

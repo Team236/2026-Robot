@@ -1,19 +1,20 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot.commands.Targeting;
 
+import java.util.function.BooleanSupplier;
+import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import frc.robot.subsystems.MainRoller;
+import frc.robot.subsystems.ShooterPivot;
+import frc.robot.subsystems.Swerve;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class TargetRobotForShoot extends ParallelCommandGroup {
-  /** Creates a new TargetRobotForShoot. */
-  public TargetRobotForShoot() {
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
-    addCommands();
+  
+  public TargetRobotForShoot(Swerve s_Swerve, MainRoller mainRoller, ShooterPivot shooterPivot, DoubleSupplier translationSup, DoubleSupplier strafeSup, BooleanSupplier robotCentricSup) {
+    
+    addCommands(
+        new AutoPivotTowardHub(s_Swerve, translationSup, strafeSup, robotCentricSup),
+        
+        new AutoPivotShooter(s_Swerve, mainRoller, shooterPivot)
+    );
   }
 }
