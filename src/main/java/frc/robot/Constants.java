@@ -64,15 +64,15 @@ public final class Constants {
   }
 
   public static class ShooterConstants {
-    public static final double MAIN_MOTOR_RPM = 2200;
+    public static final double MAIN_MOTOR_RPM = 3000; //2200;
     public static final double TOP_MOTOR_RPM = 2000;
 
     public static final double MAIN_MOTOR_SPEED = -0.5;
     public static final double TOP_MOTOR_SPEED = -0.1;
 
     // TODO find final gains
-    public static final double KV_MAIN = 0.123; // feed forward
-    public static final double KP_MAIN = 0.85;
+    public static final double KV_MAIN = 0.121; // feed forward
+    public static final double KP_MAIN = 0.34;
     public static final double KI_MAIN = 0;
     public static final double KD_MAIN = 0; 
 
@@ -132,7 +132,7 @@ public final class Constants {
   public static class PreFeederConstants {
     public static final int DIO_COUNTER = 9;
     public static final double TEST_SPEED = 0.3;
-    public static final int DESIRED_RPM = 2000;
+    public static final int DESIRED_RPM = 2700; //2000;
     public static final double KV_PF = 0.112; // feed forward
     public static final double KP_PF = 0.35;
     public static final double KI_PF = 0;
