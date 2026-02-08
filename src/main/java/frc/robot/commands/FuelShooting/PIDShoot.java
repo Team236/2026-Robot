@@ -26,7 +26,7 @@ public class PIDShoot extends ParallelCommandGroup {
     //new PIDTopRoller(topRoller, Constants.Shooter.TOP_MOTOR_RPM)
      
       new SequentialCommandGroup(
-        new WaitCommand(0.6), //adjust as needed to get shooter motors to speed 
+        new WaitCommand(0.4), //adjust as needed to get shooter motors to speed 
         new PIDPrefeeder(preFeeder, Constants.PreFeederConstants.DESIRED_RPM)
       )
     
