@@ -6,6 +6,7 @@ import java.util.function.DoubleSupplier;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -42,9 +43,11 @@ public class AimWhileMoving extends Command {
 
   @Override
   public void execute() {
+    currentPose2d = s_Swerve.getPose();
     distanceToHub = s_Swerve.getDistanceToHub(HUBX, HUBY);
     angleToHub = s_Swerve.getAngleToHub(HUBX, HUBY);
-    timeOfFlight = Constants.Targeting.timeTable(distanceToHub);
+
+    timeOfFlight = Constants.Targeting.timeMap.get(distanceToHub);
 
     Translation2d virtualGoal = new Translation2d();
 
@@ -60,7 +63,7 @@ public class AimWhileMoving extends Command {
     double newDistance = currentPose2d.getTranslation().getDistance(virtualGoal);
     
     // Update time of flight for next loop
-    timeOfFlight = Constants.Targeting.timeTable.get(newDistance);
+    timeOfFlight = Constants.Targeting.timeMap.get(newDistance);
     }
 
     double finalRotation = Math.atan2(

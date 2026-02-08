@@ -125,6 +125,13 @@ public final class Constants {
       rpmMap.put(48.0, 2100.0); 
       rpmMap.put(164.5, 3000.0);
     }
+
+    public static final InterpolatingDoubleTreeMap timeMap = new InterpolatingDoubleTreeMap();
+
+    static {
+      timeMap.put(48.0, 2.0);
+      timeMap.put(164.5, 4.0);
+    }
     
 
     public static Map<Integer, Pose2d> ID_TO_POSE = new HashMap<>();
