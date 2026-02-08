@@ -26,9 +26,6 @@ public class MainRoller extends SubsystemBase {
 
   private VelocityVoltage leftMain_m_request, rightMain_m_request;
 
-  private final InterpolatingDoubleTreeMap rpmMap = new InterpolatingDoubleTreeMap();
-
-
   /** Creates a new MainRoller. */
   //This system uses motors to shoot the fuel with a constant velocity which is 
   //quickly brought up to speed and maintains that speed using PID velocity control
@@ -85,9 +82,6 @@ public class MainRoller extends SubsystemBase {
       midMainMotor.getConfigurator().apply(midMainConfig);
       midMainMotor.setControl(new Follower(Constants.MotorControllers.ID_SHOOTER_LEFT_MAIN, MotorAlignmentValue.Opposed));
 */
-
-        rpmMap.put(49.0, 3000.0); 
-        rpmMap.put(140.0, 5000.0);
   }
 
   // METHODS START HERE:
@@ -120,7 +114,7 @@ public class MainRoller extends SubsystemBase {
   }
 
   public double calculateRPM(double distance) {
-    return rpmMap.get(distance);
+    return Constants.Targeting.rpmMap.get(distance);
   }
 
   public void stopMain(){

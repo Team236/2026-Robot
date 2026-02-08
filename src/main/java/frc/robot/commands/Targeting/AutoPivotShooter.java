@@ -55,7 +55,10 @@ public class AutoPivotShooter extends Command {
   }
 
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    mainRoller.stopMain();
+    shooterPivot.stopShooterPivot();
+  }
 
   @Override
   public boolean isFinished() {

@@ -18,6 +18,7 @@ import frc.lib.util.SwerveModuleConstants;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
@@ -106,11 +107,26 @@ public final class Constants {
     public static final double KP_TRANSLATION = 0.4;//kP value for forward (translation) motion
     public static final double KP_STRAFE = 0.9;// 0.475;  //kP value for the sideways (strafe) motio%n 
 
-    public static final List<Integer> REEF_IDS = Arrays.asList(6, 7, 8, 9, 10, 11, 17, 18, 19, 20, 21, 22);
     //LL lens is offset from Coral scorer by 1.25 inches, and Reefs are about 6.75" Left/Right of AprilTag ce
     public static final double DIST_TAG_RIGHT_BRANCH = 5.5;// 6.75-1;//5.5;//7.0;
     public static final double DIST_TAG_LEFT_BRANCH = 8.5;//9+1;//6.75;//8.75;//7.0;
     public static final double DIST_ALGAE_CENTERED_LL = 8.5;//center of LL lens to center of Algae device
+
+    public static final InterpolatingDoubleTreeMap hoodAngleMap = new InterpolatingDoubleTreeMap();
+
+    static {
+      hoodAngleMap.put(48.0, -5.0);
+      hoodAngleMap.put(164.5, 8.0);
+    }
+
+    public static final InterpolatingDoubleTreeMap rpmMap = new InterpolatingDoubleTreeMap();
+
+    static {
+      rpmMap.put(48.0, 2100.0); 
+      rpmMap.put(164.5, 3000.0);
+    }
+    
+
     public static Map<Integer, Pose2d> ID_TO_POSE = new HashMap<>();
 
     static {

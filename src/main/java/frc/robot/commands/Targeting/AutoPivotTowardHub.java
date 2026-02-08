@@ -52,7 +52,7 @@ public class AutoPivotTowardHub extends Command {
       double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.stickDeadband);
 
       // MATH IS AT https://tinyurl.com/mvjft42z
-      newRotation = this.s_Swerve.getTargetingAngle(HUBX, HUBY);
+      newRotation = this.s_Swerve.calculateTargetingPID(HUBX, HUBY);
 
     // DRIVING COMMAND THAT JUST INPUTS COMPUTERS ROTATION
     s_Swerve.drive(

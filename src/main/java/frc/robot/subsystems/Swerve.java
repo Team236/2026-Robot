@@ -45,21 +45,19 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.FieldObject2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 
 public class Swerve extends SubsystemBase {
-    public SwerveDriveOdometry swerveOdometry;
     public SwerveModule[] mSwerveMods;
     public Pigeon2 gyro;
     public SwerveDrivePoseEstimator m_poseEstimator; // this pose estimator can do essentially everything swerve odometry can, with added vision capabilities
     public double poseAngle;
     public double poseForwardDistance;
     public double poseSideDistance;
-    private PIDController pidController;
+    public PIDController pidControllerForTrackingOutput;
 
     //ll stuff
     private double pipeline = 0; 
@@ -77,24 +75,11 @@ public class Swerve extends SubsystemBase {
     public double[] driveTargetingValues;
 
     public Swerve() {
-
-        pidController = new PIDController(
-        5,
-        0.0,
-        0.0);
-
-        pidController.enableContinuousInput(-Math.PI, Math.PI);
-        // tolerance is to prevent gittering (this will need to be tuned)
-        pidController.setTolerance(Math.toRadians(0.1));
-        pidController.setSetpoint(0.0);
-
-
         gyro = new Pigeon2(Constants.Swerve.pigeonID, "usb");
         //when calibrated on 3/31/25, gyro mount pose configs quarternion values were:
         //gyro.getConfigurator().apply(-0.041875,  0.012086,  0.005250, Z	-0.997314))
         gyro.getConfigurator().apply(new Pigeon2Configuration());
         gyro.setYaw(0);
-
         
         mSwerveMods = new SwerveModule[] {
             new SwerveModule(0, Constants.Swerve.Mod0.constants), //front left
@@ -102,7 +87,6 @@ public class Swerve extends SubsystemBase {
             new SwerveModule(2, Constants.Swerve.Mod2.constants), //back left
             new SwerveModule(3, Constants.Swerve.Mod3.constants) //back right
         };
-        swerveOdometry = new SwerveDriveOdometry(Constants.Swerve.swerveKinematics, getGyroYaw(), getModulePositions());
 
         /* Here we use SwerveDrivePoseEstimator so that we can fuse odometry readings, for 3D targeting. 
         The numbers used below are robot specific, and should be tuned. */
@@ -158,6 +142,16 @@ public class Swerve extends SubsystemBase {
                 this
             );
         }
+
+        pidControllerForTrackingOutput = new PIDController(
+        5,
+        0.0,
+        0.0);
+
+        pidControllerForTrackingOutput.enableContinuousInput(-Math.PI, Math.PI);
+        // tolerance is to prevent gittering (this will need to be tuned)
+        pidControllerForTrackingOutput.setTolerance(Math.toRadians(0.1));
+        pidControllerForTrackingOutput.setSetpoint(0.0);
     }
 
 //Methods start here:
@@ -218,7 +212,8 @@ public class Swerve extends SubsystemBase {
         }
     }
 
-    //Follows path that assumes starting pose is robot's current pose (by RESETTING the robots odometry to be the start pose of the path)
+        //Follows path that assumes starting pose is robot's current pose (by RESETTING the robots odometry to be the start pose of the path)
+
     public Command followPathCommand(String pathName) {
         try {
             SmartDashboard.putNumber("RobotPoseX before path start", this.getPose().getX());
@@ -341,590 +336,196 @@ public class Swerve extends SubsystemBase {
     }
 
     public Pose2d getPose() {
-            return m_poseEstimator.getEstimatedPosition();
+        return m_poseEstimator.getEstimatedPosition();
+    }
+
+    public void resetPose(Pose2d pose) {
+        m_poseEstimator.resetPosition(getGyroYaw(), getModulePositions(), pose);
+    }
+
+    public Rotation2d getHeading(){
+        return getPose().getRotation();
+    }
+
+    public void setHeading(Rotation2d heading){
+        m_poseEstimator.resetPosition(getGyroYaw(), getModulePositions(), new Pose2d(getPose().getTranslation(), heading));
+    }
+
+    public void zeroHeading(){
+        m_poseEstimator.resetPosition(getGyroYaw(), getModulePositions(), new Pose2d(getPose().getTranslation(), new Rotation2d()));
+    }
+
+    public Rotation2d getGyroYaw() {
+        //return Rotation2d.fromDegrees(gyro.getYaw().getValue());
+       return Rotation2d.fromDegrees(gyro.getYaw().getValueAsDouble());
+    }
+
+    public void resetModulesToAbsolute(){
+        for(SwerveModule mod : mSwerveMods){
+            mod.resetToAbsolute();
         }
-    
-        public void resetPose(Pose2d pose) {
-            m_poseEstimator.resetPosition(getGyroYaw(), getModulePositions(), pose);
-        }
-    
-        public Rotation2d getHeading(){
-            return getPose().getRotation();
-        }
-    
-        public void setHeading(Rotation2d heading){
-            m_poseEstimator.resetPosition(getGyroYaw(), getModulePositions(), new Pose2d(getPose().getTranslation(), heading));
-        }
-    
-        public void zeroHeading(){
-            m_poseEstimator.resetPosition(getGyroYaw(), getModulePositions(), new Pose2d(getPose().getTranslation(), new Rotation2d()));
-        }
-    
-        public Rotation2d getGyroYaw() {
-            //return Rotation2d.fromDegrees(gyro.getYaw().getValue());
-           return Rotation2d.fromDegrees(gyro.getYaw().getValueAsDouble());
-        }
-    
-        public void resetModulesToAbsolute(){
-            for(SwerveModule mod : mSwerveMods){
-                mod.resetToAbsolute();
+    }
+
+    public void getLLPose() {
+            // turn on the LED,  3 = force on
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
+        // s_Swerve.zeroHeading(); //added this to fix the targeting going the wrong way
+
+        //tv =1 means Limelight sees a target
+        tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
+
+        Optional<Alliance> ally = DriverStation.getAlliance();
+        if (ally.isPresent()  && (tv == 1)) { //have alliance color and see target
+            if (ally.get() == Alliance.Red){
+            poseLL = LimelightHelpers.getBotPose2d_wpiRed("limelight");
+            //  s_Swerve.resetPose(poseLL); //do this later in ResetPose command
             }
-        }
-    
-        public void getLLPose() {
-                // turn on the LED,  3 = force on
-            NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
-            NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
-            // s_Swerve.zeroHeading(); //added this to fix the targeting going the wrong way
-    
-            //tv =1 means Limelight sees a target
-            tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
-    
-            Optional<Alliance> ally = DriverStation.getAlliance();
-            if (ally.isPresent()  && (tv == 1)) { //have alliance color and see target
-                if (ally.get() == Alliance.Red){
-                poseLL = LimelightHelpers.getBotPose2d_wpiRed("limelight");
-                //  s_Swerve.resetPose(poseLL); //do this later in ResetPose command
-                }
-                if (ally.get() == Alliance.Blue){
-                poseLL = LimelightHelpers.getBotPose2d_wpiBlue("limelight");
-                // s_Swerve.resetPose(poseLL); //do this later in ResetPose command
-                }   
-            }
-            //else do nothing
-        }
-    
-        public void getTargetPose(Pose2d targetPose) {
-            Optional<Alliance> ally = DriverStation.getAlliance();
             if (ally.get() == Alliance.Blue){
-                this.targetPose = new Pose2d(targetPose.getX(), targetPose.getY(), targetPose.getRotation().plus(new Rotation2d(Math.PI))); //do this later in ResetPose command
-            }
-            if (ally.get() == Alliance.Red){ // not sure why but we needed to swap these
-                this.targetPose = targetPose; //do this later in ResetPose command
+            poseLL = LimelightHelpers.getBotPose2d_wpiBlue("limelight");
+            // s_Swerve.resetPose(poseLL); //do this later in ResetPose command
             }   
-    
-            // this.resetPose(targetPose);
-    
         }
-    
-        public void resetFieldPoseWithTarget() {
-            if (targetPose != null) {
-                resetPose(targetPose);
+        //else do nothing
+    }
+
+    public void getTargetPose(Pose2d targetPose) {
+        Optional<Alliance> ally = DriverStation.getAlliance();
+        if (ally.get() == Alliance.Blue){
+            this.targetPose = new Pose2d(targetPose.getX(), targetPose.getY(), targetPose.getRotation().plus(new Rotation2d(Math.PI))); //do this later in ResetPose command
+        }
+        if (ally.get() == Alliance.Red){ // not sure why but we needed to swap these
+            this.targetPose = targetPose; //do this later in ResetPose command
+        }   
+
+        // this.resetPose(targetPose);
+
+    }
+
+    public void resetFieldPoseWithTarget() {
+        if (targetPose != null) {
+            resetPose(targetPose);
+        }
+    }
+
+    public void resetLLPose() {
+        if (poseLL != null) {
+            resetPose(poseLL);
+        }
+    }
+
+    public void MegaTag2UpdateOdometry() {
+        /* Replaced below with m_poseEstimator.update(getGyroYaw(), getModulePositions()); as done in periodic for swerve odometry
+        m_poseEstimator.update(
+            gyro.getRotation2d(),
+            new SwerveModulePosition[] {
+                mSwerveMods[0].getPosition(), //front left
+                mSwerveMods[1].getPosition(), //front right
+                mSwerveMods[2].getPosition(), //back left
+                mSwerveMods[3].getPosition()  //back right
+            });
+        */   
+        m_poseEstimator.update(getGyroYaw(), getModulePositions());
+
+        boolean useMegaTag2 = false; //set to false to use MegaTag1
+        boolean doUpdate = true;
+        // evaluating which Megatag one or two to use based on above boolean value and 
+        // only incorporate Limelight's estimates when more than one tag is visible (tagcount >= 1)
+        if (useMegaTag2 == false)
+        {
+            LimelightHelpers.PoseEstimate mt1 = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
+
+            // sometimes when starting robot/building code, mt1 == null for a split second, so need to check for that or code errors and crashes
+            if (mt1 == null) {
+                return;
             }
-        }
-    
-        public void resetLLPose() {
-            if (poseLL != null) {
-                resetPose(poseLL);
-            }
-        }
-    
-    public Trajectory getTargetingTrajectory(double fwdDist1, double sideDist1, double turnAngle1, double fwdDist2, double sideDist2, double turnAngle2, boolean reversed) {
-        double deltaFwd = fwdDist2-fwdDist1;
-        double deltaSide = sideDist2 - sideDist1;
-        double deltaAngle = turnAngle2- turnAngle1;
-    
-            TrajectoryConfig config =
-                new TrajectoryConfig(
-                        Constants.AutoConstants.kMaxSpeedMetersPerSecond,
-                        Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
-                    .setKinematics(Constants.Swerve.swerveKinematics).setReversed(reversed);
-    
-            // An example trajectory to follow.  All units in meters.
-            Trajectory exampleTrajectory =
-            TrajectoryGenerator.generateTrajectory(
-                // Start at the origin facing the +X direction
-                 new Pose2d(fwdDist1, sideDist1, new Rotation2d((turnAngle1))),
-                // Pass through these interior waypoints
-                List.of(
-                       new Translation2d((fwdDist1+0.05*deltaFwd), (sideDist1+0.05*deltaSide)), 
-                       new Translation2d((fwdDist1+0.1*deltaFwd), (sideDist1+0.1*deltaSide)),
-                       new Translation2d((fwdDist1+0.15*deltaFwd), (sideDist1+0.15*deltaSide)),
-                       new Translation2d((fwdDist1+0.2*deltaFwd), (sideDist1+0.2*deltaSide)), 
-                       new Translation2d((fwdDist1+0.25*deltaFwd), (sideDist1+0.25*deltaSide)),
-                       new Translation2d((fwdDist1+0.3*deltaFwd), (sideDist1+0.3*deltaSide)),
-                       new Translation2d((fwdDist1+0.35*deltaFwd), (sideDist1+0.35*deltaSide)), 
-                       new Translation2d((fwdDist1+0.4*deltaFwd), (sideDist1+0.4*deltaSide)),
-                       new Translation2d((fwdDist1+0.45*deltaFwd), (sideDist1+0.45*deltaSide)), 
-                       new Translation2d((fwdDist1+0.5*deltaFwd), (sideDist1+0.5*deltaSide)),
-                       new Translation2d((fwdDist1+0.55*deltaFwd), (sideDist1+0.55*deltaSide)),
-                       new Translation2d((fwdDist1+0.6*deltaFwd), (sideDist1+0.6*deltaSide)), 
-                       new Translation2d((fwdDist1+0.65*deltaFwd), (sideDist1+0.65*deltaSide)),
-                       new Translation2d((fwdDist1+0.7*deltaFwd), (sideDist1+0.7*deltaSide)),
-                       new Translation2d((fwdDist1+0.75*deltaFwd), (sideDist1+0.75*deltaSide)), 
-                       new Translation2d((fwdDist1+0.8*deltaFwd), (sideDist1+0.8*deltaSide)),
-                       new Translation2d((fwdDist1+0.85*deltaFwd), (sideDist1+0.85*deltaSide)), 
-                       new Translation2d((fwdDist1+0.9*deltaFwd), (sideDist1+0.9*deltaSide)),
-                       new Translation2d((fwdDist1+0.95*deltaFwd), (sideDist1+0.95*deltaSide))
-                       ),  
-                // End here
-                new Pose2d(fwdDist2, sideDist2, new Rotation2d((turnAngle2 + Math.PI))), //add 180 because target and robot are facing opposite directions
-                config);
-            return exampleTrajectory;
-        }
-    
-        /**
-         * 
-         * @param type "left" or "algae" or "right"
-         * 
-         */
-        public void updateTargetingValues(String type) {
-            Pose2d robotFieldPose;
-            Pose2d targetFieldPose;
-            double tv;
-            int targetId;
-            Optional<Alliance> alliance = DriverStation.getAlliance();
-            
-            tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0); //if target is seen
-            targetId = (int) NetworkTableInstance.getDefault().getTable("limelight").getEntry("tid").getDouble(0); //target id
-            
-            var thetaController =
-                new ProfiledPIDController(
-                    Constants.AutoConstants.kPThetaController, 0, 0, Constants.AutoConstants.kThetaControllerConstraints);
-            thetaController.enableContinuousInput(-Math.PI, Math.PI);
-            
-            if (tv == 1 && Constants.Targeting.REEF_IDS.contains(targetId)) {
-                SmartDashboard.putString("trajectory", "is not null (if)");
-                robotFieldPose = LimelightHelpers.getBotPose2d_wpiBlue("limelight");
-    
-                //april tag coordinates
-                double x2 = Constants.Targeting.ID_TO_POSE.get(targetId).getX(); 
-                double y2 = Constants.Targeting.ID_TO_POSE.get(targetId).getY(); 
-                double angle2 = Constants.Targeting.ID_TO_POSE.get(targetId).getRotation().getRadians();
-    
-                //Get the AprilTag pose now, then reset the robot's pose to this value at the end of MetricDriveFwdAndSideAndTurn
-                //(after targeting) so that the driving is field oriented after targeting:
-                this.getTargetPose(new Pose2d(x2, y2, new Rotation2d(angle2)));
-                
-                //robotFieldPose is from center of robot
-                double angle1 = robotFieldPose.getRotation().getRadians();
-                double x1 = robotFieldPose.getX() - (Constants.Targeting.DIST_ROBOT_CENTER_TO_FRONT_WITH_BUMPER*(0.0254)) * Math.cos(angle2) - (Constants.Targeting.DIST_ROBOT_CENTER_TO_LL_SIDEWAYS*(0.0254))*Math.sin((angle2));
-                double y1 = robotFieldPose.getY() + (Constants.Targeting.DIST_ROBOT_CENTER_TO_LL_SIDEWAYS*(0.0254))*Math.cos((angle2)) - (Constants.Targeting.DIST_ROBOT_CENTER_TO_FRONT_WITH_BUMPER*(0.0254)) * Math.sin((angle2));
-    
-                if (type.equals("right")) {
-                    y1 -= Constants.Targeting.DIST_TAG_RIGHT_BRANCH * Math.cos((angle2)) * 0.0254;
-                    x1 += Constants.Targeting.DIST_TAG_RIGHT_BRANCH * Math.sin((angle2)) * 0.0254;
-                } else if (type.equals("algae")) {
-                    y1 -= Constants.Targeting.DIST_ALGAE_CENTERED_LL * Math.cos((angle2)) * 0.0254;
-                    x1 += Constants.Targeting.DIST_ALGAE_CENTERED_LL * Math.sin((angle2)) * 0.0254;
-                } else if (type.equals("left")) {
-                    y1 += Constants.Targeting.DIST_TAG_LEFT_BRANCH * Math.cos((angle2)) * 0.0254;
-                    x1 -= Constants.Targeting.DIST_TAG_LEFT_BRANCH * Math.sin((angle2)) * 0.0254;
-                }
-          
-               // SmartDashboard.putNumber("Target ID", targetId);
-               // SmartDashboard.putNumber("x1: ", x1 / 0.0254);
-               // SmartDashboard.putNumber("y1: ", y1/ 0.0254);
-               // SmartDashboard.putNumber("angle1", Units.radiansToDegrees(angle1));
-               // SmartDashboard.putNumber("x2: ", x2/ 0.0254);
-               // SmartDashboard.putNumber("y2: ", y2/ 0.0254);
-               // SmartDashboard.putNumber("angle2", Units.radiansToDegrees(angle2));
-                
-                // DRIVE SEGMENT
-                double deltaFwd = x2 - x1;
-                double deltaSide = y2 - y1;
-                double deltaAngle = angle2- angle1;
-    
-                boolean reversed = false; 
-    
-                TrajectoryConfig config =
-                    new TrajectoryConfig(
-                            Constants.AutoConstants.kMaxSpeedMetersPerSecond,
-                            Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
-                        .setKinematics(Constants.Swerve.swerveKinematics).setReversed(reversed);
-    
-                // An example trajectory to follow.  All units in meters.
-                Trajectory exampleTrajectory =
-                TrajectoryGenerator.generateTrajectory(
-                // Start at the origin facing the +X direction
-                    new Pose2d(x1, y1, new Rotation2d((angle1))),
-                // Pass through these interior waypoints
-                List.of(
-                        new Translation2d((x1+0.05*deltaFwd), (y1+0.05*deltaSide)), 
-                        new Translation2d((x1+0.1*deltaFwd), (y1+0.1*deltaSide)),
-                        new Translation2d((x1+0.15*deltaFwd), (y1+0.15*deltaSide)),
-                        new Translation2d((x1+0.2*deltaFwd), (y1+0.2*deltaSide)), 
-                        new Translation2d((x1+0.25*deltaFwd), (y1+0.25*deltaSide)),
-                        new Translation2d((x1+0.3*deltaFwd), (y1+0.3*deltaSide)),
-                        new Translation2d((x1+0.35*deltaFwd), (y1+0.35*deltaSide)), 
-                        new Translation2d((x1+0.4*deltaFwd), (y1+0.4*deltaSide)),
-                        new Translation2d((x1+0.45*deltaFwd), (y1+0.45*deltaSide)), 
-                        new Translation2d((x1+0.5*deltaFwd), (y1+0.5*deltaSide)),
-                        new Translation2d((x1+0.55*deltaFwd), (y1+0.55*deltaSide)),
-                        new Translation2d((x1+0.6*deltaFwd), (y1+0.6*deltaSide)), 
-                        new Translation2d((x1+0.65*deltaFwd), (y1+0.65*deltaSide)),
-                        new Translation2d((x1+0.7*deltaFwd), (y1+0.7*deltaSide)),
-                        new Translation2d((x1+0.75*deltaFwd), (y1+0.75*deltaSide)), 
-                        new Translation2d((x1+0.8*deltaFwd), (y1+0.8*deltaSide)),
-                        new Translation2d((x1+0.85*deltaFwd), (y1+0.85*deltaSide)), 
-                        new Translation2d((x1+0.9*deltaFwd), (y1+0.9*deltaSide)),
-                        new Translation2d((x1+0.95*deltaFwd), (y1+0.95*deltaSide))
-                        ),  
-                // End here
-                new Pose2d(x2, y2, new Rotation2d((angle2 + Math.PI))), //add 180 because target and robot are facing opposite directions
-                config);
-    
-                currentTrajectory = exampleTrajectory;
-                    
-    
-                SwerveControllerCommand swerveControllerCommand =
-                    new SwerveControllerCommand(
-                        exampleTrajectory,
-                        this::getPose,
-                        Constants.Swerve.swerveKinematics,
-                        new PIDController(Constants.AutoConstants.kPXController, 0, 0),
-                        new PIDController(Constants.AutoConstants.kPYController, 0, 0),
-                        thetaController,
-                        this::setModuleStates,
-                        this);
-                
-                currentSwerveControllerCommand = swerveControllerCommand;
-            } else {
-                SmartDashboard.putString("trajectory", "is null (else)");
-    
-                boolean reversed = false;
-                TrajectoryConfig config =
-                    new TrajectoryConfig(
-                            Constants.AutoConstants.kMaxSpeedMetersPerSecond,
-                            Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
-                        .setKinematics(Constants.Swerve.swerveKinematics).setReversed(reversed);
-    
-                // An example trajectory to follow.  All units in meters.
-                Trajectory exampleTrajectory =
-                TrajectoryGenerator.generateTrajectory(
-                // Start at the origin facing the +X direction
-                new Pose2d(0, 0, new Rotation2d(0)),
-                // Pass through these interior waypoints
-                List.of(
-                        new Translation2d(0.01, 0.01)
-                        ),  
-                // End here
-                new Pose2d(0.02, 0.02, new Rotation2d(0)), //add 180 because target and robot are facing opposite directions
-                config);
-                currentTrajectory = exampleTrajectory; 
-    
-                SwerveControllerCommand swerveControllerCommand =
-                    new SwerveControllerCommand(
-                        exampleTrajectory,
-                        this::getPose,
-                        Constants.Swerve.swerveKinematics,
-                        new PIDController(Constants.AutoConstants.kPXController, 0, 0),
-                        new PIDController(Constants.AutoConstants.kPYController, 0, 0),
-                        thetaController,
-                        this::setModuleStates,
-                        this);
-                currentSwerveControllerCommand = swerveControllerCommand;
-            }
-        }
-        
-        public void setDefaultValues() {  
-            boolean reversed = false; 
-            Trajectory exampleTrajectory;
-    
-            TrajectoryConfig config =
-                new TrajectoryConfig(
-                        Constants.AutoConstants.kMaxSpeedMetersPerSecond,
-                        Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
-                    .setKinematics(Constants.Swerve.swerveKinematics).setReversed(reversed);
-    
-                exampleTrajectory =
-    
-                    TrajectoryGenerator.generateTrajectory(
-                        getPose(),
-                        // Pass through these interior waypoints
-                        List.of(
-                          new Translation2d(getPose().getTranslation().getX(), getPose().getTranslation().getY() + 0.001)//,
-                         // new Translation2d(getPose().getTranslation().getX(), getPose().getTranslation().getY() + 0.025)
-                               ),  
-                        // End here
-                        getPose(),
-                        config);
-                        
-                    currentTrajectory = exampleTrajectory;
-    
-            var thetaController =
-                new ProfiledPIDController(
-                    Constants.AutoConstants.kPThetaController, 0, 0, Constants.AutoConstants.kThetaControllerConstraints);
-            thetaController.enableContinuousInput(-Math.PI, Math.PI);
-    
-            
-            //This command is just used to avoid nulls
-            // But will get called if no target seen, so kpX=kpY=0 so no movement if no target
-            SwerveControllerCommand swerveControllerCommand =
-            new SwerveControllerCommand(
-                exampleTrajectory,
-                this::getPose,
-                Constants.Swerve.swerveKinematics,
-                //new PIDController(0, 0, 0),
-                   // new PIDController(0, 0, 0),
-                   new PIDController(Constants.AutoConstants.kPXController, 0, 0),
-                   new PIDController(Constants.AutoConstants.kPYController, 0, 0),
-                thetaController,
-                this::setModuleStates,
-                this);
-                currentSwerveControllerCommand = swerveControllerCommand;
-        }
-    
-        public void setupValues() {
-        Pose2d robotFieldPose;
-        Pose2d targetFieldPose;
-        double tv;
-        int targetId;
-        Optional<Alliance> alliance = DriverStation.getAlliance();
-        Trajectory exampleTrajectory;
-      
-        tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0); //if target is seen
-        targetId = (int) NetworkTableInstance.getDefault().getTable("limelight").getEntry("tid").getDouble(0); //target id
-    
-        SmartDashboard.putNumber("TV: ", tv);
-    
-        if (tv == 1 && Constants.Targeting.REEF_IDS.contains(targetId)) {
-       
-          robotFieldPose = LimelightHelpers.getBotPose2d_wpiBlue("limelight");
-     
-        //  SmartDashboard.putNumber("x1 robot center: ", robotFieldPose.getX() / 0.0254);
-        //  SmartDashboard.putNumber("y1 robot center: ", robotFieldPose.getY()/ 0.0254);
-          
-          //april tag coordinates
-          double x2 = Constants.Targeting.ID_TO_POSE.get(targetId).getX(); //*Math.sin((angle2));
-          double y2 = Constants.Targeting.ID_TO_POSE.get(targetId).getY(); //*Math.cos((angle2));
-          double angle2 = Constants.Targeting.ID_TO_POSE.get(targetId).getRotation().getRadians();
-    
-          //Get the AprilTag pose now, then reset the pose to this value at the end of MetricDriveFwdAndSideAndTurn
-          //(after targeting) so that the driving is field oriented after targeting:
-          getTargetPose(new Pose2d(x2, y2, new Rotation2d(angle2)));
-          
-          //robotFieldPose is from center of robot
-          double angle1 = robotFieldPose.getRotation().getRadians();
-          double x1 = robotFieldPose.getX() - (Constants.Targeting.DIST_ROBOT_CENTER_TO_FRONT_WITH_BUMPER*(0.0254)) * Math.cos(angle2) - (Constants.Targeting.DIST_ROBOT_CENTER_TO_LL_SIDEWAYS*(0.0254))*Math.sin((angle2));
-          double y1 = robotFieldPose.getY() + (Constants.Targeting.DIST_ROBOT_CENTER_TO_LL_SIDEWAYS*(0.0254))*Math.cos((angle2)) - (Constants.Targeting.DIST_ROBOT_CENTER_TO_FRONT_WITH_BUMPER*(0.0254)) * Math.sin((angle2));
-    
-          y1 += Constants.Targeting.DIST_TAG_LEFT_BRANCH * Math.cos((angle2)) * 0.0254;
-          x1 -= Constants.Targeting.DIST_TAG_LEFT_BRANCH * Math.sin((angle2)) * 0.0254;
-    
-        //   y1 *= 0.01;
-        //   x1 *= 0.01;
-    
-        //   y2 *= 0.01;
-        //   x2 *= 0.01;
-          
-         SmartDashboard.putNumber("Target IDDD", targetId);
-          SmartDashboard.putNumber("x1: ", x1 / (0.0254));
-          SmartDashboard.putNumber("y1: ", y1/ (0.0254 ));
-          SmartDashboard.putNumber("angle1", Units.radiansToDegrees(angle1));
-          SmartDashboard.putNumber("x2: ", x2/ (0.0254 ));
-          SmartDashboard.putNumber("y2: ", y2/ (0.0254 ));
-          SmartDashboard.putNumber("angle2", Units.radiansToDegrees(angle2));
-          
-          driveTargetingValues[0] = x1;
-          driveTargetingValues[1] = y1;
-          driveTargetingValues[2] = angle1;
-          driveTargetingValues[3] = x2;
-          driveTargetingValues[4] = y2;
-          driveTargetingValues[5] = angle2;
-          // DRIVE SEGMENT
-     
-            double deltaFwd = x2 - x1;
-            double deltaSide = y2 - y1;
-            double deltaAngle = angle2- angle1;
-    
-            boolean reversed = false; 
-    
-            TrajectoryConfig config =
-                new TrajectoryConfig(
-                        Constants.AutoConstants.kMaxSpeedMetersPerSecond,
-                        Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
-                    .setKinematics(Constants.Swerve.swerveKinematics).setReversed(reversed);
-    
-            // An example trajectory to follow.  All units in meters.
-            exampleTrajectory =
-            TrajectoryGenerator.generateTrajectory(
-                // Start at the origin facing the +X direction
-                 new Pose2d(x1, y1, new Rotation2d((angle1))),
-                // Pass through these interior waypoints
-                List.of(
-                       new Translation2d((x1+0.05*deltaFwd), (y1+0.05*deltaSide)), 
-                       new Translation2d((x1+0.1*deltaFwd), (y1+0.1*deltaSide)),
-                       new Translation2d((x1+0.15*deltaFwd), (y1+0.15*deltaSide)),
-                       new Translation2d((x1+0.2*deltaFwd), (y1+0.2*deltaSide)), 
-                       new Translation2d((x1+0.25*deltaFwd), (y1+0.25*deltaSide)),
-                       new Translation2d((x1+0.3*deltaFwd), (y1+0.3*deltaSide)),
-                       new Translation2d((x1+0.35*deltaFwd), (y1+0.35*deltaSide)), 
-                       new Translation2d((x1+0.4*deltaFwd), (y1+0.4*deltaSide)),
-                       new Translation2d((x1+0.45*deltaFwd), (y1+0.45*deltaSide)), 
-                       new Translation2d((x1+0.5*deltaFwd), (y1+0.5*deltaSide)),
-                       new Translation2d((x1+0.55*deltaFwd), (y1+0.55*deltaSide)),
-                       new Translation2d((x1+0.6*deltaFwd), (y1+0.6*deltaSide)), 
-                       new Translation2d((x1+0.65*deltaFwd), (y1+0.65*deltaSide)),
-                       new Translation2d((x1+0.7*deltaFwd), (y1+0.7*deltaSide)),
-                       new Translation2d((x1+0.75*deltaFwd), (y1+0.75*deltaSide)), 
-                       new Translation2d((x1+0.8*deltaFwd), (y1+0.8*deltaSide)),
-                       new Translation2d((x1+0.85*deltaFwd), (y1+0.85*deltaSide)), 
-                       new Translation2d((x1+0.9*deltaFwd), (y1+0.9*deltaSide)),
-                       new Translation2d((x1+0.95*deltaFwd), (y1+0.95*deltaSide))
-                       ),  
-                // End here
-                new Pose2d(x2, y2, new Rotation2d((angle2 + Math.PI))), //add 180 because target and robot are facing opposite directions
-                config);     
-            currentTrajectory = exampleTrajectory;
-                
-            var thetaController =
-                new ProfiledPIDController(
-                    Constants.AutoConstants.kPThetaController, 0, 0, Constants.AutoConstants.kThetaControllerConstraints);
-            thetaController.enableContinuousInput(-Math.PI, Math.PI);
-    
-            SwerveControllerCommand swerveControllerCommand =
-                new SwerveControllerCommand(
-                    currentTrajectory,
-                    this::getPose,
-                    Constants.Swerve.swerveKinematics,
-                    new PIDController(Constants.AutoConstants.kPXController, 0, 0),
-                    new PIDController(Constants.AutoConstants.kPYController, 0, 0),
-                    thetaController,
-                    this::setModuleStates,
-                    this);
-            
-            currentSwerveControllerCommand = swerveControllerCommand;
-    
-             }
-        }
-    
-        public void MegaTag2UpdateOdometry() {
-            /* Replaced below with m_poseEstimator.update(getGyroYaw(), getModulePositions()); as done in periodic for swerve odometry
-            m_poseEstimator.update(
-                gyro.getRotation2d(),
-                new SwerveModulePosition[] {
-                    mSwerveMods[0].getPosition(), //front left
-                    mSwerveMods[1].getPosition(), //front right
-                    mSwerveMods[2].getPosition(), //back left
-                    mSwerveMods[3].getPosition()  //back right
-                });
-            */   
-            m_poseEstimator.update(getGyroYaw(), getModulePositions());
-    
-            boolean useMegaTag2 = true; //set to false to use MegaTag1
-            boolean doUpdate = true;
-            // evaluating which Megatag one or two to use based on above boolean value and 
-            // only incorporate Limelight's estimates when more than one tag is visible (tagcount >= 1)
-            if(useMegaTag2 == false)
+
+            if(mt1.tagCount == 1 && mt1.rawFiducials.length == 1)
             {
-              LimelightHelpers.PoseEstimate mt1 = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
-              if(mt1.tagCount == 1 && mt1.rawFiducials.length == 1)
-              {
                 if(mt1.rawFiducials[0].ambiguity > .7) { doUpdate = false; }
                 if(mt1.rawFiducials[0].distToCamera > 3) { doUpdate = false; }
-              }
-              if(mt1.tagCount == 0) {
-                 doUpdate = false; 
-                }
-              if(doUpdate) {     // if doUpdate is true, then update the pose estimator (this used to be doRejectUpdate; logic was changed)
+            }
+            if(mt1.tagCount == 0) {
+                doUpdate = false; 
+            }
+            if(doUpdate) {     // if doUpdate is true, then update the pose estimator (this used to be doRejectUpdate; logic was changed)
                 m_poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,0.01));
                 m_poseEstimator.addVisionMeasurement(
                     mt1.pose,
                     mt1.timestampSeconds);
-              }
             }
-            else if (useMegaTag2)
-            {   // only incorporate Limelight's estimates when more than one tag is visible (tagcount >= 1)
-                LimelightHelpers.SetRobotOrientation("limelight", m_poseEstimator.getEstimatedPosition().getRotation().getDegrees(), 0, 0, 0, 0, 0);
-                LimelightHelpers.PoseEstimate mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight");
-                
-                if (mt2 == null) {
-                    return;
-                }
-    
-                // sometimes when starting robot/building code, mt2 == null for a split second, so need to check for that or code errors
-                if(mt2 == null || Math.abs(gyro.getAngularVelocityZWorld().getValueAsDouble()) > 720) // if our angular velocity is greater than 720 degrees per second, ignore vision updates
-                {
-                    doUpdate = false;
-                }
-                if(mt2.tagCount == 0)
-                {
-                    doUpdate = false;
-                }
-                if(doUpdate)   // if doRejectUpdate is false (or NOT true), then update the pose estimator
-                {
-                    // this line basically sets the "trust" level of vision measurements; higher number means to trust it less, and hence weight vision 
-                    // measurements a lot less. In this case, the rotation stddev was enormous (9999999), so its essentially ignored entirely.
-                    // i've set it to ten degrees for now, because too low may be erratic, but it can be tuned
-    
-                    // update 11/12 it seems like according to limelight docs megatag2 does not calculate heading at all. therefore this won't realy change much
-                    // still researching potential solution
-    
-                    m_poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7, 9999999)); // n3 was 9999999 
-                    m_poseEstimator.addVisionMeasurement(
-                        mt2.pose,
-                        mt2.timestampSeconds);
-              }
+        } else if (useMegaTag2) {
+            // only incorporate Limelight's estimates when more than one tag is visible (tagcount >= 1)
+            // line below is required because megatag2 requires the limelight to know the robot's current rotation, as it USES it instead of providing it like in MT1
+            LimelightHelpers.SetRobotOrientation("limelight", m_poseEstimator.getEstimatedPosition().getRotation().getDegrees(), 0, 0, 0, 0, 0);
+            LimelightHelpers.PoseEstimate mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight");
+            
+            // sometimes when starting robot/building code, mt2 == null for a split second, so need to check for that or code errors and crashes
+            if (mt2 == null) {
+                return;
+            }
+            
+            if (Math.abs(gyro.getAngularVelocityZWorld().getValueAsDouble()) > 720 || mt2.tagCount == 0) // if our angular velocity is greater than 720 degrees per second, ignore vision updates
+            {
+                doUpdate = false;
+            }
+
+            if (doUpdate)
+            {
+                // this line basically sets the "trust" level of vision measurements; higher number means to trust it less, and hence weight vision 
+                // measurements a lot less. In this case, the rotation stddev was enormous (9999999), so its essentially ignored entirely.
+                // update 11/12 it seems like according to limelight docs megatag2 does not calculate heading at all, number likely irrelevant 
+
+                m_poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7, 0.01)); // n3 was 9999999 
+                m_poseEstimator.addVisionMeasurement(
+                    mt2.pose,
+                    mt2.timestampSeconds);
             }
         }
-    
-    public double getTargetingAngle (double HUBX, double HUBY) {
+    }
 
-    // CALCULATED THE ANGLE TO FACE THE CENTER OF THE HUB
+    public double calculateTargetingPID (double HUBX, double HUBY) {
+
+      // CALCULATED THE ANGLE TO FACE THE CENTER OF THE HUB
       Pose2d currentPose = getPose();
       double dx = HUBX - Units.metersToInches(currentPose.getX());
       double dy = HUBY - Units.metersToInches(currentPose.getY());
       double targetAngle = Math.atan2(dy, dx);
 
-    // USES PID TO ROTATE THE ROBOT EFFECTIVELY
-      double pidOutput = pidController.calculate(currentPose.getRotation().getRadians(), targetAngle);
-      double newRotation = pidOutput;
+      // USES PID TO ROTATE THE ROBOT EFFECTIVELY
+      double pidOutput = pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), targetAngle);
 
-      return newRotation;
-    }
+      return pidOutput;
+   }
 
-    public double getDistanceToHub (double HUBX, double HUBY) {
 
-    // CALCULATED THE DISTANCE TO THE CENTER OF THE HUB
+   public double getDistanceToHub (double HUBX, double HUBY) {
+
+      // CALCULATED THE DISTANCE TO THE CENTER OF THE HUB
       Pose2d currentPose = getPose();
       double dx = HUBX - Units.metersToInches(currentPose.getX());
       double dy = HUBY - Units.metersToInches(currentPose.getY());
       double distance = Math.hypot(dy, dx);
-    
+  
       return distance;
-    }
-
+   }
 
     @Override
     public void periodic(){
-      //  SmartDashboard.putNumber("limelight standoff fwd", LimelightHelpers.getTargetPose_CameraSpace("limelight")[2]);
+        //SmartDashboard.putNumber("limelight standoff fwd", LimelightHelpers.getTargetPose_CameraSpace("limelight")[2]);
 
-    //    swerveOdometry.update(getGyroYaw(), getModulePositions());
-    //    swerveOdometry.update(gyro.getRotation2d(), getModulePositions());
-
-       MegaTag2UpdateOdometry();
-       SmartDashboard.putNumber("** RobotPoseX (Estimator)", Units.metersToInches( m_poseEstimator.getEstimatedPosition().getX()));
-       SmartDashboard.putNumber("** RobotPoseY (Estimator)", Units.metersToInches( m_poseEstimator.getEstimatedPosition().getY()));
-       SmartDashboard.putNumber("MegaTag2Rotation (Estimator)", m_poseEstimator.getEstimatedPosition().getRotation().getDegrees());
-       SmartDashboard.putNumber("Limelight temp, C", NetworkTableInstance.getDefault().getTable("limelight").getEntry("hw").getDoubleArray(new double[1])[0]);
-       SmartDashboard.putNumber("Limelight throttle", NetworkTableInstance.getDefault().getTable("limelight").getEntry("throttle-set").getInteger(0));
-       SmartDashboard.putData(CommandScheduler.getInstance());
-       SmartDashboard.putNumber("Gryo Angle", getGyroYaw().getDegrees());
-
-           // SmartDashboard.putNumber("dx", dx);
-    // SmartDashboard.putNumber("dy", dy);
-    // SmartDashboard.putNumber("pidOutput", pidOutput);
-    // SmartDashboard.putNumber("newRotation", newRotation);
-    // SmartDashboard.putNumber("current rotation (deg)", (currentPose.getRotation().getDegrees()));
-    // SmartDashboard.putNumber("desired rotation (deg)", Units.radiansToDegrees(targetAngle));
-
-    //    System.out.println(swerveOdometry.getPoseMeters().getX() + " " + swerveOdometry.getPoseMeters().getY() + " Rotation: " + swerveOdometry.getPoseMeters().getRotation().getDegrees());
+        //swerveOdometry.update(getGyroYaw(), getModulePositions());
+        MegaTag2UpdateOdometry();
+        SmartDashboard.putNumber("** RobotPoseX (Estimator)", Units.metersToInches( m_poseEstimator.getEstimatedPosition().getX()));
+        SmartDashboard.putNumber("** RobotPoseY (Estimator)", Units.metersToInches( m_poseEstimator.getEstimatedPosition().getY()));
+        SmartDashboard.putNumber("MegaTag2Rotation (Estimator)", m_poseEstimator.getEstimatedPosition().getRotation().getDegrees());
+        //System.out.println(swerveOdometry.getPoseMeters().getX() + " " + swerveOdometry.getPoseMeters().getY() + " Rotation: " + swerveOdometry.getPoseMeters().getRotation().getDegrees());
 
         for(SwerveModule mod : mSwerveMods){
-         SmartDashboard.putNumber("Mod " + mod.moduleNumber + " CANcoder degrees", mod.getCANcoder().getDegrees());
-          SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Angle degrees", mod.getPosition().angle.getDegrees());
-          SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);
-        //   Can't use m/s in the key!! SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity m/s", mod.getState().speedMetersPerSecond);
-         }
-    
-         /* 
-       poseAngle = LimelightHelpers.getTargetPose_CameraSpace("l1 melight")[5];
-       SmartDashboard.putNumber("TargetingAngle in swerve: ", poseAngle);
-       poseForwardDistance = LimelightHelpers.getTargetPose_ameraSpace("limelight")[2];
-      SmartDashboard.putNumber("TargetingForwardDistance in swerve: ", poseForwardDistance / 0.0254);
-      poseSideDistance = LimelightHelpers.getTargetPose_CameraSpace("limelight")[0];
-       SmartDashboard.putNumber("TargetingSideDistance in swerve: ", poseSideDistance / 0.0254);
-       */
-     }
+            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " CANcoder degrees", mod.getCANcoder().getDegrees());
+            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Angle degrees", mod.getPosition().angle.getDegrees());
+            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);
+            // Can't use m/s in the key!! SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity m/s", mod.getState().speedMetersPerSecond);
+        }
+    }
 }

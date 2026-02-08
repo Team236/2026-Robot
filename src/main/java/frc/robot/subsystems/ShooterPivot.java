@@ -34,8 +34,7 @@ public class ShooterPivot extends SubsystemBase {
   private DigitalInput shooterRetLimit;
 
   private PositionVoltage m_request;
-  private final InterpolatingDoubleTreeMap hoodAngleMap = new InterpolatingDoubleTreeMap();
-
+  
   /** Creates a new ShooterPivot. */
   //This system uses motor to change the angle of the shooter, based on the motor encoder reading (PID position control)
   public ShooterPivot() {
@@ -79,8 +78,7 @@ public class ShooterPivot extends SubsystemBase {
           isShooterPivotRetException);
     }
 
-    hoodAngleMap.put(49.0, -5.0);
-    hoodAngleMap.put(140.0, 5.0);
+    
   }
 
   //METHODS START HERE:
@@ -178,7 +176,7 @@ public class ShooterPivot extends SubsystemBase {
   }
 
   public double calculateHoodAngle(double distance) {
-    return hoodAngleMap.get(distance);
+    return Constants.Targeting.hoodAngleMap.get(distance);
   }
 
   @Override
