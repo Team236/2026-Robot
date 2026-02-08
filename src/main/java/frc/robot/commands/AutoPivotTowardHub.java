@@ -5,6 +5,7 @@ import frc.robot.subsystems.Swerve;
 
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
+import java.util.logging.Handler;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -20,39 +21,26 @@ public class AutoPivotTowardHub extends Command {
   private DoubleSupplier translationSup;
   private DoubleSupplier strafeSup;
   private BooleanSupplier robotCentricSup;
-  private PIDController pidController;
   private double HUBX;
   private double HUBY;
+  private double newRotation;
 
   public AutoPivotTowardHub(Swerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, DoubleSupplier rotationSup, BooleanSupplier robotCentricSup) {
+    // USING SWERVE FOR TAKING OVER ROTATION
     this.s_Swerve = s_Swerve;
     addRequirements(s_Swerve);
     
-
+    // NOT USED 
     this.translationSup = translationSup;
     this.strafeSup = strafeSup;
-    //this.rotationSup = rotationSup;
     this.robotCentricSup = robotCentricSup;
-
-    // need help understanding what k (difference) and d (rate) should be
-    pidController = new PIDController(
-        5,
-        0.0,
-        0.0);
-
-    // used for shortest route (angle measurement that wraps around)
-    pidController.enableContinuousInput(-Math.PI, Math.PI);
-    // tolerance is to prevent gittering (this will need to be tuned)
-    pidController.setTolerance(Math.toRadians(0.1));
-    pidController.setSetpoint(0.0);
   }
 
   @Override
   public void initialize() {
     var alliance = DriverStation.getAlliance();
 
-    // alliance hub selection
-    // this needs to be reviewd to make sure code is aceptable and intergratable
+    // ALIGENCE SELECTION FROM DRIVER STATION
     if (alliance.isPresent() && alliance.get() == Alliance.Red) {
       HUBX = Constants.Targeting.RED_ALLIANCE_HUB_CENTER_X;
       HUBY = Constants.Targeting.RED_ALLIANCE_HUB_CENTER_Y;
@@ -64,36 +52,14 @@ public class AutoPivotTowardHub extends Command {
 
   @Override
   public void execute() {
-    // took from swerve
+    // X AND Y VALUES FOR DRIVING
       double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.stickDeadband);
       double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.stickDeadband);
-      //double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.stickDeadband);
 
       // math concepts at https://tinyurl.com/mvjft42z
-      Pose2d currentPose = s_Swerve.getPose();
+      newRotation = this.s_Swerve.getTargetingAngle(HUBX, HUBY);
 
-      // needs to be in radians for math.atan2()
-      double dx = HUBX - Units.metersToInches(currentPose.getX()); // pose is in meters, hub coordinates are in inches; must convert
-      double dy = HUBY - Units.metersToInches(currentPose.getY());
-      double targetAngle = Math.atan2(dy, dx);
-
-      double pidOutput = pidController.calculate(currentPose.getRotation().getRadians(), targetAngle);
-
-      double newRotation = pidOutput;//MathUtil.clamp(pidOutput, -Constants.Swerve.maxAngularVelocity, Constants.Swerve.maxAngularVelocity);
-
-      // if driver wants to turn while holding and it gets springed back
-      // use: newRotationVal = (newRotation * .75) + (rotaionVal * .25)
-
-    //   if (pidController.atSetpoint()) {
-    //     newRotation = 0;
-    // }
-    SmartDashboard.putNumber("dx", dx);
-    SmartDashboard.putNumber("dy", dy);
-    SmartDashboard.putNumber("pidOutput", pidOutput);
-    SmartDashboard.putNumber("newRotation", newRotation);
-    SmartDashboard.putNumber("current rotation (deg)", (currentPose.getRotation().getDegrees()));
-    SmartDashboard.putNumber("desired rotation (deg)", Units.radiansToDegrees(targetAngle));
-
+    // DRIVING COMMAND THAT JUST INPUTS COMPUTERS ROTATION
     s_Swerve.drive(
         new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed),
         MathUtil.clamp(newRotation, -Constants.Swerve.maxAngularVelocity, Constants.Swerve.maxAngularVelocity),
