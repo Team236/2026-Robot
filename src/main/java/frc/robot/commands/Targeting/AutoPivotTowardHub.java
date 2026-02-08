@@ -51,11 +51,17 @@ public class AutoPivotTowardHub extends Command {
   @Override
   public void execute() {
     // X AND Y VALUES FOR DRIVING
-      double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.stickDeadband);
-      double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.stickDeadband);
+    double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.stickDeadband);
+    double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.stickDeadband);
 
-      // MATH IS AT https://tinyurl.com/mvjft42z
-      newRotation = this.s_Swerve.calculateTargetingPID(HUBX, HUBY);
+    // MATH IS AT https://tinyurl.com/mvjft42z
+    newRotation = 
+      this.s_Swerve.calculateTargetingPID(HUBX, HUBY); //+ Constants.Targeting.AUTO_ROTATE_FEEDFORWARD * Math.signum(this.s_Swerve.calculateTargetingPID(HUBX, HUBY));
+    
+    // if current angle is within tolerance of target, don't feed any rotation
+    if (Math.abs(s_Swerve.getHeading().getDegrees() - Units.radiansToDegrees(s_Swerve.getAngleToHub(HUBX, HUBY))) < Constants.Targeting.AUTO_ROTATE_TOLERANCE) {
+      newRotation = 0;
+    }
 
     // DRIVING COMMAND THAT JUST INPUTS COMPUTERS ROTATION
     s_Swerve.drive(

@@ -112,6 +112,9 @@ public final class Constants {
     public static final double DIST_TAG_LEFT_BRANCH = 8.5;//9+1;//6.75;//8.75;//7.0;
     public static final double DIST_ALGAE_CENTERED_LL = 8.5;//center of LL lens to center of Algae device
 
+    public static final double AUTO_ROTATE_FEEDFORWARD = 0.3;
+    public static final double AUTO_ROTATE_TOLERANCE = 1.0; //degrees
+
     public static final InterpolatingDoubleTreeMap hoodAngleMap = new InterpolatingDoubleTreeMap();
 
     static {
