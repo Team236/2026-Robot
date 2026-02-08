@@ -48,18 +48,49 @@ public final class Constants {
 
   public static class MotorControllers {
     public static final int SMART_CURRENT_LIMIT = 40;
-   //Motor ID Numbers
-    //Elevator 
-    public static final int ID_ELEVATOR_LEFT_TALON = 11;
-    public static final int ID_ELEVATOR_RIGHT_TALON = 12;
-    //AlgaeHold
-    public static final int ID_ALGAE_HOLD = 56; 
-    //CoralHold
-    public static final int ID_CORAL_HOLD_MOTOR = 1;
-    //AlgaePivot 
-    public static final int ID_ALGAE_PIVOT = 57;
-    //CoralPivot 
-    public static final int ID_CORAL_PIVOT = 2;//BRUSHED!!! 
+    //MOTOR ID NUMBERS (for swerve drive/steer motors - see Swerve below):
+    public static final int ID_BIN_REL = 8; //8
+    public static final int ID_INTAKE_LEFT = 9; 
+    public static final int ID_FLOOR = 10; 
+    public static final int ID_SHOOTER_LEFT_MAIN = 11; // 11
+    public static final int ID_SHOOTER_RIGHT_MAIN = 12; // 12
+   // public static final int ID_SHOOTER_MID_MAIN = 17;
+    public static final int ID_SHOOTER_LEFT_TOP = 16;
+    public static final int ID_SHOOTER_RIGHT_TOP = 17;
+    public static final int ID_SHOOTER_PIVOT = 15;
+    public static final int ID_CLIMBER = 13; //13
+    public static final int ID_PRE_FEEDER = 14; //14
+  }
+
+  public static class ShooterConstants {
+    public static final double MAIN_MOTOR_RPM = 3000; //2200;
+    public static final double TOP_MOTOR_RPM = 2000;
+
+    public static final double MAIN_MOTOR_SPEED = -0.5;
+    public static final double TOP_MOTOR_SPEED = -0.1;
+
+    // TODO find final gains
+    public static final double KV_MAIN = 0.121; // feed forward
+    public static final double KP_MAIN = 0.34;
+    public static final double KI_MAIN = 0;
+    public static final double KD_MAIN = 0; 
+
+    public static final double KV_TOP = 0.116; // feed forward
+    public static final double KP_TOP = 0.4;
+    public static final double KI_TOP = 0;
+    public static final double KD_TOP = 0;
+  }
+
+  public static class ShooterPivotConstants {
+    public static final int DIO_EXT_LIMIT = 4;
+    public static final int DIO_RET_LIMIT = 5;
+    public static final double KP = 0.16; 
+    public static final double KI = 0;
+    public static final double KD = 0;
+    public static final double ENC_REVS_MAX = 1000; //TODO find actual
+    public static final double TARGET_REVS = 50;
+    public static final double CONSTANT_FORWARD_SPEED = 0.1;
+    public static final double CONSTANT_REVERSE_SPEED = -0.1;
   }
 
   public static final class  Targeting {
@@ -70,17 +101,7 @@ public final class Constants {
     public static final double DIST_FORWARDS_CAMERA_TO_FRAME = 5.2;
     public static final double BUMPER_THICKNESS = 3.25;
     public static final double DIST_CAMERA_TO_BUMPER_FWD = BUMPER_THICKNESS + DIST_FORWARDS_CAMERA_TO_FRAME;
-    //forward distance robot center to robot bumper, inches 
-    //only use DIST_TO_CENTER if we switch to TargetPose-RobotSpace
-    //public static final double DIST_TO_CENTER = 15 + BUMPER_THICKNESS;
-    //Distances below assume Limelight camera will be centered on the AprilTag when targeting 
-    //Make LL camera be centered 2" from side of frame
-    //TODO:  get actual for algae side below, verify others with camera on the right over Coral device
-    //OLD public static final double DIST_L_CORAL_SIDE = -14.775;//1.6; //from LL camera to Left Coral branch
-    //OLD public static final double DIST_R_CORAL_SIDE = -0.825;//-11.4;//-10.625 //from LL camera to Right Coral Branch
-    //OLD  public static final double DIST_ALGAE_SIDE = 1.75;//-16;//-14.375 //to get to Algae center (from AprilTag center)
-    //OLD public static final double DIST_FWD = 9; //required fwd standoff (from bumper) to keep target in sight
-
+  
     public static final double KP_ROTATION = 0.008; //kP value for rotation
     public static final double KP_TRANSLATION = 0.4;//kP value for forward (translation) motion
     public static final double KP_STRAFE = 0.9;// 0.475;  //kP value for the sideways (strafe) motio%n 
@@ -93,19 +114,6 @@ public final class Constants {
     public static Map<Integer, Pose2d> ID_TO_POSE = new HashMap<>();
 
     static {
-      // Constants.Targeting.ID_TO_POSE.put(6, new Pose2d(Units.inchesToMeters(530.49), Units.inchesToMeters(130.17), new Rotation2d(Units.degreesToRadians(300))));
-      // Constants.Targeting.ID_TO_POSE.put(7, new Pose2d(Units.inchesToMeters(546.87), Units.inchesToMeters(158.50), new Rotation2d(Units.degreesToRadians(0))));
-      // Constants.Targeting.ID_TO_POSE.put(8, new Pose2d(Units.inchesToMeters(530.49), Units.inchesToMeters(186.83), new Rotation2d(Units.degreesToRadians(60))));
-      // Constants.Targeting.ID_TO_POSE.put(9, new Pose2d(Units.inchesToMeters(497.77), Units.inchesToMeters(186.83), new Rotation2d(Units.degreesToRadians(120))));
-      // Constants.Targeting.ID_TO_POSE.put(10, new Pose2d(Units.inchesToMeters(481.39), Units.inchesToMeters(158.50), new Rotation2d(Units.degreesToRadians(180))));
-      // Constants.Targeting.ID_TO_POSE.put(11, new Pose2d(Units.inchesToMeters(497.77), Units.inchesToMeters(130.17), new Rotation2d(Units.degreesToRadians(240))));
-        
-      // Constants.Targeting.ID_TO_POSE.put(17, new Pose2d(Units.inchesToMeters(160.39), Units.inchesToMeters(130.17), new Rotation2d(Units.degreesToRadians(240))));
-      // Constants.Targeting.ID_TO_POSE.put(18, new Pose2d(Units.inchesToMeters(144.00), Units.inchesToMeters(158.50), new Rotation2d(Units.degreesToRadians(180))));
-      // Constants.Targeting.ID_TO_POSE.put(19, new Pose2d(Units.inchesToMeters(160.39), Units.inchesToMeters(186.83), new Rotation2d(Units.degreesToRadians(120))));
-      // Constants.Targeting.ID_TO_POSE.put(20, new Pose2d(Units.inchesToMeters(193.10), Units.inchesToMeters(186.83), new Rotation2d(Units.degreesToRadians(60))));
-      // Constants.Targeting.ID_TO_POSE.put(21, new Pose2d(Units.inchesToMeters(209.49), Units.inchesToMeters(158.50), new Rotation2d(Units.degreesToRadians(0))));
-      // Constants.Targeting.ID_TO_POSE.put(22, new Pose2d(Units.inchesToMeters(193.10), Units.inchesToMeters(130.17), new Rotation2d(Units.degreesToRadians(300))));
 
       Constants.Targeting.ID_TO_POSE.put(1, new Pose2d(Units.inchesToMeters(467.08), Units.inchesToMeters(291.79), new Rotation2d(Units.degreesToRadians(180))));
       Constants.Targeting.ID_TO_POSE.put(2, new Pose2d(Units.inchesToMeters(468.56), Units.inchesToMeters(182.08), new Rotation2d(Units.degreesToRadians(90))));
@@ -302,96 +310,6 @@ public static final class Swerve {
       //Center Auto path (inches)
         public static final double CENTER_FWD_DIST = 53.5; 
     }
-
-  public static class Elevator {
-    public static final int DIO_ELEV_TOP = 4;
-    public static final int DIO_ELEV_BOTTOM = 5;
-
-    public static final double ELEV_UP_SPEED = 0.1;
-    public static final double ELEV_DOWN_SPEED = -0.2;
-    public static final double ELEV_CLIMB_DOWN_SPEED = -0.2;
-
-    //conversion factors
-    public static final double ELEV_REV_TO_METERS = 1.362*0.0254;
-    public static final double ELEV_REV_TO_IN = 1.362;
-    public static final double ELEV_IN_TO_REV = 1/ELEV_REV_TO_IN;
-
-    public static final double BOTTOM_HEIGHT = 0;
-    public static final double TELEOP_HEIGHT = 5;//3.47;
-    public static final double L1_HEIGHT = 0;
-    public static final double L2_HEIGHT = 4;//6;
-    public static final double L3_HEIGHT = 21;//23;
-    public static final double L4_HEIGHT = 57;//no more than 57.5
-    public static final double L4_HT_AUTO = 56;
-    public static final double PICK_ALGAE_L2_HEIGHT = 22; //TODO find actual
-    public static final double PICK_ALGAE_L3_HEIGHT = 38;//TODO find actual
-    public static final double SCORE_ALGAE_NET_HEIGHT = 60; //TODO find actual
-    public static final double BUMP_HEIGHT = 10; 
-    public static final double CLIMB_START_HEIGHT = 12;  
-    public static final double CLIMB_END_HEIGHT = 0; 
-    public static final double MAX_HEIGHT = 60.15;
-
-    //PID values
-    public static final double KP_ELEV = 0.039; //0.04;
-    public static final double KI_ELEV = 0;
-    public static final double KD_ELEV = 0;
-  }
-
-public static class AlgaeHold {
-  public static final double HOLD_SPEED1 = -0.5;//MUST BE NEGATIVE!
-  public static final double HOLD_SPEED2 = -0.04;//MUST BE NEGATIVE!
-  public static final double RELEASE_SPEED = 1.0;
-  public static final double PROCESSOR_SPEED = 1.0; //0.125;
-  public static final int DIO_AH_LIMIT = 9;
-}
-
-public static class CoralHold {
-  public static final int DIO_COUNTER = 10;
-  public static final double HOLD_SPEED = 0.2;
-  public static final double L1_RELEASE_SPEED = 0.25;//0.2;
-  public static final double L2_RELEASE_SPEED = 0.25;//0.5;
-  public static final double L3_RELEASE_SPEED = 0.25;//0.5;
-  public static final double L4_RELEASE_SPEED = 0.25;//0.1;
-}
-
-  public static class AlgaePivot {
-    public static final int DIO_LIMIT = 6;
-    public static final int DIO_ENC_A = 7;
-    public static final int DIO_ENC_B = 13;
-    //TODO find actual values with new limit switch position (approx 167 difference)
-    public static final double ENC_REVS_MAX = -855-167; //TODO determine max revs
-    public static final double ENC_REVS_BUMP = -250-167-33;
-    public static final double ENC_REVS_REEF_PICKUP = -500-167;
-    public static final double ENC_REVS_FLOOR_PICKUP = -23.7-167;
-    public static final double ENC_REVS_SCORE_NET = 0; //TODO find actual
-    public static final double ENC_REVS_ELEVATOR_SAFE_POSITION = 0;//TODO verify safe at retract limit
-    public static final double MAN_EXT_SPEED = -0.4;
-    public static final double MAN_RET_SPEED = 0.4;
-    public static final double KP = 0.01;  //TODO find actual
-    public static final double KI = 0;
-    public static final double KD = 0;
-    public static final double KFF = 0;
-  }
-  
-  public static class CoralPivot {
-    public static final int DIO_LIMIT = 8; 
-    public static final double ENC_REVS_MAX = -119;//-125;
-    public static final double ENC_REVS_LEVEL1 = 0;
-    public static final double ENC_REVS_LEVEL2 = -4;//-10;//-45;
-    public static final double ENC_REVS_LEVEL3 = -4;//-10;//-45; 
-    public static final double ENC_REVS_LEVEL4 = -114;//-120;//-125;
-    public static final double ENC_REVS_AUTO_LEVEL4 = -114;//-120;//120;
-    public static final double ENC_REVS_FULL_RETRACT = 0;
-    public static final double MAN_EXT_SPEED = -0.6;
-    public static final double MAN_RET_SPEED = 0.6;
-    public static final double ENC_REVS_LOADING = 0;
-    public static final double KP = 0.05; //TODO tune better?
-    public static final double KI = 0;
-    public static final double KD = 0;
-    public static final double KFF = 0;
-    public static final int DIO_ENC_A = 11;
-    public static final int DIO_ENC_B = 12;
-  }
   
   public static class XboxController {
     public static final int A = 1;
