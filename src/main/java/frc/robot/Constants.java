@@ -50,17 +50,17 @@ public final class Constants {
   public static class MotorControllers {
     public static final int SMART_CURRENT_LIMIT = 40;
     //MOTOR ID NUMBERS (for swerve drive/steer motors - see Swerve below):
-    public static final int ID_BIN_REL = 8; //8
-    public static final int ID_INTAKE_LEFT = 9; 
-    public static final int ID_FLOOR = 10; 
-    public static final int ID_SHOOTER_LEFT_MAIN = 11; // 11
-    public static final int ID_SHOOTER_RIGHT_MAIN = 12; // 12
+    public static final int ID_BIN_REL = 99; //8
+    public static final int ID_INTAKE_LEFT = 98; 
+    public static final int ID_FLOOR = 97; 
+    public static final int ID_SHOOTER_LEFT_MAIN = 96; // 11
+    public static final int ID_SHOOTER_RIGHT_MAIN = 95; // 12
    // public static final int ID_SHOOTER_MID_MAIN = 17;
-    public static final int ID_SHOOTER_LEFT_TOP = 16;
-    public static final int ID_SHOOTER_RIGHT_TOP = 17;
-    public static final int ID_SHOOTER_PIVOT = 15;
-    public static final int ID_CLIMBER = 13; //13
-    public static final int ID_PRE_FEEDER = 14; //14
+    public static final int ID_SHOOTER_LEFT_TOP = 94;
+    public static final int ID_SHOOTER_RIGHT_TOP = 93;
+    public static final int ID_SHOOTER_PIVOT = 92;
+    public static final int ID_CLIMBER = 91; //13
+    public static final int ID_PRE_FEEDER = 90; //14
   }
 
   public static class ShooterConstants {
@@ -260,7 +260,7 @@ public static final class Swerve {
 
         /* Swerve Profiling Values, Meters per Second*/
         public static final double maxSpeed = 4.5; //TODO: This must be tuned to specific robot
-        public static final double throttle = .1;
+        public static final double throttle = .5;
         /** Radians per Second */
         public static final double maxAngularVelocity = 10.0; //TODO: This must be tuned to specific robot
 

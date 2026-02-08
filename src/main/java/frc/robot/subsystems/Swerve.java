@@ -496,8 +496,16 @@ public class Swerve extends SubsystemBase {
       double pidOutput = pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), targetAngle);
 
       return pidOutput;
-   }
+    }
 
+    public double getAngleToHub (double HUBX, double HUBY) {
+        Pose2d currentPose = getPose();
+        double dx = HUBX - Units.metersToInches(currentPose.getX());
+        double dy = HUBY - Units.metersToInches(currentPose.getY());
+        double angle = Math.atan2(dy, dx);
+
+        return angle;
+    }
 
    public double getDistanceToHub (double HUBX, double HUBY) {
 
@@ -516,6 +524,7 @@ public class Swerve extends SubsystemBase {
 
         //swerveOdometry.update(getGyroYaw(), getModulePositions());
         MegaTag2UpdateOdometry();
+        SmartDashboard.putNumber("Distance to red hub", getDistanceToHub(Constants.Targeting.RED_ALLIANCE_HUB_CENTER_X, Constants.Targeting.RED_ALLIANCE_HUB_CENTER_Y));
         SmartDashboard.putNumber("** RobotPoseX (Estimator)", Units.metersToInches( m_poseEstimator.getEstimatedPosition().getX()));
         SmartDashboard.putNumber("** RobotPoseY (Estimator)", Units.metersToInches( m_poseEstimator.getEstimatedPosition().getY()));
         SmartDashboard.putNumber("MegaTag2Rotation (Estimator)", m_poseEstimator.getEstimatedPosition().getRotation().getDegrees());

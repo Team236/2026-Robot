@@ -28,6 +28,9 @@ public class AutoPivotTowardHub extends Command {
   public AutoPivotTowardHub(Swerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, BooleanSupplier robotCentricSup) {
     // USING SWERVE FOR TAKING OVER ROTATION
     this.s_Swerve = s_Swerve;
+    this.translationSup = translationSup;
+    this.strafeSup = strafeSup;
+    this.robotCentricSup = robotCentricSup;
     addRequirements(s_Swerve);
   }
 

@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.TeleopSwerve;
+import frc.robot.commands.Targeting.AutoPivotTowardHub;
 import frc.robot.subsystems.Swerve;
 /*
 import frc.robot.commands.FuelShooting.ManualMainRoller;
@@ -146,7 +147,7 @@ private final Swerve s_Swerve = new Swerve();
   }
 
   private void configureBindings() {
-
+    zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
     // driver controller
     JoystickButton a = new JoystickButton(driverController, Constants.XboxController.A); // feeder
     JoystickButton b = new JoystickButton(driverController, Constants.XboxController.B); // feeder
@@ -193,6 +194,13 @@ private final Swerve s_Swerve = new Swerve();
 
     // command binds
     // a.onTrue(algaeGrab).onTrue(l3_Score); *EXAMPLE
+
+    lt.whileTrue(new AutoPivotTowardHub(
+      s_Swerve, 
+      () -> -driverController.getRawAxis(translationAxis), 
+      () -> -driverController.getRawAxis(strafeAxis),  
+      () -> robotCentric.getAsBoolean()
+    ));
 
     // Fuel Shooter
     //  a.whileTrue(manualMainRoller);
@@ -242,7 +250,7 @@ private final Swerve s_Swerve = new Swerve();
     //leftPov.onTrue(Commands.defer(() -> s_Swerve.followPathCommand("hub-center-to-tower-left"), Set.of(s_Swerve)));
     //rightPov.onTrue(Commands.defer(() -> s_Swerve.followPathCommand("hub-center-to-tower-right"), Set.of(s_Swerve)));
     //a.onTrue(Commands.defer(() -> s_Swerve.followPathCommand("tuning-test-straight"), Set.of(s_Swerve)));
-     a.onTrue(Commands.defer(() -> s_Swerve.followPathCommand("tuning-test-rotation"), Set.of(s_Swerve)));
+    //  a.onTrue(Commands.defer(() -> s_Swerve.followPathCommand("tuning-test-rotation"), Set.of(s_Swerve)));
   }
   
     public Command getAutonomousCommand() {
