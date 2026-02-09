@@ -518,6 +518,53 @@ public class Swerve extends SubsystemBase {
       return distance;
    }
 
+   public double pidCalculateAngle (double targetAngle) {
+   Pose2d currentPose = getPose();
+   double pidOutput = pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), targetAngle);
+  
+   return pidOutput;
+  }
+
+  public double[] getRotationMoving (double HUBX, double HUBY) {
+   ChassisSpeeds robotChassisSpeeds = getChassisSpeeds();
+   Pose2d currentPose2d = getPose();
+   double distanceToHub = getDistanceToHub(HUBX, HUBY);
+   double finalDistance = 0;
+
+
+   double timeOfFlight = Constants.Targeting.timeMap.get(distanceToHub);
+
+
+   Translation2d virtualGoal = new Translation2d();
+
+
+   for (int i = 0; i < 2; i++) {
+     // calculate the Virtual Goal (looping to get error low)
+     double virtualX = HUBX - (robotChassisSpeeds.vxMetersPerSecond * timeOfFlight);
+     double virtualY = HUBY - (robotChassisSpeeds.vyMetersPerSecond * timeOfFlight);
+
+
+     virtualGoal = new Translation2d(virtualX, virtualY);
+
+
+     // new distance is where the robot would be static
+     double newDistance = currentPose2d.getTranslation().getDistance(virtualGoal);
+
+
+     // updates time of flight based on the new distance
+     timeOfFlight = Constants.Targeting.timeMap.get(newDistance);
+     finalDistance = newDistance;
+   }
+
+
+   double finalRotation = Math.atan2(virtualGoal.getY() - currentPose2d.getY(), virtualGoal.getX() - currentPose2d.getX());
+  
+   double[] returnData = {finalDistance, finalRotation};
+
+
+   return returnData;
+  }
+
     @Override
     public void periodic(){
         //SmartDashboard.putNumber("limelight standoff fwd", LimelightHelpers.getTargetPose_CameraSpace("limelight")[2]);
