@@ -64,22 +64,29 @@ public final class Constants {
   }
 
   public static class ShooterConstants {
-    public static final double MAIN_MOTOR_RPM = 2100; //2200;
-    public static final double TOP_MOTOR_RPM = 2000;
-
+    public static final double MAIN_MOTOR_RPM = 2100;
     public static final double MAIN_MOTOR_SPEED = -0.5;
-    public static final double TOP_MOTOR_SPEED = -0.1;
-
-    // TODO find final gains
     public static final double KV_MAIN = 0.117; // feed forward
     public static final double KP_MAIN = 0.4;
     public static final double KI_MAIN = 0;
     public static final double KD_MAIN = 0; 
 
-    public static final double KV_TOP = 0.116; // feed forward
-    public static final double KP_TOP = 0.4;
-    public static final double KI_TOP = 0;
-    public static final double KD_TOP = 0;
+    //public static final double TOP_MOTOR_RPM = 2100;
+    //public static final double TOP_MOTOR_SPEED = -0.5;
+    //public static final double KV_TOP = 0.117; // feed forward
+    //public static final double KP_TOP = 0.4;
+    //public static final double KI_TOP = 0;
+    //public static final double KD_TOP = 0;
+  }
+  
+  public static class PreFeederConstants {
+    public static final int DIO_COUNTER = 9;
+    public static final double TEST_SPEED = 0.3;//constant speed for testing
+    public static final int DESIRED_RPM = 3150;
+    public static final double KV_PF = 0.0975; // feed forward
+    public static final double KP_PF = 0.4;
+    public static final double KI_PF = 0;
+    public static final double KD_PF = 0;
   }
 
   public static final class BinReleaseConstants {
@@ -127,16 +134,6 @@ public final class Constants {
 
   public static class FloorConstants {
     public static final double TEST_SPEED = -0.1;
-  }
-
-  public static class PreFeederConstants {
-    public static final int DIO_COUNTER = 9;
-    public static final double TEST_SPEED = 0.3;
-    public static final int DESIRED_RPM = 3150; //2000;
-    public static final double KV_PF = 0.0975; // feed forward
-    public static final double KP_PF = 0.4;
-    public static final double KI_PF = 0;
-    public static final double KD_PF = 0;
   }
 
   public static final class Targeting { //UPDATE FOR 2026 ROBOT 
