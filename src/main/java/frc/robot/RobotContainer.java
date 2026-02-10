@@ -224,8 +224,8 @@ public class RobotContainer {
 
     
     // Intake
-    // a.whileTrue(runIntakeTest);
-    // b.whileTrue(runOuttakeTest);
+    a.whileTrue(runIntakeTest);
+    b.whileTrue(runOuttakeTest);
   
     // Feeder
     // b.whileTrue(runFloorTesting);
@@ -242,7 +242,7 @@ public class RobotContainer {
     // rb.whileTrue(runPreFeederTesting);
     // a.whileTrue(pidPreFeederWithCounter);
     // b.whileTrue(runPreFeederWithCounterTesting);
-     a.whileTrue(pidShoot);
+    //  a.whileTrue(pidShoot);
     // rightPov.whileTrue(manualShoot);
     // downPov.whileTrue(pidMainRoller);
     // leftPov.whileTrue(manualMainRoller);

@@ -121,8 +121,8 @@ public final class Constants {
   }
 
   public static  class IntakeConstants {
-    public static final double INTAKE_SPEED = 0.1;
-    public static final double OUTTAKE_SPEED = -0.1;
+    public static final double INTAKE_SPEED = 0.5;
+    public static final double OUTTAKE_SPEED = -0.5;
   }  
 
   public static class FloorConstants {
