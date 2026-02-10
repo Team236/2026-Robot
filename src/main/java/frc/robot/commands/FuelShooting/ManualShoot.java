@@ -11,12 +11,11 @@ import frc.robot.Constants;
 import frc.robot.commands.PreFeeder.RunPreFeeder;
 import frc.robot.subsystems.MainRoller;
 import frc.robot.subsystems.PreFeeder;
-import frc.robot.subsystems.TopRoller;
 
 
 public class ManualShoot extends ParallelCommandGroup {
   /** Creates a new ManualShoot. */
-  public ManualShoot(MainRoller mainRoller, TopRoller topRoller, PreFeeder preFeeder) {
+  public ManualShoot(MainRoller mainRoller, PreFeeder preFeeder) {
     
     addCommands(
 

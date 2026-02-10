@@ -57,7 +57,6 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Floor;
 import frc.robot.subsystems.PreFeeder;
 import frc.robot.subsystems.Swerve;
-import frc.robot.subsystems.TopRoller;
 import frc.robot.commands.BinRelease.ManualMove;
 import frc.robot.commands.BinRelease.Agitate;
 import frc.robot.commands.BinRelease.PIDMove;
@@ -89,7 +88,6 @@ public class RobotContainer {
   // subsystems
   private final ShooterPivot shooterPivot = new ShooterPivot();
   private final MainRoller  mainRoller = new MainRoller();
-  private final TopRoller  topRoller = new TopRoller();
   private final BinRelease binRelease = new BinRelease();
   private final Swerve s_Swerve = new Swerve();
   private final Climber climber = new Climber();
@@ -117,11 +115,9 @@ public class RobotContainer {
 
 //SHOOTER
   private final ManualMainRoller manualMainRoller = new ManualMainRoller(mainRoller, Constants.ShooterConstants.MAIN_MOTOR_SPEED);
-  private final ManualTopRoller manualTopRoller = new ManualTopRoller(topRoller, Constants.ShooterConstants.TOP_MOTOR_SPEED);
-  private final ManualShoot manualShoot = new ManualShoot(mainRoller, topRoller, preFeeder);
   private final PIDMainRoller pidMainRoller = new PIDMainRoller(mainRoller, Constants.ShooterConstants.MAIN_MOTOR_RPM);
-  private final PIDTopRoller pidTopRoller = new PIDTopRoller(topRoller, Constants.ShooterConstants.TOP_MOTOR_RPM);
-  private final PIDShoot pidShoot = new PIDShoot(mainRoller, topRoller, preFeeder);
+  private final PIDShoot pidShoot = new PIDShoot(mainRoller, preFeeder);
+
 //INTAKE  
   private final RunIntake runIntakeTest = new RunIntake(intake, Constants.IntakeConstants.INTAKE_SPEED);
   private final RunOuttake runOuttakeTest = new RunOuttake(intake, Constants.IntakeConstants.OUTTAKE_SPEED);

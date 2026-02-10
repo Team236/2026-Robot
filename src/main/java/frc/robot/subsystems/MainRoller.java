@@ -37,10 +37,10 @@ public class MainRoller extends SubsystemBase {
         leftMainConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
         leftMainConfig.CurrentLimits.SupplyCurrentLimit = Constants.MotorControllers.SMART_CURRENT_LIMIT; //tbd
         leftMainConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-        // set slot 0 gains TODO tune these, find info online (velocity control - no Ks or kA)
+        // slot 0 gains (velocity control - no Ks or kA)
       var slot0LMConfigs = leftMainConfig.Slot0;  
-        slot0LMConfigs.kV = Constants.ShooterConstants.KV_MAIN; // FF. A velocity target of 1 rps results in 0.12 V output
-        slot0LMConfigs.kP = Constants.ShooterConstants.KP_MAIN; //4.8
+        slot0LMConfigs.kV = Constants.ShooterConstants.KV_MAIN; // FF.
+        slot0LMConfigs.kP = Constants.ShooterConstants.KP_MAIN; 
         slot0LMConfigs.kI = Constants.ShooterConstants.KI_MAIN; 
         slot0LMConfigs.kD = Constants.ShooterConstants.KD_MAIN;
 
@@ -54,11 +54,11 @@ public class MainRoller extends SubsystemBase {
         rightMainConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
         rightMainConfig.CurrentLimits.SupplyCurrentLimit = Constants.MotorControllers.SMART_CURRENT_LIMIT; //tbd
         rightMainConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-      // set slot 0 gains TODO tune these, find info online
+      // slot 0 gains (velocity control - no Ks or kA)
       var slot0RMConfigs = rightMainConfig.Slot0;  
-        slot0RMConfigs.kV = Constants.ShooterConstants.KV_MAIN; // FF. A velocity target of 1 rps results in 0.12 V output
-        slot0RMConfigs.kP = Constants.ShooterConstants.KP_MAIN;//4.8
-        slot0RMConfigs.kI = Constants.ShooterConstants.KI_MAIN; // no output for integrated error
+        slot0RMConfigs.kV = Constants.ShooterConstants.KV_MAIN; // FF.
+        slot0RMConfigs.kP = Constants.ShooterConstants.KP_MAIN;
+        slot0RMConfigs.kI = Constants.ShooterConstants.KI_MAIN; 
         slot0RMConfigs.kD = Constants.ShooterConstants.KD_MAIN;
 
       rightMainMotor.getConfigurator().apply(rightMainConfig);
@@ -71,10 +71,10 @@ public class MainRoller extends SubsystemBase {
         midMainConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
         midMainConfig.CurrentLimits.SupplyCurrentLimit = Constants.MotorControllers.SMART_CURRENT_LIMIT; //tbd
         midMainConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-      // set slot 0 gains TODO tune these, find info online (velocity control - no Ks or kA)
+      // slot 0 gains  (velocity control - no Ks or kA)
       var slot0MMConfigs = midMainConfig.Slot0;  
-        slot0MMConfigs.kV = Constants.Shooter.KV_MAIN; // FF. A velocity target of 1 rps results in 0.12 V output
-        slot0MMConfigs.kP = Constants.Shooter.KP_MAIN; //4.8
+        slot0MMConfigs.kV = Constants.Shooter.KV_MAIN; // FF. 
+        slot0MMConfigs.kP = Constants.Shooter.KP_MAIN; 
         slot0MMConfigs.kI = Constants.Shooter.KI_MAIN; 
         slot0MMConfigs.kD = Constants.Shooter.KD_MAIN;
 

@@ -12,14 +12,13 @@ import frc.robot.commands.PreFeeder.PIDPrefeeder;
 import frc.robot.commands.PreFeeder.RunPreFeeder;
 import frc.robot.subsystems.MainRoller;
 import frc.robot.subsystems.PreFeeder;
-import frc.robot.subsystems.TopRoller;
 
 //Runs Main shooter motors right away, and waits a bit to run the Prefeeder motor in parallel,
 //so the Main motors have a chance to come up to speed before fuel arrives
 
 public class PIDShoot extends ParallelCommandGroup {
   /** Creates a new PIDMainandFeed*/
-  public PIDShoot(MainRoller mainRoller, TopRoller topRoller, PreFeeder preFeeder) {
+  public PIDShoot(MainRoller mainRoller, PreFeeder preFeeder) {
     addCommands(
 
       new PIDMainRoller(mainRoller, Constants.ShooterConstants.MAIN_MOTOR_RPM),

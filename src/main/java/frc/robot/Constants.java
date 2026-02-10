@@ -55,9 +55,9 @@ public final class Constants {
     public static final int ID_FLOOR = 10; 
     public static final int ID_SHOOTER_LEFT_MAIN = 11; // 11
     public static final int ID_SHOOTER_RIGHT_MAIN = 12; // 12
-   // public static final int ID_SHOOTER_MID_MAIN = 17;
-    public static final int ID_SHOOTER_LEFT_TOP = 16;
-    public static final int ID_SHOOTER_RIGHT_TOP = 17;
+   // public static final int ID_SHOOTER_MID_MAIN = 18;
+   // public static final int ID_SHOOTER_LEFT_TOP = 16;
+   // public static final int ID_SHOOTER_RIGHT_TOP = 17;
     public static final int ID_SHOOTER_PIVOT = 15;
     public static final int ID_CLIMBER = 13; //13
     public static final int ID_PRE_FEEDER = 14; //14
@@ -90,11 +90,12 @@ public final class Constants {
   }
 
   public static final class BinReleaseConstants {
-    public static final double KP = 0.2;  
-    public static final double KI = 0;
-    public static final double KD = 0;
-    public static final int DIO_EXT_LIMIT = 8; //8
-    public static final int DIO_RET_LIMIT = 10; //10
+
+    public static final int DIO_EXT_LIMIT = 8;//DIO port number on RoboRio
+    public static final int DIO_RET_LIMIT = 10; //DIO port number on RoboRio
+    public static final double KP_BIN = 0.2;  
+    public static final double KI_BIN = 0;
+    public static final double KD_BIN = 0;
     public static final int ENC_REVS_MAX = 1000; //TBD
     public static final double MANUAL_EXT_SPEED = 0.1;
     public static final double MANUAL_RET_SPEED = -0.1;
@@ -105,8 +106,8 @@ public final class Constants {
   }
 
   public static class ShooterPivotConstants {
-    public static final int DIO_EXT_LIMIT = 4;
-    public static final int DIO_RET_LIMIT = 5;
+    public static final int DIO_EXT_LIMIT = 4;//DIO port number on RoboRio
+    public static final int DIO_RET_LIMIT = 5;//DIO port number on RoboRio
     public static final double KP = 0.16; 
     public static final double KI = 0;
     public static final double KD = 0;
@@ -117,14 +118,13 @@ public final class Constants {
   }
 
   public static class ClimberConstants {
-    public static final int DIO_CLIMBER_TOP = 6; //6
-    public static final int DIO_CLIMBER_BOTTOM = 7; //7
-    public static final int PWM_CLIMB_LOCK = 0;
-    public static final double MAX_ENCODER_REVS = 50.0;//TBD MotionMagic/PID stops if here; DO NOT PID CLIMB HIGHER 
+    public static final int DIO_CLIMBER_TOP = 6; //DIO port number on RoboRio
+    public static final int DIO_CLIMBER_BOTTOM = 7; //DIO port number on RoboRio
+    public static final int PWM_CLIMB_LOCK = 0;  //PWM port number on RoboRio
+    public static final double MAX_ENCODER_REVS = 50.0;//TBD MotionMagic/PID, stops if here; DO NOT PID CLIMB HIGHER 
     public static final double CLIMBER_UP_SPEED = 0.1;
     public static final double CLIMBER_DOWN_SPEED = -0.1;
     public static final double TEST_MM_REVS = 35.0;
-  
   }
 
   public static  class IntakeConstants {

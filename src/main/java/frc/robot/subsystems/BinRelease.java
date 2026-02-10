@@ -44,9 +44,9 @@ public class BinRelease extends SubsystemBase {
 
         //set required slot0 gains, for PID Position control with TalonFX
         var slot0Configs = motorConfig.Slot0;  // start with 0, 0, 0
-        slot0Configs.kP = Constants.BinReleaseConstants.KP; // 2.4; 
-        slot0Configs.kI = Constants.BinReleaseConstants.KI; // 0
-        slot0Configs.kD = Constants.BinReleaseConstants.KD; // 0.1 
+        slot0Configs.kP = Constants.BinReleaseConstants.KP_BIN; // 2.4; 
+        slot0Configs.kI = Constants.BinReleaseConstants.KI_BIN; // 0
+        slot0Configs.kD = Constants.BinReleaseConstants.KD_BIN; // 0.1 
 
         binReleaseMotor.getConfigurator().apply(motorConfig);
 
