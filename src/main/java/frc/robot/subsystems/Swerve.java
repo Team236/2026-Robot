@@ -32,6 +32,7 @@ import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.trajectory.Trajectory;
@@ -587,6 +588,16 @@ public class Swerve extends SubsystemBase {
         }
 
         field.setRobotPose(getPose());
+        var traj = field.getObject("trajectory");
+        traj.setPoses(
+            getPose(), 
+            getPose().plus(
+                new Transform2d(
+                    new Translation2d(5, 0), // 1 meter straight ahead of the robot
+                    new Rotation2d() // same rotation as robot
+                )
+            )
+            ); // example trajectory visualization, replace with actual trajectory if desired
         // SmartDashboard.putData("Field", field);
     }
 }
