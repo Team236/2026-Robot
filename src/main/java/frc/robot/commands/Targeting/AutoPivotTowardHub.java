@@ -65,6 +65,8 @@ public class AutoPivotTowardHub extends Command {
       Constants.Targeting.AUTO_ROTATE_FEEDFORWARD * Math.signum(angleDeltaMod);
     //this.s_Swerve.calculateTargetingPID(HUBX, HUBY) + 
     // if current angle is within tolerance of target, don't feed any rotation
+
+    //if (Math.abs(angleDeltaMod) < Constants.Targeting.AUTO_ROTATE_TOLERANCE) change to this tomorrow
     if (Math.abs(angleDelta) < Constants.Targeting.AUTO_ROTATE_TOLERANCE) {
       newRotation = 0;
     }
