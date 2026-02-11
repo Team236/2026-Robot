@@ -145,7 +145,7 @@ public class Swerve extends SubsystemBase {
         }
 
         pidControllerForTrackingOutput = new PIDController(
-        5,
+        Constants.Targeting.AUTO_ROTATE_KP,
         0.0,
         0.0);
 
