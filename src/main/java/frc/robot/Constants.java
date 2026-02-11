@@ -191,11 +191,11 @@ public final class Constants {
     public static final double POSE_VALIDATION_TIME = 2; //TODO - shorten
 
     // this is from subtracting opposing April Tags on https://firstfrc.blob.core.windows.net/frc2026/FieldAssets/2026-field-dimension-dwgs.pdf find actual values in cad
-    public static final double RED_ALLIANCE_HUB_CENTER_X = 469.115;
-    public static final double RED_ALLIANCE_HUB_CENTER_Y = 158.845;
+    public static final double RED_ALLIANCE_HUB_CENTER_X = 468.56;
+    public static final double RED_ALLIANCE_HUB_CENTER_Y = 158.32;
 
-    public static final double BLUE_ALLIANCE_HUB_CENTER_X = 182.105;
-    public static final double BLUE_ALLIANCE_HUB_CENTER_Y = 158.845;
+    public static final double BLUE_ALLIANCE_HUB_CENTER_X = 181.56;
+    public static final double BLUE_ALLIANCE_HUB_CENTER_Y = 158.32;
     
 }
 
