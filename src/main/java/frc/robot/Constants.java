@@ -202,7 +202,7 @@ public final class Constants {
 
 public static final class PathPlanner { 
   public static final PIDConstants TRANSLATION_PID_CONSTANTS = new PIDConstants(6.25, 0.0, 0.0); // seems like these affect movement of robot when it tries to correct itself (goes off path), not for just regular movement
-  public static final PIDConstants ROTATION_PID_CONSTANTS = new PIDConstants(6, 0.0, 0.0); // ^^^^
+  public static final PIDConstants ROTATION_PID_CONSTANTS = new PIDConstants(6.5, 0.0, 0.0); // ^^^^
 }
 
 public static final class Swerve {
@@ -271,7 +271,7 @@ public static final class Swerve {
 
         /* Swerve Profiling Values, Meters per Second*/
         public static final double maxSpeed = 4.5; //TODO: This must be tuned to specific robot
-        public static final double throttle = .5;
+        public static final double throttle = 1.0;
         /** Radians per Second */
         public static final double maxAngularVelocity = 10.0; //TODO: This must be tuned to specific robot
 
