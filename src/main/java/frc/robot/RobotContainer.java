@@ -251,7 +251,7 @@ private final Swerve s_Swerve = new Swerve();
     //rightPov.onTrue(Commands.defer(() -> s_Swerve.followPathCommand("hub-center-to-tower-right"), Set.of(s_Swerve)));
     //a.onTrue(Commands.defer(() -> s_Swerve.followPathCommand("tuning-test-straight"), Set.of(s_Swerve)));
     //  a.onTrue(Commands.defer(() -> s_Swerve.followPathCommand("tuning-test-rotation"), Set.of(s_Swerve)));
-    a.onTrue(Commands.defer(() -> s_Swerve.followPathCommand("move-and-rotate"), Set.of(s_Swerve)));
+    a.onTrue(Commands.defer(() -> s_Swerve.followPathCommand("tuning-test-rotation-2"), Set.of(s_Swerve)));
   }
   
     public Command getAutonomousCommand() {
