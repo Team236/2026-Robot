@@ -113,6 +113,7 @@ public class RobotContainer {
 
 //SHOOTER
   private final ManualMainRoller manualMainRoller = new ManualMainRoller(mainRoller, Constants.ShooterConstants.MAIN_MOTOR_SPEED);
+  private final ManualShoot manualShoot = new ManualShoot(mainRoller, preFeeder);
   private final PIDMainRoller pidMainRoller = new PIDMainRoller(mainRoller, Constants.ShooterConstants.MAIN_MOTOR_RPM);
   private final PIDShoot pidShoot = new PIDShoot(mainRoller, preFeeder);
 
@@ -193,11 +194,9 @@ public class RobotContainer {
 
     // Fuel Shooter
     //  a.whileTrue(manualMainRoller);
-    //  b.whileTrue(manualTopRoller);
-    //  y.whileTrue(manualShoot);
     //downPov.whileTrue(pidMainRoller);
-    //  upPov.whileTrue(pidTopRoller);
-    //upPov.whileTrue(pidShoot);
+    // downPov.whileTrue(manualShoot);
+    // upPov.whileTrue(pidShoot);
 
     // Shooter Pivot
     // x.onTrue(pidPivot);
@@ -218,8 +217,8 @@ public class RobotContainer {
 
     
     // Intake
-    a.whileTrue(runIntakeTest);
-    b.whileTrue(runOuttakeTest);
+    // a.whileTrue(runIntakeTest);
+    // b.whileTrue(runOuttakeTest);
   
     // Feeder
     // b.whileTrue(runFloorTesting);
@@ -231,6 +230,12 @@ public class RobotContainer {
 
     // lb.whileTrue(pidPreFeederWithCounter);
 
+    rightPov.whileTrue(pidPrefeeder);
+    downPov.whileTrue(manualShoot);
+    upPov.whileTrue(pidShoot);
+
+    a.whileTrue(manualPivotExtend);
+    b.whileTrue(manualPivotRetract);
 
     // x.whileTrue(pidPrefeeder);
     // rb.whileTrue(runPreFeederTesting);
