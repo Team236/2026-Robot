@@ -53,8 +53,8 @@ public final class Constants {
     public static final int ID_BIN_REL = 8; //8
     public static final int ID_INTAKE_LEFT = 9; 
     public static final int ID_FLOOR = 10; 
-    public static final int ID_SHOOTER_LEFT_MAIN = 11; // 11
-    public static final int ID_SHOOTER_RIGHT_MAIN = 12; // 12
+    public static final int ID_SHOOTER_LEFT_MAIN = 12; // 11
+    public static final int ID_SHOOTER_RIGHT_MAIN = 11; // 12
    // public static final int ID_SHOOTER_MID_MAIN = 18;
    // public static final int ID_SHOOTER_LEFT_TOP = 16;
    // public static final int ID_SHOOTER_RIGHT_TOP = 17;
@@ -65,7 +65,7 @@ public final class Constants {
 
   public static class ShooterConstants {
     public static final double MAIN_MOTOR_RPM = 2100;
-    public static final double MAIN_MOTOR_SPEED = -0.5;
+    public static final double MAIN_MOTOR_SPEED = 0.5;
     public static final double KV_MAIN = 0.117; // feed forward
     public static final double KP_MAIN = 0.4;
     public static final double KI_MAIN = 0;
@@ -113,8 +113,8 @@ public final class Constants {
     public static final double KD = 0;
     public static final double ENC_REVS_MAX = 1000; //TODO find actual
     public static final double TARGET_REVS = 50;
-    public static final double CONSTANT_FORWARD_SPEED = 0.1;
-    public static final double CONSTANT_REVERSE_SPEED = -0.1;
+    public static final double CONSTANT_FORWARD_SPEED = 0.06;
+    public static final double CONSTANT_REVERSE_SPEED = -0.06;
   }
 
   public static class ClimberConstants {
