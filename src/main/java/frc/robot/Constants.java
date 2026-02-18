@@ -249,9 +249,9 @@ public static final class Swerve { //TODO -- UPDATE ALL VALUES / TUNE
 
         /* FRONT LEFT Module - Module 0 */
         public static final class Mod0 { //TODO: These must be changed for each specific robot!!!
-            public static final int driveMotorID = 7;//testbed may be different!!!!!
-            public static final int angleMotorID = 6;//testbed may be different!!!!!
-            public static final int canCoderID = 3;//testbed may be different!!!!!
+            public static final int driveMotorID = 7;//testbed may be different!!!!! old 7
+            public static final int angleMotorID = 6;//testbed may be different!!!!! old 6
+            public static final int canCoderID = 3;//testbed may be different!!!!! old 
             public static final Rotation2d angleOffset = Rotation2d.fromDegrees(160.84);//(81.1+180); TESTBED//-119.79; old -120.15
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);

@@ -41,7 +41,7 @@ public class Climber extends SubsystemBase {
     // You can use setBoundsMicroseconds to modify the range of PWM pulse width so you can use 0.0 and 1.0 as bounds with set.
     
     // MOTOR
-    climbMotor = new TalonFX(Constants.MotorControllers.ID_CLIMBER, "usb"); //will be rio bus
+    climbMotor = new TalonFX(Constants.MotorControllers.ID_CLIMBER, "rio"); //will be rio bus
 
     motorConfig = new TalonFXConfiguration();
     motorConfig.CurrentLimits.SupplyCurrentLimitEnable = true;

@@ -36,7 +36,7 @@ public class Intake extends SubsystemBase {
   public Intake() {
 
     // Left motor
-    intakeMotor = new TalonFX(Constants.MotorControllers.ID_INTAKE_LEFT, "usb");
+    intakeMotor = new TalonFX(Constants.MotorControllers.ID_INTAKE_LEFT, "rio");
     talonConfig = new TalonFXConfiguration();
     // Motor Output Configs
     talonConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;

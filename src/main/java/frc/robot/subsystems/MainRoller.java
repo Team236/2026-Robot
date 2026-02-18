@@ -31,7 +31,7 @@ public class MainRoller extends SubsystemBase {
   public MainRoller() {
 
   //MAKE RIGHT MOTOR FOLLOW LEFT
-     leftMainMotor = new TalonFX(Constants.MotorControllers.ID_SHOOTER_LEFT_MAIN, "usb"); //will be rio bus
+     leftMainMotor = new TalonFX(Constants.MotorControllers.ID_SHOOTER_LEFT_MAIN, "rio"); //will be rio bus
         leftMainConfig = new TalonFXConfiguration();
         leftMainConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive; //tbd
         leftMainConfig.CurrentLimits.SupplyCurrentLimitEnable = true;

@@ -29,7 +29,7 @@ public class PreFeeder extends SubsystemBase {
   public DigitalInput lightSensorState;
 
   public PreFeeder() {
-    preFeederMotor = new TalonFX(Constants.MotorControllers.ID_PRE_FEEDER, "usb");
+    preFeederMotor = new TalonFX(Constants.MotorControllers.ID_PRE_FEEDER, "rio");
     
     motorConfig = new TalonFXConfiguration();
 
