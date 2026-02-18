@@ -15,7 +15,7 @@ public class PIDFloor extends Command {
   private double floorRPM, floorRPS;
 
 //MUST PASS IN DESIRED VELOCITY IN RPM IN THIS COMMAND
-  public PIDFloor(Floor floor, double floorROM) {
+  public PIDFloor(Floor floor, double floorRPM) {
     this.floor = floor;
     this.floorRPM = floorRPM;
     addRequirements(this.floor);
