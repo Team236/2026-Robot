@@ -130,6 +130,14 @@ public final class Constants {
   public static  class IntakeConstants {
     public static final double INTAKE_SPEED = 0.5;
     public static final double OUTTAKE_SPEED = -0.5;
+    //these next variables are for the intake pid command, but they are ripped straight from the prefeeder pid, so they may not be right.
+    //TODO: TUNE THESE VALUES FOR INTAKE PID COMMAND
+    public static final double TEST_SPEED = 0.3;//constant speed for testing
+    public static final int DESIRED_RPM = 3150;
+    public static final double KV_PF = 0.0975; // feed forward
+    public static final double KP_PF = 0.4;
+    public static final double KI_PF = 0;
+    public static final double KD_PF = 0;
   }  
 
   public static class FloorConstants {
