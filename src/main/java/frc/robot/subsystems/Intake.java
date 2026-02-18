@@ -10,6 +10,7 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfigurator;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
+import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.DeviceIdentifier;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
@@ -23,24 +24,34 @@ import frc.robot.Constants;
 
 public class Intake extends SubsystemBase {
 
-  private TalonFX intakeMotorLeft, intakeMotorRight;
+  private TalonFX intakeMotor, intakeMotorRight;
   private TalonFXConfigurator config;
-  private TalonFXConfiguration talonConfigLeft, talonConfigRight;
+  private TalonFXConfiguration talonConfig, talonConfigRight;
   private CurrentLimitsConfigs currentConfigs;
   private MotorOutputConfigs outputConfigs;
+  private VelocityVoltage intake_m_request;
 
   /** Creates a new Intake. */
   //This system uses a motor to intake in , or spit out, fuel at a constant speed
   public Intake() {
 
     // Left motor
-    intakeMotorLeft = new TalonFX(Constants.MotorControllers.ID_INTAKE_LEFT, "usb");
-    talonConfigLeft = new TalonFXConfiguration();
+    intakeMotor = new TalonFX(Constants.MotorControllers.ID_INTAKE_LEFT, "usb");
+    talonConfig = new TalonFXConfiguration();
     // Motor Output Configs
-    talonConfigLeft.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
-    talonConfigLeft.CurrentLimits.SupplyCurrentLimitEnable = true;
-    talonConfigLeft.CurrentLimits.SupplyCurrentLimit = Constants.MotorControllers.SMART_CURRENT_LIMIT;
-    talonConfigLeft.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+    talonConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+    talonConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
+    talonConfig.CurrentLimits.SupplyCurrentLimit = Constants.MotorControllers.SMART_CURRENT_LIMIT;
+    talonConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+
+    var slot0RMConfigs = talonConfig.Slot0;  
+      slot0RMConfigs.kV = Constants.IntakeConstants.KV_PF;
+      slot0RMConfigs.kP = Constants.IntakeConstants.KP_PF;
+      slot0RMConfigs.kI = Constants.IntakeConstants.KI_PF;
+      slot0RMConfigs.kD = Constants.IntakeConstants.KD_PF;
+
+      intakeMotor.getConfigurator().apply(talonConfig);
+      intake_m_request = new VelocityVoltage(0).withSlot(0);
 
     // // Right motor
     // intakeMotorRight = new TalonFX(Constants.MotorControllers.ID_INTAKE_RIGHT, "usb");
@@ -56,20 +67,24 @@ public class Intake extends SubsystemBase {
     // intakeMotorRight.setControl(new Follower(Constants.MotorControllers.ID_INTAKE_LEFT, MotorAlignmentValue.Opposed));
   }
 
+  public void IntakePID(double targetMainVelocity) {//the target velocity must be in revs per second
+    intakeMotor.setControl(intake_m_request.withVelocity(targetMainVelocity).withFeedForward(Constants.IntakeConstants.KV_PF));
+  }
+
   public void intakeStop() {
-    intakeMotorLeft.set(0);
+    intakeMotor.stopMotor();
   }
 
   public void intakeIn(double speed) {
-    intakeMotorLeft.set(speed);
+    intakeMotor.set(speed);
   }
 
   public void intakeOut(double speed) {
-    intakeMotorLeft.set(speed);
+    intakeMotor.set(speed);
   }
 
   public double getIntakeSpeed() {
-    return intakeMotorLeft.get();
+    return intakeMotor.get();
   }
 
   @Override
