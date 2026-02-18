@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
@@ -16,6 +17,7 @@ public class Floor extends SubsystemBase {
 
   private TalonFX floorMotor;
   private TalonFXConfiguration motorConfig;
+  private VelocityVoltage floor_m_request;
 
   /** Creates a new Floor. */
   //This system is a motor that moves the fuel from the intake into the bin, toward the shooter feeder
@@ -27,10 +29,22 @@ public class Floor extends SubsystemBase {
     motorConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
     motorConfig.CurrentLimits.SupplyCurrentLimit = Constants.MotorControllers.SMART_CURRENT_LIMIT;
     motorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+
+    var slot0RMConfigs = motorConfig.Slot0;
+      slot0RMConfigs.kV = Constants.FloorConstants.KV_PF;
+      slot0RMConfigs.kP = Constants.FloorConstants.KP_PF;
+      slot0RMConfigs.kI = Constants.FloorConstants.KI_PF;
+      slot0RMConfigs.kD = Constants.FloorConstants.KD_PF;
+
     floorMotor.getConfigurator().apply(motorConfig);
+    floor_m_request = new VelocityVoltage(0).withSlot(0);
   }
 
   //METHODS START HERE:
+
+  public void floorPID(double targetMainVelocity) {//the target velocity must be in revs per second
+    floorMotor.setControl(floor_m_request.withVelocity(targetMainVelocity).withFeedForward(Constants.FloorConstants.KV_PF));
+  } 
 
   public double getFloorSpeed() {
     return floorMotor.get();
@@ -41,7 +55,7 @@ public class Floor extends SubsystemBase {
   }
 
   public void stopFloor() {
-    floorMotor.set(0);
+    floorMotor.stopMotor();
   }
 
   @Override

@@ -134,14 +134,19 @@ public final class Constants {
     //TODO: TUNE THESE VALUES FOR INTAKE PID COMMAND
     public static final double TEST_SPEED = 0.3;//constant speed for testing
     public static final int DESIRED_RPM = 3150;
-    public static final double KV_PF = 0.0975; // feed forward
-    public static final double KP_PF = 0.4;
-    public static final double KI_PF = 0;
-    public static final double KD_PF = 0;
+    public static final double KV_PF = 0.0; //0.0975; // feed forward
+    public static final double KP_PF = 0.0; //0.4;
+    public static final double KI_PF = 0.0;
+    public static final double KD_PF = 0.0;
   }  
 
   public static class FloorConstants {
     public static final double TEST_SPEED = -0.1;
+    public static final int DESIRED_RPM = 1000;
+    public static final double KV_PF = 0.0;
+    public static final double KP_PF = 0.0;
+    public static final double KI_PF = 0.0;
+    public static final double KD_PF = 0.0;
   }
 
   public static final class Targeting { //UPDATE FOR 2026 ROBOT 
