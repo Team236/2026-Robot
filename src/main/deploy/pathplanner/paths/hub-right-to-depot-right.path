@@ -3,47 +3,51 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.98,
-        "y": 1.7561215753424653
+        "x": 3.5,
+        "y": 3.0
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.16863622263279,
-        "y": 1.739890940010134
+        "x": 3.227951731514767,
+        "y": 4.067424619417508
+      },
+      "isLocked": false,
+      "linkedName": "hub-right"
+    },
+    {
+      "anchor": {
+        "x": 2.5,
+        "y": 5.0
+      },
+      "prevControl": {
+        "x": 2.9091826574544846,
+        "y": 4.727915885450384
+      },
+      "nextControl": {
+        "x": 2.0335932701043187,
+        "y": 5.310134996710519
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.078681506849315,
-        "y": 2.3571489726027393
+        "x": 0.5,
+        "y": 5.0
       },
       "prevControl": {
-        "x": 5.997216755508194,
-        "y": 2.3571489726027393
+        "x": 0.8582376014220927,
+        "y": 4.993584026551657
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "depot-right"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [
-    {
-      "name": "coralGrab",
-      "waypointRelativePos": 0.0000640158837831533,
-      "endWaypointRelativePos": 1.0,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "coralGrab"
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
@@ -54,13 +58,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 90.0
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }
