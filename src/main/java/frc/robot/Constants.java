@@ -176,7 +176,7 @@ public static final class Swerve { //TODO -- UPDATE ALL VALUES / TUNE
 
         public static final COTSTalonFXSwerveConstants chosenModule =  //TODO:Find for specific swerve module
         //TODO:  X2_10 has 10 tooth, 6.56/1,  X2_11 5.96/1, X2_12 5.46/1;
-        COTSTalonFXSwerveConstants.WCP.SwerveXStandard.KrakenX60(COTSTalonFXSwerveConstants.WCP.SwerveXStandard.driveRatios.X2_10);//TODO - X2
+        COTSTalonFXSwerveConstants.WCP.SwerveXStandard.KrakenX60(COTSTalonFXSwerveConstants.WCP.SwerveXFlipped.driveRatios.X2_11);//TODO - X2
         //SDS.MK4.KrakenX60(COTSTalonFXSwerveConstants.SDS.MK4.driveRatios.L2);
       
         /* Drivetrain Constants */
