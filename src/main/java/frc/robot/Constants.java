@@ -174,12 +174,14 @@ public static final class PathPlanner { //TODO -- UPDATE TO NEW ROBOT
 public static final class Swerve { //TODO -- UPDATE ALL VALUES / TUNE
         public static final int pigeonID = 1; //gryo
 
-        public static final COTSTalonFXSwerveConstants chosenModule =  //TODO: This must be tuned to specific robot
-        COTSTalonFXSwerveConstants.SDS.MK4.KrakenX60(COTSTalonFXSwerveConstants.SDS.MK4.driveRatios.L2);
+        public static final COTSTalonFXSwerveConstants chosenModule =  //TODO:Find for specific swerve module
+        //TODO:  X2_10 has 10 tooth, 6.56/1,  X2_11 5.96/1, X2_12 5.46/1;
+        COTSTalonFXSwerveConstants.WCP.SwerveXStandard.KrakenX60(COTSTalonFXSwerveConstants.WCP.SwerveXStandard.driveRatios.X2_10);//TODO - X2
+        //SDS.MK4.KrakenX60(COTSTalonFXSwerveConstants.SDS.MK4.driveRatios.L2);
       
         /* Drivetrain Constants */
-        public static final double trackWidth = Units.inchesToMeters(23.5); //2024 testbed //TODO MUST BE UPDATED
-        public static final double wheelBase = Units.inchesToMeters(23.5); //2024 testbed
+        public static final double trackWidth = Units.inchesToMeters(20.5); //23.5 in 2025 //TODO MUST BE UPDATED
+        public static final double wheelBase = Units.inchesToMeters(20.5); //23.5 in 2025
         public static final double wheelCircumference = chosenModule.wheelCircumference;
 
         /* Swerve Kinematics 
