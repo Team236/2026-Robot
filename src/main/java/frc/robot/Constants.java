@@ -80,7 +80,7 @@ public final class Constants {
   }
   
   public static class PreFeederConstants {
-    public static final int DIO_COUNTER = 9;
+    public static final int DIO_COUNTER = 10;
     public static final double TEST_SPEED = 0.3;//constant speed for testing
     public static final int DESIRED_RPM = 2000; //3150;
     public static final double KV_PF = 0.0975; // feed forward
@@ -92,7 +92,7 @@ public final class Constants {
   public static final class BinReleaseConstants {
 
     public static final int DIO_EXT_LIMIT = 8;//DIO port number on RoboRio
-    public static final int DIO_RET_LIMIT = 10; //DIO port number on RoboRio
+    public static final int DIO_RET_LIMIT = 9; //DIO port number on RoboRio
     public static final double KP_BIN = 0.2;  
     public static final double KI_BIN = 0;
     public static final double KD_BIN = 0;
