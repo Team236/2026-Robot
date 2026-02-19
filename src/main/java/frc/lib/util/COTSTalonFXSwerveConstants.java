@@ -120,20 +120,20 @@ public class COTSTalonFXSwerveConstants {
                 SensorDirectionValue cancoderInvert = SensorDirectionValue.CounterClockwise_Positive;
                 return new COTSTalonFXSwerveConstants(wheelDiameter, angleGearRatio, driveGearRatio, angleKP, angleKI, angleKD, driveMotorInvert, angleMotorInvert, cancoderInvert);
             }
-            
-            /** West Coast Products - SwerveX Flipped (Kraken X60)*/ // ********************* THIS IS WHAT WE ARE USING FOR 2026 ROBOT ****************************
+            // ********************* THIS IS WHAT WE ARE USING FOR 2026 ROBOT ****************************
+            /** West Coast Products - SwerveX Flipped (Kraken X60)*/ 
             public static final COTSTalonFXSwerveConstants KrakenX60(double driveGearRatio){
                 double wheelDiameter = Units.inchesToMeters(4.0);
         
                 /** (468 / 35) : 1 */
-                double angleGearRatio = ((468.0 / 35.0) / 1.0);
+                double angleGearRatio = (12.1 / 1.0);// original ((468.0 / 35.0) / 1.0);
         
-                double angleKP = 1.0;
+                double angleKP = 30.0; // 1.0
                 double angleKI = 0.0;
                 double angleKD = 0.0;
         
                 InvertedValue driveMotorInvert = InvertedValue.CounterClockwise_Positive;
-                InvertedValue angleMotorInvert = InvertedValue.Clockwise_Positive;
+                InvertedValue angleMotorInvert = InvertedValue.Clockwise_Positive; // original CW
                 SensorDirectionValue cancoderInvert = SensorDirectionValue.CounterClockwise_Positive;
                 return new COTSTalonFXSwerveConstants(wheelDiameter, angleGearRatio, driveGearRatio, angleKP, angleKI, angleKD, driveMotorInvert, angleMotorInvert, cancoderInvert);
             }
