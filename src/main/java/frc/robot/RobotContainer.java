@@ -230,12 +230,14 @@ public class RobotContainer {
 
     // lb.whileTrue(pidPreFeederWithCounter);
 
-    rightPov.whileTrue(pidPrefeeder);
-    downPov.whileTrue(manualShoot);
-    upPov.whileTrue(pidShoot);
+    //x.whileTrue(runPreFeederTesting);
+    //a.whileTrue(runPreFeederWithCounterTesting);
+    //b.whileTrue(pidPrefeeder);
+    b.whileTrue(manualShoot);
+    a.whileTrue(pidShoot);
 
-    a.whileTrue(manualPivotExtend);
-    b.whileTrue(manualPivotRetract);
+    upPov.whileTrue(manualPivotExtend);
+    downPov.whileTrue(manualPivotRetract);
 
     // x.whileTrue(pidPrefeeder);
     // rb.whileTrue(runPreFeederTesting);

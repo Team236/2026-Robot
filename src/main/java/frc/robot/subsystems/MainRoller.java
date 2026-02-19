@@ -48,14 +48,14 @@ public class MainRoller extends SubsystemBase {
       leftMain_m_request = new VelocityVoltage(0).withSlot(0);
 
 
-    rightMainMotor = new TalonFX(Constants.MotorControllers.ID_SHOOTER_RIGHT_MAIN, "usb"); //will be rio bus
+    rightMainMotor = new TalonFX(Constants.MotorControllers.ID_SHOOTER_RIGHT_MAIN, "rio"); //will be rio bus
         rightMainConfig = new TalonFXConfiguration();
         rightMainConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive; //tbd
         rightMainConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
         rightMainConfig.CurrentLimits.SupplyCurrentLimit = Constants.MotorControllers.SMART_CURRENT_LIMIT; //tbd
         rightMainConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
       // slot 0 gains (velocity control - no Ks or kA)
-      var slot0RMConfigs = rightMainConfig.Slot0;  
+      var slot0RMConfigs = rightMainConfig.Slot0;
         slot0RMConfigs.kV = Constants.ShooterConstants.KV_MAIN; // FF.
         slot0RMConfigs.kP = Constants.ShooterConstants.KP_MAIN;
         slot0RMConfigs.kI = Constants.ShooterConstants.KI_MAIN; 
@@ -90,9 +90,26 @@ public class MainRoller extends SubsystemBase {
     rightMainMotor.setControl(rightMain_m_request.withVelocity(targetMainVelocity).withFeedForward(Constants.ShooterConstants.KV_MAIN));
   }
 
-  public void spinMainMotor (double manualMainSpeed) {
+  public void LeftMainPID(double targetLeftMainVelocity) {
+    leftMainMotor.setControl(leftMain_m_request.withVelocity(targetLeftMainVelocity).withFeedForward(Constants.ShooterConstants.KV_MAIN));
+  }
+
+  public void RightMainPID(double targetRightMainVelocity) {
+    rightMainMotor.setControl(rightMain_m_request.withVelocity(targetRightMainVelocity).withFeedForward(Constants.ShooterConstants.KV_MAIN));
+  }
+
+  public void 
+  spinMainMotor (double manualMainSpeed) {
     leftMainMotor.set(manualMainSpeed); // between -1 and 1
     rightMainMotor.set(manualMainSpeed); // between -1 and 1
+  }
+
+  public void spinLeftMainMotor (double manualLeftMainSpeed) {
+    leftMainMotor.set(manualLeftMainSpeed); // between -1 and 1
+  }
+
+  public void spinRightMainMotor (double manualRightMainSpeed) {
+    rightMainMotor.set(manualRightMainSpeed); // between -1 and 1
   }
 
   // this is motor speed between -1.0 and 1.0
