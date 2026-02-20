@@ -238,11 +238,11 @@ public class RobotContainer {
 
     //a.whileTrue(manualPivotExtend);
     //b.whileTrue(manualPivotRetract);
-    upPov.whileTrue(manualPivotExtend);
-    downPov.whileTrue(manualPivotRetract);
+    // upPov.whileTrue(manualPivotExtend);
+    // downPov.whileTrue(manualPivotRetract);
 
 
-    a.whileTrue(runPreFeederWithCounterTesting);
+    // a.whileTrue(runPreFeederWithCounterTesting);
 
     // x.whileTrue(pidPrefeeder);
     // rb.whileTrue(runPreFeederTesting);
@@ -259,13 +259,16 @@ public class RobotContainer {
     //     new WaitCommand(0.3)
     //   ).repeatedly().until(() -> !upPov.getAsBoolean()).andThen(new Agitate(binRelease, 0))
     // );
-    //upPov.onTrue(new ClimberPID(climber, Constants.ClimberConstants.TEST_MM_REVS));
-    //rightPov.onTrue(new ClimberMotionMagic(climber, Constants.ClimberConstants.TEST_MM_REVS));
-    //downPov.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_DOWN_SPEED));
-    //upPov.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_UP_SPEED));
+    // leftPov.onTrue(new ClimberPID(climber, Constants.ClimberConstants.TEST_MM_REVS));
+    // rightPov.onTrue(new ClimberMotionMagic(climber, Constants.ClimberConstants.TEST_MM_REVS));
+    // downPov.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_DOWN_SPEED));
+    // upPov.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_UP_SPEED));
+    a.whileTrue(new ClimberLock(climber, 1));
+    b.whileTrue(new ClimberLock(climber, 0));
 
     // a.whileTrue(runIntakeTest);
     // b.whileTrue(runOuttakeTest);
+
   }
   
   public Command getAutonomousCommand() {
