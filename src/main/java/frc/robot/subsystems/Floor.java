@@ -31,10 +31,10 @@ public class Floor extends SubsystemBase {
     motorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
     var slot0RMConfigs = motorConfig.Slot0;
-      slot0RMConfigs.kV = Constants.FloorConstants.KV_PF;
-      slot0RMConfigs.kP = Constants.FloorConstants.KP_PF;
-      slot0RMConfigs.kI = Constants.FloorConstants.KI_PF;
-      slot0RMConfigs.kD = Constants.FloorConstants.KD_PF;
+      slot0RMConfigs.kV = Constants.FloorConstants.KV_F;
+      slot0RMConfigs.kP = Constants.FloorConstants.KP_F;
+      slot0RMConfigs.kI = Constants.FloorConstants.KI_F;
+      slot0RMConfigs.kD = Constants.FloorConstants.KD_F;
 
     floorMotor.getConfigurator().apply(motorConfig);
     floor_m_request = new VelocityVoltage(0).withSlot(0);
@@ -43,7 +43,7 @@ public class Floor extends SubsystemBase {
   //METHODS START HERE:
 
   public void floorPID(double targetMainVelocity) {//the target velocity must be in revs per second
-    floorMotor.setControl(floor_m_request.withVelocity(targetMainVelocity).withFeedForward(Constants.FloorConstants.KV_PF));
+    floorMotor.setControl(floor_m_request.withVelocity(targetMainVelocity).withFeedForward(Constants.FloorConstants.KV_F));
   } 
 
   public double getFloorSpeed() {
