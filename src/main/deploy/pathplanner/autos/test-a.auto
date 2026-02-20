@@ -31,7 +31,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "tower-right-to-outpost-center"
+            "pathName": "tower-right-to-neutral-left"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "neutral-left-to-neutral-right"
           }
         }
       ]
