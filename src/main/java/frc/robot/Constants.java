@@ -122,8 +122,8 @@ public final class Constants {
     public static final int DIO_CLIMBER_BOTTOM = 7; //DIO port number on RoboRio
     public static final int PWM_CLIMB_LOCK = 0;  //PWM port number on RoboRio
     public static final double MAX_ENCODER_REVS = 200.0;//TBD MotionMagic/PID, stops if here; DO NOT PID CLIMB HIGHER 
-    public static final double CLIMBER_UP_SPEED = 0.05;
-    public static final double CLIMBER_DOWN_SPEED = -0.05;
+    public static final double CLIMBER_UP_SPEED = 0.75;
+    public static final double CLIMBER_DOWN_SPEED = -0.75;
     public static final double TEST_MM_REVS = 35.0;
   }
 

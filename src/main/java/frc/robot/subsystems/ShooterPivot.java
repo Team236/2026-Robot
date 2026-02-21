@@ -134,7 +134,7 @@ public class ShooterPivot extends SubsystemBase {
 
   public void manualSetSpeedSafe(double speed)
     {
-        if ((isFullyRetracted() || isShooterRetLimit()) && speed <= 0)
+        if (isShooterRetLimit() && speed <= 0)
         {
             resetEncoder();
             stopShooterPivot();

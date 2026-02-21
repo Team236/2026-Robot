@@ -204,8 +204,8 @@ public class RobotContainer {
     // a.whileTrue(manualPivotRetract);
 
     // Bin Release
-    upPov.whileTrue(binManualExtend);
-    downPov.whileTrue(binManualRetract);
+    // upPov.whileTrue(binManualExtend);
+    // downPov.whileTrue(binManualRetract);
     // b.onTrue(pidToPositionTestA);
 
     // Climber
@@ -263,6 +263,12 @@ public class RobotContainer {
     // rightPov.onTrue(new ClimberMotionMagic(climber, Constants.ClimberConstants.TEST_MM_REVS));
     a.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_DOWN_SPEED));
     b.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_UP_SPEED));
+    leftPov.whileTrue(new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_EXT_SPEED));
+    rightPov.whileTrue(new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_RET_SPEED));
+    upPov.whileTrue(runIntakeTest);
+    downPov.whileTrue(runOuttakeTest);
+    x.whileTrue(new PIDShoot(mainRoller, preFeeder));
+    rb.whileTrue(new RunFloor(floor, -0.4));
     // a.whileTrue(new ClimberLock(climber, 1));
     // b.whileTrue(new ClimberLock(climber, 0));
 
