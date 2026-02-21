@@ -45,10 +45,10 @@ public class Intake extends SubsystemBase {
     talonConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
     var slot0RMConfigs = talonConfig.Slot0;  
-      slot0RMConfigs.kV = Constants.IntakeConstants.KV_PF;
-      slot0RMConfigs.kP = Constants.IntakeConstants.KP_PF;
-      slot0RMConfigs.kI = Constants.IntakeConstants.KI_PF;
-      slot0RMConfigs.kD = Constants.IntakeConstants.KD_PF;
+      slot0RMConfigs.kV = Constants.IntakeConstants.KV_I;
+      slot0RMConfigs.kP = Constants.IntakeConstants.KP_I;
+      slot0RMConfigs.kI = Constants.IntakeConstants.KI_I;
+      slot0RMConfigs.kD = Constants.IntakeConstants.KD_I;
 
       intakeMotor.getConfigurator().apply(talonConfig);
       intake_m_request = new VelocityVoltage(0).withSlot(0);
@@ -68,7 +68,7 @@ public class Intake extends SubsystemBase {
   }
 
   public void IntakePID(double targetMainVelocity) {//the target velocity must be in revs per second
-    intakeMotor.setControl(intake_m_request.withVelocity(targetMainVelocity).withFeedForward(Constants.IntakeConstants.KV_PF));
+    intakeMotor.setControl(intake_m_request.withVelocity(targetMainVelocity).withFeedForward(Constants.IntakeConstants.KV_I));
   }
 
   public void intakeStop() {

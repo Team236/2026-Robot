@@ -120,20 +120,20 @@ public class COTSTalonFXSwerveConstants {
                 SensorDirectionValue cancoderInvert = SensorDirectionValue.CounterClockwise_Positive;
                 return new COTSTalonFXSwerveConstants(wheelDiameter, angleGearRatio, driveGearRatio, angleKP, angleKI, angleKD, driveMotorInvert, angleMotorInvert, cancoderInvert);
             }
-            
-            /** West Coast Products - SwerveX Flipped (Kraken X60)*/
+            // ********************* THIS IS WHAT WE ARE USING FOR 2026 ROBOT ****************************
+            /** West Coast Products - SwerveX Flipped (Kraken X60)*/ 
             public static final COTSTalonFXSwerveConstants KrakenX60(double driveGearRatio){
                 double wheelDiameter = Units.inchesToMeters(4.0);
         
                 /** (468 / 35) : 1 */
-                double angleGearRatio = ((468.0 / 35.0) / 1.0);
+                double angleGearRatio = (12.1 / 1.0);// original ((468.0 / 35.0) / 1.0);
         
-                double angleKP = 1.0;
+                double angleKP = 200.0; // 1.0
                 double angleKI = 0.0;
-                double angleKD = 0.0;
+                double angleKD = 0.2;
         
                 InvertedValue driveMotorInvert = InvertedValue.CounterClockwise_Positive;
-                InvertedValue angleMotorInvert = InvertedValue.Clockwise_Positive;
+                InvertedValue angleMotorInvert = InvertedValue.Clockwise_Positive; // original CW
                 SensorDirectionValue cancoderInvert = SensorDirectionValue.CounterClockwise_Positive;
                 return new COTSTalonFXSwerveConstants(wheelDiameter, angleGearRatio, driveGearRatio, angleKP, angleKI, angleKD, driveMotorInvert, angleMotorInvert, cancoderInvert);
             }
@@ -152,7 +152,7 @@ public class COTSTalonFXSwerveConstants {
                 public static final double X2_10 = (6.72 / 1.0);
                 
                 /** WCP SwerveX Flipped X2 - 11 Tooth - (6.11 : 1) */
-                public static final double X2_11 = (6.11 / 1.0);
+                public static final double X2_11 = (6.20 / 1.0); // per WCP product catalog //original code value: (6.11 / 1.0);
                 
                 /** WCP SwerveX Flipped X2 - 12 Tooth - (5.60 : 1) */
                 public static final double X2_12 = (5.60 / 1.0);

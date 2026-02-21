@@ -41,7 +41,7 @@ public class ShooterPivot extends SubsystemBase {
     shooterPivotMotor = new TalonFX(Constants.MotorControllers.ID_SHOOTER_PIVOT, "rio");
     // --- Configuration ---
     motorConfig = new TalonFXConfiguration();
-    motorConfig.MotorOutput.Inverted =  InvertedValue.CounterClockwise_Positive; // Change to Clockwise_Positive if needed
+    motorConfig.MotorOutput.Inverted =  InvertedValue.Clockwise_Positive; // Change to Clockwise_Positive if needed
     motorConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
     motorConfig.CurrentLimits.SupplyCurrentLimit =  Constants.MotorControllers.SMART_CURRENT_LIMIT;
     motorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;

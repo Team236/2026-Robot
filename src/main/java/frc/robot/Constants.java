@@ -65,9 +65,9 @@ public final class Constants {
 
   public static class ShooterConstants {
     public static final double MAIN_MOTOR_RPM = 2100;
-    public static final double MAIN_MOTOR_SPEED = 0.5;
-    public static final double KV_MAIN = 0.117; // feed forward
-    public static final double KP_MAIN = 0.4;
+    public static final double MAIN_MOTOR_SPEED = 0.3;
+    public static final double KV_MAIN = 0.122; // feed forward
+    public static final double KP_MAIN = 0.63;
     public static final double KI_MAIN = 0;
     public static final double KD_MAIN = 0; 
 
@@ -80,11 +80,11 @@ public final class Constants {
   }
   
   public static class PreFeederConstants {
-    public static final int DIO_COUNTER = 9;
+    public static final int DIO_COUNTER = 10;
     public static final double TEST_SPEED = 0.3;//constant speed for testing
-    public static final int DESIRED_RPM = 3150;
-    public static final double KV_PF = 0.0975; // feed forward
-    public static final double KP_PF = 0.4;
+    public static final int DESIRED_RPM = 2000; //3150;
+    public static final double KV_PF = 0.0983; // feed forward
+    public static final double KP_PF = 0.97;
     public static final double KI_PF = 0;
     public static final double KD_PF = 0;
   }
@@ -92,7 +92,7 @@ public final class Constants {
   public static final class BinReleaseConstants {
 
     public static final int DIO_EXT_LIMIT = 8;//DIO port number on RoboRio
-    public static final int DIO_RET_LIMIT = 10; //DIO port number on RoboRio
+    public static final int DIO_RET_LIMIT = 9; //DIO port number on RoboRio
     public static final double KP_BIN = 0.2;  
     public static final double KI_BIN = 0;
     public static final double KD_BIN = 0;
@@ -121,9 +121,9 @@ public final class Constants {
     public static final int DIO_CLIMBER_TOP = 6; //DIO port number on RoboRio
     public static final int DIO_CLIMBER_BOTTOM = 7; //DIO port number on RoboRio
     public static final int PWM_CLIMB_LOCK = 0;  //PWM port number on RoboRio
-    public static final double MAX_ENCODER_REVS = 50.0;//TBD MotionMagic/PID, stops if here; DO NOT PID CLIMB HIGHER 
-    public static final double CLIMBER_UP_SPEED = 0.1;
-    public static final double CLIMBER_DOWN_SPEED = -0.1;
+    public static final double MAX_ENCODER_REVS = 200.0;//TBD MotionMagic/PID, stops if here; DO NOT PID CLIMB HIGHER 
+    public static final double CLIMBER_UP_SPEED = 0.05;
+    public static final double CLIMBER_DOWN_SPEED = -0.05;
     public static final double TEST_MM_REVS = 35.0;
   }
 
@@ -134,19 +134,19 @@ public final class Constants {
     //TODO: TUNE THESE VALUES FOR INTAKE PID COMMAND
     public static final double TEST_SPEED = 0.3;//constant speed for testing
     public static final int DESIRED_RPM = 3150;
-    public static final double KV_PF = 0.0; //0.0975; // feed forward
-    public static final double KP_PF = 0.0; //0.4;
-    public static final double KI_PF = 0.0;
-    public static final double KD_PF = 0.0;
+    public static final double KV_I = 0.0; //0.0975; // feed forward
+    public static final double KP_I = 0.0; //0.4;
+    public static final double KI_I = 0.0;
+    public static final double KD_I = 0.0;
   }  
 
   public static class FloorConstants {
     public static final double TEST_SPEED = -0.1;
     public static final int DESIRED_RPM = 1000;
-    public static final double KV_PF = 0.0;
-    public static final double KP_PF = 0.0;
-    public static final double KI_PF = 0.0;
-    public static final double KD_PF = 0.0;
+    public static final double KV_F = 0.0;
+    public static final double KP_F = 0.0;
+    public static final double KI_F = 0.0;
+    public static final double KD_F = 0.0;
   }
 
   public static final class Targeting { //UPDATE FOR 2026 ROBOT 
@@ -174,12 +174,15 @@ public static final class PathPlanner { //TODO -- UPDATE TO NEW ROBOT
 public static final class Swerve { //TODO -- UPDATE ALL VALUES / TUNE
         public static final int pigeonID = 1; //gryo
 
-        public static final COTSTalonFXSwerveConstants chosenModule =  //TODO: This must be tuned to specific robot
-        COTSTalonFXSwerveConstants.SDS.MK4.KrakenX60(COTSTalonFXSwerveConstants.SDS.MK4.driveRatios.L2);
+        public static final COTSTalonFXSwerveConstants chosenModule =  //TODO:Find for specific swerve module
+        //TODO:  X2_10 has 10 tooth, 6.56/1,  X2_11 5.96/1, X2_12 5.46/1;
+        COTSTalonFXSwerveConstants.WCP.SwerveXFlipped.KrakenX60(COTSTalonFXSwerveConstants.WCP.SwerveXFlipped.driveRatios.X2_11);//TODO - X2
+        // COTSTalonFXSwerveConstants.SDS.MK4.KrakenX60(COTSTalonFXSwerveConstants.SDS.MK4.driveRatios.L2);
+        //SDS.MK4.KrakenX60(COTSTalonFXSwerveConstants.SDS.MK4.driveRatios.L2);
       
         /* Drivetrain Constants */
-        public static final double trackWidth = Units.inchesToMeters(23.5); //2024 testbed //TODO MUST BE UPDATED
-        public static final double wheelBase = Units.inchesToMeters(23.5); //2024 testbed
+        public static final double trackWidth = Units.inchesToMeters(20.5); //23.5 in 2025 //TODO MUST BE UPDATED
+        public static final double wheelBase = Units.inchesToMeters(20.5); //23.5 in 2025
         public static final double wheelCircumference = chosenModule.wheelCircumference;
 
         /* Swerve Kinematics 
@@ -252,7 +255,7 @@ public static final class Swerve { //TODO -- UPDATE ALL VALUES / TUNE
             public static final int driveMotorID = 7;//testbed may be different!!!!! old 7
             public static final int angleMotorID = 6;//testbed may be different!!!!! old 6
             public static final int canCoderID = 3;//testbed may be different!!!!! old 
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-146.33);//(81.1+180); TESTBED//-119.79; old -120.15
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(37.26); //(-146.33);//(81.1+180); TESTBED//-119.79; old -120.15
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -261,7 +264,7 @@ public static final class Swerve { //TODO -- UPDATE ALL VALUES / TUNE
             public static final int driveMotorID = 3;//testbed may be different!!!!!
             public static final int angleMotorID = 2;//testbed may be different!!!!!
             public static final int canCoderID = 1;//testbed may be different!!!!!
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(10.01);//(-20.83+180)Estbed; 130.87;old 131.045
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-173.49); //(10.01);//(-20.83+180)Estbed; 130.87;old 131.045
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset); 
         }    
@@ -270,7 +273,7 @@ public static final class Swerve { //TODO -- UPDATE ALL VALUES / TUNE
             public static final int driveMotorID = 5;//testbed may be different!!!!!
             public static final int angleMotorID = 4;//testbed may be different!!!!!
             public static final int canCoderID = 2;//testbed may be different!!!!!
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-117.42);//(8.1+180); TESTBED //106.35; old 106.87
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(66.97); //(-117.42);//(8.1+180); TESTBED //106.35; old 106.87
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -279,7 +282,7 @@ public static final class Swerve { //TODO -- UPDATE ALL VALUES / TUNE
             public static final int driveMotorID = 1;//testbed may be different!!!!!
             public static final int angleMotorID = 0;//testbed may be different!!!!!
             public static final int canCoderID = 0;//testbed may be different!!!!!
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(105.9);//(-17.75+180);  TESTBED//130.87; old 130.95
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-73.91); //(105.9);//(-17.75+180);  TESTBED//130.87; old 130.95
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
