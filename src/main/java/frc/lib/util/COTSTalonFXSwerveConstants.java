@@ -128,9 +128,9 @@ public class COTSTalonFXSwerveConstants {
                 /** (468 / 35) : 1 */
                 double angleGearRatio = (12.1 / 1.0);// original ((468.0 / 35.0) / 1.0);
         
-                double angleKP = 30.0; // 1.0
+                double angleKP = 200.0; // 1.0
                 double angleKI = 0.0;
-                double angleKD = 0.0;
+                double angleKD = 0.2;
         
                 InvertedValue driveMotorInvert = InvertedValue.CounterClockwise_Positive;
                 InvertedValue angleMotorInvert = InvertedValue.Clockwise_Positive; // original CW
