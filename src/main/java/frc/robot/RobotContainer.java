@@ -144,7 +144,7 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-
+    zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
     // driver controller
     JoystickButton a = new JoystickButton(driverController, Constants.XboxController.A); // feeder
     JoystickButton b = new JoystickButton(driverController, Constants.XboxController.B); // feeder
@@ -263,9 +263,10 @@ public class RobotContainer {
     // rightPov.onTrue(new ClimberMotionMagic(climber, Constants.ClimberConstants.TEST_MM_REVS));
     // downPov.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_DOWN_SPEED));
     // upPov.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_UP_SPEED));
-    a.whileTrue(new ClimberLock(climber, 1));
-    b.whileTrue(new ClimberLock(climber, 0));
+    // a.whileTrue(new ClimberLock(climber, 1));
+    // b.whileTrue(new ClimberLock(climber, 0));
 
+    a.onTrue(Commands.defer(() -> s_Swerve.followPathCommand("one-meter"), Set.of(s_Swerve)));
     // a.whileTrue(runIntakeTest);
     // b.whileTrue(runOuttakeTest);
 
