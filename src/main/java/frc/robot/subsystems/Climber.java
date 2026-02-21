@@ -101,7 +101,7 @@ public class Climber extends SubsystemBase {
     if (isBottomException) {
       return true;
     }
-    return bottomLimitSwitch.get() || getClimberEncoder() <= 0;
+    return bottomLimitSwitch.get();
   }
 
   public double getClimberEncoder() {

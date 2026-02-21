@@ -100,8 +100,8 @@ public class RobotContainer {
   private final ManualPivot manualPivotRetract = new ManualPivot(shooterPivot, Constants.ShooterPivotConstants.CONSTANT_REVERSE_SPEED);
   private final PIDPivot pidPivot = new PIDPivot(shooterPivot, Constants.ShooterPivotConstants.TARGET_REVS);
 //BIN RELEASE
-  private final ManualMove manualExtend = new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_EXT_SPEED); // TBD TESTING VALUES
-  private final ManualMove manualRetract = new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_RET_SPEED); // TBD TESTING VALUES
+  private final ManualMove binManualExtend = new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_EXT_SPEED); // TBD TESTING VALUES
+  private final ManualMove binManualRetract = new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_RET_SPEED); // TBD TESTING VALUES
   private final PIDMove pidToPositionTestA = new PIDMove(binRelease, Constants.BinReleaseConstants.POSITION1); // TBD TESTING VALUES, PID VALUES NEEDED
 //CLIMBER
   private final ClimberMotionMagic climberMotionMagicTest = new ClimberMotionMagic(climber, Constants.ClimberConstants.TEST_MM_REVS);
@@ -204,8 +204,8 @@ public class RobotContainer {
     // a.whileTrue(manualPivotRetract);
 
     // Bin Release
-    // upPov.whileTrue(manualExtend);
-    // downPov.whileTrue(manualRetract);
+    upPov.whileTrue(binManualExtend);
+    downPov.whileTrue(binManualRetract);
     // b.onTrue(pidToPositionTestA);
 
     // Climber
@@ -261,12 +261,12 @@ public class RobotContainer {
     // );
     // leftPov.onTrue(new ClimberPID(climber, Constants.ClimberConstants.TEST_MM_REVS));
     // rightPov.onTrue(new ClimberMotionMagic(climber, Constants.ClimberConstants.TEST_MM_REVS));
-    // downPov.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_DOWN_SPEED));
-    // upPov.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_UP_SPEED));
+    a.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_DOWN_SPEED));
+    b.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_UP_SPEED));
     // a.whileTrue(new ClimberLock(climber, 1));
     // b.whileTrue(new ClimberLock(climber, 0));
 
-    a.onTrue(Commands.defer(() -> s_Swerve.followPathCommand("one-meter"), Set.of(s_Swerve)));
+    //a.onTrue(Commands.defer(() -> s_Swerve.followPathCommand("one-meter"), Set.of(s_Swerve)));
     // a.whileTrue(runIntakeTest);
     // b.whileTrue(runOuttakeTest);
 
