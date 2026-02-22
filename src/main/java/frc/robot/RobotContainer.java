@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.AutoPivotTowardHub;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.FuelShooting.ManualMainRoller;
 import frc.robot.commands.FuelShooting.ManualShoot;
@@ -195,12 +196,6 @@ public class RobotContainer {
     // command binds
     // a.onTrue(algaeGrab).onTrue(l3_Score); *EXAMPLE
 
-    // rt.whileTrue(new AutoPivotTowardHub(
-    //   s_Swerve, 
-    //   () -> -driverController.getRawAxis(translationAxis), 
-    //   () -> -driverController.getRawAxis(strafeAxis),  
-    //   () -> robotCentric.getAsBoolean()
-    // ));
 
     // Fuel Shooter
     //  a.whileTrue(manualMainRoller);
@@ -279,7 +274,7 @@ public class RobotContainer {
     // rightPov.whileTrue(new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_RET_SPEED));
     // upPov.whileTrue(runIntakeTest);
     // downPov.whileTrue(runOuttakeTest);
-    x.whileTrue(new PIDShoot(mainRoller, preFeeder));
+    // x.whileTrue(new PIDShoot(mainRoller, preFeeder));
     // rb.whileTrue(new RunFloor(floor, -0.4));
     // a.whileTrue(new ClimberLock(climber, 1));
     // b.whileTrue(new ClimberLock(climber, 0));
