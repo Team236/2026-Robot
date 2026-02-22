@@ -7,6 +7,7 @@ package frc.robot;
 import java.util.Set;
 
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -278,14 +279,14 @@ public class RobotContainer {
     // rightPov.whileTrue(new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_RET_SPEED));
     // upPov.whileTrue(runIntakeTest);
     // downPov.whileTrue(runOuttakeTest);
-    // x.whileTrue(new PIDShoot(mainRoller, preFeeder));
+    x.whileTrue(new PIDShoot(mainRoller, preFeeder));
     // rb.whileTrue(new RunFloor(floor, -0.4));
     // a.whileTrue(new ClimberLock(climber, 1));
     // b.whileTrue(new ClimberLock(climber, 0));
 
-    a.onTrue(Commands.defer(() -> s_Swerve.followPathCommand("one-meter"), Set.of(s_Swerve)));
-    b.onTrue(Commands.defer(() -> s_Swerve.followPathCommand("tower-right-to-neutral-right"), Set.of(s_Swerve)));
-    x.onTrue(Commands.defer(() -> s_Swerve.followPathCommand("spin-only"), Set.of(s_Swerve)));
+    // a.onTrue(Commands.defer(() -> s_Swerve.followPathCommand("one-meter"), Set.of(s_Swerve)));
+    // b.onTrue(Commands.defer(() -> s_Swerve.followPathCommand("hub-center-to-tower-right"), Set.of(s_Swerve)));
+    // x.onTrue(Commands.defer(() -> s_Swerve.followPathCommand("spin-only"), Set.of(s_Swerve)));
 
     // a.whileTrue(runIntakeTest);
     // b.whileTrue(runOuttakeTest);
@@ -300,6 +301,7 @@ public class RobotContainer {
     AutoSwitchHelpers.put(new boolean[] {true, true, true, true}, new InstantCommand(() -> SmartDashboard.putString("Auto", "tttt")));
 
     return AutoSwitchHelpers.getCommand();
+    // return new PathPlannerAuto("test-short");
   }
 
 }

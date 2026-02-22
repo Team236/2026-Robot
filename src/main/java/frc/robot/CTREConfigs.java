@@ -35,6 +35,8 @@ public final class CTREConfigs {
         swerveAngleFXConfig.Slot0.kP = Constants.Swerve.angleKP;
         swerveAngleFXConfig.Slot0.kI = Constants.Swerve.angleKI;
         swerveAngleFXConfig.Slot0.kD = Constants.Swerve.angleKD;
+        swerveAngleFXConfig.Slot0.kS = Constants.Swerve.angleKS;
+        swerveAngleFXConfig.Slot0.kV = Constants.Swerve.angleKV;
 
         /** Swerve Drive Motor Configuration */
         /* Motor Inverts and Neutral Mode */

@@ -37,10 +37,17 @@ public class TeleopSwerve extends Command {
 
         /* Drive */
         s_Swerve.drive(
-            new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed), 
-            rotationVal * Constants.Swerve.maxAngularVelocity, 
+            new Translation2d(curveDrive(translationVal), curveDrive(strafeVal)).times(Constants.Swerve.maxSpeed), 
+            curveTurn(rotationVal) * Constants.Swerve.maxAngularVelocity, 
             !robotCentricSup.getAsBoolean(), 
             true
         );
+    }
+        private double curveDrive(double input) {
+        return 0.5 * Math.pow(input, 3) + 0.5 * input;
+    }
+
+    private double curveTurn(double input) {
+        return 0.8 * Math.pow(input, 3) + 0.2 * input;
     }
 }

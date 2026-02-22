@@ -575,6 +575,7 @@ public class Swerve extends SubsystemBase {
         SmartDashboard.putNumber("auto pivot desired rotation (red)", Units.radiansToDegrees(getAngleOfHub(Constants.Targeting.RED_ALLIANCE_HUB_CENTER_X, Constants.Targeting.RED_ALLIANCE_HUB_CENTER_Y)));
         SmartDashboard.putNumber("auto pivot current rotation (red)", getPose().getRotation().getDegrees());
         SmartDashboard.putNumber("Distance to red hub", getDistanceToHub(Constants.Targeting.RED_ALLIANCE_HUB_CENTER_X, Constants.Targeting.RED_ALLIANCE_HUB_CENTER_Y));
+        SmartDashboard.putNumber("Distance to blue hub", getDistanceToHub(Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_X, Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_Y));
         SmartDashboard.putNumber("** RobotPoseX (Estimator)", Units.metersToInches( m_poseEstimator.getEstimatedPosition().getX()));
         SmartDashboard.putNumber("** RobotPoseY (Estimator)", Units.metersToInches( m_poseEstimator.getEstimatedPosition().getY()));
         SmartDashboard.putNumber("MegaTag2Rotation (Estimator)", m_poseEstimator.getEstimatedPosition().getRotation().getDegrees());
