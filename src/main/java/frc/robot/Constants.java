@@ -19,6 +19,7 @@ import frc.lib.util.SwerveModuleConstants;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
@@ -151,19 +152,89 @@ public final class Constants {
 
   public static final class Targeting { //UPDATE FOR 2026 ROBOT 
     //Use these do MetricDriveFwdSideDist field centric robot to tag 
-    public static final double DIST_ROBOT_CENTER_TO_FRONT_WITH_BUMPER = 18.25; // inches
-    public static final double DIST_ROBOT_CENTER_TO_LL_SIDEWAYS = 8; //
+    // public static final double DIST_ROBOT_CENTER_TO_FRONT_WITH_BUMPER = 18.25; // inches
+    // public static final double DIST_ROBOT_CENTER_TO_LL_SIDEWAYS = 8; //
     //use this with TargetPose-CameraSpace: inches
-    public static final double DIST_FORWARDS_CAMERA_TO_FRAME = 5.2;
-    public static final double BUMPER_THICKNESS = 3.25;
-    public static final double DIST_CAMERA_TO_BUMPER_FWD = BUMPER_THICKNESS + DIST_FORWARDS_CAMERA_TO_FRAME;
+    // public static final double DIST_FORWARDS_CAMERA_TO_FRAME = 5.2;
+    // public static final double BUMPER_THICKNESS = 3.25;
+    // public static final double DIST_CAMERA_TO_BUMPER_FWD = BUMPER_THICKNESS + DIST_FORWARDS_CAMERA_TO_FRAME;
+    // public static final double KP_ROTATION = 0.008; //kP value for rotation
+    // public static final double KP_TRANSLATION = 0.4;//kP value for forward (translation) motion
+    // public static final double KP_STRAFE = 0.9;// 0.475;  //kP value for the sideways (strafe) motio%n 
 
-    public static final double KP_ROTATION = 0.008; //kP value for rotation
-    public static final double KP_TRANSLATION = 0.4;//kP value for forward (translation) motion
-    public static final double KP_STRAFE = 0.9;// 0.475;  //kP value for the sideways (strafe) motio%n 
+    public static final double AUTO_ROTATE_KP = 5;
+    public static final double AUTO_ROTATE_FEEDFORWARD = 0.5;
+    public static final double AUTO_ROTATE_TOLERANCE = 1; //degrees
 
-    public static final double DONT_SEE_TAG_WAIT_TIME = 0.3;
-    public static final double POSE_VALIDATION_TIME = 2; //TODO - shorten
+    public static final InterpolatingDoubleTreeMap hoodAngleMap = new InterpolatingDoubleTreeMap();
+
+    static {
+      hoodAngleMap.put(48.0, -5.0);
+      hoodAngleMap.put(164.5, 8.0);
+    }
+
+    public static final InterpolatingDoubleTreeMap rpmMap = new InterpolatingDoubleTreeMap();
+
+    static {
+      rpmMap.put(48.0, 2100.0); 
+      rpmMap.put(164.5, 3000.0);
+    }
+
+    public static final InterpolatingDoubleTreeMap timeMap = new InterpolatingDoubleTreeMap();
+
+    static {
+      timeMap.put(48.0, 2.0);
+      timeMap.put(164.5, 4.0);
+    }
+    
+
+    public static Map<Integer, Pose2d> ID_TO_POSE = new HashMap<>();
+
+    static {
+
+      Constants.Targeting.ID_TO_POSE.put(1, new Pose2d(Units.inchesToMeters(467.08), Units.inchesToMeters(291.79), new Rotation2d(Units.degreesToRadians(180))));
+      Constants.Targeting.ID_TO_POSE.put(2, new Pose2d(Units.inchesToMeters(468.56), Units.inchesToMeters(182.08), new Rotation2d(Units.degreesToRadians(90))));
+      Constants.Targeting.ID_TO_POSE.put(3, new Pose2d(Units.inchesToMeters(444.80), Units.inchesToMeters(172.32), new Rotation2d(Units.degreesToRadians(180))));
+      Constants.Targeting.ID_TO_POSE.put(4, new Pose2d(Units.inchesToMeters(444.80), Units.inchesToMeters(158.32), new Rotation2d(Units.degreesToRadians(180))));
+      Constants.Targeting.ID_TO_POSE.put(5, new Pose2d(Units.inchesToMeters(468.56), Units.inchesToMeters(134.56), new Rotation2d(Units.degreesToRadians(270))));
+      Constants.Targeting.ID_TO_POSE.put(6, new Pose2d(Units.inchesToMeters(467.08), Units.inchesToMeters(24.85), new Rotation2d(Units.degreesToRadians(180))));
+      Constants.Targeting.ID_TO_POSE.put(7, new Pose2d(Units.inchesToMeters(470.03), Units.inchesToMeters(24.85), new Rotation2d(Units.degreesToRadians(0))));
+      Constants.Targeting.ID_TO_POSE.put(8, new Pose2d(Units.inchesToMeters(482.56), Units.inchesToMeters(134.56), new Rotation2d(Units.degreesToRadians(270))));
+      Constants.Targeting.ID_TO_POSE.put(9, new Pose2d(Units.inchesToMeters(492.33), Units.inchesToMeters(144.32), new Rotation2d(Units.degreesToRadians(0))));
+      Constants.Targeting.ID_TO_POSE.put(10, new Pose2d(Units.inchesToMeters(492.33), Units.inchesToMeters(158.32), new Rotation2d(Units.degreesToRadians(0))));
+      Constants.Targeting.ID_TO_POSE.put(11, new Pose2d(Units.inchesToMeters(482.56), Units.inchesToMeters(182.08), new Rotation2d(Units.degreesToRadians(90))));
+      Constants.Targeting.ID_TO_POSE.put(12, new Pose2d(Units.inchesToMeters(470.03), Units.inchesToMeters(291.79), new Rotation2d(Units.degreesToRadians(0))));
+      Constants.Targeting.ID_TO_POSE.put(13, new Pose2d(Units.inchesToMeters(649.58), Units.inchesToMeters(291.02), new Rotation2d(Units.degreesToRadians(180))));
+      Constants.Targeting.ID_TO_POSE.put(14, new Pose2d(Units.inchesToMeters(649.58), Units.inchesToMeters(274.02), new Rotation2d(Units.degreesToRadians(180))));
+      Constants.Targeting.ID_TO_POSE.put(15, new Pose2d(Units.inchesToMeters(649.57), Units.inchesToMeters(169.78), new Rotation2d(Units.degreesToRadians(180))));
+      Constants.Targeting.ID_TO_POSE.put(16, new Pose2d(Units.inchesToMeters(649.57), Units.inchesToMeters(152.78), new Rotation2d(Units.degreesToRadians(180))));
+
+      Constants.Targeting.ID_TO_POSE.put(17, new Pose2d(Units.inchesToMeters(183.03), Units.inchesToMeters(24.85), new Rotation2d(Units.degreesToRadians(0))));
+      Constants.Targeting.ID_TO_POSE.put(18, new Pose2d(Units.inchesToMeters(181.56), Units.inchesToMeters(134.56), new Rotation2d(Units.degreesToRadians(270))));
+      Constants.Targeting.ID_TO_POSE.put(19, new Pose2d(Units.inchesToMeters(205.32), Units.inchesToMeters(144.32), new Rotation2d(Units.degreesToRadians(0))));
+      Constants.Targeting.ID_TO_POSE.put(20, new Pose2d(Units.inchesToMeters(205.32), Units.inchesToMeters(158.32), new Rotation2d(Units.degreesToRadians(0))));
+      Constants.Targeting.ID_TO_POSE.put(21, new Pose2d(Units.inchesToMeters(181.56), Units.inchesToMeters(182.08), new Rotation2d(Units.degreesToRadians(90))));
+      Constants.Targeting.ID_TO_POSE.put(22, new Pose2d(Units.inchesToMeters(183.03), Units.inchesToMeters(291.79), new Rotation2d(Units.degreesToRadians(0))));
+      Constants.Targeting.ID_TO_POSE.put(23, new Pose2d(Units.inchesToMeters(180.08), Units.inchesToMeters(291.79), new Rotation2d(Units.degreesToRadians(180))));
+      Constants.Targeting.ID_TO_POSE.put(24, new Pose2d(Units.inchesToMeters(167.56), Units.inchesToMeters(182.08), new Rotation2d(Units.degreesToRadians(90))));
+      Constants.Targeting.ID_TO_POSE.put(25, new Pose2d(Units.inchesToMeters(157.79), Units.inchesToMeters(172.32), new Rotation2d(Units.degreesToRadians(180))));
+      Constants.Targeting.ID_TO_POSE.put(26, new Pose2d(Units.inchesToMeters(157.79), Units.inchesToMeters(158.32), new Rotation2d(Units.degreesToRadians(180))));
+      Constants.Targeting.ID_TO_POSE.put(27, new Pose2d(Units.inchesToMeters(167.56), Units.inchesToMeters(134.56), new Rotation2d(Units.degreesToRadians(270))));
+      Constants.Targeting.ID_TO_POSE.put(28, new Pose2d(Units.inchesToMeters(180.08), Units.inchesToMeters(24.85), new Rotation2d(Units.degreesToRadians(180))));
+      Constants.Targeting.ID_TO_POSE.put(29, new Pose2d(Units.inchesToMeters(.54), Units.inchesToMeters(25.62), new Rotation2d(Units.degreesToRadians(0))));
+      Constants.Targeting.ID_TO_POSE.put(30, new Pose2d(Units.inchesToMeters(.54), Units.inchesToMeters(42.62), new Rotation2d(Units.degreesToRadians(0))));
+      Constants.Targeting.ID_TO_POSE.put(31, new Pose2d(Units.inchesToMeters(.55), Units.inchesToMeters(146.86), new Rotation2d(Units.degreesToRadians(0))));
+      Constants.Targeting.ID_TO_POSE.put(32, new Pose2d(Units.inchesToMeters(.55), Units.inchesToMeters(163.86), new Rotation2d(Units.degreesToRadians(0))));
+        
+    }
+
+    // this is from subtracting opposing April Tags on https://firstfrc.blob.core.windows.net/frc2026/FieldAssets/2026-field-dimension-dwgs.pdf find actual values in cad
+    public static final double RED_ALLIANCE_HUB_CENTER_X = 468.56;
+    public static final double RED_ALLIANCE_HUB_CENTER_Y = 158.32;
+
+    public static final double BLUE_ALLIANCE_HUB_CENTER_X = 181.56;
+    public static final double BLUE_ALLIANCE_HUB_CENTER_Y = 158.32;
+    
 }
 
 public static final class PathPlanner { //TODO -- UPDATE TO NEW ROBOT

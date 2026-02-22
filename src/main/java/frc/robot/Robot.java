@@ -8,6 +8,8 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.net.PortForwarder;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -93,6 +95,7 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
     CommandScheduler.getInstance().cancelAll();
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("throttle-set").setNumber(150);
   }
 
   @Override
@@ -107,6 +110,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("throttle-set").setNumber(0);
   }
 
   /** This function is called periodically during autonomous. */
@@ -125,6 +129,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("throttle-set").setNumber(0);
   }
 
   /** This function is called periodically during operator control. */

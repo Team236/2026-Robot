@@ -12,6 +12,8 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+
+import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -23,7 +25,6 @@ public class MainRoller extends SubsystemBase {
   private TalonFXConfiguration leftMainConfig, rightMainConfig; //, midMainConfig;
 
   private VelocityVoltage leftMain_m_request, rightMain_m_request;
-
 
   /** Creates a new MainRoller. */
   //This system uses motors to shoot the fuel with a constant velocity which is 
@@ -127,6 +128,10 @@ public class MainRoller extends SubsystemBase {
 
   public double getRightMainVelocity() {
     return 60 * rightMainMotor.getRotorVelocity().getValueAsDouble();
+  }
+
+  public double calculateRPM(double distance) {
+    return Constants.Targeting.rpmMap.get(distance);
   }
 
   public void stopMain(){

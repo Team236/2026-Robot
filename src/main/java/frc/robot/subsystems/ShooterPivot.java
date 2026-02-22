@@ -149,6 +149,10 @@ public class ShooterPivot extends SubsystemBase {
         }
     }
 
+    public double calculateHoodAngle(double distance) {
+    return Constants.Targeting.hoodAngleMap.get(distance);
+  }
+
   
   public void pidSetPosition(double targetRevs) {
     //NOTE TO CODERS:  In a java method that return nothing ("void" returned),

@@ -141,6 +141,8 @@ public class RobotContainer {
     );
 
     configureBindings();
+
+    
   }
 
   private void configureBindings() {
@@ -192,11 +194,20 @@ public class RobotContainer {
     // command binds
     // a.onTrue(algaeGrab).onTrue(l3_Score); *EXAMPLE
 
+    // rt.whileTrue(new AutoPivotTowardHub(
+    //   s_Swerve, 
+    //   () -> -driverController.getRawAxis(translationAxis), 
+    //   () -> -driverController.getRawAxis(strafeAxis),  
+    //   () -> robotCentric.getAsBoolean()
+    // ));
+
     // Fuel Shooter
     //  a.whileTrue(manualMainRoller);
+    //  b.whileTrue(manualTopRoller);
+    //  y.whileTrue(manualShoot);
     //downPov.whileTrue(pidMainRoller);
-    // downPov.whileTrue(manualShoot);
-    // upPov.whileTrue(pidShoot);
+    //  upPov.whileTrue(pidTopRoller);
+    //upPov.whileTrue(pidShoot);
 
     // Shooter Pivot
     // x.onTrue(pidPivot);

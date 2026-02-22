@@ -32,6 +32,7 @@ import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.trajectory.Trajectory;
@@ -57,6 +58,7 @@ public class Swerve extends SubsystemBase {
     public double poseAngle;
     public double poseForwardDistance;
     public double poseSideDistance;
+    public PIDController pidControllerForTrackingOutput;
 
     //ll stuff
     private double pipeline = 0; 
@@ -141,6 +143,16 @@ public class Swerve extends SubsystemBase {
                 this
             );
         }
+
+        pidControllerForTrackingOutput = new PIDController(
+        Constants.Targeting.AUTO_ROTATE_KP,
+        0.0,
+        0.0);
+
+        pidControllerForTrackingOutput.enableContinuousInput(-Math.PI, Math.PI);
+        // tolerance is to prevent gittering (this will need to be tuned)
+        pidControllerForTrackingOutput.setTolerance(Math.toRadians(0.1));
+        pidControllerForTrackingOutput.setSetpoint(0.0);
     }
 
 //Methods start here:
@@ -201,7 +213,8 @@ public class Swerve extends SubsystemBase {
         }
     }
 
-    //Follows path that assumes starting pose is robot's current pose (by RESETTING the robots odometry to be the start pose of the path)
+        //Follows path that assumes starting pose is robot's current pose (by RESETTING the robots odometry to be the start pose of the path)
+
     public Command followPathCommand(String pathName) {
         try {
             SmartDashboard.putNumber("RobotPoseX before path start", this.getPose().getX());
@@ -472,12 +485,96 @@ public class Swerve extends SubsystemBase {
         }
     }
 
+    public double calculateTargetingPID (double HUBX, double HUBY) {
+
+      // CALCULATED THE ANGLE TO FACE THE CENTER OF THE HUB
+      Pose2d currentPose = getPose();
+      double dx = HUBX - Units.metersToInches(currentPose.getX());
+      double dy = HUBY - Units.metersToInches(currentPose.getY());
+      double targetAngle = Math.atan2(dy, dx);
+
+      // USES PID TO ROTATE THE ROBOT EFFECTIVELY
+      double pidOutput = pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), targetAngle);
+
+      return pidOutput;
+    }
+
+    public double getAngleOfHub (double HUBX, double HUBY) {
+        Pose2d currentPose = getPose();
+        double dx = HUBX - Units.metersToInches(currentPose.getX());
+        double dy = HUBY - Units.metersToInches(currentPose.getY());
+        double angle = Math.atan2(dy, dx);
+
+        return angle;
+    }
+
+   public double getDistanceToHub (double HUBX, double HUBY) {
+
+      // CALCULATED THE DISTANCE TO THE CENTER OF THE HUB
+      Pose2d currentPose = getPose();
+      double dx = HUBX - Units.metersToInches(currentPose.getX());
+      double dy = HUBY - Units.metersToInches(currentPose.getY());
+      double distance = Math.hypot(dy, dx);
+  
+      return distance;
+   }
+
+   public double pidCalculateAngle (double targetAngle) {
+   Pose2d currentPose = getPose();
+   double pidOutput = pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), targetAngle);
+  
+   return pidOutput;
+  }
+
+  public double[] getRotationMoving (double HUBX, double HUBY) {
+   ChassisSpeeds robotChassisSpeeds = getChassisSpeeds();
+   Pose2d currentPose2d = getPose();
+   double distanceToHub = getDistanceToHub(HUBX, HUBY);
+   double finalDistance = 0;
+
+
+   double timeOfFlight = Constants.Targeting.timeMap.get(distanceToHub);
+
+
+   Translation2d virtualGoal = new Translation2d();
+
+
+   for (int i = 0; i < 2; i++) {
+     // calculate the Virtual Goal (looping to get error low)
+     double virtualX = HUBX - (robotChassisSpeeds.vxMetersPerSecond * timeOfFlight);
+     double virtualY = HUBY - (robotChassisSpeeds.vyMetersPerSecond * timeOfFlight);
+
+
+     virtualGoal = new Translation2d(virtualX, virtualY);
+
+
+     // new distance is where the robot would be static
+     double newDistance = currentPose2d.getTranslation().getDistance(virtualGoal);
+
+
+     // updates time of flight based on the new distance
+     timeOfFlight = Constants.Targeting.timeMap.get(newDistance);
+     finalDistance = newDistance;
+   }
+
+
+   double finalRotation = Math.atan2(virtualGoal.getY() - currentPose2d.getY(), virtualGoal.getX() - currentPose2d.getX());
+  
+   double[] returnData = {finalDistance, finalRotation};
+
+
+   return returnData;
+  }
+
     @Override
     public void periodic(){
         //SmartDashboard.putNumber("limelight standoff fwd", LimelightHelpers.getTargetPose_CameraSpace("limelight")[2]);
 
         //swerveOdometry.update(getGyroYaw(), getModulePositions());
         MegaTag2UpdateOdometry();
+        SmartDashboard.putNumber("auto pivot desired rotation (red)", Units.radiansToDegrees(getAngleOfHub(Constants.Targeting.RED_ALLIANCE_HUB_CENTER_X, Constants.Targeting.RED_ALLIANCE_HUB_CENTER_Y)));
+        SmartDashboard.putNumber("auto pivot current rotation (red)", getPose().getRotation().getDegrees());
+        SmartDashboard.putNumber("Distance to red hub", getDistanceToHub(Constants.Targeting.RED_ALLIANCE_HUB_CENTER_X, Constants.Targeting.RED_ALLIANCE_HUB_CENTER_Y));
         SmartDashboard.putNumber("** RobotPoseX (Estimator)", Units.metersToInches( m_poseEstimator.getEstimatedPosition().getX()));
         SmartDashboard.putNumber("** RobotPoseY (Estimator)", Units.metersToInches( m_poseEstimator.getEstimatedPosition().getY()));
         SmartDashboard.putNumber("MegaTag2Rotation (Estimator)", m_poseEstimator.getEstimatedPosition().getRotation().getDegrees());
@@ -489,6 +586,18 @@ public class Swerve extends SubsystemBase {
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);
             // Can't use m/s in the key!! SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity m/s", mod.getState().speedMetersPerSecond);
         }
-    }
-}       
 
+        field.setRobotPose(getPose());
+        var traj = field.getObject("trajectory");
+        traj.setPoses(
+            getPose(), 
+            getPose().plus(
+                new Transform2d(
+                    new Translation2d(5, 0), // 1 meter straight ahead of the robot
+                    new Rotation2d() // same rotation as robot
+                )
+            )
+            ); // example trajectory visualization, replace with actual trajectory if desired
+        // SmartDashboard.putData("Field", field);
+    }
+}
