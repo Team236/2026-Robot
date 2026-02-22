@@ -415,7 +415,7 @@ public class Swerve extends SubsystemBase {
         */   
         m_poseEstimator.update(getGyroYaw(), getModulePositions());
 
-        boolean useMegaTag2 = false; //set to false to use MegaTag1
+        boolean useMegaTag2 = true; //set to false to use MegaTag1
         boolean doUpdate = true;
         // evaluating which Megatag one or two to use based on above boolean value and 
         // only incorporate Limelight's estimates when more than one tag is visible (tagcount >= 1)
@@ -464,7 +464,7 @@ public class Swerve extends SubsystemBase {
                 // measurements a lot less. In this case, the rotation stddev was enormous (9999999), so its essentially ignored entirely.
                 // update 11/12 it seems like according to limelight docs megatag2 does not calculate heading at all, number likely irrelevant 
 
-                m_poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7, 0.01)); // n3 was 9999999 
+                m_poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7, 999999)); // n3 was 9999999 
                 m_poseEstimator.addVisionMeasurement(
                     mt2.pose,
                     mt2.timestampSeconds);

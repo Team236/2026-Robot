@@ -261,18 +261,21 @@ public class RobotContainer {
     // );
     // leftPov.onTrue(new ClimberPID(climber, Constants.ClimberConstants.TEST_MM_REVS));
     // rightPov.onTrue(new ClimberMotionMagic(climber, Constants.ClimberConstants.TEST_MM_REVS));
-    a.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_DOWN_SPEED));
-    b.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_UP_SPEED));
-    leftPov.whileTrue(new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_EXT_SPEED));
-    rightPov.whileTrue(new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_RET_SPEED));
-    upPov.whileTrue(runIntakeTest);
-    downPov.whileTrue(runOuttakeTest);
-    x.whileTrue(new PIDShoot(mainRoller, preFeeder));
-    rb.whileTrue(new RunFloor(floor, -0.4));
+    // a.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_DOWN_SPEED));
+    // b.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_UP_SPEED));
+    // leftPov.whileTrue(new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_EXT_SPEED));
+    // rightPov.whileTrue(new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_RET_SPEED));
+    // upPov.whileTrue(runIntakeTest);
+    // downPov.whileTrue(runOuttakeTest);
+    // x.whileTrue(new PIDShoot(mainRoller, preFeeder));
+    // rb.whileTrue(new RunFloor(floor, -0.4));
     // a.whileTrue(new ClimberLock(climber, 1));
     // b.whileTrue(new ClimberLock(climber, 0));
 
-    //a.onTrue(Commands.defer(() -> s_Swerve.followPathCommand("one-meter"), Set.of(s_Swerve)));
+    a.onTrue(Commands.defer(() -> s_Swerve.followPathCommand("one-meter"), Set.of(s_Swerve)));
+    b.onTrue(Commands.defer(() -> s_Swerve.followPathCommand("tower-right-to-neutral-right"), Set.of(s_Swerve)));
+    x.onTrue(Commands.defer(() -> s_Swerve.followPathCommand("spin-only"), Set.of(s_Swerve)));
+
     // a.whileTrue(runIntakeTest);
     // b.whileTrue(runOuttakeTest);
 

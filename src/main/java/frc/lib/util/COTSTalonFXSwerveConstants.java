@@ -123,7 +123,7 @@ public class COTSTalonFXSwerveConstants {
             // ********************* THIS IS WHAT WE ARE USING FOR 2026 ROBOT ****************************
             /** West Coast Products - SwerveX Flipped (Kraken X60)*/ 
             public static final COTSTalonFXSwerveConstants KrakenX60(double driveGearRatio){
-                double wheelDiameter = Units.inchesToMeters(4.0);
+                double wheelDiameter = Units.inchesToMeters(3.9);
         
                 /** (468 / 35) : 1 */
                 double angleGearRatio = (12.1 / 1.0);// original ((468.0 / 35.0) / 1.0);
