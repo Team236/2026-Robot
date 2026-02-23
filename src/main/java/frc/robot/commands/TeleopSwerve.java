@@ -43,6 +43,10 @@ public class TeleopSwerve extends Command {
             true
         );
     }
+
+    //The two methods below take a portion of the driver's joystick input for driving and turning 
+    //and cube it, in order to slow down the response of the stick at 
+    //low input values.  This allows driver better control of fine movement.
         private double curveDrive(double input) {
         return 0.5 * Math.pow(input, 3) + 0.5 * input;
     }
