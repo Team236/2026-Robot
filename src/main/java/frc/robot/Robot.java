@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.commands.FollowPathCommand;
+
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
@@ -43,7 +45,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-
+    CommandScheduler.getInstance().schedule(FollowPathCommand.warmupCommand()); // loads pathplanner classes, should solve issue of initial path follow being delayed
    // myPDH.setSwitchableChannel(true);
 //
  // UsbCamera usbCamera0;

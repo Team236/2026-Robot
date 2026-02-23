@@ -8,12 +8,15 @@ import java.util.Set;
 
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.util.PathPlannerLogging;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -290,13 +293,20 @@ public class RobotContainer {
   
   public Command getAutonomousCommand() {
     SmartDashboard.putString("Auto", "nonthing yet");
-    AutoSwitchHelpers.put(false, false, false, false, new InstantCommand(() -> SmartDashboard.putString("Auto", "ffff")));
-    AutoSwitchHelpers.put(false, true, false, true, new InstantCommand(() -> SmartDashboard.putString("Auto", "ftft")));
-    AutoSwitchHelpers.put(true, false, true, false, new InstantCommand(() -> SmartDashboard.putString("Auto", "tftf")));
-    AutoSwitchHelpers.put(true, true, true, true, new InstantCommand(() -> SmartDashboard.putString("Auto", "tttt")));
 
-    return AutoSwitchHelpers.getAutoCommand();
-    // return new PathPlannerAuto("test-short");
+    // TODO ALSO: SHOULD LOOK AT PATHPLANNER WEBSITE FOR SENDABLE CHOOSERS; AUTO CAN BE SELECTED ON SMART DASHBOARD OR EQUIVALENT
+
+    // this command adding should really be done up top? instead of loaded all down here
+    // AutoSwitchHelpers.put(false, false, false, false, new InstantCommand(() -> SmartDashboard.putString("Auto", "ffff")));
+    // AutoSwitchHelpers.put(false, true, false, true, new InstantCommand(() -> SmartDashboard.putString("Auto", "ftft")));
+    // AutoSwitchHelpers.put(true, false, true, false, new InstantCommand(() -> SmartDashboard.putString("Auto", "tftf")));
+    // AutoSwitchHelpers.put(true, true, true, true, new InstantCommand(() -> SmartDashboard.putString("Auto", "tttt")));
+    
+    // return AutoSwitchHelpers.getAutoCommand();
+    
+    // we make paths usually on the blue side, so if were red then mirror auto
+    boolean shouldMirror = DriverStation.getAlliance().isPresent() ? DriverStation.getAlliance().get() == Alliance.Red : false;
+    return new PathPlannerAuto("test-short", shouldMirror);
   }
 
 }
