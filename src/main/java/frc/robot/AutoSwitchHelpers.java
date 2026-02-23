@@ -2,6 +2,8 @@ package frc.robot;
 
 import java.util.HashMap;
 
+import com.pathplanner.lib.commands.PathPlannerAuto;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -25,7 +27,9 @@ public class AutoSwitchHelpers {
 
     private AutoSwitchHelpers() {}
 
-    public static void put(boolean[] input, Command command) {
+    public static void put(boolean s1, boolean s2, boolean s3, boolean s4, Command autoCommand) {
+
+        boolean[] input = {s1, s2, s3, s4};
 
         if (input.length != 4)
         {
@@ -35,10 +39,10 @@ public class AutoSwitchHelpers {
 
         int mask = convertToMask(input);
 
-        autoMap.put(mask, command);
+        autoMap.put(mask, autoCommand);
     }
 
-    public static void put(int mask, Command command)
+    public static void put(int mask, Command autoCommand)
     {
         if (mask < 0 || mask >= 16)
         {
@@ -46,10 +50,10 @@ public class AutoSwitchHelpers {
             return;
         }
 
-        autoMap.put(mask, command);
+        autoMap.put(mask, autoCommand);
     }
 
-    public static Command getCommand() {
+    public static Command getAutoCommand() {
         Command autoCommandToRun = autoMap.get(getSwitchMask());
         
         if (autoCommandToRun == null) { 

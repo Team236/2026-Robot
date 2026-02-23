@@ -290,12 +290,12 @@ public class RobotContainer {
   
   public Command getAutonomousCommand() {
     SmartDashboard.putString("Auto", "nonthing yet");
-    AutoSwitchHelpers.put(new boolean[] {false, false, false, false}, new InstantCommand(() -> SmartDashboard.putString("Auto", "ffff")));
-    AutoSwitchHelpers.put(new boolean[] {false, true, false, true}, new InstantCommand(() -> SmartDashboard.putString("Auto", "ftft")));
-    AutoSwitchHelpers.put(new boolean[] {true, false, true, false}, new InstantCommand(() -> SmartDashboard.putString("Auto", "tftf")));
-    AutoSwitchHelpers.put(new boolean[] {true, true, true, true}, new InstantCommand(() -> SmartDashboard.putString("Auto", "tttt")));
+    AutoSwitchHelpers.put(false, false, false, false, new InstantCommand(() -> SmartDashboard.putString("Auto", "ffff")));
+    AutoSwitchHelpers.put(false, true, false, true, new InstantCommand(() -> SmartDashboard.putString("Auto", "ftft")));
+    AutoSwitchHelpers.put(true, false, true, false, new InstantCommand(() -> SmartDashboard.putString("Auto", "tftf")));
+    AutoSwitchHelpers.put(true, true, true, true, new InstantCommand(() -> SmartDashboard.putString("Auto", "tttt")));
 
-    return AutoSwitchHelpers.getCommand();
+    return AutoSwitchHelpers.getAutoCommand();
     // return new PathPlannerAuto("test-short");
   }
 
