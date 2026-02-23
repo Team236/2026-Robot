@@ -28,7 +28,7 @@ public class Robot extends TimedRobot {
   public static final CTREConfigs ctreConfigs = new CTREConfigs();
 
  // public UsbCamera usbCamera;
- //public PowerDistribution myPDH = new PowerDistribution(0, ModuleType.kRev);
+ public PowerDistribution myPDH = new PowerDistribution(0, ModuleType.kRev);
  
   private Command m_autonomousCommand;
 
@@ -46,7 +46,7 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     CommandScheduler.getInstance().schedule(FollowPathCommand.warmupCommand()); // loads pathplanner classes, should solve issue of initial path follow being delayed
-   // myPDH.setSwitchableChannel(true);
+    myPDH.setSwitchableChannel(true);
 //
  // UsbCamera usbCamera0;
 	//try {
