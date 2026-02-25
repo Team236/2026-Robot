@@ -29,7 +29,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.AutoPivotTowardHub;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.FuelShooting.ManualMainRoller;
 import frc.robot.commands.FuelShooting.ManualShoot;
@@ -54,6 +53,7 @@ import frc.robot.commands.PathPlanner.SequentialPathsCombined;
 import frc.robot.subsystems.MainRoller;
 import frc.robot.commands.ShooterPivotCommands.ManualPivot;
 import frc.robot.commands.ShooterPivotCommands.PIDPivot;
+import frc.robot.commands.Targeting.AutoPivotTowardHub;
 import frc.robot.subsystems.ShooterPivot;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Intake;
@@ -199,6 +199,12 @@ public class RobotContainer {
     // command binds
     // a.onTrue(algaeGrab).onTrue(l3_Score); *EXAMPLE
 
+    // rt.whileTrue(new AutoPivotTowardHub(
+    //     s_Swerve, 
+    //     () -> -driverController.getRawAxis(translationAxis), 
+    //     () -> -driverController.getRawAxis(strafeAxis), 
+    //     () -> robotCentric.getAsBoolean()
+    // ));
 
     // Fuel Shooter
     //  a.whileTrue(manualMainRoller);
@@ -271,13 +277,14 @@ public class RobotContainer {
     // );
     // leftPov.onTrue(new ClimberPID(climber, Constants.ClimberConstants.TEST_MM_REVS));
     // rightPov.onTrue(new ClimberMotionMagic(climber, Constants.ClimberConstants.TEST_MM_REVS));
-    // a.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_DOWN_SPEED));
-    // b.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_UP_SPEED));
+    a.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_DOWN_SPEED));
+    b.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_UP_SPEED));
     // leftPov.whileTrue(new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_EXT_SPEED));
     // rightPov.whileTrue(new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_RET_SPEED));
     // upPov.whileTrue(runIntakeTest);
     // downPov.whileTrue(runOuttakeTest);
-    // x.whileTrue(new PIDShoot(mainRoller, preFeeder));
+    x.whileTrue(new PIDShoot(mainRoller, preFeeder));
+    // b.onTrue(new InstantCommand(() -> shooterPivot.resetEncoder(), shooterPivot));
     // rb.whileTrue(new RunFloor(floor, -0.4));
     // a.whileTrue(new ClimberLock(climber, 1));
     // b.whileTrue(new ClimberLock(climber, 0));

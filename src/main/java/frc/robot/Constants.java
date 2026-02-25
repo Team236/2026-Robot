@@ -70,7 +70,7 @@ public final class Constants {
   }
 
   public static class ShooterConstants {
-    public static final double MAIN_MOTOR_RPM = 2100;
+    public static final double MAIN_MOTOR_RPM = 2150;
     public static final double MAIN_MOTOR_SPEED = 0.3;
     public static final double KV_MAIN = 0.122; // feed forward
     public static final double KP_MAIN = 0.63;
@@ -88,7 +88,7 @@ public final class Constants {
   public static class PreFeederConstants {
     public static final int DIO_COUNTER = 10;
     public static final double TEST_SPEED = 0.3;//constant speed for testing
-    public static final int DESIRED_RPM = 2000; //3150;
+    public static final int DESIRED_RPM = 3583; //3150;
     public static final double KV_PF = 0.0983; // feed forward
     public static final double KP_PF = 0.97;
     public static final double KI_PF = 0;
@@ -167,7 +167,7 @@ public final class Constants {
     // public static final double KP_TRANSLATION = 0.4;//kP value for forward (translation) motion
     // public static final double KP_STRAFE = 0.9;// 0.475;  //kP value for the sideways (strafe) motio%n 
 
-    public static final double AUTO_ROTATE_KP = 5;
+    public static final double AUTO_ROTATE_KP = 7;
     public static final double AUTO_ROTATE_FEEDFORWARD = 0.5;
     public static final double AUTO_ROTATE_TOLERANCE = 1; //degrees
 
