@@ -60,6 +60,10 @@ public class Swerve extends SubsystemBase {
     public double poseSideDistance;
     public PIDController pidControllerForTrackingOutput;
 
+    // Cached hub coordinates — updated once per loop when alliance is known
+    private double cachedHubX = Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_X;
+    private double cachedHubY = Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_Y;
+
     //ll stuff
     private double pipeline = 0; 
     private double tv;
@@ -153,6 +157,17 @@ public class Swerve extends SubsystemBase {
         // tolerance is to prevent gittering (this will need to be tuned)
         pidControllerForTrackingOutput.setTolerance(Math.toRadians(0.1));
         pidControllerForTrackingOutput.setSetpoint(0.0);
+
+
+        // Update cached hub coordinates once per loop (avoids repeated DriverStation.getAlliance() calls)
+        var alliance = DriverStation.getAlliance();
+        if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+            cachedHubX = Constants.Targeting.RED_ALLIANCE_HUB_CENTER_X;
+            cachedHubY = Constants.Targeting.RED_ALLIANCE_HUB_CENTER_Y;
+        } else {
+            cachedHubX = Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_X;
+            cachedHubY = Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_Y;
+        }
     }
 
 //Methods start here:
@@ -509,21 +524,11 @@ public class Swerve extends SubsystemBase {
     }
 
     public double getHubX() {
-        var alliance = DriverStation.getAlliance();
-        if (alliance.isPresent() && alliance.get() == Alliance.Red) {
-            return Constants.Targeting.RED_ALLIANCE_HUB_CENTER_X;
-        } else {
-            return Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_X;
-        }
+        return cachedHubX;
     }
 
     public double getHubY() {
-        var alliance = DriverStation.getAlliance();
-        if (alliance.isPresent() && alliance.get() == Alliance.Red) {
-            return Constants.Targeting.RED_ALLIANCE_HUB_CENTER_Y;
-        } else {
-            return Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_Y;
-        }
+        return cachedHubY;
     }
 
    public double getDistanceToHub() {
