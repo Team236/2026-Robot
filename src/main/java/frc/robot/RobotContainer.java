@@ -54,6 +54,7 @@ import frc.robot.subsystems.MainRoller;
 import frc.robot.commands.ShooterPivotCommands.ManualPivot;
 import frc.robot.commands.ShooterPivotCommands.PIDPivot;
 import frc.robot.commands.Targeting.AutoPivotTowardHub;
+import frc.robot.commands.Targeting.AutoPrepShooter;
 import frc.robot.subsystems.ShooterPivot;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Intake;
@@ -103,12 +104,15 @@ public class RobotContainer {
 //PIVOT
   private final ManualPivot manualPivotExtend = new ManualPivot(shooterPivot, Constants.ShooterPivotConstants.CONSTANT_FORWARD_SPEED);
   private final ManualPivot manualPivotRetract = new ManualPivot(shooterPivot, Constants.ShooterPivotConstants.CONSTANT_REVERSE_SPEED);
-  private final PIDPivot pidPivot = new PIDPivot(shooterPivot, Constants.ShooterPivotConstants.TARGET_REVS);
+  // private final PIDPivot pidPivot = new PIDPivot(shooterPivot, Constants.ShooterPivotConstants.TARGET_REVS);
 //BIN RELEASE
   private final ManualMove binManualExtend = new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_EXT_SPEED); // TBD TESTING VALUES
   private final ManualMove binManualRetract = new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_RET_SPEED); // TBD TESTING VALUES
   private final PIDMove pidToPositionTestA = new PIDMove(binRelease, Constants.BinReleaseConstants.POSITION1); // TBD TESTING VALUES, PID VALUES NEEDED
 //CLIMBER
+  private final ClimberPID climberPrep = new ClimberPID(climber, Constants.ClimberConstants.PREP_CLIMBER_REVS);
+  private final ClimberPID climberL1Side = new ClimberPID(climber, Constants.ClimberConstants.CLIMB_L1_SIDE);
+  private final ClimberPID climberL1Front = new ClimberPID(climber, Constants.ClimberConstants.CLIMB_L1_FRONT);
   private final ClimberMotionMagic climberMotionMagicTest = new ClimberMotionMagic(climber, Constants.ClimberConstants.TEST_MM_REVS);
   private final ClimberSetSpeed climberManualUp = new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_UP_SPEED);
   private final ClimberSetSpeed climberManualDown = new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_DOWN_SPEED);
@@ -252,11 +256,11 @@ public class RobotContainer {
     //b.whileTrue(manualShoot);
     //a.whileTrue(pidShoot);
 
-    upPov.whileTrue(manualPivotExtend);
-    downPov.whileTrue(manualPivotRetract);
-    a.onTrue(new PIDPivot(shooterPivot, 10));
-    b.onTrue(new PIDPivot(shooterPivot, 0));
-    x.onTrue(new PIDPivot(shooterPivot, 5));
+    // upPov.whileTrue(manualPivotExtend);
+    // downPov.whileTrue(manualPivotRetract);
+    // a.onTrue(new PIDPivot(shooterPivot, 10));
+    // b.onTrue(new PIDPivot(shooterPivot, 0));
+    // x.onTrue(new PIDPivot(shooterPivot, 5));
     // upPov.whileTrue(manualPivotExtend);
     // downPov.whileTrue(manualPivotRetract);
 
@@ -282,11 +286,16 @@ public class RobotContainer {
     // rightPov.onTrue(new ClimberMotionMagic(climber, Constants.ClimberConstants.TEST_MM_REVS));
     // a.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_DOWN_SPEED));
     // b.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_UP_SPEED));
+    // upPov.onTrue(climberPrep);
+    // downPov.onTrue(climberL1Side);
+    // rightPov.onTrue(climberL1Front);
     // leftPov.whileTrue(new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_EXT_SPEED));
     // rightPov.whileTrue(new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_RET_SPEED));
     // upPov.whileTrue(runIntakeTest);
     // downPov.whileTrue(runOuttakeTest);
-    // x.whileTrue(new PIDShoot(mainRoller, s_Swerve, preFeeder));
+    x.whileTrue(new PIDShoot(mainRoller, s_Swerve, preFeeder));
+    b.whileTrue(new PIDPivot(shooterPivot, s_Swerve));
+    a.whileTrue(new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder));
     // b.onTrue(new InstantCommand(() -> shooterPivot.resetEncoder(), shooterPivot));
     // rb.whileTrue(new RunFloor(floor, -0.4));
     // a.whileTrue(new ClimberLock(climber, 1));

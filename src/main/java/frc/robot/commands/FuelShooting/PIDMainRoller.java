@@ -35,12 +35,12 @@ public class PIDMainRoller extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
 public void execute() {
-  mainRoller.MainPID(mainRPS);
-  // if (mainRoller.useInitialBoost) {
-  //   mainRoller.MainPID(mainRoller.calculateRPM(s_Swerve.getDistanceToHub()) * 1.1 / 60.0); // Boost the speed by 20% if initial boost is enabled
-  // } else {
-  //   mainRoller.MainPID(mainRoller.calculateRPM(s_Swerve.getDistanceToHub()) / 60.0);
-  // }
+  // mainRoller.MainPID(mainRPS);
+  if (mainRoller.useInitialBoost) {
+    mainRoller.MainPID(mainRoller.calculateRPM(s_Swerve.getDistanceToHub()) * 1.1 / 60.0); // Boost the speed by 20% if initial boost is enabled
+  } else {
+    mainRoller.MainPID(mainRoller.calculateRPM(s_Swerve.getDistanceToHub()) / 60.0);
+  }
 }
 
   // Called once the command ends or is interrupted.

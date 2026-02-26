@@ -127,10 +127,15 @@ public final class Constants {
     public static final int DIO_CLIMBER_TOP = 6; //DIO port number on RoboRio
     public static final int DIO_CLIMBER_BOTTOM = 7; //DIO port number on RoboRio
     public static final int PWM_CLIMB_LOCK = 0;  //PWM port number on RoboRio
-    public static final double MAX_ENCODER_REVS = 200.0;//TBD MotionMagic/PID, stops if here; DO NOT PID CLIMB HIGHER 
+    public static final double MAX_ENCODER_REVS = 120.0;//TBD MotionMagic/PID, stops if here; DO NOT PID CLIMB HIGHER 
     public static final double CLIMBER_UP_SPEED = 0.75;
     public static final double CLIMBER_DOWN_SPEED = -0.75;
     public static final double TEST_MM_REVS = 35.0;
+    public static final double PREP_CLIMBER_REVS = 109.0;
+    public static final double CLIMB_L1_SIDE = 50.0;
+    public static final double CLIMB_L1_FRONT = 44.0;
+
+    public static final double CLIMBER_KP = 3;
   }
 
   public static  class IntakeConstants {
@@ -175,8 +180,11 @@ public final class Constants {
     public static final InterpolatingDoubleTreeMap hoodAngleMap = new InterpolatingDoubleTreeMap();
 
     static {
-      hoodAngleMap.put(48.0, -5.0);
-      hoodAngleMap.put(164.5, 8.0);
+      hoodAngleMap.put(41.25, 2.56); 
+      hoodAngleMap.put(75.0, 4.36);
+      hoodAngleMap.put(111.5, 6.36);
+      hoodAngleMap.put(145.0, 8.86);
+      hoodAngleMap.put(180.0, 10.96);
     }
 
     public static final InterpolatingDoubleTreeMap rpmMap = new InterpolatingDoubleTreeMap();

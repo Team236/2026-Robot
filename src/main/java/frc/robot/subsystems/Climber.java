@@ -59,7 +59,7 @@ public class Climber extends SubsystemBase {
 
     Slot1Configs slot1Configs = motorConfig.Slot1;
     //used for non motion magic
-    slot1Configs.kP = 0.7;
+    slot1Configs.kP = Constants.ClimberConstants.CLIMBER_KP;
     slot1Configs.kI = 0;
     slot1Configs.kD = 0;
 

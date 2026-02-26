@@ -6,16 +6,18 @@ package frc.robot.commands.ShooterPivotCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ShooterPivot;
+import frc.robot.subsystems.Swerve;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class PIDPivot extends Command {
   
   private ShooterPivot shooterPivot;
-  private double desiredRevs;
+  // private double desiredRevs;
+  private Swerve s_Swerve;
 
-  public PIDPivot(ShooterPivot shooterPivot, double desiredRevs) {
+  public PIDPivot(ShooterPivot shooterPivot, Swerve s_Swerve) {
     this.shooterPivot = shooterPivot;
-    this.desiredRevs = desiredRevs;
+    this.s_Swerve = s_Swerve;
     addRequirements(this.shooterPivot);
   }
 
@@ -30,7 +32,7 @@ public class PIDPivot extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooterPivot.pidSetPosition(desiredRevs);
+    shooterPivot.pidSetPosition(shooterPivot.calculateHoodAngle(s_Swerve.getDistanceToHub()));
   }
 
   // Called once the command ends or is interrupted.
