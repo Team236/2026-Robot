@@ -26,6 +26,8 @@ public class MainRoller extends SubsystemBase {
 
   private VelocityVoltage leftMain_m_request, rightMain_m_request;
 
+  public boolean useInitialBoost = false;
+
   /** Creates a new MainRoller. */
   //This system uses motors to shoot the fuel with a constant velocity which is 
   //quickly brought up to speed and maintains that speed using PID velocity control

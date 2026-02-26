@@ -119,8 +119,8 @@ public class RobotContainer {
 //SHOOTER
   private final ManualMainRoller manualMainRoller = new ManualMainRoller(mainRoller, Constants.ShooterConstants.MAIN_MOTOR_SPEED);
   private final ManualShoot manualShoot = new ManualShoot(mainRoller, preFeeder);
-  private final PIDMainRoller pidMainRoller = new PIDMainRoller(mainRoller, Constants.ShooterConstants.MAIN_MOTOR_RPM);
-  private final PIDShoot pidShoot = new PIDShoot(mainRoller, preFeeder);
+  private final PIDMainRoller pidMainRoller = new PIDMainRoller(mainRoller, s_Swerve, Constants.ShooterConstants.MAIN_MOTOR_RPM);
+  private final PIDShoot pidShoot = new PIDShoot(mainRoller, s_Swerve, preFeeder);
 
 //INTAKE  
   private final RunIntake runIntakeTest = new RunIntake(intake, Constants.IntakeConstants.INTAKE_SPEED);
@@ -277,14 +277,14 @@ public class RobotContainer {
     // );
     // leftPov.onTrue(new ClimberPID(climber, Constants.ClimberConstants.TEST_MM_REVS));
     // rightPov.onTrue(new ClimberMotionMagic(climber, Constants.ClimberConstants.TEST_MM_REVS));
-    a.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_DOWN_SPEED));
-    b.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_UP_SPEED));
+    // a.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_DOWN_SPEED));
+    // b.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_UP_SPEED));
     // leftPov.whileTrue(new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_EXT_SPEED));
     // rightPov.whileTrue(new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_RET_SPEED));
     // upPov.whileTrue(runIntakeTest);
     // downPov.whileTrue(runOuttakeTest);
-    x.whileTrue(new PIDShoot(mainRoller, preFeeder));
-    // b.onTrue(new InstantCommand(() -> shooterPivot.resetEncoder(), shooterPivot));
+    x.whileTrue(new PIDShoot(mainRoller, s_Swerve, preFeeder));
+    b.onTrue(new InstantCommand(() -> shooterPivot.resetEncoder(), shooterPivot));
     // rb.whileTrue(new RunFloor(floor, -0.4));
     // a.whileTrue(new ClimberLock(climber, 1));
     // b.whileTrue(new ClimberLock(climber, 0));

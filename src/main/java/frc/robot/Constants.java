@@ -181,8 +181,11 @@ public final class Constants {
     public static final InterpolatingDoubleTreeMap rpmMap = new InterpolatingDoubleTreeMap();
 
     static {
-      rpmMap.put(48.0, 2100.0); 
-      rpmMap.put(164.5, 3000.0);
+      rpmMap.put(41.25, 2100.0); 
+      rpmMap.put(75.0, 2150.0);
+      rpmMap.put(111.5, 2200.0);
+      rpmMap.put(145.0, 2300.0);
+      rpmMap.put(180.0, 2400.0);
     }
 
     public static final InterpolatingDoubleTreeMap timeMap = new InterpolatingDoubleTreeMap();

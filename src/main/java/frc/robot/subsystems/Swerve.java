@@ -508,8 +508,27 @@ public class Swerve extends SubsystemBase {
         return angle;
     }
 
-   public double getDistanceToHub (double HUBX, double HUBY) {
+    public double getHubX() {
+        var alliance = DriverStation.getAlliance();
+        if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+            return Constants.Targeting.RED_ALLIANCE_HUB_CENTER_X;
+        } else {
+            return Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_X;
+        }
+    }
 
+    public double getHubY() {
+        var alliance = DriverStation.getAlliance();
+        if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+            return Constants.Targeting.RED_ALLIANCE_HUB_CENTER_Y;
+        } else {
+            return Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_Y;
+        }
+    }
+
+   public double getDistanceToHub() {
+        double HUBX = getHubX();
+        double HUBY = getHubY();
       // CALCULATED THE DISTANCE TO THE CENTER OF THE HUB
       Pose2d currentPose = getPose();
       double dx = HUBX - Units.metersToInches(currentPose.getX());
@@ -526,10 +545,10 @@ public class Swerve extends SubsystemBase {
    return pidOutput;
   }
 
-  public double[] getRotationMoving (double HUBX, double HUBY) {
+  public double[] getRotationMoving () {
    ChassisSpeeds robotChassisSpeeds = getChassisSpeeds();
    Pose2d currentPose2d = getPose();
-   double distanceToHub = getDistanceToHub(HUBX, HUBY);
+   double distanceToHub = getDistanceToHub();
    double finalDistance = 0;
 
 
@@ -541,8 +560,8 @@ public class Swerve extends SubsystemBase {
 
    for (int i = 0; i < 2; i++) {
      // calculate the Virtual Goal (looping to get error low)
-     double virtualX = HUBX - (robotChassisSpeeds.vxMetersPerSecond * timeOfFlight);
-     double virtualY = HUBY - (robotChassisSpeeds.vyMetersPerSecond * timeOfFlight);
+     double virtualX = getHubX() - (robotChassisSpeeds.vxMetersPerSecond * timeOfFlight);
+     double virtualY = getHubY() - (robotChassisSpeeds.vyMetersPerSecond * timeOfFlight);
 
 
      virtualGoal = new Translation2d(virtualX, virtualY);
@@ -574,8 +593,8 @@ public class Swerve extends SubsystemBase {
         MegaTag2UpdateOdometry();
         SmartDashboard.putNumber("auto pivot desired rotation (red)", Units.radiansToDegrees(getAngleOfHub(Constants.Targeting.RED_ALLIANCE_HUB_CENTER_X, Constants.Targeting.RED_ALLIANCE_HUB_CENTER_Y)));
         SmartDashboard.putNumber("auto pivot current rotation (red)", getPose().getRotation().getDegrees());
-        SmartDashboard.putNumber("Distance to red hub", getDistanceToHub(Constants.Targeting.RED_ALLIANCE_HUB_CENTER_X, Constants.Targeting.RED_ALLIANCE_HUB_CENTER_Y));
-        SmartDashboard.putNumber("Distance to blue hub", getDistanceToHub(Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_X, Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_Y));
+        SmartDashboard.putNumber("Distance to red hub", getDistanceToHub());
+        SmartDashboard.putNumber("Distance to blue hub", getDistanceToHub());
         SmartDashboard.putNumber("** RobotPoseX (Estimator)", Units.metersToInches( m_poseEstimator.getEstimatedPosition().getX()));
         SmartDashboard.putNumber("** RobotPoseY (Estimator)", Units.metersToInches( m_poseEstimator.getEstimatedPosition().getY()));
         SmartDashboard.putNumber("MegaTag2Rotation (Estimator)", m_poseEstimator.getEstimatedPosition().getRotation().getDegrees());

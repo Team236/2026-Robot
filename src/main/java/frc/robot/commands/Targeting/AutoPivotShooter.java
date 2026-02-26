@@ -45,7 +45,7 @@ public class AutoPivotShooter extends Command {
   @Override
   public void execute() {
     // FINDS DISTANCE THEN USES IT TO CALCULATE SPEEDS AND ANGLE
-    currentDist = this.s_Swerve.getDistanceToHub(HUBX, HUBY);
+    currentDist = this.s_Swerve.getDistanceToHub();
 
     targetRPM = this.mainRoller.calculateRPM(currentDist);
     targetRevs = this.shooterPivot.calculateHoodAngle(currentDist);
