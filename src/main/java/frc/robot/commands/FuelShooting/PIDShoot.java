@@ -22,19 +22,19 @@ public class PIDShoot extends ParallelCommandGroup {
   /** Creates a new PIDMainandFeed*/
   public PIDShoot(MainRoller mainRoller, Swerve s_Swerve, PreFeeder preFeeder) {
     addCommands(
-
-      new InstantCommand(() -> mainRoller.useInitialBoost = true),
-      new PIDMainRoller(mainRoller, s_Swerve, Constants.ShooterConstants.MAIN_MOTOR_RPM),
-    //new PIDTopRoller(topRoller, Constants.Shooter.TOP_MOTOR_RPM)
-     
       new SequentialCommandGroup(
-        new WaitCommand(0.3), //adjust as needed to get shooter motors to speed 
-        new PIDPrefeeder(preFeeder, Constants.PreFeederConstants.DESIRED_RPM),
-        new WaitCommand(0.25),
+        new InstantCommand(() -> mainRoller.useInitialBoost = true),
+        new WaitCommand(0.4),
         new InstantCommand(() -> mainRoller.useInitialBoost = false)
+      ),
+
+      new PIDMainRoller(mainRoller, s_Swerve, Constants.ShooterConstants.MAIN_MOTOR_RPM),
+
+      new SequentialCommandGroup(
+        new WaitCommand(0.3),
+        new PIDPrefeeder(preFeeder, Constants.PreFeederConstants.DESIRED_RPM)
       )
-    
     );
-  }
+}
 }
 
