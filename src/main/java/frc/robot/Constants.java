@@ -114,10 +114,10 @@ public final class Constants {
   public static class ShooterPivotConstants {
     public static final int DIO_EXT_LIMIT = 4;//DIO port number on RoboRio
     public static final int DIO_RET_LIMIT = 5;//DIO port number on RoboRio
-    public static final double KP = 0.16; 
+    public static final double KP = 6; 
     public static final double KI = 0;
     public static final double KD = 0;
-    public static final double ENC_REVS_MAX = 1000; //TODO find actual
+    public static final double ENC_REVS_MAX = 11.2; //TODO find actual
     public static final double TARGET_REVS = 50;
     public static final double CONSTANT_FORWARD_SPEED = 0.06;
     public static final double CONSTANT_REVERSE_SPEED = -0.06;
