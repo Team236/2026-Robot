@@ -147,7 +147,7 @@ public class Swerve extends SubsystemBase {
         pidControllerForTrackingOutput = new PIDController(
         Constants.Targeting.AUTO_ROTATE_KP,
         0.0,
-        0.0);
+        Constants.Targeting.AUTO_ROTATE_KD);
 
         pidControllerForTrackingOutput.enableContinuousInput(-Math.PI, Math.PI);
         // tolerance is to prevent gittering (this will need to be tuned)

@@ -167,7 +167,8 @@ public final class Constants {
     // public static final double KP_TRANSLATION = 0.4;//kP value for forward (translation) motion
     // public static final double KP_STRAFE = 0.9;// 0.475;  //kP value for the sideways (strafe) motio%n 
 
-    public static final double AUTO_ROTATE_KP = 7;
+    public static final double AUTO_ROTATE_KP = 6;
+    public static final double AUTO_ROTATE_KD = 0.05;
     public static final double AUTO_ROTATE_FEEDFORWARD = 0.5;
     public static final double AUTO_ROTATE_TOLERANCE = 1; //degrees
 
