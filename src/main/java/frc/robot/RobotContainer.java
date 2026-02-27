@@ -256,8 +256,8 @@ public class RobotContainer {
     //b.whileTrue(manualShoot);
     //a.whileTrue(pidShoot);
 
-    // upPov.whileTrue(manualPivotExtend);
-    // downPov.whileTrue(manualPivotRetract);
+    upPov.whileTrue(manualPivotExtend);
+    downPov.whileTrue(manualPivotRetract);
     // a.onTrue(new PIDPivot(shooterPivot, 10));
     // b.onTrue(new PIDPivot(shooterPivot, 0));
     // x.onTrue(new PIDPivot(shooterPivot, 5));
@@ -294,7 +294,7 @@ public class RobotContainer {
     // upPov.whileTrue(runIntakeTest);
     // downPov.whileTrue(runOuttakeTest);
     x.whileTrue(new PIDShoot(mainRoller, s_Swerve, preFeeder));
-    b.whileTrue(new PIDPivot(shooterPivot, s_Swerve));
+    // b.whileTrue(new PIDPivot(shooterPivot, s_Swerve));
     a.whileTrue(new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder));
     // b.onTrue(new InstantCommand(() -> shooterPivot.resetEncoder(), shooterPivot));
     // rb.whileTrue(new RunFloor(floor, -0.4));

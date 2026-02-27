@@ -70,7 +70,7 @@ public final class Constants {
   }
 
   public static class ShooterConstants {
-    public static final double MAIN_MOTOR_RPM = 2150;
+    public static final double MAIN_MOTOR_RPM = 2200;
     public static final double MAIN_MOTOR_SPEED = 0.3;
     public static final double KV_MAIN = 0.122; // feed forward
     public static final double KP_MAIN = 0.63;
@@ -88,7 +88,7 @@ public final class Constants {
   public static class PreFeederConstants {
     public static final int DIO_COUNTER = 10;
     public static final double TEST_SPEED = 0.3;//constant speed for testing
-    public static final int DESIRED_RPM = 3583; //3150;
+    public static final int DESIRED_RPM = 2000; //3150;
     public static final double KV_PF = 0.0983; // feed forward
     public static final double KP_PF = 0.97;
     public static final double KI_PF = 0;
@@ -428,3 +428,17 @@ public static final class Swerve { //TODO -- UPDATE ALL VALUES / TUNE
     }
   }
 }
+
+
+
+
+/*
+ * ROBO STUFF YAY
+ * 
+ * Width: 27.5in, 0.6985m
+ * Length: 27.5in, 0.6985m
+ * LLForward: -8.5in, -0.2159m
+ * LLSideways: 0in, 0m
+ * LLUp: 20.5in, 0.5207m
+ * LLPitch: 24deg
+ */
