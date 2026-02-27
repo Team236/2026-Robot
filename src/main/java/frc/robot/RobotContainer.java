@@ -203,12 +203,12 @@ public class RobotContainer {
     // command binds
     // a.onTrue(algaeGrab).onTrue(l3_Score); *EXAMPLE
 
-    rt.whileTrue(new AutoPivotTowardHub(
-        s_Swerve, 
-        () -> -driverController.getRawAxis(translationAxis), 
-        () -> -driverController.getRawAxis(strafeAxis), 
-        () -> robotCentric.getAsBoolean()
-    ));
+    // rt.whileTrue(new AutoPivotTowardHub(
+    //     s_Swerve, 
+    //     () -> -driverController.getRawAxis(translationAxis), 
+    //     () -> -driverController.getRawAxis(strafeAxis), 
+    //     () -> robotCentric.getAsBoolean()
+    // ));
 
     // Fuel Shooter
     //  a.whileTrue(manualMainRoller);
@@ -289,15 +289,15 @@ public class RobotContainer {
     // upPov.onTrue(climberPrep);
     // downPov.onTrue(climberL1Side);
     // rightPov.onTrue(climberL1Front);
-    // leftPov.whileTrue(new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_EXT_SPEED));
-    // rightPov.whileTrue(new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_RET_SPEED));
+    leftPov.whileTrue(new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_EXT_SPEED));
+    rightPov.whileTrue(new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_RET_SPEED));
     // upPov.whileTrue(runIntakeTest);
     // downPov.whileTrue(runOuttakeTest);
     x.whileTrue(new PIDShoot(mainRoller, s_Swerve, preFeeder));
     // b.whileTrue(new PIDPivot(shooterPivot, s_Swerve));
-    a.whileTrue(new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder));
+    // a.whileTrue(new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder));
     // b.onTrue(new InstantCommand(() -> shooterPivot.resetEncoder(), shooterPivot));
-    // rb.whileTrue(new RunFloor(floor, -0.4));
+    rb.whileTrue(new RunFloor(floor, -0.4));
     // a.whileTrue(new ClimberLock(climber, 1));
     // b.whileTrue(new ClimberLock(climber, 0));
 
