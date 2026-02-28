@@ -309,6 +309,47 @@ public class Swerve extends SubsystemBase {
         }
     }
 
+    public Command getClimbTargetingPath() {
+        try {
+            Pose2d robotPoseBlue;
+            
+            if (DriverStation.getAlliance().get() == Alliance.Red) { // if red alliance, flip the path starting pose
+                robotPoseBlue = (FlippingUtil.flipFieldPose(this.getPose()));
+            } else  {
+                robotPoseBlue = this.getPose();    
+            }
+
+            
+            // this placeholder path is only used to get global constraints; could also put in manually
+            PathConstraints constraints = PathPlannerPath.fromPathFile("climb-targeting").getGlobalConstraints();
+            Pose2d pathEndPose;
+
+            if (robotPoseBlue.getY() < Constants.Targeting.BLUE_TOWER_CENTER_Y_METERS) {
+                pathEndPose = new Pose2d(1.146 + Constants.Targeting.ROBOT_WIDTH_METERS / 2.0, 3.302, Rotation2d.fromDegrees(180)); // 0 degrees is travel direction at poitn, not heading
+            } else {
+                pathEndPose = new Pose2d(1.146 + Constants.Targeting.ROBOT_WIDTH_METERS / 2.0, 4.153, Rotation2d.fromDegrees(180));
+            }
+
+            List<Waypoint> waypoints = PathPlannerPath.waypointsFromPoses(
+                this.getPose(), // start at robot's current pose
+                pathEndPose // end at fixed pose in front of tower)
+            );
+
+            // this path is all blue relative. however, it should be flipped automatically according to PathPlanner
+            PathPlannerPath path = new PathPlannerPath(
+                waypoints, 
+                constraints, // these constraints will likely need to be tuned
+                null, 
+                new GoalEndState(0.0, Rotation2d.fromDegrees(180))
+            );
+            
+            return AutoBuilder.followPath(path);
+        } catch (Exception e) {
+            DriverStation.reportError(e.getMessage(), e.getStackTrace());
+            return Commands.none();
+        }
+    }
+
     //Follows path relative to robot's current pose (shifts all poses and states to accomodate). Different than just changing the starting pose to Robot and keeping end same (as above)
     public Command followPathCommandRobotRelative(String pathName) {
         try {

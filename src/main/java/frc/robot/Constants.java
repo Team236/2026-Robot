@@ -180,6 +180,13 @@ public final class Constants {
     // public static final double KP_TRANSLATION = 0.4;//kP value for forward (translation) motion
     // public static final double KP_STRAFE = 0.9;// 0.475;  //kP value for the sideways (strafe) motio%n 
 
+    public static final double CHASSIS_WIDTH_INCHES = 27.5;
+    public static final double CHASSIS_WIDTH_METERS = Units.inchesToMeters(CHASSIS_WIDTH_INCHES);
+    public static final double ROBOT_WIDTH_INCHES = 33.5;
+    public static final double ROBOT_WIDTH_METERS = Units.inchesToMeters(ROBOT_WIDTH_INCHES);
+    public static final double BLUE_TOWER_CENTER_Y_METERS = 3.746; // meters
+    public static final double RED_TOWER_CENTER_Y_METERS = 4.324; // meters
+
     public static final double AUTO_ROTATE_KP = 6;
     public static final double AUTO_ROTATE_KD = 0.05;
     public static final double AUTO_ROTATE_FEEDFORWARD = 0.5;
@@ -224,7 +231,6 @@ public final class Constants {
       timeMap.put(145.5, 1.15);
       timeMap.put(180.0, 1.15);
     }
-    
 
     // public static Map<Integer, Pose2d> ID_TO_POSE = new HashMap<>();
     

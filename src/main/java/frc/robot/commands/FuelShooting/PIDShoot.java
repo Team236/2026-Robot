@@ -23,33 +23,36 @@ import frc.robot.subsystems.Swerve;
 public class PIDShoot extends ParallelCommandGroup {
   /** Creates a new PIDMainandFeed*/
   public PIDShoot(MainRoller mainRoller, Swerve s_Swerve, PreFeeder preFeeder, Floor floor) {
-    // addCommands(
-    //   new SequentialCommandGroup(
-    //     new InstantCommand(() -> mainRoller.useInitialBoost = true),
-    //     new WaitCommand(0.4),
-    //     new InstantCommand(() -> mainRoller.useInitialBoost = false)
-    //   ),
-
-    //   new PIDMainRoller(mainRoller, s_Swerve, Constants.ShooterConstants.MAIN_MOTOR_RPM),
-
-    //   new SequentialCommandGroup(
-    //     new WaitCommand(0.3),
-    //     new PIDPrefeeder(preFeeder, Constants.PreFeederConstants.DESIRED_RPM)
-    //   )
-    // );
-    
     addCommands(
+      new SequentialCommandGroup(
+        new InstantCommand(() -> mainRoller.useInitialBoost = true),
+        new WaitCommand(0.55),
+        new InstantCommand(() -> mainRoller.useInitialBoost = false)
+      ),
+
       new PIDMainRoller(mainRoller, s_Swerve, Constants.ShooterConstants.MAIN_MOTOR_RPM),
 
       new SequentialCommandGroup(
         new WaitCommand(0.3),
-
         new ParallelCommandGroup(
-          new PIDPrefeeder(preFeeder, s_Swerve,Constants.PreFeederConstants.DESIRED_RPM),
-          new RunFloor(floor, -0.5)
+          new PIDPrefeeder(preFeeder, s_Swerve,Constants.PreFeederConstants.DESIRED_RPM)
+          // new RunFloor(floor, -0.5)
         )
       )
     );
+    
+    // addCommands(
+    //   new PIDMainRoller(mainRoller, s_Swerve, Constants.ShooterConstants.MAIN_MOTOR_RPM),
+
+    //   new SequentialCommandGroup(
+    //     new WaitCommand(0.3),
+
+    //     new ParallelCommandGroup(
+    //       new PIDPrefeeder(preFeeder, s_Swerve,Constants.PreFeederConstants.DESIRED_RPM),
+    //       new RunFloor(floor, -0.5)
+    //     )
+    //   )
+    // );
 }
 }
 

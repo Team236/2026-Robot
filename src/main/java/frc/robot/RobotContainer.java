@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
@@ -205,21 +206,21 @@ public class RobotContainer {
     // command binds
     // a.onTrue(algaeGrab).onTrue(l3_Score); *EXAMPLE
 
-    // rt.whileTrue(new AutoPivotTowardHub(
-    //     s_Swerve, 
-    //     () -> -driverController.getRawAxis(translationAxis), 
-    //     () -> -driverController.getRawAxis(strafeAxis), 
-    //     () -> robotCentric.getAsBoolean()
-    // ));
-
-    rt.whileTrue(new AimOnMove(
-      s_Swerve, 
-      () -> -driverController.getRawAxis(translationAxis), 
-      () -> -driverController.getRawAxis(strafeAxis), 
-      () -> robotCentric.getAsBoolean(), 
-      mainRoller,
-      shooterPivot
+    rt.whileTrue(new AutoPivotTowardHub(
+        s_Swerve, 
+        () -> -driverController.getRawAxis(translationAxis), 
+        () -> -driverController.getRawAxis(strafeAxis), 
+        () -> robotCentric.getAsBoolean()
     ));
+
+    // rt.whileTrue(new AimOnMove(
+    //   s_Swerve, 
+    //   () -> -driverController.getRawAxis(translationAxis), 
+    //   () -> -driverController.getRawAxis(strafeAxis), 
+    //   () -> robotCentric.getAsBoolean(), 
+    //   mainRoller,
+    //   shooterPivot
+    // ));
 
     // Fuel Shooter
     //  a.whileTrue(manualMainRoller);
@@ -315,6 +316,8 @@ public class RobotContainer {
     rb.whileTrue(new RunFloor(floor, -0.4));
     // a.whileTrue(new ClimberLock(climber, 1));
     // b.whileTrue(new ClimberLock(climber, 0));
+    
+    b.onTrue(Commands.defer((() -> s_Swerve.getClimbTargetingPath()), Set.of(s_Swerve)));
 
     // a.onTrue(Commands.defer(() -> s_Swerve.followPathCommand("one-meter"), Set.of(s_Swerve)));
     // b.onTrue(Commands.defer(() -> s_Swerve.followPathCommand("hub-center-to-tower-right"), Set.of(s_Swerve)));

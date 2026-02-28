@@ -36,7 +36,14 @@ public class PIDMainRoller extends Command {
   @Override
 public void execute() {
   // mainRoller.MainPID(mainRPS);
-  mainRoller.MainPID(mainRoller.calculateRPM(s_Swerve.getDistanceToHub()) / 60.0);
+
+  // mainRoller.MainPID(mainRoller.calculateRPM(s_Swerve.getDistanceToHub()) / 60.0);
+
+  if (mainRoller.useInitialBoost) {
+    mainRoller.MainPID(mainRoller.calculateRPM(s_Swerve.getDistanceToHub()) * 1.1 / 60.0);
+  } else {
+    mainRoller.MainPID(mainRoller.calculateRPM(s_Swerve.getDistanceToHub()) / 60.0);
+  }
 }
 
   // Called once the command ends or is interrupted.
