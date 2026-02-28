@@ -7,16 +7,19 @@ package frc.robot.commands.PreFeeder;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.PreFeeder;
+import frc.robot.subsystems.Swerve;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class PIDPrefeeder extends Command {
  
   private PreFeeder  preFeeder;
+  private Swerve s_Swerve;
   private double preFeedRPS, preFeedRPM;
 
 //MUST PASS IN DESIRED VELOCITY IN RPM IN THIS COMMAND
-  public PIDPrefeeder(PreFeeder feeder, double preFeedRPM) {
+  public PIDPrefeeder(PreFeeder feeder, Swerve s_Swerve,double preFeedRPM) {
     this.preFeeder = feeder;
+    this.s_Swerve = s_Swerve;
     this.preFeedRPM = preFeedRPM;
     addRequirements(this.preFeeder);
   }
@@ -29,7 +32,7 @@ public class PIDPrefeeder extends Command {
   @Override
   public void execute() {
     preFeeder.PreFeederPID(preFeedRPS);
-
+    preFeeder.PreFeederPID(preFeeder.calculateRPM(s_Swerve.getDistanceToHub()) / 60.0);
   }
 
   @Override

@@ -53,6 +53,8 @@ import frc.robot.commands.PathPlanner.SequentialPathsCombined;
 import frc.robot.subsystems.MainRoller;
 import frc.robot.commands.ShooterPivotCommands.ManualPivot;
 import frc.robot.commands.ShooterPivotCommands.PIDPivot;
+import frc.robot.commands.Targeting.AimOnMove;
+import frc.robot.commands.Targeting.AutoPivotRobotGroupCommand;
 import frc.robot.commands.Targeting.AutoPivotTowardHub;
 import frc.robot.commands.Targeting.AutoPrepShooter;
 import frc.robot.subsystems.ShooterPivot;
@@ -124,7 +126,7 @@ public class RobotContainer {
   private final ManualMainRoller manualMainRoller = new ManualMainRoller(mainRoller, Constants.ShooterConstants.MAIN_MOTOR_SPEED);
   private final ManualShoot manualShoot = new ManualShoot(mainRoller, preFeeder);
   private final PIDMainRoller pidMainRoller = new PIDMainRoller(mainRoller, s_Swerve, Constants.ShooterConstants.MAIN_MOTOR_RPM);
-  private final PIDShoot pidShoot = new PIDShoot(mainRoller, s_Swerve, preFeeder);
+  private final PIDShoot pidShoot = new PIDShoot(mainRoller, s_Swerve, preFeeder, floor);
 
 //INTAKE  
   private final RunIntake runIntakeTest = new RunIntake(intake, Constants.IntakeConstants.INTAKE_SPEED);
@@ -134,10 +136,10 @@ public class RobotContainer {
   // PREFEEDER
   private final RunPreFeeder runPreFeederTesting = new RunPreFeeder(preFeeder, Constants.PreFeederConstants.TEST_SPEED);
   private final RunPreFeederWithCounter runPreFeederWithCounterTesting = new RunPreFeederWithCounter(preFeeder, Constants.PreFeederConstants.TEST_SPEED);
-  private final PIDPrefeeder pidPrefeeder = new PIDPrefeeder(preFeeder, Constants.PreFeederConstants.DESIRED_RPM);
+  private final PIDPrefeeder pidPrefeeder = new PIDPrefeeder(preFeeder, s_Swerve, Constants.PreFeederConstants.DESIRED_RPM);
   private final PIDPreFeederWithCounter pidPreFeederWithCounter = new PIDPreFeederWithCounter(preFeeder, Constants.PreFeederConstants.DESIRED_RPM);
   
-// robot container -- contains subsystems, OI devices, and commands
+// robot container -- contains subsystems, OI devices, and commandsd
   public RobotContainer() {
     s_Swerve.setDefaultCommand(
       new TeleopSwerve(
@@ -210,6 +212,15 @@ public class RobotContainer {
     //     () -> robotCentric.getAsBoolean()
     // ));
 
+    rt.whileTrue(new AimOnMove(
+      s_Swerve, 
+      () -> -driverController.getRawAxis(translationAxis), 
+      () -> -driverController.getRawAxis(strafeAxis), 
+      () -> robotCentric.getAsBoolean(), 
+      mainRoller,
+      shooterPivot
+    ));
+
     // Fuel Shooter
     //  a.whileTrue(manualMainRoller);
     //  b.whileTrue(manualTopRoller);
@@ -254,7 +265,7 @@ public class RobotContainer {
     //a.whileTrue(runPreFeederWithCounterTesting);
     //b.whileTrue(pidPrefeeder);
     //b.whileTrue(manualShoot);
-    //a.whileTrue(pidShoot);
+    // a.whileTrue(pidShoot);
 
     upPov.whileTrue(manualPivotExtend);
     downPov.whileTrue(manualPivotRetract);
@@ -265,11 +276,14 @@ public class RobotContainer {
     // downPov.whileTrue(manualPivotRetract);
 
 
+    //
+
+
     // a.whileTrue(runPreFeederWithCounterTesting);
 
     // x.whileTrue(pidPrefeeder);
     // rb.whileTrue(runPreFeederTesting);
-    // a.whileTrue(pidPreFeederWithCounter);
+    a.whileTrue(pidPreFeederWithCounter);
     // b.whileTrue(runPreFeederWithCounterTesting);
     //  a.whileTrue(pidShoot);
     // rightPov.whileTrue(manualShoot);
@@ -289,11 +303,12 @@ public class RobotContainer {
     // upPov.onTrue(climberPrep);
     // downPov.onTrue(climberL1Side);
     // rightPov.onTrue(climberL1Front);
-    leftPov.whileTrue(new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_EXT_SPEED));
-    rightPov.whileTrue(new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_RET_SPEED));
+    // leftPov.whileTrue(new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_EXT_SPEED));
+    // rightPov.whileTrue(new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_RET_SPEED));
     // upPov.whileTrue(runIntakeTest);
     // downPov.whileTrue(runOuttakeTest);
-    x.whileTrue(new PIDShoot(mainRoller, s_Swerve, preFeeder));
+    // x.whileTrue(new PIDShoot(mainRoller, s_Swerve, preFeeder, floor));
+    x.whileTrue(new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder, floor));
     // b.whileTrue(new PIDPivot(shooterPivot, s_Swerve));
     // a.whileTrue(new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder));
     // b.onTrue(new InstantCommand(() -> shooterPivot.resetEncoder(), shooterPivot));

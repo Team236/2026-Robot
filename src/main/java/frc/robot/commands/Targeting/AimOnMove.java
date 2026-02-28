@@ -17,11 +17,10 @@ import frc.robot.subsystems.Swerve;
 
 public class AimOnMove extends ParallelCommandGroup {
 
-  public AimOnMove(Swerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, BooleanSupplier robotCentricSup, double newRotation, MainRoller mainRoller, ShooterPivot shooterPivot) {
+  public AimOnMove(Swerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, BooleanSupplier robotCentricSup, MainRoller mainRoller, ShooterPivot shooterPivot) {
     addCommands(
-        
-      
-    
+      new AutoPivotRobotGroupCommand(s_Swerve, translationSup, strafeSup, robotCentricSup, () -> s_Swerve.getRotationMoving()[1])
+      // new AutoPivotShooterGroupCommand(s_Swerve, mainRoller, shooterPivot, () -> s_Swerve.getRotationMoving()[0])
     );
   }
 }

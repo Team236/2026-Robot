@@ -14,14 +14,14 @@ public class AutoPivotRobotGroupCommand extends Command {
   private DoubleSupplier strafeSup;
   private BooleanSupplier robotCentricSup;
   
-  private DoubleSupplier rotationSupplier; 
+  private DoubleSupplier desiredAngle; 
 
-  public AutoPivotRobotGroupCommand(Swerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, BooleanSupplier robotCentricSup, DoubleSupplier rotationSupplier) {
+  public AutoPivotRobotGroupCommand(Swerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, BooleanSupplier robotCentricSup, DoubleSupplier desiredAngle) {
     this.s_Swerve = s_Swerve;
     this.translationSup = translationSup;
     this.strafeSup = strafeSup;
     this.robotCentricSup = robotCentricSup;
-    this.rotationSupplier = rotationSupplier;
+    this.desiredAngle = desiredAngle;
     addRequirements(s_Swerve);
   }
 
@@ -30,7 +30,7 @@ public class AutoPivotRobotGroupCommand extends Command {
       double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.stickDeadband);
       double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.stickDeadband);
       
-      double newRotation = rotationSupplier.getAsDouble();
+      double newRotation = this.s_Swerve.calculateTargetingAutoPID(desiredAngle.getAsDouble());
 
     s_Swerve.drive(
         new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed),

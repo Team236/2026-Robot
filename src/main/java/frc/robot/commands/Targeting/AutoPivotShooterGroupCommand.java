@@ -25,7 +25,7 @@ public class AutoPivotShooterGroupCommand extends Command {
   public void execute() {
     double newDistance = distanceSupplier.getAsDouble(); 
 
-    double targetRPM = mainRoller.calculateRPM(newDistance);
+    double targetRPM = mainRoller.calculateRPM(newDistance) / 60.0;
     double targetRevs = shooterPivot.calculateHoodAngle(newDistance);
 
     mainRoller.MainPID(targetRPM);

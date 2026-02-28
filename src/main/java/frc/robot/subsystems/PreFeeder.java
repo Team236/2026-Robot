@@ -119,6 +119,9 @@ public class PreFeeder extends SubsystemBase {
     return 60 * preFeederMotor.getRotorVelocity().getValueAsDouble();
   }
   
+  public double calculateRPM(double distance) {
+    return Constants.Targeting.preFeederMap.get(distance);
+  }
 
   public void stopPreFeeder() {
     preFeederMotor.set(0);

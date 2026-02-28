@@ -514,6 +514,13 @@ public class Swerve extends SubsystemBase {
       return pidOutput;
     }
 
+    public double calculateTargetingAutoPID(double targetAngle) {
+        Pose2d currentPose = getPose();
+        double pidOutput = pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), targetAngle);
+    
+        return pidOutput;
+    }
+
     public double getAngleOfHub (double HUBX, double HUBY) {
         Pose2d currentPose = getPose();
         double dx = HUBX - Units.metersToInches(currentPose.getX());

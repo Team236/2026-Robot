@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.commands.FuelShooting.PIDMainRoller;
 import frc.robot.commands.FuelShooting.PIDShoot;
 import frc.robot.commands.ShooterPivotCommands.PIDPivot;
+import frc.robot.subsystems.Floor;
 import frc.robot.subsystems.MainRoller;
 import frc.robot.subsystems.PreFeeder;
 import frc.robot.subsystems.ShooterPivot;
@@ -18,12 +19,12 @@ import frc.robot.subsystems.Swerve;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutoPrepShooter extends ParallelCommandGroup {
   /** Creates a new AutoPrepShooter. */
-  public AutoPrepShooter(ShooterPivot shooterPivot, MainRoller mainRoller, Swerve s_Swerve, PreFeeder preFeeder) {
+  public AutoPrepShooter(ShooterPivot shooterPivot, MainRoller mainRoller, Swerve s_Swerve, PreFeeder preFeeder, Floor floor) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new PIDPivot(shooterPivot, s_Swerve),
-      new PIDShoot(mainRoller, s_Swerve, preFeeder)
+      new PIDShoot(mainRoller, s_Swerve, preFeeder, floor)
     );
   }
 }

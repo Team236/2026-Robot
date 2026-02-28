@@ -47,7 +47,12 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+
     CommandScheduler.getInstance().schedule(FollowPathCommand.warmupCommand()); // loads pathplanner classes, should solve issue of initial path follow being delayed
+    Constants.Targeting.hoodAngleMap.get(0.0); // warmup map (had delays on first access, this should solve that issue)
+    Constants.Targeting.rpmMap.get(0.0); // warmup map (had delays on first access, this should solve that issue)
+    Constants.Targeting.preFeederMap.get(0.0); // warmup map (had delays on first access, this should solve that issue)
+    Constants.Targeting.timeMap.get(0.0);
     // myPDH.setSwitchableChannel(true);
 //
  // UsbCamera usbCamera0;

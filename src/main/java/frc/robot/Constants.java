@@ -70,7 +70,7 @@ public final class Constants {
   }
 
   public static class ShooterConstants {
-    public static final double MAIN_MOTOR_RPM = 2200;
+    public static final double MAIN_MOTOR_RPM = 2550;
     public static final double MAIN_MOTOR_SPEED = 0.3;
     public static final double KV_MAIN = 0.122; // feed forward
     public static final double KP_MAIN = 0.63;
@@ -88,7 +88,7 @@ public final class Constants {
   public static class PreFeederConstants {
     public static final int DIO_COUNTER = 10;
     public static final double TEST_SPEED = 0.3;//constant speed for testing
-    public static final int DESIRED_RPM = 2000; //3150;
+    public static final int DESIRED_RPM = 2550; //3150;
     public static final double KV_PF = 0.0983; // feed forward
     public static final double KP_PF = 0.97;
     public static final double KI_PF = 0;
@@ -136,6 +136,14 @@ public final class Constants {
     public static final double CLIMB_L1_FRONT = 44.0;
 
     public static final double CLIMBER_KP = 3;
+
+    /*
+     * blue tower left (driver perspective):
+     *   55.0, 129.0 according to robot? cad says 57.32, 130
+     *   
+     * 
+     */
+      
   }
 
   public static  class IntakeConstants {
@@ -180,28 +188,41 @@ public final class Constants {
     public static final InterpolatingDoubleTreeMap hoodAngleMap = new InterpolatingDoubleTreeMap();
 
     static {
-      hoodAngleMap.put(41.25, 2.56); 
-      hoodAngleMap.put(75.0, 4.36);
+      hoodAngleMap.put(42.0, 2.83); 
+      hoodAngleMap.put(74.6, 4.36);
       hoodAngleMap.put(111.5, 6.36);
-      hoodAngleMap.put(145.0, 8.86);
-      hoodAngleMap.put(180.0, 10.96);
+      hoodAngleMap.put(145.5, 8.41);
+      hoodAngleMap.put(180.0, 10.94);
     }
 
     public static final InterpolatingDoubleTreeMap rpmMap = new InterpolatingDoubleTreeMap();
 
     static {
-      rpmMap.put(41.25, 2100.0); 
-      rpmMap.put(75.0, 2150.0);
-      rpmMap.put(111.5, 2200.0);
-      rpmMap.put(145.0, 2300.0);
-      rpmMap.put(180.0, 2400.0);
+      rpmMap.put(42.0, 2150.0); 
+      rpmMap.put(74.6, 2200.0);
+      rpmMap.put(111.5, 2300.0);
+      rpmMap.put(145.5, 2400.0);
+      rpmMap.put(180.0, 2550.0);
+    }
+
+    public static final InterpolatingDoubleTreeMap preFeederMap = new InterpolatingDoubleTreeMap();
+
+    static {
+      preFeederMap.put(42.0, 2150.0); 
+      preFeederMap.put(74.6, 2200.0);
+      preFeederMap.put(111.5, 2300.0);
+      preFeederMap.put(145.5, 2400.0);
+      preFeederMap.put(180.0, 2550.0);
     }
 
     public static final InterpolatingDoubleTreeMap timeMap = new InterpolatingDoubleTreeMap();
 
     static {
-      timeMap.put(48.0, 2.0);
-      timeMap.put(164.5, 4.0);
+      timeMap.put(42.0, 1.22); 
+      timeMap.put(74.6, 1.05);
+      timeMap.put(111.5, 1.2);
+      timeMap.put(145.5, 1.15);
+      timeMap.put(180.0, 1.15);
     }
     
 
