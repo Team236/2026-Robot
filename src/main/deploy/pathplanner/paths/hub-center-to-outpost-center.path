@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.5,
-        "y": 4.0
+        "x": 3.53,
+        "y": 4.0344
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.749987215927949,
-        "y": 3.997471784701992
+        "x": 3.7799872159279486,
+        "y": 4.031871784701991
       },
       "isLocked": false,
       "linkedName": "hub-center"
     },
     {
       "anchor": {
-        "x": 0.5,
-        "y": 0.66
+        "x": 0.731,
+        "y": 0.648
       },
       "prevControl": {
-        "x": 0.31113181407127705,
-        "y": 0.4962049807106659
+        "x": 0.9810000000000002,
+        "y": 0.648
       },
       "nextControl": null,
       "isLocked": false,

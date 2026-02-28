@@ -152,9 +152,9 @@ public final class Constants {
     //these next variables are for the intake pid command, but they are ripped straight from the prefeeder pid, so they may not be right.
     //TODO: TUNE THESE VALUES FOR INTAKE PID COMMAND
     public static final double TEST_SPEED = 0.3;//constant speed for testing
-    public static final int DESIRED_RPM = 3150;
-    public static final double KV_I = 0.0; //0.0975; // feed forward
-    public static final double KP_I = 0.0; //0.4;
+    public static final int DESIRED_RPM = 3500;
+    public static final double KV_I = 0.108; //0.0975; // feed forward
+    public static final double KP_I = 0.5; //0.4;
     public static final double KI_I = 0.0;
     public static final double KD_I = 0.0;
   }  
@@ -377,7 +377,7 @@ public static final class Swerve { //TODO -- UPDATE ALL VALUES / TUNE
             public static final int driveMotorID = 7;//testbed may be different!!!!! old 7
             public static final int angleMotorID = 6;//testbed may be different!!!!! old 6
             public static final int canCoderID = 3;//testbed may be different!!!!! old 
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(37.26); //(-146.33);//(81.1+180); TESTBED//-119.79; old -120.15
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(36.210); //37.26 most recent //(-146.33);//(81.1+180); TESTBED//-119.79; old -120.15
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -386,7 +386,7 @@ public static final class Swerve { //TODO -- UPDATE ALL VALUES / TUNE
             public static final int driveMotorID = 3;//testbed may be different!!!!!
             public static final int angleMotorID = 2;//testbed may be different!!!!!
             public static final int canCoderID = 1;//testbed may be different!!!!!
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-173.49); //(10.01);//(-20.83+180)Estbed; 130.87;old 131.045
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-176.045); //-173.49 most recent //(10.01);//(-20.83+180)Estbed; 130.87;old 131.045
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset); 
         }    
@@ -395,7 +395,7 @@ public static final class Swerve { //TODO -- UPDATE ALL VALUES / TUNE
             public static final int driveMotorID = 5;//testbed may be different!!!!!
             public static final int angleMotorID = 4;//testbed may be different!!!!!
             public static final int canCoderID = 2;//testbed may be different!!!!!
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(66.97); //(-117.42);//(8.1+180); TESTBED //106.35; old 106.87
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(67.061); //66.97 recent //(-117.42);//(8.1+180); TESTBED //106.35; old 106.87
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -404,7 +404,7 @@ public static final class Swerve { //TODO -- UPDATE ALL VALUES / TUNE
             public static final int driveMotorID = 1;//testbed may be different!!!!!
             public static final int angleMotorID = 0;//testbed may be different!!!!!
             public static final int canCoderID = 0;//testbed may be different!!!!!
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-73.91); //(105.9);//(-17.75+180);  TESTBED//130.87; old 130.95
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-74.18); //-73.91 recent //(105.9);//(-17.75+180);  TESTBED//130.87; old 130.95
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }

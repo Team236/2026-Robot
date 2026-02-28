@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
+import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
@@ -39,7 +40,9 @@ import frc.robot.commands.ClimberCommands.ClimberLock;
 import frc.robot.commands.ClimberCommands.ClimberMotionMagic;
 import frc.robot.commands.ClimberCommands.ClimberPID;
 import frc.robot.commands.ClimberCommands.ClimberSetSpeed;
+import frc.robot.commands.ClimberCommands.ZeroClimberStartup;
 import frc.robot.commands.Floor.RunFloor;
+import frc.robot.commands.Intake.PIDIntake;
 import frc.robot.commands.Intake.RunIntake;
 import frc.robot.commands.Intake.RunOuttake;
 import frc.robot.commands.PreFeeder.PIDPreFeederWithCounter;
@@ -54,6 +57,7 @@ import frc.robot.commands.PathPlanner.SequentialPathsCombined;
 import frc.robot.subsystems.MainRoller;
 import frc.robot.commands.ShooterPivotCommands.ManualPivot;
 import frc.robot.commands.ShooterPivotCommands.PIDPivot;
+import frc.robot.commands.ShooterPivotCommands.ZeroPivotStartup;
 import frc.robot.commands.Targeting.AimOnMove;
 import frc.robot.commands.Targeting.AutoPivotRobotGroupCommand;
 import frc.robot.commands.Targeting.AutoPivotTowardHub;
@@ -152,9 +156,18 @@ public class RobotContainer {
       )
     );
 
+    NamedCommands.registerCommand("shoot", new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder, floor));
+    NamedCommands.registerCommand("prep-climber", climberPrep);
+    NamedCommands.registerCommand("climb-l1-front", climberL1Front);
+    NamedCommands.registerCommand("intake", runIntakeTest);
+
     configureBindings();
 
-    
+    // zero climber and pivot on startup? hasn't worked yet
+    // CommandScheduler.getInstance().schedule(
+    //   new ZeroClimberStartup(climber),
+    //   new ZeroPivotStartup(shooterPivot)
+    // );
   }
 
   private void configureBindings() {
@@ -268,8 +281,8 @@ public class RobotContainer {
     //b.whileTrue(manualShoot);
     // a.whileTrue(pidShoot);
 
-    upPov.whileTrue(manualPivotExtend);
-    downPov.whileTrue(manualPivotRetract);
+    lm.whileTrue(manualPivotExtend);
+    rm.whileTrue(manualPivotRetract);
     // a.onTrue(new PIDPivot(shooterPivot, 10));
     // b.onTrue(new PIDPivot(shooterPivot, 0));
     // x.onTrue(new PIDPivot(shooterPivot, 5));
@@ -284,7 +297,7 @@ public class RobotContainer {
 
     // x.whileTrue(pidPrefeeder);
     // rb.whileTrue(runPreFeederTesting);
-    a.whileTrue(pidPreFeederWithCounter);
+    // a.whileTrue(pidPreFeederWithCounter);
     // b.whileTrue(runPreFeederWithCounterTesting);
     //  a.whileTrue(pidShoot);
     // rightPov.whileTrue(manualShoot);
@@ -299,25 +312,25 @@ public class RobotContainer {
     // );
     // leftPov.onTrue(new ClimberPID(climber, Constants.ClimberConstants.TEST_MM_REVS));
     // rightPov.onTrue(new ClimberMotionMagic(climber, Constants.ClimberConstants.TEST_MM_REVS));
-    // a.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_DOWN_SPEED));
-    // b.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_UP_SPEED));
-    // upPov.onTrue(climberPrep);
-    // downPov.onTrue(climberL1Side);
+    a.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_DOWN_SPEED));
+    b.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_UP_SPEED));
+    upPov.onTrue(climberPrep);
+    downPov.onTrue(climberL1Side);
     // rightPov.onTrue(climberL1Front);
-    // leftPov.whileTrue(new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_EXT_SPEED));
-    // rightPov.whileTrue(new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_RET_SPEED));
-    // upPov.whileTrue(runIntakeTest);
-    // downPov.whileTrue(runOuttakeTest);
+    leftPov.whileTrue(new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_EXT_SPEED));
+    rightPov.whileTrue(new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_RET_SPEED));
+    rb.whileTrue(new PIDIntake(intake, 4000));
+    // a.whileTrue(runOuttakeTest);
     // x.whileTrue(new PIDShoot(mainRoller, s_Swerve, preFeeder, floor));
     x.whileTrue(new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder, floor));
     // b.whileTrue(new PIDPivot(shooterPivot, s_Swerve));
     // a.whileTrue(new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder));
     // b.onTrue(new InstantCommand(() -> shooterPivot.resetEncoder(), shooterPivot));
-    rb.whileTrue(new RunFloor(floor, -0.4));
+    // rb.whileTrue(new RunFloor(floor, -0.4));
     // a.whileTrue(new ClimberLock(climber, 1));
     // b.whileTrue(new ClimberLock(climber, 0));
     
-    b.onTrue(Commands.defer((() -> s_Swerve.getClimbTargetingPath()), Set.of(s_Swerve)));
+    // b.onTrue(Commands.defer((() -> s_Swerve.getClimbTargetingPath()), Set.of(s_Swerve)));
 
     // a.onTrue(Commands.defer(() -> s_Swerve.followPathCommand("one-meter"), Set.of(s_Swerve)));
     // b.onTrue(Commands.defer(() -> s_Swerve.followPathCommand("hub-center-to-tower-right"), Set.of(s_Swerve)));
@@ -343,7 +356,7 @@ public class RobotContainer {
     
     // we make paths usually on the blue side, so if were red then mirror auto
     boolean shouldMirror = DriverStation.getAlliance().isPresent() ? DriverStation.getAlliance().get() == Alliance.Red : false;
-    return new PathPlannerAuto("test-short", shouldMirror);
+    return new PathPlannerAuto("hub-center-tower-FL", shouldMirror);
   }
 
 }

@@ -340,7 +340,7 @@ public class Swerve extends SubsystemBase {
                 waypoints, 
                 constraints, // these constraints will likely need to be tuned
                 null, 
-                new GoalEndState(0.0, Rotation2d.fromDegrees(180))
+                new GoalEndState(0.0, Rotation2d.fromDegrees(0))
             );
             
             return AutoBuilder.followPath(path);
