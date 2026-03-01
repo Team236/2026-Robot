@@ -281,8 +281,8 @@ public class RobotContainer {
     //b.whileTrue(manualShoot);
     // a.whileTrue(pidShoot);
 
-    lm.whileTrue(manualPivotExtend);
-    rm.whileTrue(manualPivotRetract);
+    upPov.whileTrue(manualPivotExtend);
+    downPov.whileTrue(manualPivotRetract);
     // a.onTrue(new PIDPivot(shooterPivot, 10));
     // b.onTrue(new PIDPivot(shooterPivot, 0));
     // x.onTrue(new PIDPivot(shooterPivot, 5));
@@ -312,17 +312,17 @@ public class RobotContainer {
     // );
     // leftPov.onTrue(new ClimberPID(climber, Constants.ClimberConstants.TEST_MM_REVS));
     // rightPov.onTrue(new ClimberMotionMagic(climber, Constants.ClimberConstants.TEST_MM_REVS));
-    a.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_DOWN_SPEED));
-    b.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_UP_SPEED));
-    upPov.onTrue(climberPrep);
-    downPov.onTrue(climberL1Side);
+    //a.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_DOWN_SPEED));
+    //b.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_UP_SPEED));
+    //upPov.onTrue(climberPrep);
+    //downPov.onTrue(climberL1Side);
     // rightPov.onTrue(climberL1Front);
-    leftPov.whileTrue(new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_EXT_SPEED));
-    rightPov.whileTrue(new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_RET_SPEED));
-    rb.whileTrue(new PIDIntake(intake, 4000));
+    //leftPov.whileTrue(new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_EXT_SPEED));
+    //rightPov.whileTrue(new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_RET_SPEED));
+    //rb.whileTrue(new PIDIntake(intake, 4000));
     // a.whileTrue(runOuttakeTest);
     // x.whileTrue(new PIDShoot(mainRoller, s_Swerve, preFeeder, floor));
-    x.whileTrue(new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder, floor));
+    a.whileTrue(new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder, floor));
     // b.whileTrue(new PIDPivot(shooterPivot, s_Swerve));
     // a.whileTrue(new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder));
     // b.onTrue(new InstantCommand(() -> shooterPivot.resetEncoder(), shooterPivot));

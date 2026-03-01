@@ -35,8 +35,8 @@ public class PIDShoot extends ParallelCommandGroup {
       new SequentialCommandGroup(
         new WaitCommand(0.3),
         new ParallelCommandGroup(
-          new PIDPrefeeder(preFeeder, s_Swerve,Constants.PreFeederConstants.DESIRED_RPM)
-          // new RunFloor(floor, -0.5)
+          new PIDPrefeeder(preFeeder, s_Swerve,Constants.PreFeederConstants.DESIRED_RPM),
+          new RunFloor(floor, -0.5)
         )
       )
     );
