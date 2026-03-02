@@ -40,7 +40,7 @@ public void execute() {
   // mainRoller.MainPID(mainRoller.calculateRPM(s_Swerve.getDistanceToHub()) / 60.0);
 
   if (mainRoller.useInitialBoost) {
-    mainRoller.MainPID(mainRoller.calculateRPM(s_Swerve.getDistanceToHub()) * 1.1 / 60.0);
+    mainRoller.MainPID(mainRoller.calculateRPM(s_Swerve.getDistanceToHub()) * 1 / 60.0);
   } else {
     mainRoller.MainPID(mainRoller.calculateRPM(s_Swerve.getDistanceToHub()) / 60.0);
   }

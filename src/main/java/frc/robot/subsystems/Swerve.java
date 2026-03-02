@@ -599,40 +599,62 @@ public class Swerve extends SubsystemBase {
   }
 
   public double[] getRotationMoving () {
-   ChassisSpeeds robotChassisSpeeds = getChassisSpeeds();
-   Pose2d currentPose2d = getPose();
-   double distanceToHub = getDistanceToHub();
-   double finalDistance = 0;
+    ChassisSpeeds robotChassisSpeeds = getChassisSpeeds();
+    ChassisSpeeds fieldSpeeds = ChassisSpeeds.fromRobotRelativeSpeeds(robotChassisSpeeds, getHeading());
 
 
-   double timeOfFlight = Constants.Targeting.timeMap.get(distanceToHub);
+    Pose2d currentPose2d = getPose();
 
 
-   Translation2d virtualGoal = new Translation2d();
+    double hubXMeters = Units.inchesToMeters(getHubX());
+    double hubYMeters = Units.inchesToMeters(getHubY());
 
 
-   for (int i = 0; i < 2; i++) {
-     // calculate the Virtual Goal (looping to get error low)
-     double virtualX = getHubX() - (robotChassisSpeeds.vxMetersPerSecond * timeOfFlight);
-     double virtualY = getHubY() - (robotChassisSpeeds.vyMetersPerSecond * timeOfFlight);
+    double distanceToHubInches = getDistanceToHub();
+    double finalDistanceInches = 0;
 
 
-     virtualGoal = new Translation2d(virtualX, virtualY);
+    double timeOfFlight = Constants.Targeting.timeMap.get(distanceToHubInches);
 
 
-     // new distance is where the robot would be static
-     double newDistance = currentPose2d.getTranslation().getDistance(virtualGoal);
+    Translation2d virtualGoal = new Translation2d();
 
 
-     // updates time of flight based on the new distance
-     timeOfFlight = Constants.Targeting.timeMap.get(newDistance);
-     finalDistance = newDistance;
-   }
+    for (int i = 0; i < 2; i++) {
+        // Virtual goal in meter: For the pose.
+        double virtualX = hubXMeters - (fieldSpeeds.vxMetersPerSecond * timeOfFlight);
+        double virtualY = hubYMeters - (fieldSpeeds.vyMetersPerSecond * timeOfFlight);
 
 
-   double finalRotation = Math.atan2(virtualGoal.getY() - currentPose2d.getY(), virtualGoal.getX() - currentPose2d.getX());
-  
-   double[] returnData = {finalDistance, finalRotation};
+        virtualGoal = new Translation2d(virtualX, virtualY);
+
+
+        double newDistanceMeters = currentPose2d.getTranslation().getDistance(virtualGoal);
+
+
+        // Back to inches for the timeMap
+        double newDistanceInches = Units.metersToInches(newDistanceMeters);
+        timeOfFlight = Constants.Targeting.timeMap.get(newDistanceInches);
+        finalDistanceInches = newDistanceInches;
+    }
+
+
+    // is now in radians.
+    Rotation2d finalRot = new Rotation2d(
+        virtualGoal.getX() - currentPose2d.getX(),
+        virtualGoal.getY() - currentPose2d.getY()
+    );
+
+
+       SmartDashboard.putNumber("AimOnMove/VirtualGoalX (m)", virtualGoal.getX());
+       SmartDashboard.putNumber("AimOnMove/VirtualGoalY (m)", virtualGoal.getY());
+       SmartDashboard.putNumber("AimOnMove/FinalAngle (deg)", finalRot.getDegrees());
+       SmartDashboard.putNumber("AimOnMove/DistanceToHub (in)", finalDistanceInches);
+       SmartDashboard.putNumber("AimOnMove/FieldVx (m/s)", fieldSpeeds.vxMetersPerSecond);
+       SmartDashboard.putNumber("AimOnMove/FieldVy (m/s)", fieldSpeeds.vyMetersPerSecond);
+
+
+   double[] returnData = {finalDistanceInches, finalRot.getRadians()};
 
 
    return returnData;

@@ -232,7 +232,8 @@ public class RobotContainer {
     //   () -> -driverController.getRawAxis(strafeAxis), 
     //   () -> robotCentric.getAsBoolean(), 
     //   mainRoller,
-    //   shooterPivot
+    //   shooterPivot,
+    //   preFeeder
     // ));
 
     // Fuel Shooter
@@ -255,8 +256,8 @@ public class RobotContainer {
 
     // Climber
    // x.onTrue(climberMotionMagicTest);
-   // b.whileTrue(climberManualUp);
-   // a.whileTrue(climberManualDown);
+   leftPov.whileTrue(climberManualUp);
+   rightPov.whileTrue(climberManualDown);
    // upPov.onTrue(climberLock);
    // downPov.onTrue(climberUnlock);
 
@@ -356,7 +357,7 @@ public class RobotContainer {
     
     // we make paths usually on the blue side, so if were red then mirror auto
     boolean shouldMirror = DriverStation.getAlliance().isPresent() ? DriverStation.getAlliance().get() == Alliance.Red : false;
-    return new PathPlannerAuto("hub-center-tower-FL", shouldMirror);
+    return new PathPlannerAuto("Trench-to-outpost", shouldMirror);
   }
 
 }
