@@ -2,7 +2,9 @@ package frc.robot.subsystems;
 
 import java.util.Queue;
 
+import com.ctre.phoenix6.configs.MotionMagicConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
+import com.ctre.phoenix6.configs.Slot1Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfigurator;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
@@ -30,6 +32,7 @@ public class BinRelease extends SubsystemBase {
     private boolean isBinExtException;
 
     private PositionVoltage m_request;
+    private MotionMagicVoltage m_magicRequest;
 
     /** Creates a new BinRelease. */
     //This system uses a motor to extend and retract the bin that holds the fuel
@@ -48,9 +51,24 @@ public class BinRelease extends SubsystemBase {
         slot0Configs.kI = Constants.BinReleaseConstants.KI_BIN; // 0
         slot0Configs.kD = Constants.BinReleaseConstants.KD_BIN; // 0.1 
 
-        binReleaseMotor.getConfigurator().apply(motorConfig);
+        Slot1Configs slot1Configs = motorConfig.Slot1;
+        // TUNE THESE -- COPIED FROM 2025 FOR NOW
+        slot1Configs.kS = 0;//0.25; // Add 0.25 V output to overcome static friction
+        slot1Configs.kV = 0;//0.12; // A velocity target of 1 rps results in 0.12 V output
+        slot1Configs.kA = 0;//0.01; // An acceleration of 1 rps/s requires 0.01 V output
+        slot1Configs.kP = 0;//2;//4.8; // A position error of 2.5 rotations results in 12 V output
+        slot1Configs.kI = 0;//0; // no output for integrated error
+        slot1Configs.kD = 0;//0.1; // A velocity error of 1 rps results in 0.1 V output
 
+        MotionMagicConfigs motionMagicConfigs = motorConfig.MotionMagic;
+    // TUNE THESE -- COPIED FROM 2025 FOR NOW
+        motionMagicConfigs.MotionMagicCruiseVelocity = 80;//80; // Target cruise velocity of 80 rps
+        motionMagicConfigs.MotionMagicAcceleration = 120;//160; // Target acceleration of 160 rps/s (0.5 seconds)
+        motionMagicConfigs.MotionMagicJerk = 1200;//1600; // Target jerk of 1600 rps/s/s (0.1 seconds)
+        
+        binReleaseMotor.getConfigurator().apply(motorConfig);
         m_request = new PositionVoltage(0).withSlot(0);
+        m_magicRequest = new MotionMagicVoltage(0).withSlot(1);
 
         // attempts to make retr. limit switch, if it fails, throws an error
         try{
@@ -99,21 +117,21 @@ public class BinRelease extends SubsystemBase {
 
     public boolean isFullyRetracted(){   
         //want to zero the encoder when this limit is hit
-        return maxRetractLimit.get();
+        return !maxRetractLimit.get(); // have to add not (!) because on the robot it is by default true
         }
 
     public boolean isFullyExtended(){   
         // TBD make sure encoder reading is increasing as mechanism extends, so the ">" sign works below
-        return (maxExtendLimit.get() || getEncoderRevolutions() > Constants.BinReleaseConstants.ENC_REVS_MAX); //set to a high value at first, for code testing
+        return (!maxExtendLimit.get() || getEncoderRevolutions() > Constants.BinReleaseConstants.ENC_REVS_MAX); //set to a high value at first, for code testing
         }
 
     public void manualSetSpeedSafe(double speed){
-        if (isFullyRetracted()) {
+        if (isFullyRetracted() && speed < 0) {
             SmartDashboard.putBoolean("Full Retract so reset encoder", isFullyRetracted());
             resetEncoder();
             stopMotor();
           } 
-        else if (isFullyExtended()) {
+        else if (isFullyExtended() && speed >= 0) {
             stopMotor();
           } 
         else {
@@ -146,6 +164,18 @@ public class BinRelease extends SubsystemBase {
         } 
         else {
             binReleaseMotor.setControl(m_request.withPosition(desiredRevs).withFeedForward(feedForward));   
+        }
+    }
+
+    public void doMotionMagic(double desiredRevs) {
+        if (binReleaseMotor.get() > 0 && isFullyExtended()) {
+            stopMotor();
+            return;
+        } else if (binReleaseMotor.get() < 0 && isFullyRetracted()) {
+            resetEncoder();
+            stopMotor();
+        } else {
+            binReleaseMotor.setControl(m_magicRequest.withPosition(desiredRevs));
         }
     }
 

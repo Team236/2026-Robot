@@ -250,14 +250,14 @@ public class RobotContainer {
     // a.whileTrue(manualPivotRetract);
 
     // Bin Release
-    // upPov.whileTrue(binManualExtend);
-    // downPov.whileTrue(binManualRetract);
+    upPov.whileTrue(binManualExtend);
+    downPov.whileTrue(binManualRetract);
     // b.onTrue(pidToPositionTestA);
 
     // Climber
    // x.onTrue(climberMotionMagicTest);
-   leftPov.whileTrue(climberManualUp);
-   rightPov.whileTrue(climberManualDown);
+  //  leftPov.whileTrue(climberManualUp);
+  //  rightPov.whileTrue(climberManualDown);
    // upPov.onTrue(climberLock);
    // downPov.onTrue(climberUnlock);
 
@@ -282,8 +282,8 @@ public class RobotContainer {
     //b.whileTrue(manualShoot);
     // a.whileTrue(pidShoot);
 
-    upPov.whileTrue(manualPivotExtend);
-    downPov.whileTrue(manualPivotRetract);
+    // upPov.whileTrue(manualPivotExtend);
+    // downPov.whileTrue(manualPivotRetract);
     // a.onTrue(new PIDPivot(shooterPivot, 10));
     // b.onTrue(new PIDPivot(shooterPivot, 0));
     // x.onTrue(new PIDPivot(shooterPivot, 5));
@@ -323,7 +323,7 @@ public class RobotContainer {
     //rb.whileTrue(new PIDIntake(intake, 4000));
     // a.whileTrue(runOuttakeTest);
     // x.whileTrue(new PIDShoot(mainRoller, s_Swerve, preFeeder, floor));
-    a.whileTrue(new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder, floor));
+    // a.whileTrue(new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder, floor));
     // b.whileTrue(new PIDPivot(shooterPivot, s_Swerve));
     // a.whileTrue(new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder));
     // b.onTrue(new InstantCommand(() -> shooterPivot.resetEncoder(), shooterPivot));
