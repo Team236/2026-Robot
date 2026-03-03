@@ -131,7 +131,7 @@ public class RobotContainer {
   private final ManualMainRoller manualMainRoller = new ManualMainRoller(mainRoller, Constants.ShooterConstants.MAIN_MOTOR_SPEED);
   private final ManualShoot manualShoot = new ManualShoot(mainRoller, preFeeder);
   private final PIDMainRoller pidMainRoller = new PIDMainRoller(mainRoller, s_Swerve, Constants.ShooterConstants.MAIN_MOTOR_RPM);
-  private final PIDShoot pidShoot = new PIDShoot(mainRoller, s_Swerve, preFeeder, floor);
+  private final PIDShoot pidShoot = new PIDShoot(mainRoller, s_Swerve, preFeeder, floor, intake);
 
 //INTAKE  
   private final RunIntake runIntakeTest = new RunIntake(intake, Constants.IntakeConstants.INTAKE_SPEED);
@@ -156,7 +156,7 @@ public class RobotContainer {
       )
     );
 
-    NamedCommands.registerCommand("shoot", new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder, floor));
+    NamedCommands.registerCommand("shoot", new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder, floor, intake));
     NamedCommands.registerCommand("prep-climber", climberPrep);
     NamedCommands.registerCommand("climb-l1-front", climberL1Front);
     NamedCommands.registerCommand("intake", runIntakeTest);
@@ -287,8 +287,8 @@ public class RobotContainer {
     // a.onTrue(new PIDPivot(shooterPivot, 10));
     // b.onTrue(new PIDPivot(shooterPivot, 0));
     // x.onTrue(new PIDPivot(shooterPivot, 5));
-    // upPov.whileTrue(manualPivotExtend);
-    // downPov.whileTrue(manualPivotRetract);
+    lm.whileTrue(manualPivotExtend);
+    rm.whileTrue(manualPivotRetract);
 
 
     //
@@ -313,17 +313,17 @@ public class RobotContainer {
     // );
     // leftPov.onTrue(new ClimberPID(climber, Constants.ClimberConstants.TEST_MM_REVS));
     // rightPov.onTrue(new ClimberMotionMagic(climber, Constants.ClimberConstants.TEST_MM_REVS));
-    //a.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_DOWN_SPEED));
-    //b.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_UP_SPEED));
+    a.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_DOWN_SPEED));
+    b.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_UP_SPEED));
     //upPov.onTrue(climberPrep);
     //downPov.onTrue(climberL1Side);
     // rightPov.onTrue(climberL1Front);
     //leftPov.whileTrue(new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_EXT_SPEED));
     //rightPov.whileTrue(new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_RET_SPEED));
-    //rb.whileTrue(new PIDIntake(intake, 4000));
+    rb.whileTrue(new PIDIntake(intake, 6000));
     // a.whileTrue(runOuttakeTest);
     // x.whileTrue(new PIDShoot(mainRoller, s_Swerve, preFeeder, floor));
-    // a.whileTrue(new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder, floor));
+    x.whileTrue(new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder, floor, intake));
     // b.whileTrue(new PIDPivot(shooterPivot, s_Swerve));
     // a.whileTrue(new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder));
     // b.onTrue(new InstantCommand(() -> shooterPivot.resetEncoder(), shooterPivot));
@@ -357,7 +357,7 @@ public class RobotContainer {
     
     // we make paths usually on the blue side, so if were red then mirror auto
     boolean shouldMirror = DriverStation.getAlliance().isPresent() ? DriverStation.getAlliance().get() == Alliance.Red : false;
-    return new PathPlannerAuto("Trench-to-outpost", shouldMirror);
+    return new PathPlannerAuto("trench-auto-test", shouldMirror);
   }
 
 }

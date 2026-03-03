@@ -139,7 +139,7 @@ public class ShooterPivot extends SubsystemBase {
             resetEncoder();
             stopShooterPivot();
         } 
-        else if ((isFullyExtended() || isShooterExtLimit()) && speed > 0) 
+        else if ((isFullyExtended()) && speed > 0) 
         {
             stopShooterPivot();
         } 
@@ -163,7 +163,7 @@ public class ShooterPivot extends SubsystemBase {
     targetRevs = Math.max(0.0, Math.min(targetRevs, Constants.ShooterPivotConstants.ENC_REVS_MAX));
 
     // Prevent driving further into limits
-    if (targetRevs > getEncoderRevs() && (isShooterExtLimit() || isFullyExtended())) {
+    if (targetRevs > getEncoderRevs() && (isFullyExtended())) {
       stopShooterPivot();
       return; //causes the method to end here when the "if" is true
     }

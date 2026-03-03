@@ -117,7 +117,7 @@ public final class Constants {
     public static final double KP = 6; 
     public static final double KI = 0;
     public static final double KD = 0;
-    public static final double ENC_REVS_MAX = 11.2; //TODO find actual
+    public static final double ENC_REVS_MAX = 12; //TODO find actual
     public static final double TARGET_REVS = 50;
     public static final double CONSTANT_FORWARD_SPEED = 0.06;
     public static final double CONSTANT_REVERSE_SPEED = -0.06;
@@ -205,21 +205,21 @@ public final class Constants {
     public static final InterpolatingDoubleTreeMap rpmMap = new InterpolatingDoubleTreeMap();
 
     static {
-      rpmMap.put(42.0, 2150.0); 
-      rpmMap.put(74.6, 2200.0);
-      rpmMap.put(111.5, 2300.0);
-      rpmMap.put(145.5, 2400.0);
-      rpmMap.put(180.0, 2550.0);
+      rpmMap.put(42.0, 2250.0); 
+      rpmMap.put(74.6, 2300.0);
+      rpmMap.put(111.5, 2400.0);
+      rpmMap.put(145.5, 2500.0);
+      rpmMap.put(180.0, 2650.0);
     }
 
     public static final InterpolatingDoubleTreeMap preFeederMap = new InterpolatingDoubleTreeMap();
 
     static {
-      preFeederMap.put(42.0, 2150.0); 
-      preFeederMap.put(74.6, 2200.0);
-      preFeederMap.put(111.5, 2300.0);
-      preFeederMap.put(145.5, 2400.0);
-      preFeederMap.put(180.0, 2550.0);
+      preFeederMap.put(42.0, 2250.0); 
+      preFeederMap.put(74.6, 2300.0);
+      preFeederMap.put(111.5, 2400.0);
+      preFeederMap.put(145.5, 2500.0);
+      preFeederMap.put(180.0, 2650.0);
     }
 
     public static final InterpolatingDoubleTreeMap timeMap = new InterpolatingDoubleTreeMap();

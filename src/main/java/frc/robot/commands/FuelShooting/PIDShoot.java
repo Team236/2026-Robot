@@ -10,9 +10,12 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.commands.Floor.RunFloor;
+import frc.robot.commands.Intake.PIDIntake;
+import frc.robot.commands.Intake.RunIntake;
 import frc.robot.commands.PreFeeder.PIDPrefeeder;
 import frc.robot.commands.PreFeeder.RunPreFeeder;
 import frc.robot.subsystems.Floor;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.MainRoller;
 import frc.robot.subsystems.PreFeeder;
 import frc.robot.subsystems.Swerve;
@@ -22,7 +25,7 @@ import frc.robot.subsystems.Swerve;
 
 public class PIDShoot extends ParallelCommandGroup {
   /** Creates a new PIDMainandFeed*/
-  public PIDShoot(MainRoller mainRoller, Swerve s_Swerve, PreFeeder preFeeder, Floor floor) {
+  public PIDShoot(MainRoller mainRoller, Swerve s_Swerve, PreFeeder preFeeder, Floor floor, Intake intake) {
     addCommands(
       new SequentialCommandGroup(
         new InstantCommand(() -> mainRoller.useInitialBoost = true),
@@ -36,7 +39,8 @@ public class PIDShoot extends ParallelCommandGroup {
         new WaitCommand(0.3),
         new ParallelCommandGroup(
           new PIDPrefeeder(preFeeder, s_Swerve,Constants.PreFeederConstants.DESIRED_RPM),
-          new RunFloor(floor, -0.5)
+          new RunFloor(floor, -0.5),
+          new PIDIntake(intake, 5800)
         )
       )
     );
