@@ -1,6 +1,8 @@
 
 *This isn't a necessary file, just for tracking PathPlanner waypoints
 
+https://docs.google.com/document/d/1SyXv5OJ_ZuLOLCASF9r8R7ZJ4LX
+
 FORMAT
 
 PATHS

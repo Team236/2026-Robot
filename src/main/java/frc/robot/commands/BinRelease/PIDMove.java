@@ -37,6 +37,6 @@ public class PIDMove extends Command {
     @Override
     public boolean isFinished()
     {
-        return binRelease.isFullyExtended();
+        return false;
     }
 }

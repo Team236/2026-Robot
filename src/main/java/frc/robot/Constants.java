@@ -99,10 +99,16 @@ public final class Constants {
 
     public static final int DIO_EXT_LIMIT = 8;//DIO port number on RoboRio
     public static final int DIO_RET_LIMIT = 9; //DIO port number on RoboRio
-    public static final double KP_BIN = 0.2;  
-    public static final double KI_BIN = 0;
-    public static final double KD_BIN = 0;
-    public static final double ENC_REVS_MAX = 25.0; //TBD
+
+    public static final double KP_BIN_EXTEND = 0.4;  
+    public static final double KI_BIN_EXTEND = 0;
+    public static final double KD_BIN_EXTEND = 0;
+
+    public static final double KP_BIN_RETRACT = 1.7;  
+    public static final double KI_BIN_RETRACT = 0;
+    public static final double KD_BIN_RETRACT = 0;
+
+    public static final double ENC_REVS_MAX = 100.0; //TBD
     public static final double MANUAL_EXT_SPEED = 0.1;
     public static final double MANUAL_RET_SPEED = -0.1;
     public static final double POSITION1 = 50;

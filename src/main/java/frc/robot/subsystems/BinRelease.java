@@ -5,6 +5,7 @@ import java.util.Queue;
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.Slot1Configs;
+import com.ctre.phoenix6.configs.Slot2Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfigurator;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
@@ -31,7 +32,8 @@ public class BinRelease extends SubsystemBase {
     private boolean isBinRetException;
     private boolean isBinExtException;
 
-    private PositionVoltage m_request;
+    private PositionVoltage m_extendRequest;
+    private PositionVoltage m_retractRequest;
     private MotionMagicVoltage m_magicRequest;
 
     /** Creates a new BinRelease. */
@@ -47,18 +49,24 @@ public class BinRelease extends SubsystemBase {
 
         //set required slot0 gains, for PID Position control with TalonFX
         var slot0Configs = motorConfig.Slot0;  // start with 0, 0, 0
-        slot0Configs.kP = Constants.BinReleaseConstants.KP_BIN; // 2.4; 
-        slot0Configs.kI = Constants.BinReleaseConstants.KI_BIN; // 0
-        slot0Configs.kD = Constants.BinReleaseConstants.KD_BIN; // 0.1 
+        slot0Configs.kP = Constants.BinReleaseConstants.KP_BIN_EXTEND;  
+        slot0Configs.kI = Constants.BinReleaseConstants.KI_BIN_EXTEND; 
+        slot0Configs.kD = Constants.BinReleaseConstants.KD_BIN_EXTEND; 
 
-        Slot1Configs slot1Configs = motorConfig.Slot1;
+        var slot1Configs = motorConfig.Slot1;
+        slot1Configs.kP = Constants.BinReleaseConstants.KP_BIN_RETRACT;
+        slot1Configs.kI = Constants.BinReleaseConstants.KI_BIN_RETRACT; 
+        slot1Configs.kD = Constants.BinReleaseConstants.KD_BIN_RETRACT;
+
+
+        Slot2Configs slot2Configs = motorConfig.Slot2;
         // TUNE THESE -- COPIED FROM 2025 FOR NOW
-        slot1Configs.kS = 0;//0.25; // Add 0.25 V output to overcome static friction
-        slot1Configs.kV = 0;//0.12; // A velocity target of 1 rps results in 0.12 V output
-        slot1Configs.kA = 0;//0.01; // An acceleration of 1 rps/s requires 0.01 V output
-        slot1Configs.kP = 0;//2;//4.8; // A position error of 2.5 rotations results in 12 V output
-        slot1Configs.kI = 0;//0; // no output for integrated error
-        slot1Configs.kD = 0;//0.1; // A velocity error of 1 rps results in 0.1 V output
+        slot2Configs.kS = 0;//0.25; // Add 0.25 V output to overcome static friction
+        slot2Configs.kV = 0;//0.12; // A velocity target of 1 rps results in 0.12 V output
+        slot2Configs.kA = 0;//0.01; // An acceleration of 1 rps/s requires 0.01 V output
+        slot2Configs.kP = 0;//2;//4.8; // A position error of 2.5 rotations results in 12 V output
+        slot2Configs.kI = 0;//0; // no output for integrated error
+        slot2Configs.kD = 0;//0.1; // A velocity error of 1 rps results in 0.1 V output
 
         MotionMagicConfigs motionMagicConfigs = motorConfig.MotionMagic;
     // TUNE THESE -- COPIED FROM 2025 FOR NOW
@@ -67,8 +75,9 @@ public class BinRelease extends SubsystemBase {
         motionMagicConfigs.MotionMagicJerk = 1200;//1600; // Target jerk of 1600 rps/s/s (0.1 seconds)
         
         binReleaseMotor.getConfigurator().apply(motorConfig);
-        m_request = new PositionVoltage(0).withSlot(0);
-        m_magicRequest = new MotionMagicVoltage(0).withSlot(1);
+        m_extendRequest = new PositionVoltage(0).withSlot(0);
+        m_retractRequest = new PositionVoltage(0).withSlot(1);
+        m_magicRequest = new MotionMagicVoltage(0).withSlot(2);
 
         // attempts to make retr. limit switch, if it fails, throws an error
         try{
@@ -150,20 +159,11 @@ public class BinRelease extends SubsystemBase {
             stopMotor();
         } 
         else {
-            binReleaseMotor.setControl(m_request.withPosition(desiredRevs));   
-        }
-    }
-
-    public void PIDControlToPositionWithFF(double desiredRevs, double feedForward) {
-        if (isFullyRetracted() && (desiredRevs < getEncoderRevolutions())) {
-            resetEncoder();
-            stopMotor();
-        }
-        else if (isFullyExtended() && (desiredRevs > getEncoderRevolutions())) {
-            stopMotor();
-        } 
-        else {
-            binReleaseMotor.setControl(m_request.withPosition(desiredRevs).withFeedForward(feedForward));   
+            if (desiredRevs > getEncoderRevolutions()) {
+                binReleaseMotor.setControl(m_extendRequest.withPosition(desiredRevs)); 
+            } else {
+                binReleaseMotor.setControl(m_retractRequest.withPosition(desiredRevs)); 
+            }
         }
     }
 
