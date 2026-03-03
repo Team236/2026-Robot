@@ -3,29 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.5,
+        "x": 7.8,
         "y": 7.0
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.5,
+        "x": 6.799999999999999,
         "y": 7.0
       },
       "isLocked": false,
-      "linkedName": "depot-left"
+      "linkedName": "neutral-left-heading-left"
     },
     {
       "anchor": {
-        "x": 1.55,
-        "y": 4.25
+        "x": 5.756626506024096,
+        "y": 2.2537831325301205
       },
       "prevControl": {
-        "x": 2.2999999999999994,
-        "y": 5.549038105676658
+        "x": 5.908594126506023,
+        "y": 3.738348644578314
+      },
+      "nextControl": {
+        "x": 5.604658885542169,
+        "y": 0.7692176204819274
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 4.63,
+        "y": 0.6
+      },
+      "prevControl": {
+        "x": 6.3795060240963855,
+        "y": 1.2156506024096394
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "tower-left"
+      "linkedName": "right-trench-center"
     }
   ],
   "rotationTargets": [],
@@ -48,7 +64,7 @@
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": 90.0
   },
   "useDefaultConstraints": true
 }

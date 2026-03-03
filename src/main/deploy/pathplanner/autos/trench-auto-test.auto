@@ -1,0 +1,37 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "right-trench-start-to-neutral-right"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "neutral-right-to-neutral-center"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "neutral-center-heading-left-to-neutral-center-back-heading-right"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "neutral-center-back-heading-right-to-shoot"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}
