@@ -3,34 +3,50 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.5,
-        "y": 7.0
+        "x": 6.0,
+        "y": 1.0
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.5336385064051967,
-        "y": 6.960632972920427
+        "x": 6.0,
+        "y": 0.5
       },
       "isLocked": false,
-      "linkedName": "depot-left"
+      "linkedName": "nbkr0"
     },
     {
       "anchor": {
-        "x": 7.6,
-        "y": 1.0
+        "x": 4.0,
+        "y": 0.6
       },
       "prevControl": {
-        "x": 6.141318746081735,
-        "y": 0.3103147573082563
+        "x": 4.5,
+        "y": 0.5999999999999999
+      },
+      "nextControl": {
+        "x": 3.5,
+        "y": 0.6000000000000001
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.6,
+        "y": 1.1
+      },
+      "prevControl": {
+        "x": 2.6,
+        "y": 0.6000000000000001
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "neutral-right-heading-left"
+      "linkedName": "rs56"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.5,
+      "waypointRelativePos": 1.5,
       "rotationDegrees": 0.0
     }
   ],
@@ -47,10 +63,10 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 90.0
+    "rotation": 56.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "movement",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0

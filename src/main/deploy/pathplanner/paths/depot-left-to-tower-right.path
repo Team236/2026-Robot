@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.44,
-        "y": 0.63119
+        "x": 0.5,
+        "y": 7.0
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.44,
-        "y": 0.63119
+        "x": 1.5,
+        "y": 7.0
       },
       "isLocked": false,
       "linkedName": "depot-left"

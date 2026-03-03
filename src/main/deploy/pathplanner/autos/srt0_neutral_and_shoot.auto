@@ -1,0 +1,82 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "srt0_to_nbr90"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "nbr90_to_nbc90"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "nbc90_to_nbkc-90"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "nbkc-90_to_nbkr0"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "nbkr0_to_rs56"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "intake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "shoot"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 3.5
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "new",
+  "choreoAuto": false
+}
