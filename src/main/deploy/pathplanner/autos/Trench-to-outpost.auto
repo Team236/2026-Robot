@@ -17,6 +17,12 @@
               {
                 "type": "named",
                 "data": {
+                  "name": "bin-out"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
                   "name": "startup-prep"
                 }
               }
