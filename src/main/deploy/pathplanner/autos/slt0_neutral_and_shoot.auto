@@ -9,6 +9,25 @@
           "data": {
             "commands": [
               {
+                "type": "named",
+                "data": {
+                  "name": "bin-out"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 1.0
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
                 "type": "sequential",
                 "data": {
                   "commands": [
