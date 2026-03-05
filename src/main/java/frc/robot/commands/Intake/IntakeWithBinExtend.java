@@ -12,10 +12,8 @@ public class IntakeWithBinExtend extends ParallelCommandGroup {
   public IntakeWithBinExtend(BinRelease binRelease, Double desiredRevs, Intake intake, int intakeRPM) {
 
     addCommands(
-      new SequentialCommandGroup(
-        new PIDMove(binRelease, desiredRevs),
-        new PIDIntake(intake, intakeRPM)
-      )
+      new PIDMove(binRelease, desiredRevs),
+      new PIDIntake(intake, intakeRPM)
     );
   }
 }

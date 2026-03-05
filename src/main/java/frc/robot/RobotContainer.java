@@ -330,13 +330,13 @@ public class RobotContainer {
     // a.onTrue(new PIDMove(binRelease, 10));
     // b.onTrue(new PIDMove(binRelease, 29.2));
     // x.onTrue(new PIDMove(binRelease, 0));
-    rb.whileTrue(new PIDIntake(intake, 4000));
+    // rb.whileTrue(new PIDIntake(intake, 4000));
+    rb.whileTrue(new IntakeWithBinExtend(binRelease, 27.25, intake, 4000));
     rm.whileTrue(new AutonomousStartup(preFeeder, mainRoller, floor));
     // a.whileTrue(runOuttakeTest);
     // x.whileTrue(new PIDShoot(mainRoller, s_Swerve, preFeeder, floor));
-    // x.whileTrue(new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder, floor, intake, binRelease));
+    x.whileTrue(new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder, floor, intake, binRelease));
     // b.whileTrue(new PIDPivot(shooterPivot, s_Swerve));
-    // a.whileTrue(new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder));
     // b.onTrue(new InstantCommand(() -> shooterPivot.resetEncoder(), shooterPivot));
     // rb.whileTrue(new RunFloor(floor, -0.4));
     // a.whileTrue(new ClimberLock(climber, 1));
@@ -367,7 +367,10 @@ public class RobotContainer {
     // return AutoSwitchHelpers.getAutoCommand();
     
     // we make paths usually on the blue side, so if were red then mirror auto
-    boolean shouldMirror = DriverStation.getAlliance().isPresent() ? DriverStation.getAlliance().get() == Alliance.Red : false;
+
+    // below does not work currently (mirror flips y, does not affect x)
+    // boolean shouldMirror = DriverStation.getAlliance().isPresent() ? DriverStation.getAlliance().get() == Alliance.Red : false;
+    boolean shouldMirror = false;
     return new PathPlannerAuto("Trench-to-outpost", shouldMirror);
    
   }
