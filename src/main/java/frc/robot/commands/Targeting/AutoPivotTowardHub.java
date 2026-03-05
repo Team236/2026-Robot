@@ -34,6 +34,10 @@ public class AutoPivotTowardHub extends Command {
     addRequirements(s_Swerve);
   }
 
+  private double curveDrive(double input) {
+  return 0.5 * Math.pow(input, 3) + 0.5 * input;
+  }
+
   @Override
   public void initialize() {
     var alliance = DriverStation.getAlliance();
@@ -70,7 +74,7 @@ public class AutoPivotTowardHub extends Command {
 
     // DRIVING COMMAND THAT JUST INPUTS COMPUTERS ROTATION
     s_Swerve.drive(
-        new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed),
+        new Translation2d(curveDrive(translationVal), curveDrive(strafeVal)).times(Constants.Swerve.maxSpeed),
         MathUtil.clamp(newRotation, -Constants.Swerve.maxAngularVelocity, Constants.Swerve.maxAngularVelocity),
         !robotCentricSup.getAsBoolean(),
         true
