@@ -25,6 +25,10 @@ public class AutoPivotRobotGroupCommand extends Command {
     addRequirements(s_Swerve);
   }
 
+ private double curveDrive(double input) {
+   return 0.5 * Math.pow(input, 3) + 0.5 * input;
+ }
+
   @Override
   public void execute() {
       double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.stickDeadband);
@@ -33,7 +37,7 @@ public class AutoPivotRobotGroupCommand extends Command {
       double newRotation = this.s_Swerve.calculateTargetingAutoPID(desiredAngle.getAsDouble());
 
     s_Swerve.drive(
-        new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed),
+        new Translation2d(curveDrive(translationVal), curveDrive(strafeVal)).times(Constants.Swerve.maxSpeed),
         MathUtil.clamp(newRotation, -Constants.Swerve.maxAngularVelocity, Constants.Swerve.maxAngularVelocity),
         !robotCentricSup.getAsBoolean(),
         true
