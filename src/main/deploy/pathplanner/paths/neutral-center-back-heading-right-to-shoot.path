@@ -12,7 +12,7 @@
         "y": 2.843879518072289
       },
       "isLocked": false,
-      "linkedName": "neutral-center-back-heading-right"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -37,7 +37,7 @@
       },
       "prevControl": {
         "x": 2.0739879518072284,
-        "y": 0.4725662650602418
+        "y": 0.4725662650602417
       },
       "nextControl": null,
       "isLocked": false,
