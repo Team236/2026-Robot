@@ -250,8 +250,8 @@ public class RobotContainer {
 
     // Shooter Pivot
     // x.onTrue(pidPivot);
-    // b.whileTrue(manualPivotExtend);
-    // a.whileTrue(manualPivotRetract);
+    b.whileTrue(manualPivotExtend);
+    a.whileTrue(manualPivotRetract);
 
     // Bin Release
     // upPov.whileTrue(binManualExtend);
@@ -317,16 +317,16 @@ public class RobotContainer {
     // );
     // leftPov.onTrue(new ClimberPID(climber, Constants.ClimberConstants.TEST_MM_REVS));
     // rightPov.onTrue(new ClimberMotionMagic(climber, Constants.ClimberConstants.TEST_MM_REVS));
-    upPov.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_DOWN_SPEED));
-    downPov.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_UP_SPEED));
+    downPov.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_DOWN_SPEED));
+    upPov.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_UP_SPEED));
     //upPov.onTrue(climberPrep);
     //downPov.onTrue(climberL1Side);
     // rightPov.onTrue(climberL1Front);
     leftPov.whileTrue(new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_EXT_SPEED));
     rightPov.whileTrue(new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_RET_SPEED));
-    a.onTrue(new PIDMove(binRelease, 10));
-    b.onTrue(new PIDMove(binRelease, 29.2));
-    x.onTrue(new PIDMove(binRelease, 0));
+    // a.onTrue(new PIDMove(binRelease, 10));
+    // b.onTrue(new PIDMove(binRelease, 29.2));
+    // x.onTrue(new PIDMove(binRelease, 0));
     rb.whileTrue(new PIDIntake(intake, 4000));
     rm.whileTrue(new AutonomousStartup(preFeeder, mainRoller, floor));
     // a.whileTrue(runOuttakeTest);
