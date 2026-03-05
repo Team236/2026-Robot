@@ -43,6 +43,7 @@ import frc.robot.commands.ClimberCommands.ClimberPID;
 import frc.robot.commands.ClimberCommands.ClimberSetSpeed;
 import frc.robot.commands.ClimberCommands.ZeroClimberStartup;
 import frc.robot.commands.Floor.RunFloor;
+import frc.robot.commands.Intake.IntakeWithBinExtend;
 import frc.robot.commands.Intake.PIDIntake;
 import frc.robot.commands.Intake.RunIntake;
 import frc.robot.commands.Intake.RunOuttake;
@@ -138,6 +139,8 @@ public class RobotContainer {
   private final RunIntake runIntakeTest = new RunIntake(intake, Constants.IntakeConstants.INTAKE_SPEED);
   private final RunOuttake runOuttakeTest = new RunOuttake(intake, Constants.IntakeConstants.OUTTAKE_SPEED);
   private final RunFloor runFloorTesting = new RunFloor(floor, Constants.FloorConstants.TEST_SPEED);
+
+  private final IntakeWithBinExtend intakeWithBinExtend = new IntakeWithBinExtend(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION, intake, Constants.IntakeConstants.DESIRED_RPM);
 
   // PREFEEDER
   private final RunPreFeeder runPreFeederTesting = new RunPreFeeder(preFeeder, Constants.PreFeederConstants.TEST_SPEED);
