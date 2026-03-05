@@ -542,17 +542,53 @@ public class Swerve extends SubsystemBase {
     }
 
     public double calculateTargetingPID (double HUBX, double HUBY) {
-
       // CALCULATED THE ANGLE TO FACE THE CENTER OF THE HUB
       Pose2d currentPose = getPose();
+      boolean shouldPass = false;
+      var alliance = DriverStation.getAlliance();
+
+    //   if (alliance.isPresent()){
+    //     if (alliance.get() == Alliance.Red) {
+    //         if (currentPose.getX() < Units.inchesToMeters(Constants.Targeting.RED_ALLIANCE_HUB_CENTER_X - Constants.Targeting.ROBOT_WIDTH_INCHES / 2)) {
+    //             shouldPass = true;
+    //         }
+    //     } else {
+    //         if (currentPose.getX() > Units.inchesToMeters(Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_X + Constants.Targeting.ROBOT_WIDTH_INCHES / 2)) {
+    //             shouldPass = true;
+    //         }
+    //     }
+    //   }
+
+    //   if (shouldPass) {
+    //     if (alliance.get() == Alliance.Red) {
+    //         return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), 0); // if we have passed the hub, just face backwards
+    //     } else {
+    //         return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(180)); // if we have passed the hub, just face backwards
+    //     }
+    //   }
+
       double dx = HUBX - Units.metersToInches(currentPose.getX());
       double dy = HUBY - Units.metersToInches(currentPose.getY());
       double targetAngle = Math.atan2(dy, dx);
 
       // USES PID TO ROTATE THE ROBOT EFFECTIVELY
       double pidOutput = pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), targetAngle);
-
       return pidOutput;
+    }
+
+    public double calculateFaceAlliancePID() {
+        Pose2d currentPose = getPose();
+        double targetAngle;
+        var alliance = DriverStation.getAlliance();
+
+        if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+            targetAngle = 0; // opposite of blue
+        } else {
+            targetAngle = Math.toRadians(180); // facing 180 on blue will face towards drivers
+        }
+
+        double pidOutput = pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), targetAngle);
+        return pidOutput;
     }
 
     public double calculateTargetingAutoPID(double targetAngle) {

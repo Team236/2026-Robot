@@ -118,7 +118,7 @@ public class ShooterPivot extends SubsystemBase {
 
 
   public boolean isFullyExtended() {
-    return (getEncoderRevs() >= Constants.ShooterPivotConstants.ENC_REVS_MAX);
+    return (shooterExtLimit.get() || getEncoderRevs() >= Constants.ShooterPivotConstants.ENC_REVS_MAX);
   }
 
   public boolean isFullyRetracted()
