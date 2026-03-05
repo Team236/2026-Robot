@@ -64,7 +64,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "nbkl0_to_ls-54"
+                        "pathName": "nbkl0_to_lcs-15"
                       }
                     }
                   ]
@@ -109,47 +109,10 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "ls-54_to_dl-90"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "dl-90_to_dr-90"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "dr-90_to_ls-54"
+                        "pathName": "lcs-15_to_tl0"
                       }
                     }
                   ]
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "intake"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "shoot"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 3.5
                 }
               }
             ]

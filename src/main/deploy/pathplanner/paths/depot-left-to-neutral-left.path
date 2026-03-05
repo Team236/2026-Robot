@@ -12,7 +12,7 @@
         "y": 7.0
       },
       "isLocked": false,
-      "linkedName": "depot-left"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -28,7 +28,7 @@
         "y": 7.4
       },
       "isLocked": false,
-      "linkedName": "left-trench-center"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -41,7 +41,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "neutral-left-heading-right"
+      "linkedName": null
     }
   ],
   "rotationTargets": [
