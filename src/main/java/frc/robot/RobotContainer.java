@@ -372,7 +372,6 @@ public class RobotContainer {
     // boolean shouldMirror = DriverStation.getAlliance().isPresent() ? DriverStation.getAlliance().get() == Alliance.Red : false;
     boolean shouldMirror = false;
     return new PathPlannerAuto("Trench-to-outpost", shouldMirror);
-   
   }
 
 }
