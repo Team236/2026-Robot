@@ -71,6 +71,18 @@
           "data": {
             "pathName": "rs56_to_tr0"
           }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": []
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": []
+          }
         }
       ]
     }
