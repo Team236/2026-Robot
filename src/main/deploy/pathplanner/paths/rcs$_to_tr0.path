@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.0,
+        "x": 2.0,
         "y": 3.5
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.507596123493896,
-        "y": 3.413175911166535
+        "x": 1.6621904112716241,
+        "y": 3.40223817891383
       },
       "isLocked": false,
-      "linkedName": "rcs20"
+      "linkedName": "rcs$"
     },
     {
       "anchor": {
@@ -20,8 +20,8 @@
         "y": 3.304
       },
       "prevControl": {
-        "x": 2.132403876506104,
-        "y": 3.390824088833465
+        "x": 2.018485886801314,
+        "y": 3.404483356780604
       },
       "nextControl": null,
       "isLocked": false,
@@ -48,7 +48,7 @@
   "folder": "movement",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 20.0
+    "rotation": 11.56016447162249
   },
   "useDefaultConstraints": true
 }

@@ -4,44 +4,44 @@
     {
       "anchor": {
         "x": 6.0,
-        "y": 1.0
+        "y": 7.0
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.292893218813452,
-        "y": 0.2928932188134523
+        "x": 5.2191094071085455,
+        "y": 7.7808905928914545
       },
       "isLocked": false,
-      "linkedName": "nbkr0"
+      "linkedName": "nbkl0"
     },
     {
       "anchor": {
         "x": 3.0,
-        "y": 1.0
+        "y": 7.0
       },
       "prevControl": {
         "x": 3.7071067811865475,
-        "y": 0.2928932188134523
+        "y": 7.707106781186548
       },
       "nextControl": {
-        "x": 2.2928932188134525,
-        "y": 1.7071067811865475
+        "x": 2.292893218813453,
+        "y": 6.292893218813453
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.0,
-        "y": 3.5
+        "x": 2.0,
+        "y": 4.5
       },
       "prevControl": {
-        "x": 2.590423977855504,
-        "y": 3.213211781824477
+        "x": 1.180847955711009,
+        "y": 5.073576436351047
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "rcs20"
+      "linkedName": "lcs$"
     }
   ],
   "rotationTargets": [
@@ -63,7 +63,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 20.0
+    "rotation": -10.196259864208185
   },
   "reversed": false,
   "folder": "movement",
