@@ -11,6 +11,25 @@
               {
                 "type": "named",
                 "data": {
+                  "name": "startup-prep"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "bin-out"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
                   "name": "shoot"
                 }
               },

@@ -9,6 +9,12 @@
           "data": {
             "commands": [
               {
+                "type": "wait",
+                "data": {
+                  "waitTime": 2.5
+                }
+              },
+              {
                 "type": "named",
                 "data": {
                   "name": "bin-out"
@@ -19,32 +25,8 @@
                 "data": {
                   "name": "startup-prep"
                 }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 2.5
-                }
               }
             ]
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "srt0_to_oc0"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 3.5
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "oc0_to_rs56"
           }
         },
         {
@@ -60,29 +42,16 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 3.5
+                  "waitTime": 10.0
                 }
               }
             ]
           }
         },
         {
-          "type": "race",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "bin-zero"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 1.35
-                }
-              }
-            ]
+            "pathName": "lcs-15_to_tl0"
           }
         },
         {
@@ -98,16 +67,10 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 3.0
+                  "waitTime": 2.0
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "rs56_to_tr0"
           }
         }
       ]
