@@ -195,12 +195,12 @@ private final Swerve s_Swerve = new Swerve();
     // command binds
     // a.onTrue(algaeGrab).onTrue(l3_Score); *EXAMPLE
 
-    rt.whileTrue(new AutoPivotTowardHub(
-      s_Swerve, 
-      () -> -driverController.getRawAxis(translationAxis), 
-      () -> -driverController.getRawAxis(strafeAxis),  
-      () -> robotCentric.getAsBoolean()
-    ));
+    // rt.whileTrue(new AutoPivotTowardHub(
+    //   s_Swerve, 
+    //   () -> -driverController.getRawAxis(translationAxis), 
+    //   () -> -driverController.getRawAxis(strafeAxis),  
+    //   () -> robotCentric.getAsBoolean()
+    // ));
 
     // Fuel Shooter
     //  a.whileTrue(manualMainRoller);
