@@ -15,9 +15,9 @@ import frc.robot.subsystems.PreFeeder;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutonomousStartup extends ParallelCommandGroup {
-  /** Creates a new AutonomousStartup. */
-  public AutonomousStartup(PreFeeder preFeeder, MainRoller mainRoller, Floor floor) {
+public class Eject extends ParallelCommandGroup {
+  /** Creates a new Eject. */
+  public Eject(PreFeeder preFeeder, MainRoller mainRoller, Floor floor) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(

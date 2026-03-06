@@ -32,7 +32,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.TeleopSwerve;
-import frc.robot.commands.FuelShooting.AutonomousStartup;
+import frc.robot.commands.FuelShooting.Eject;
 import frc.robot.commands.FuelShooting.ManualMainRoller;
 import frc.robot.commands.FuelShooting.ManualShoot;
 import frc.robot.commands.FuelShooting.PIDMainRoller;
@@ -163,7 +163,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("shoot", new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder, floor, intake, binRelease));
     NamedCommands.registerCommand("prep-climber", climberPrep);
     NamedCommands.registerCommand("climb-l1-front", climberL1Front);
-    NamedCommands.registerCommand("startup-prep", new AutonomousStartup(preFeeder, mainRoller, floor));
+    NamedCommands.registerCommand("startup-prep", new Eject(preFeeder, mainRoller, floor));
     NamedCommands.registerCommand("intake", new PIDIntake(intake, 6400));
     NamedCommands.registerCommand("bin-out", new PIDMove(binRelease, 28.5));
     NamedCommands.registerCommand("bin-zero", new PIDMove(binRelease, 0.0));
@@ -226,12 +226,58 @@ public class RobotContainer {
     // command binds
     // a.onTrue(algaeGrab).onTrue(l3_Score); *EXAMPLE
 
+    /*
+     * 
+     * COMPETITION BINDS BELOW
+     * 
+     */
+
+    // DRIVER
+
+    // zero gyro bind above, field centric driving defined above
     rt.whileTrue(new AutoPivotTowardHub(
         s_Swerve, 
         () -> -driverController.getRawAxis(translationAxis), 
         () -> -driverController.getRawAxis(strafeAxis), 
         () -> robotCentric.getAsBoolean()
     ));
+
+    upPov.whileTrue(binManualRetract);
+    downPov.whileTrue(binManualExtend);
+
+    // AUX
+
+    lb1.onTrue(climberPrep);
+    lt1.onTrue(climberL1Front);
+    lm1.whileTrue(climberManualDown);
+    view1.whileTrue(new PIDIntake(intake, -5500));
+
+    upPov1.whileTrue(binManualRetract);
+    downPov1.whileTrue(binManualExtend);
+    leftPov1.whileTrue(manualPivotRetract);
+    rightPov1.whileTrue(manualPivotExtend);
+
+    menu1.whileTrue(new Eject(preFeeder, mainRoller, floor));
+    rt1.whileTrue(new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder, floor, intake, binRelease));
+    rm.whileTrue(climberManualUp);
+
+    b1.onTrue(new PIDMove(binRelease, 0));
+    a1.whileTrue(new IntakeWithBinExtend(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION, intake, 4500));
+
+    /*
+     * 
+     * TESTING COMMANDS BELOW
+     * 
+     */
+
+
+
+    // rt.whileTrue(new AutoPivotTowardHub(
+    //     s_Swerve, 
+    //     () -> -driverController.getRawAxis(translationAxis), 
+    //     () -> -driverController.getRawAxis(strafeAxis), 
+    //     () -> robotCentric.getAsBoolean()
+    // ));
 
     // rt.whileTrue(new AimOnMove(
     //   s_Swerve, 
@@ -253,8 +299,8 @@ public class RobotContainer {
 
     // Shooter Pivot
     // x.onTrue(pidPivot);
-    b.whileTrue(manualPivotExtend);
-    a.whileTrue(manualPivotRetract);
+    // b.whileTrue(manualPivotExtend);
+    // a.whileTrue(manualPivotRetract);
 
     // Bin Release
     // upPov.whileTrue(binManualExtend);
@@ -320,22 +366,22 @@ public class RobotContainer {
     // );
     // leftPov.onTrue(new ClimberPID(climber, Constants.ClimberConstants.TEST_MM_REVS));
     // rightPov.onTrue(new ClimberMotionMagic(climber, Constants.ClimberConstants.TEST_MM_REVS));
-    downPov.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_DOWN_SPEED));
-    upPov.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_UP_SPEED));
+    // downPov.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_DOWN_SPEED));
+    // upPov.whileTrue(new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_UP_SPEED));
     //upPov.onTrue(climberPrep);
     //downPov.onTrue(climberL1Side);
     // rightPov.onTrue(climberL1Front);
-    leftPov.whileTrue(new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_EXT_SPEED));
-    rightPov.whileTrue(new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_RET_SPEED));
+    // leftPov.whileTrue(new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_EXT_SPEED));
+    // rightPov.whileTrue(new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_RET_SPEED));
     // a.onTrue(new PIDMove(binRelease, 10));
     // b.onTrue(new PIDMove(binRelease, 29.2));
     // x.onTrue(new PIDMove(binRelease, 0));
     // rb.whileTrue(new PIDIntake(intake, 4000));
-    rb.whileTrue(new IntakeWithBinExtend(binRelease, 27.25, intake, 4000));
-    rm.whileTrue(new AutonomousStartup(preFeeder, mainRoller, floor));
+    // rb.whileTrue(new IntakeWithBinExtend(binRelease, 27.25, intake, 4000));
+    // rm.whileTrue(new AutonomousStartup(preFeeder, mainRoller, floor));
     // a.whileTrue(runOuttakeTest);
     // x.whileTrue(new PIDShoot(mainRoller, s_Swerve, preFeeder, floor));
-    x.whileTrue(new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder, floor, intake, binRelease));
+    // x.whileTrue(new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder, floor, intake, binRelease));
     // b.whileTrue(new PIDPivot(shooterPivot, s_Swerve));
     // b.onTrue(new InstantCommand(() -> shooterPivot.resetEncoder(), shooterPivot));
     // rb.whileTrue(new RunFloor(floor, -0.4));
@@ -366,12 +412,12 @@ public class RobotContainer {
     
     // return AutoSwitchHelpers.getAutoCommand();
     
-    // we make paths usually on the blue side, so if were red then mirror auto
+    // we make paths usually on the blue side,
 
     // below does not work currently (mirror flips y, does not affect x)
     // boolean shouldMirror = DriverStation.getAlliance().isPresent() ? DriverStation.getAlliance().get() == Alliance.Red : false;
     boolean shouldMirror = false;
-    return new PathPlannerAuto("srt0_neutral_shoot_and_climb", shouldMirror);
+    return new PathPlannerAuto("Trench-to-outpost", shouldMirror);
   }
 
 }
