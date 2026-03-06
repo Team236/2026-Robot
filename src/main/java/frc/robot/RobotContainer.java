@@ -164,7 +164,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("prep-climber", climberPrep);
     NamedCommands.registerCommand("climb-l1-front", climberL1Front);
     NamedCommands.registerCommand("startup-prep", new AutonomousStartup(preFeeder, mainRoller, floor));
-    NamedCommands.registerCommand("intake", new PIDIntake(intake, 5000));
+    NamedCommands.registerCommand("intake", new PIDIntake(intake, 6400));
     NamedCommands.registerCommand("bin-out", new PIDMove(binRelease, 28.5));
     NamedCommands.registerCommand("bin-zero", new PIDMove(binRelease, 0.0));
 
@@ -371,7 +371,7 @@ public class RobotContainer {
     // below does not work currently (mirror flips y, does not affect x)
     // boolean shouldMirror = DriverStation.getAlliance().isPresent() ? DriverStation.getAlliance().get() == Alliance.Red : false;
     boolean shouldMirror = false;
-    return new PathPlannerAuto("Trench-to-outpost", shouldMirror);
+    return new PathPlannerAuto("srt0_neutral_shoot_and_climb", shouldMirror);
   }
 
 }
