@@ -44,7 +44,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "oc0_to_rs56"
+            "pathName": "oc0_to_rs$"
           }
         },
         {
@@ -107,7 +107,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "rs56_to_tr0"
+            "pathName": "rs$_to_tr0"
           }
         }
       ]

@@ -3,16 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.703,
-        "y": 0.648
+        "x": 6.0,
+        "y": 1.0
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.1901850323926175,
-        "y": 0.7604755271719325
+        "x": 6.0,
+        "y": 0.5
       },
       "isLocked": false,
-      "linkedName": "oc0"
+      "linkedName": "nbkr0"
+    },
+    {
+      "anchor": {
+        "x": 4.0,
+        "y": 0.6
+      },
+      "prevControl": {
+        "x": 4.5,
+        "y": 0.5999999999999999
+      },
+      "nextControl": {
+        "x": 3.5,
+        "y": 0.6000000000000001
+      },
+      "isLocked": false,
+      "linkedName": null
     },
     {
       "anchor": {
@@ -20,15 +36,20 @@
         "y": 1.1
       },
       "prevControl": {
-        "x": 2.112814967607383,
-        "y": 0.9875244728280677
+        "x": 2.6,
+        "y": 0.6000000000000001
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "rs56"
+      "linkedName": "rs$"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1.5,
+      "rotationDegrees": 180.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -48,7 +69,7 @@
   "folder": "movement",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

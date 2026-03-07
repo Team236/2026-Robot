@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.216977778440511,
-        "y": 7.22139380484327
+        "x": 2.6,
+        "y": 4.9
       },
       "isLocked": false,
-      "linkedName": "ls-54"
+      "linkedName": "ls$"
     },
     {
       "anchor": {
         "x": 0.5,
-        "y": 7.0
+        "y": 5.0
       },
       "prevControl": {
-        "x": 0.883022221559489,
-        "y": 7.32139380484327
+        "x": 1.5,
+        "y": 5.0
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "dl-90"
+      "linkedName": "dr90"
     }
   ],
   "rotationTargets": [],
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": 90.0
   },
   "reversed": false,
   "folder": "movement",

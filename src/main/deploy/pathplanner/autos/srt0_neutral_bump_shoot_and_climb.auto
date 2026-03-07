@@ -40,31 +40,19 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "slt0_to_nbl-90"
+                        "pathName": "srt0_to_nbr90"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "nbl-90_to_nbc-90"
+                        "pathName": "nbr90_to_nbrc90"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "nbc-90_to_nbkc90"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "nbkc90_to_nbkl0"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "nbkl0_to_ls$"
+                        "pathName": "nbrc90_rcs$_via_bump"
                       }
                     }
                   ]
@@ -92,7 +80,38 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 3.5
+                  "waitTime": 6.0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "intake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "rcs$_to_tr0"
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 2.0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "prep-climber"
                 }
               }
             ]
