@@ -8,11 +8,11 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.7349231551964772,
+        "x": 1.7349231551964774,
         "y": 4.914494964168584
       },
       "isLocked": false,
-      "linkedName": "blcs$"
+      "linkedName": null
     },
     {
       "anchor": {
