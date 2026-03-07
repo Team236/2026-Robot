@@ -16,9 +16,10 @@ public class AutoSwitchHelpers {
     private static DigitalInput autoSwitch3;
     private static DigitalInput autoSwitch4;
 
-    private static HashMap<Integer, Command> autoMap = new HashMap<>();
+    private static HashMap<Integer, PathPlannerAuto> autoMap = new HashMap<>();
 
-    static {
+    static 
+    {
         autoSwitch1 = new DigitalInput(Constants.DIO_AUTO_1);
         autoSwitch2 = new DigitalInput(Constants.DIO_AUTO_2);
         autoSwitch3 = new DigitalInput(Constants.DIO_AUTO_3);
@@ -27,41 +28,42 @@ public class AutoSwitchHelpers {
 
     private AutoSwitchHelpers() {}
 
-    public static void put(boolean s1, boolean s2, boolean s3, boolean s4, Command autoCommand) {
-
+    public static void put(boolean s1, boolean s2, boolean s3, boolean s4, PathPlannerAuto pathPlannerAuto) 
+    {
         boolean[] input = {s1, s2, s3, s4};
-
-        if (input.length != 4)
-        {
-            System.err.println("[AutoSwitchHelpers.put]: input must be length 4");
-            return;
-        }
-
         int mask = convertToMask(input);
 
-        autoMap.put(mask, autoCommand);
+        autoMap.put(mask, pathPlannerAuto);
     }
 
-    public static void put(int mask, Command autoCommand)
+    public static void put(int mask, PathPlannerAuto pathPlannerAuto)
     {
         if (mask < 0 || mask >= 16)
         {
-            System.err.println("[AutoSwitchHelpers.put]: mask must be between 0 and 15");
             return;
         }
 
-        autoMap.put(mask, autoCommand);
+        autoMap.put(mask, pathPlannerAuto);
     }
 
-    public static Command getAutoCommand() {
-        Command autoCommandToRun = autoMap.get(getSwitchMask());
-        
-        if (autoCommandToRun == null) { 
-            // SmartDashboard.putString("Auto", "No command set");
-            return Commands.none(); 
-        }
-        
-        return autoCommandToRun;
+    public static PathPlannerAuto getPathPlannerAuto() 
+    {
+        putAutoSwitchesToSmartDashboard();
+
+        PathPlannerAuto pathPlannerAuto = autoMap.get(getAutoSwitchesMask());
+        return pathPlannerAuto;
+    }
+
+    private static boolean[] getAutoSwitches()
+    {
+        return new boolean[] {!autoSwitch1.get(), !autoSwitch2.get(), !autoSwitch3.get(), !autoSwitch4.get()};
+    }
+
+    private static int getAutoSwitchesMask()
+    {
+        boolean[] input = getAutoSwitches();
+        int mask = convertToMask(input);
+        return mask;
     }
 
     private static int convertToMask(boolean[] input)
@@ -93,12 +95,9 @@ public class AutoSwitchHelpers {
         return mask;
     }
 
-    private static int getSwitchMask() {
-
-        boolean[] input = new boolean[] {!autoSwitch1.get(), !autoSwitch2.get(), !autoSwitch3.get(), !autoSwitch4.get()};
-
-        int mask = convertToMask(input);
-
-        return mask;
+    private static void putAutoSwitchesToSmartDashboard()
+    {
+        boolean[] output = getAutoSwitches();
+        SmartDashboard.putBooleanArray("Auto", output);
     }
 }
