@@ -108,7 +108,7 @@ public final class Constants {
     public static final double KI_BIN_RETRACT = 0;
     public static final double KD_BIN_RETRACT = 0;
 
-    public static final double ENC_REVS_MAX = 12.4; //TBD
+    public static final double ENC_REVS_MAX = 28.5; //TBD
     public static final double MANUAL_EXT_SPEED = 0.3;
     public static final double MANUAL_RET_SPEED = -0.3;
     public static final double POSITION1 = 50;

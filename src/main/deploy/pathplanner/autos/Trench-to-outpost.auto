@@ -11,7 +11,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 1.5
+                  "waitTime": 1.0
                 }
               },
               {
@@ -96,24 +96,37 @@
           "data": {
             "commands": [
               {
-                "type": "named",
+                "type": "sequential",
                 "data": {
-                  "name": "prep-climber"
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Outpost-shoot-to-climber"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "finish-climb"
+                      }
+                    }
+                  ]
                 }
               },
               {
-                "type": "wait",
+                "type": "named",
                 "data": {
-                  "waitTime": 2.0
+                  "name": "prep-climber"
                 }
               }
             ]
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Outpost-shoot-to-climber"
+            "name": "climb-l1-front"
           }
         }
       ]

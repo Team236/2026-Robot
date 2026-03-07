@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 7.6,
-        "y": 3.0
+        "y": 3.5
       },
       "prevControl": null,
       "nextControl": {
         "x": 6.660307379214092,
-        "y": 2.657979856674331
+        "y": 3.157979856674331
       },
       "isLocked": false,
       "linkedName": "nbrc90"

@@ -164,7 +164,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("prep-climber", climberPrep);
     NamedCommands.registerCommand("climb-l1-front", climberL1Front);
     NamedCommands.registerCommand("startup-prep", new Eject(preFeeder, mainRoller, floor));
-    NamedCommands.registerCommand("intake", new PIDIntake(intake, 6400));
+    NamedCommands.registerCommand("intake", new PIDIntake(intake, 5500));
     NamedCommands.registerCommand("bin-out", new PIDMove(binRelease, 28.5));
     NamedCommands.registerCommand("bin-zero", new PIDMove(binRelease, 0.0));
 
@@ -422,14 +422,14 @@ public class RobotContainer {
   public Command getAutonomousCommand() 
   {
     
-    SmartDashboard.putString("Auto", "none");
+    // SmartDashboard.putString("Auto", "none");
 
-    boolean mirror = false;
-    AutoSwitchHelpers.put(false, false, false, false, new PathPlannerAuto("srt0_neutral_bump_shoot_and_climb", mirror));
-    AutoSwitchHelpers.put(true, false, false, false, new PathPlannerAuto("srt0_neutral_trench_shoot_and_climb", mirror));
+    // boolean mirror = false;
+    // AutoSwitchHelpers.put(false, false, false, false, new PathPlannerAuto("srt0_neutral_bump_shoot_and_climb", mirror));
+    // AutoSwitchHelpers.put(true, false, false, false, new PathPlannerAuto("srt0_neutral_trench_shoot_and_climb", mirror));
 
-    PathPlannerAuto pathPlannerAuto = AutoSwitchHelpers.getPathPlannerAuto();
-    return pathPlannerAuto;
+    // PathPlannerAuto pathPlannerAuto = AutoSwitchHelpers.getPathPlannerAuto();
+    // return pathPlannerAuto;
     
 
     // TODO ALSO: SHOULD LOOK AT PATHPLANNER WEBSITE FOR SENDABLE CHOOSERS; AUTO CAN BE SELECTED ON SMART DASHBOARD OR EQUIVALENT
@@ -446,8 +446,8 @@ public class RobotContainer {
 
     //below does not work currently (mirror flips y, does not affect x)
     //boolean shouldMirror = DriverStation.getAlliance().isPresent() ? DriverStation.getAlliance().get() == Alliance.Red : false;
-    //boolean shouldMirror = false;
-    //return new PathPlannerAuto("Trench-to-outpost", shouldMirror);
+    boolean shouldMirror = false;
+    return new PathPlannerAuto("srt0_neutral_trench_shoot_and_climb", shouldMirror);
   }
 
 }

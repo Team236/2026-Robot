@@ -48,17 +48,23 @@
                       "data": {
                         "pathName": "nbr90_to_nbrc90"
                       }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "nbrc90_to_rcs$_via_trench"
-                      }
                     }
                   ]
                 }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "intake"
+                }
               }
             ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "nbrc90_to_rcs$_via_trench"
           }
         },
         {
@@ -81,9 +87,54 @@
           }
         },
         {
-          "type": "path",
+          "type": "race",
           "data": {
-            "pathName": "rcs$_to_tr0"
+            "commands": [
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 0.3
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "bin-zero"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "rcs$_to_tr0"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "finish-climb"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "prep-climber"
+                }
+              }
+            ]
           }
         },
         {
@@ -93,7 +144,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "prep-climber"
+                  "name": "climb-l1-front"
                 }
               },
               {

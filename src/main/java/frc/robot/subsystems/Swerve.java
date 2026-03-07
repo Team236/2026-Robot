@@ -547,25 +547,25 @@ public class Swerve extends SubsystemBase {
       boolean shouldPass = false;
       var alliance = DriverStation.getAlliance();
 
-    //   if (alliance.isPresent()){
-    //     if (alliance.get() == Alliance.Red) {
-    //         if (currentPose.getX() < Units.inchesToMeters(Constants.Targeting.RED_ALLIANCE_HUB_CENTER_X - Constants.Targeting.ROBOT_WIDTH_INCHES / 2)) {
-    //             shouldPass = true;
-    //         }
-    //     } else {
-    //         if (currentPose.getX() > Units.inchesToMeters(Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_X + Constants.Targeting.ROBOT_WIDTH_INCHES / 2)) {
-    //             shouldPass = true;
-    //         }
-    //     }
-    //   }
+      if (alliance.isPresent()){
+        if (alliance.get() == Alliance.Red) {
+            if (currentPose.getX() < Units.inchesToMeters(Constants.Targeting.RED_ALLIANCE_HUB_CENTER_X - Constants.Targeting.ROBOT_WIDTH_INCHES * 1.5)) {
+                shouldPass = true;
+            }
+        } else {
+            if (currentPose.getX() > Units.inchesToMeters(Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_X + Constants.Targeting.ROBOT_WIDTH_INCHES * 1.5)) {
+                shouldPass = true;
+            }
+        }
+      }
 
-    //   if (shouldPass) {
-    //     if (alliance.get() == Alliance.Red) {
-    //         return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), 0); // if we have passed the hub, just face backwards
-    //     } else {
-    //         return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(180)); // if we have passed the hub, just face backwards
-    //     }
-    //   }
+      if (shouldPass) {
+        if (alliance.get() == Alliance.Red) {
+            return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), 0); // if we have passed the hub, just face backwards
+        } else {
+            return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(180)); // if we have passed the hub, just face backwards
+        }
+      }
 
       double dx = HUBX - Units.metersToInches(currentPose.getX());
       double dy = HUBY - Units.metersToInches(currentPose.getY());
