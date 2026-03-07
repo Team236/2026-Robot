@@ -232,9 +232,7 @@ public class RobotContainer {
      * 
      */
 
-    // DRIVER
-
-    // zero gyro bind above, field centric driving defined above
+     //Testing
     rt.whileTrue(new AutoPivotTowardHub(
         s_Swerve, 
         () -> -driverController.getRawAxis(translationAxis), 
@@ -242,27 +240,49 @@ public class RobotContainer {
         () -> robotCentric.getAsBoolean()
     ));
 
+    lt.whileTrue(intakeWithBinExtend);
+
+    b.whileTrue(climberManualUp);
+    x.whileTrue(climberManualDown);
+
+    a.whileTrue(new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder, floor, intake, binRelease));
+
     upPov.whileTrue(binManualRetract);
     downPov.whileTrue(binManualExtend);
+    leftPov.whileTrue(manualPivotRetract);
+    rightPov.whileTrue(manualPivotExtend);
 
-    // AUX
+    // DRIVER
 
-    lb1.onTrue(climberPrep);
-    lt1.onTrue(climberL1Front);
-    lm1.whileTrue(climberManualDown);
-    view1.whileTrue(new PIDIntake(intake, -5500));
+    // zero gyro bind above, field centric driving defined above
+    // rt.whileTrue(new AutoPivotTowardHub(
+    //     s_Swerve, 
+    //     () -> -driverController.getRawAxis(translationAxis), 
+    //     () -> -driverController.getRawAxis(strafeAxis), 
+    //     () -> robotCentric.getAsBoolean()
+    // ));
 
-    upPov1.whileTrue(binManualRetract);
-    downPov1.whileTrue(binManualExtend);
-    leftPov1.whileTrue(manualPivotRetract);
-    rightPov1.whileTrue(manualPivotExtend);
+    // upPov.whileTrue(binManualRetract);
+    // downPov.whileTrue(binManualExtend);
 
-    menu1.whileTrue(new Eject(preFeeder, mainRoller, floor));
-    rt1.whileTrue(new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder, floor, intake, binRelease));
-    rm.whileTrue(climberManualUp);
+    // // AUX
 
-    b1.onTrue(new PIDMove(binRelease, 0));
-    a1.whileTrue(new IntakeWithBinExtend(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION, intake, 4500));
+    // lb1.onTrue(climberPrep);
+    // lt1.onTrue(climberL1Front);
+    // lm1.whileTrue(climberManualDown);
+    // view1.whileTrue(new PIDIntake(intake, -5500));
+
+    // upPov1.whileTrue(binManualRetract);
+    // downPov1.whileTrue(binManualExtend);
+    // leftPov1.whileTrue(manualPivotRetract);
+    // rightPov1.whileTrue(manualPivotExtend);
+
+    // menu1.whileTrue(new Eject(preFeeder, mainRoller, floor));
+    // rt1.whileTrue(new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder, floor, intake, binRelease));
+    // rm.whileTrue(climberManualUp);
+
+    // b1.onTrue(new PIDMove(binRelease, 0));
+    // a1.whileTrue(new IntakeWithBinExtend(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION, intake, 4500));
 
     /*
      * 
@@ -405,7 +425,7 @@ public class RobotContainer {
     SmartDashboard.putString("Auto", "none");
 
     boolean mirror = false;
-    AutoSwitchHelpers.put(false, false, false, false, new PathPlannerAuto("srt0_neutral_trench_shoot_and_climb", mirror));
+    AutoSwitchHelpers.put(false, false, false, false, new PathPlannerAuto("srt0_neutral_bump_shoot_and_climb", mirror));
     AutoSwitchHelpers.put(true, false, false, false, new PathPlannerAuto("srt0_neutral_trench_shoot_and_climb", mirror));
 
     PathPlannerAuto pathPlannerAuto = AutoSwitchHelpers.getPathPlannerAuto();
