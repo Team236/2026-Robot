@@ -9,9 +9,9 @@
           "data": {
             "commands": [
               {
-                "type": "named",
+                "type": "wait",
                 "data": {
-                  "name": "bin-out"
+                  "waitTime": 2.5
                 }
               },
               {
@@ -21,9 +21,9 @@
                 }
               },
               {
-                "type": "wait",
+                "type": "named",
                 "data": {
-                  "waitTime": 2.5
+                  "name": "bin-out"
                 }
               }
             ]
@@ -46,34 +46,16 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "nbr90_to_nbc90"
+                        "pathName": "nbr90_to_nbrc90"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "nbc90_to_nbkc-90"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "nbkc-90_to_nbkr0"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "nbkr0_to_rcs$"
+                        "pathName": "nbrc90_to_rcs$_via_trench"
                       }
                     }
                   ]
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "intake"
                 }
               }
             ]
@@ -84,21 +66,15 @@
           "data": {
             "commands": [
               {
+                "type": "wait",
+                "data": {
+                  "waitTime": 5.0
+                }
+              },
+              {
                 "type": "named",
                 "data": {
                   "name": "shoot"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 6.0
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "intake"
                 }
               }
             ]
@@ -115,15 +91,15 @@
           "data": {
             "commands": [
               {
-                "type": "wait",
-                "data": {
-                  "waitTime": 2.0
-                }
-              },
-              {
                 "type": "named",
                 "data": {
                   "name": "prep-climber"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 2.0
                 }
               }
             ]

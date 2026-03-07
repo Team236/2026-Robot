@@ -401,15 +401,16 @@ public class RobotContainer {
   
   public Command getAutonomousCommand() 
   {
-    /* OK THIS IS WHAT WE'LL USE 3/7
+    
     SmartDashboard.putString("Auto", "none");
 
     boolean mirror = false;
-    AutoSwitchHelpers.put(false, false, false, false, new PathPlannerAuto("NAME", mirror));
+    AutoSwitchHelpers.put(false, false, false, false, new PathPlannerAuto("srt0_neutral_trench_shoot_and_climb", mirror));
+    AutoSwitchHelpers.put(true, false, false, false, new PathPlannerAuto("srt0_neutral_trench_shoot_and_climb", mirror));
 
     PathPlannerAuto pathPlannerAuto = AutoSwitchHelpers.getPathPlannerAuto();
     return pathPlannerAuto;
-    */
+    
 
     // TODO ALSO: SHOULD LOOK AT PATHPLANNER WEBSITE FOR SENDABLE CHOOSERS; AUTO CAN BE SELECTED ON SMART DASHBOARD OR EQUIVALENT
 
@@ -425,8 +426,8 @@ public class RobotContainer {
 
     //below does not work currently (mirror flips y, does not affect x)
     //boolean shouldMirror = DriverStation.getAlliance().isPresent() ? DriverStation.getAlliance().get() == Alliance.Red : false;
-    boolean shouldMirror = false;
-    return new PathPlannerAuto("Trench-to-outpost", shouldMirror);
+    //boolean shouldMirror = false;
+    //return new PathPlannerAuto("Trench-to-outpost", shouldMirror);
   }
 
 }
