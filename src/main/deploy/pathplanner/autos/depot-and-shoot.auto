@@ -5,40 +5,67 @@
     "data": {
       "commands": [
         {
-          "type": "race",
+          "type": "parallel",
           "data": {
             "commands": [
               {
-                "type": "wait",
+                "type": "sequential",
                 "data": {
-                  "waitTime": 4.0
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.5
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "bin-out"
+                      }
+                    }
+                  ]
                 }
               },
               {
-                "type": "named",
+                "type": "sequential",
                 "data": {
-                  "name": "shoot"
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "hub-center-to-depot-left"
+                      }
+                    }
+                  ]
                 }
               }
             ]
           }
         },
         {
-          "type": "path",
+          "type": "race",
           "data": {
-            "pathName": "hub-center-to-depot-left"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "depot-intake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "depot-right-to-shoot"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "depot-intake"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "depot-right-to-shoot"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "intake"
+                }
+              }
+            ]
           }
         },
         {
@@ -80,7 +107,7 @@
           }
         },
         {
-          "type": "sequential",
+          "type": "parallel",
           "data": {
             "commands": [
               {
