@@ -31,19 +31,20 @@ public class FaceAllianceZone extends Command {
     this.translationSup = translationSup;
     this.strafeSup = strafeSup;
     this.robotCentricSup = robotCentricSup;
+
     addRequirements(s_Swerve);
   }
 
   @Override
   public void initialize() {
-    var alliance = DriverStation.getAlliance();
+    // var alliance = DriverStation.getAlliance();
 
-    // ALIGENCE SELECTION FROM DRIVER STATION
-    if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+    // // ALIGENCE SELECTION FROM DRIVER STATION
+    // if (alliance.isPresent() && alliance.get() == Alliance.Red) {
 
-    } else {
+    // } else {
 
-    }
+    // }
   }
 
   @Override
