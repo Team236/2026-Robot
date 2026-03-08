@@ -165,7 +165,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("climb-l1-front", climberL1Front);
     NamedCommands.registerCommand("startup-prep", new Eject(preFeeder, mainRoller, floor));
     NamedCommands.registerCommand("intake", new PIDIntake(intake, 5500));
-    NamedCommands.registerCommand("bin-out", new PIDMove(binRelease, 29));
+    NamedCommands.registerCommand("bin-out", new PIDMove(binRelease, 30));
     NamedCommands.registerCommand("bin-zero", new PIDMove(binRelease, 0.0));
 
     configureBindings();
@@ -449,7 +449,7 @@ public class RobotContainer {
     //below does not work currently (mirror flips y, does not affect x)
     //boolean shouldMirror = DriverStation.getAlliance().isPresent() ? DriverStation.getAlliance().get() == Alliance.Red : false;
     boolean shouldMirror = false;
-    return new PathPlannerAuto("trench-to-outpost", shouldMirror);
+    return new PathPlannerAuto("hub-shoot-and-left-climb", shouldMirror);
 
     // ------------------------------------------------
     // AUTO PATHS THAT HAVE BEEN TESTED
@@ -458,6 +458,10 @@ public class RobotContainer {
     // Trench to nuetral under trench shoot and climb: srt0_neutral_trench_shoot_and_climb (works)
     // Hub center to depot intake, shoot, and climb: hub-depot-shoot-and-climb (intake needs work)
     // Trench to outpost shoot and climb: trench-to-outpost (works)
+    // Just backs up and shoots: hub-shoot (works)
+    // Just backs up, shoots, and climbs left side: hub-shoot-and-left-climb (works)
+
+
   }
 
 }

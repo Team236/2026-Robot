@@ -108,7 +108,7 @@ public final class Constants {
     public static final double KI_BIN_RETRACT = 0;
     public static final double KD_BIN_RETRACT = 0;
 
-    public static final double ENC_REVS_MAX = 28.5; //TBD
+    public static final double ENC_REVS_MAX = 29.5; //TBD
     public static final double MANUAL_EXT_SPEED = 0.3;
     public static final double MANUAL_RET_SPEED = -0.3;
     public static final double POSITION1 = 50;
@@ -238,6 +238,15 @@ public final class Constants {
       timeMap.put(111.5, 1.2);
       timeMap.put(145.5, 1.15);
       timeMap.put(180.0, 1.15);
+    }
+
+    public static final InterpolatingDoubleTreeMap nuetralMap = new InterpolatingDoubleTreeMap();
+
+    static {
+      nuetralMap.put(0.0, 1800.0); 
+      nuetralMap.put(75.0, 2000.0);
+      nuetralMap.put(150.0, 2500.0);
+      nuetralMap.put(225.0, 3000.0);
     }
 
     // public static Map<Integer, Pose2d> ID_TO_POSE = new HashMap<>();

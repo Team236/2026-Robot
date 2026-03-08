@@ -84,13 +84,13 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "hub-center-to-tower-left-short"
+                        "pathName": "hub-center-to-tower-right"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "finish-climb-left"
+                        "pathName": "finish-climb"
                       }
                     }
                   ]
