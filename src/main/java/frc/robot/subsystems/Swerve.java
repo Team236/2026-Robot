@@ -718,11 +718,26 @@ public class Swerve extends SubsystemBase {
     }
 
     public double getAllianceWallHeading(boolean isRedAlliance) {
-    if (isRedAlliance) {
-        return 0;
-    } else {
-        return Math.toRadians(180);
+        if (isRedAlliance) {
+            return 0;
+        } else {
+            return Math.toRadians(180);
+        }
     }
+
+    public double getXtoHub(){
+    Pose2d currentPose = getPose();
+
+    Optional<Alliance> alliance = DriverStation.getAlliance();
+
+    if (alliance.isPresent()) {
+        if (alliance.get() == Alliance.Red) {
+            return Math.abs(currentPose.getX() - Constants.Targeting.RED_ALLIANCE_HUB_CENTER_X);
+        } else {
+            return Math.abs(currentPose.getX() - Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_X);
+        }
+    }
+        return 0.0;
     }
 
     @Override

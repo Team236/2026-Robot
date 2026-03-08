@@ -136,6 +136,10 @@ public class MainRoller extends SubsystemBase {
     return Constants.Targeting.rpmMap.get(distance);
   }
 
+  public double calculateNuetralRPM(double distance) {
+    return Constants.Targeting.nuetralMap.get(distance);
+  }
+
   public void stopMain(){
       leftMainMotor.stopMotor();
       rightMainMotor.stopMotor();
