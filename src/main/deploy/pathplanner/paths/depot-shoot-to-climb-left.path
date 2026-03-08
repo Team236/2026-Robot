@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.215,
-        "y": 4.895
+        "x": 2.2147075606276743,
+        "y": 4.895420827389444
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.898700169385274,
-        "y": 3.9525529937438195
+        "x": 1.8984077300129485,
+        "y": 3.9529738211332637
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Depot-shoot"
     },
     {
       "anchor": {
@@ -25,7 +25,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Left-climb-align"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
+    "maxVelocity": 1.0,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -50,5 +50,5 @@
     "velocity": 0,
     "rotation": -20.0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

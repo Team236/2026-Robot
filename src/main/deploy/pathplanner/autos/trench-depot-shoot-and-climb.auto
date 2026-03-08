@@ -5,32 +5,7 @@
     "data": {
       "commands": [
         {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 0.5
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "startup-prep"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "bin-out"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "race",
+          "type": "parallel",
           "data": {
             "commands": [
               {
@@ -40,51 +15,76 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "srt0_to_nbr90"
+                        "pathName": "trench-center-to-depot-left"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "nbr90_to_nbrc90"
+                        "pathName": "depot-intake"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "depot-right-to-shoot"
                       }
                     }
                   ]
                 }
               },
               {
-                "type": "named",
-                "data": {
-                  "name": "intake"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "nbrc90_to_rcs$_via_trench"
-                }
-              },
-              {
-                "type": "race",
+                "type": "sequential",
                 "data": {
                   "commands": [
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 0.5
+                        "waitTime": 1.5
                       }
                     },
                     {
-                      "type": "named",
+                      "type": "race",
                       "data": {
-                        "name": "intake"
+                        "commands": [
+                          {
+                            "type": "wait",
+                            "data": {
+                              "waitTime": 1.0
+                            }
+                          },
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "bin-out"
+                            }
+                          },
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "startup-prep"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "race",
+                      "data": {
+                        "commands": [
+                          {
+                            "type": "wait",
+                            "data": {
+                              "waitTime": 4.0
+                            }
+                          },
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "intake"
+                            }
+                          }
+                        ]
                       }
                     }
                   ]
@@ -100,7 +100,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 5.0
+                  "waitTime": 4.0
                 }
               },
               {
@@ -117,38 +117,19 @@
           "data": {
             "commands": [
               {
-                "type": "wait",
-                "data": {
-                  "waitTime": 0.3
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "bin-zero"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
                 "type": "sequential",
                 "data": {
                   "commands": [
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "rcs$_to_tr0"
+                        "pathName": "depot-shoot-to-climb-left"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "finish-climb"
+                        "pathName": "finish-climb-left"
                       }
                     }
                   ]
@@ -186,6 +167,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "Game Ready Autos",
+  "folder": null,
   "choreoAuto": false
 }

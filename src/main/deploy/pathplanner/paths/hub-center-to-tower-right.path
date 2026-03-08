@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.53,
-        "y": 4.0344
+        "x": 3.033,
+        "y": 4.034
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.376231607967293,
-        "y": 3.537021049053873
+        "x": 2.0058154428991397,
+        "y": 3.495924697897797
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Backup-hub"
     },
     {
       "anchor": {
-        "x": 1.4948192771084337,
-        "y": 3.2700602409638555
+        "x": 1.64,
+        "y": 3.304
       },
       "prevControl": {
-        "x": 2.0829830849640967,
-        "y": 3.51785069049235
+        "x": 1.8614439958408404,
+        "y": 3.420028258222046
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Right-climb-align"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
+    "maxVelocity": 1.0,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -50,5 +50,5 @@
     "velocity": 0,
     "rotation": 0.0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

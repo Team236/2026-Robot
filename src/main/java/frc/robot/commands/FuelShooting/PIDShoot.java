@@ -43,7 +43,7 @@ public class PIDShoot extends ParallelCommandGroup {
           new PIDPrefeeder(preFeeder, s_Swerve,Constants.PreFeederConstants.DESIRED_RPM),
           new RunFloor(floor, -0.5),
           new PIDIntake(intake, 4000),
-          new ManualMove(binRelease, -0.1)
+          new ManualMove(binRelease, -0.15)
         )
       )
     );
