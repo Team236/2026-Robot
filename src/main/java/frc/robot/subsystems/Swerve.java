@@ -703,17 +703,17 @@ public class Swerve extends SubsystemBase {
     }
 
     public boolean inNeutralZone() {
-    Pose2d currentPose = getPose();
+        Pose2d currentPose = getPose();
 
-    Optional<Alliance> alliance = DriverStation.getAlliance();
+        Optional<Alliance> alliance = DriverStation.getAlliance();
 
-    if (alliance.isPresent()) {
-        if (alliance.get() == Alliance.Red) {
-            return currentPose.getX() > Constants.Targeting.RED_NEUTRAL_TOLERANCE_X;
-        } else {
-            return currentPose.getX() < Constants.Targeting.BLUE_NEUTRAL_TOLERANCE_X;
+        if (alliance.isPresent()) {
+            if (alliance.get() == Alliance.Red) {
+                return currentPose.getX() < Constants.Targeting.RED_NEUTRAL_TOLERANCE_X;
+            } else {
+                return currentPose.getX() > Constants.Targeting.BLUE_NEUTRAL_TOLERANCE_X;
+            }
         }
-    }
         return false;
     }
 

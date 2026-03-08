@@ -58,13 +58,13 @@ public class SmartAutoTarget extends Command {
    double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.stickDeadband);
    double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.stickDeadband);
 
-     if (s_Swerve.inNeutralZone()) {
-       newRotation = this.s_Swerve.getAllianceWallHeading(isRedAlliance);
+    if (s_Swerve.inNeutralZone()) {
+      newRotation = this.s_Swerve.getAllianceWallHeading(isRedAlliance);
 
-       PIDRotation = s_Swerve.pidCalculateAngle(newRotation);
-     } else {
-       PIDRotation = this.s_Swerve.calculateTargetingPID(HUBX, HUBY);
-     }
+      PIDRotation = s_Swerve.pidCalculateAngle(newRotation);
+    } else {
+      PIDRotation = this.s_Swerve.calculateTargetingPID(HUBX, HUBY);
+    }
 
    // DRIVE COMMAND WITH THE NEW INPUTS FOR ROTATION
    s_Swerve.drive(
@@ -77,7 +77,6 @@ public class SmartAutoTarget extends Command {
 
  @Override
  public void end(boolean interrupted) {
-
  }
 
  @Override
