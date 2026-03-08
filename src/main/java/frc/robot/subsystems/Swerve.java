@@ -706,6 +706,14 @@ public class Swerve extends SubsystemBase {
     }
   }
 
+  public double getAllianceWallHeading(boolean isRedAlliance) {
+    if (isRedAlliance) {
+      return 0;
+    } else {
+      return Math.toRadians(180);
+    }
+  }
+
     @Override
     public void periodic(){
         //SmartDashboard.putNumber("limelight standoff fwd", LimelightHelpers.getTargetPose_CameraSpace("limelight")[2]);

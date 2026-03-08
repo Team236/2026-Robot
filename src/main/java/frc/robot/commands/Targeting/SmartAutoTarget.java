@@ -21,6 +21,7 @@ public class SmartAutoTarget extends Command {
   private BooleanSupplier robotCentricSup;
   private boolean isRedAlliance;
   private double newRotation;
+  private double PIDRotation;
 
   public SmartAutoTarget(Swerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, BooleanSupplier robotCentricSup) {
     // USING SWERVE FOR TAKING OVER ROTATION
@@ -56,17 +57,29 @@ public class SmartAutoTarget extends Command {
 
     if (isRedAlliance) {
       if (s_Swerve.inNeutralZone(isRedAlliance)) {
-        
+        newRotation = this.s_Swerve.getAllianceWallHeading(isRedAlliance);
+
+        PIDRotation = s_Swerve.pidCalculateAngle(newRotation);
       } else {
-        
+
       }
     } else {
       if (s_Swerve.inNeutralZone(isRedAlliance)) {
-        
+        newRotation = this.s_Swerve.getAllianceWallHeading(isRedAlliance);
+
+        PIDRotation = s_Swerve.pidCalculateAngle(newRotation);
       } else {
         
       }
     }
+
+    // DRIVE COMMAND WITH THE NEW INPUTS FOR ROTATION
+    s_Swerve.drive(
+        new Translation2d(curveDrive(translationVal), curveDrive(strafeVal)).times(Constants.Swerve.maxSpeed),
+        MathUtil.clamp(PIDRotation, -Constants.Swerve.maxAngularVelocity, Constants.Swerve.maxAngularVelocity),
+        !robotCentricSup.getAsBoolean(),
+        true
+    );
   }
 
   @Override
