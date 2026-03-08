@@ -64,6 +64,7 @@ import frc.robot.commands.Targeting.AimOnMove;
 import frc.robot.commands.Targeting.AutoPivotRobotGroupCommand;
 import frc.robot.commands.Targeting.AutoPivotTowardHub;
 import frc.robot.commands.Targeting.AutoPrepShooter;
+import frc.robot.commands.Targeting.SmartAutoTarget;
 import frc.robot.subsystems.ShooterPivot;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Intake;
@@ -233,7 +234,14 @@ public class RobotContainer {
      */
 
      //Testing
-    rt.whileTrue(new AutoPivotTowardHub(
+    // rt.whileTrue(new AutoPivotTowardHub(
+    //     s_Swerve, 
+    //     () -> -driverController.getRawAxis(translationAxis), 
+    //     () -> -driverController.getRawAxis(strafeAxis), 
+    //     () -> robotCentric.getAsBoolean()
+    // ));
+
+    rt.whileTrue(new SmartAutoTarget(
         s_Swerve, 
         () -> -driverController.getRawAxis(translationAxis), 
         () -> -driverController.getRawAxis(strafeAxis), 
@@ -448,8 +456,7 @@ public class RobotContainer {
 
     //below does not work currently (mirror flips y, does not affect x)
     //boolean shouldMirror = DriverStation.getAlliance().isPresent() ? DriverStation.getAlliance().get() == Alliance.Red : false;
-    boolean shouldMirror = false;
-    return new PathPlannerAuto("hub-shoot-and-left-climb", shouldMirror);
+    return new PathPlannerAuto("srt0_neutral_trench_shoot_and_climb");
 
     // ------------------------------------------------
     // AUTO PATHS THAT HAVE BEEN TESTED
