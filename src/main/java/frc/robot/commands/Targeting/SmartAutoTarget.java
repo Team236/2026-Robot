@@ -22,6 +22,8 @@ public class SmartAutoTarget extends Command {
   private boolean isRedAlliance;
   private double newRotation;
   private double PIDRotation;
+  private double HUBX;
+  private double HUBY;
 
   public SmartAutoTarget(Swerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, BooleanSupplier robotCentricSup) {
     // USING SWERVE FOR TAKING OVER ROTATION
@@ -45,8 +47,12 @@ public class SmartAutoTarget extends Command {
     // ALLIANCE SELECTION FROM DRIVER STATION
     if (alliance.isPresent() && alliance.get() == Alliance.Red) {
       isRedAlliance = true;
+      HUBX = Constants.Targeting.RED_ALLIANCE_HUB_CENTER_X;
+      HUBY = Constants.Targeting.RED_ALLIANCE_HUB_CENTER_Y;
     } else {
       isRedAlliance = false;
+      HUBX = Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_X;
+      HUBY = Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_Y;
     }
   }
 
@@ -61,15 +67,15 @@ public class SmartAutoTarget extends Command {
 
         PIDRotation = s_Swerve.pidCalculateAngle(newRotation);
       } else {
-
+        newRotation = this.s_Swerve.calculateTargetingPID(HUBX, HUBY);
       }
     } else {
       if (s_Swerve.inNeutralZone(isRedAlliance)) {
-        newRotation = this.s_Swerve.getAllianceWallHeading(isRedAlliance);
+        PIDRotation = this.s_Swerve.getAllianceWallHeading(isRedAlliance);
 
         PIDRotation = s_Swerve.pidCalculateAngle(newRotation);
       } else {
-        
+        PIDRotation = this.s_Swerve.calculateTargetingPID(HUBX, HUBY);
       }
     }
 
