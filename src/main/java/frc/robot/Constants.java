@@ -291,6 +291,9 @@ public final class Constants {
 
     public static final double BLUE_ALLIANCE_HUB_CENTER_X = 181.56;
     public static final double BLUE_ALLIANCE_HUB_CENTER_Y = 158.32;
+
+    public static final double RED_NEUTRAL_TOLERANCE_X = 203.76;
+    public static final double BLUE_NEUTRAL_TOLERANCE_X = 446.36;
     
 }
 

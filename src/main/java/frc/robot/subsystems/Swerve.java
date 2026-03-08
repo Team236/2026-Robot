@@ -696,6 +696,16 @@ public class Swerve extends SubsystemBase {
    return returnData;
   }
 
+  public boolean inNeutralZone(boolean isRedAlliance) {
+    Pose2d currentPose = getPose();
+    
+    if (isRedAlliance) {
+      return currentPose.getX() > Constants.Targeting.RED_NEUTRAL_TOLERANCE_X;
+    } else {
+      return currentPose.getX() < Constants.Targeting.BLUE_NEUTRAL_TOLERANCE_X;
+    }
+  }
+
     @Override
     public void periodic(){
         //SmartDashboard.putNumber("limelight standoff fwd", LimelightHelpers.getTargetPose_CameraSpace("limelight")[2]);
