@@ -17,7 +17,7 @@ public class SmartAutoTarget extends Command {
   private DoubleSupplier strafeSup;
   private BooleanSupplier robotCentricSup;
   private boolean isRedAlliance;
-  private double newRotation;
+  private double newTargetRotation;
   private double PIDRotation;
   private double HUBX;
   private double HUBY;
@@ -60,17 +60,17 @@ public class SmartAutoTarget extends Command {
 
     if (isRedAlliance) {
       if (s_Swerve.inNeutralZone(isRedAlliance)) {
-        newRotation = this.s_Swerve.getAllianceWallHeading(isRedAlliance);
+        newTargetRotation = this.s_Swerve.getAllianceWallHeading(isRedAlliance);
 
-        PIDRotation = s_Swerve.pidCalculateAngle(newRotation);
+        PIDRotation = s_Swerve.pidCalculateAngle(newTargetRotation);
       } else {
-        newRotation = this.s_Swerve.calculateTargetingPID(HUBX, HUBY);
+        PIDRotation = this.s_Swerve.calculateTargetingPID(HUBX, HUBY);
       }
     } else {
       if (s_Swerve.inNeutralZone(isRedAlliance)) {
-        PIDRotation = this.s_Swerve.getAllianceWallHeading(isRedAlliance);
+        newTargetRotation = this.s_Swerve.getAllianceWallHeading(isRedAlliance);
 
-        PIDRotation = s_Swerve.pidCalculateAngle(newRotation);
+        PIDRotation = s_Swerve.pidCalculateAngle(newTargetRotation);
       } else {
         PIDRotation = this.s_Swerve.calculateTargetingPID(HUBX, HUBY);
       }
