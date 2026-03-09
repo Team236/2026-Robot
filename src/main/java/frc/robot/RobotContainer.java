@@ -440,6 +440,10 @@ public class RobotContainer {
 
     // PathPlannerAuto pathPlannerAuto = AutoSwitchHelpers.getPathPlannerAuto();
     // return pathPlannerAuto;
+
+  //   if (!autoSwitch1.get() && !autoSwitch2.get() && !autoSwitch3.get() && !autoSwitch4.get()) {
+  //   return 
+  // } 
     
 
     // TODO ALSO: SHOULD LOOK AT PATHPLANNER WEBSITE FOR SENDABLE CHOOSERS; AUTO CAN BE SELECTED ON SMART DASHBOARD OR EQUIVALENT
@@ -456,7 +460,7 @@ public class RobotContainer {
 
     //below does not work currently (mirror flips y, does not affect x)
     //boolean shouldMirror = DriverStation.getAlliance().isPresent() ? DriverStation.getAlliance().get() == Alliance.Red : false;
-    return new PathPlannerAuto("srt0_neutral_trench_shoot_and_climb");
+    return new PathPlannerAuto("hub-shoot");
 
     // ------------------------------------------------
     // AUTO PATHS THAT HAVE BEEN TESTED
