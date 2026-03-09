@@ -76,7 +76,32 @@
         {
           "type": "path",
           "data": {
-            "pathName": "oc0_to_rt0"
+            "pathName": "oc0_to_rcs$"
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "shoot"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 5.0
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "rcs$_to_tr0"
           }
         },
         {
@@ -96,6 +121,12 @@
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "finish-climb"
           }
         },
         {
