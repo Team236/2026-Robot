@@ -6,6 +6,7 @@ package frc.robot;
 
 import java.util.Set;
 
+import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.util.PathPlannerLogging;
@@ -17,6 +18,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -89,7 +91,7 @@ public class RobotContainer {
   // private static DigitalInput autoSwitch2 = new DigitalInput(Constants.DIO_AUTO_2);
   // private static DigitalInput autoSwitch3 = new DigitalInput(Constants.DIO_AUTO_3);
   // private static DigitalInput autoSwitch4 = new DigitalInput(Constants.DIO_AUTO_4);
-
+  // private final SendableChooser<Command> autoChooser;
   // drive controls
   private final int translationAxis = XboxController.Axis.kLeftY.value;
   private final int strafeAxis = XboxController.Axis.kLeftX.value;
@@ -166,16 +168,15 @@ public class RobotContainer {
     NamedCommands.registerCommand("climb-l1-front", climberL1Front);
     NamedCommands.registerCommand("startup-prep", new Eject(preFeeder, mainRoller, floor));
     NamedCommands.registerCommand("intake", new PIDIntake(intake, 5500));
-    NamedCommands.registerCommand("bin-out", new PIDMove(binRelease, 30));
+    NamedCommands.registerCommand("bin-out", new PIDMove(binRelease, 31.8));
     NamedCommands.registerCommand("bin-zero", new PIDMove(binRelease, 0.0));
+    // autoChooser = AutoBuilder.buildAutoChooserWithOptionsModifier(
+    //   (stream) -> stream.filter(auto -> auto.)
+    // );
+    // SmartDashboard.putData("Auto Mode", autoChooser);
 
     configureBindings();
 
-    // zero climber and pivot on startup? hasn't worked yet
-    // CommandScheduler.getInstance().schedule(
-    //   new ZeroClimberStartup(climber),
-    //   new ZeroPivotStartup(shooterPivot)
-    // );
   }
 
   private void configureBindings() {
@@ -460,7 +461,7 @@ public class RobotContainer {
 
     //below does not work currently (mirror flips y, does not affect x)
     //boolean shouldMirror = DriverStation.getAlliance().isPresent() ? DriverStation.getAlliance().get() == Alliance.Red : false;
-    return new PathPlannerAuto("hub-shoot");
+    return new PathPlannerAuto("shc0_shoot_outpost_and_climb");
 
     // ------------------------------------------------
     // AUTO PATHS THAT HAVE BEEN TESTED

@@ -49,9 +49,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "race",
           "data": {
-            "pathName": "hcs$_to_oc0"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "hcs$_to_oc0"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "bin-out"
+                }
+              }
+            ]
           }
         },
         {
