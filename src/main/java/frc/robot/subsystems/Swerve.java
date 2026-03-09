@@ -704,28 +704,56 @@ public class Swerve extends SubsystemBase {
     return returnData;
     }
 
-    public boolean inNeutralZone() {
-        Pose2d currentPose = getPose();
+       public boolean inNeutralZone() {
+       Pose2d currentPose = getPose();
 
-        Optional<Alliance> alliance = DriverStation.getAlliance();
+       Optional<Alliance> alliance = DriverStation.getAlliance();
 
-        if (alliance.isPresent()) {
-            if (alliance.get() == Alliance.Red) {
-                return currentPose.getX() < Constants.Targeting.RED_NEUTRAL_TOLERANCE_X;
-            } else {
-                return currentPose.getX() > Constants.Targeting.BLUE_NEUTRAL_TOLERANCE_X;
-            }
-        }
-        return false;
-    }
+       if (alliance.isPresent()) {
+           if (alliance.get() == Alliance.Red) {
+               return currentPose.getX() < Units.inchesToMeters(Constants.Targeting.RED_NEUTRAL_TOLERANCE_X);
+           } else {
+               return currentPose.getX() > Units.inchesToMeters(Constants.Targeting.BLUE_NEUTRAL_TOLERANCE_X);
+           }
+       }
+       return false;
+   }
 
-    public double getAllianceWallHeading(boolean isRedAlliance) {
-        if (isRedAlliance) {
-            return 0;
-        } else {
-            return Math.toRadians(180);
-        }
-    }
+   public double getAllianceWallHeading(double HUBX, double HUBY) {
+       Pose2d currentPose = getPose();
+       boolean shouldPass = false;
+       var alliance = DriverStation.getAlliance();
+
+       if (alliance.isPresent()){
+           if (alliance.get() == Alliance.Red) {
+               if (currentPose.getX() < Units.inchesToMeters(Constants.Targeting.RED_NEUTRAL_TOLERANCE_X)) {
+                   shouldPass = true;
+               }
+           } else {
+               if (currentPose.getX() > Units.inchesToMeters(Constants.Targeting.BLUE_NEUTRAL_TOLERANCE_X)) {
+                   shouldPass = true;
+               }
+           }
+       }
+
+       if (shouldPass) {
+           if (alliance.get() == Alliance.Red) {
+               return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), 0);
+           } else {
+               return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(180));
+           }
+       }
+
+       double dx = HUBX - Units.metersToInches(currentPose.getX());
+       double dy = HUBY - Units.metersToInches(currentPose.getY());
+       double targetAngle = Math.atan2(dy, dx);
+
+
+       // USES PID TO ROTATE THE ROBOT EFFECTIVELY
+       double pidOutput = pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), targetAngle);
+       return pidOutput;
+   }
+
 
     public double getXtoHub(){
     Pose2d currentPose = getPose();
@@ -755,6 +783,7 @@ public class Swerve extends SubsystemBase {
         SmartDashboard.putNumber("** RobotPoseX (Estimator)", Units.metersToInches( m_poseEstimator.getEstimatedPosition().getX()));
         SmartDashboard.putNumber("** RobotPoseY (Estimator)", Units.metersToInches( m_poseEstimator.getEstimatedPosition().getY()));
         SmartDashboard.putNumber("MegaTag2Rotation (Estimator)", m_poseEstimator.getEstimatedPosition().getRotation().getDegrees());
+       SmartDashboard.putBoolean("Is in nuetral", inNeutralZone());
         //System.out.println(swerveOdometry.getPoseMeters().getX() + " " + swerveOdometry.getPoseMeters().getY() + " Rotation: " + swerveOdometry.getPoseMeters().getRotation().getDegrees());
 
         for(SwerveModule mod : mSwerveMods){
