@@ -173,11 +173,13 @@ public class Swerve extends SubsystemBase {
 //Methods start here:
 
     public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
+        var alliance = DriverStation.getAlliance();
+
         SwerveModuleState[] swerveModuleStates =
             Constants.Swerve.swerveKinematics.toSwerveModuleStates(
                 fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(
-                                    translation.getX(), 
-                                    translation.getY(), 
+                                    alliance.isPresent() && alliance.get() == Alliance.Red ? -translation.getX() : translation.getX(), 
+                                    alliance.isPresent() && alliance.get() == Alliance.Red ? -translation.getY() : translation.getY(), 
                                     rotation, 
                                     getHeading()
                                 )
