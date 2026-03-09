@@ -56,7 +56,7 @@ public void execute() {
    double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.stickDeadband);
    double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.stickDeadband);
 
-   newRotation = this.s_Swerve.getAllianceWallHeading(HUBX, HUBY);
+   PIDRotation = this.s_Swerve.getAllianceWallHeading(HUBX, HUBY);
 
    // DRIVE COMMAND WITH THE NEW INPUTS FOR ROTATION
    s_Swerve.drive(
