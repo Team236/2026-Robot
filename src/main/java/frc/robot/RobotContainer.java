@@ -263,6 +263,9 @@ public class RobotContainer {
 
     menu.whileTrue(runOuttakeTest);
 
+    // ********* NOT WORKING ***********
+    // view.whileTrue(Commands.defer((() -> s_Swerve.getClimbTargetingPath()), Set.of(s_Swerve)));
+
     // DRIVER
 
     // zero gyro bind above, field centric driving defined above
@@ -461,7 +464,7 @@ public class RobotContainer {
 
     //below does not work currently (mirror flips y, does not affect x)
     //boolean shouldMirror = DriverStation.getAlliance().isPresent() ? DriverStation.getAlliance().get() == Alliance.Red : false;
-    return new PathPlannerAuto("shc0_shoot_outpost_and_climb");
+    return new PathPlannerAuto("srt0_neutral_trench_shoot_and_climb");
 
     // ------------------------------------------------
     // AUTO PATHS THAT HAVE BEEN TESTED
