@@ -521,16 +521,7 @@ public class Swerve extends SubsystemBase {
     }
 
     public void MegaTag2UpdateOdometry() {
-        /* Replaced below with m_poseEstimator.update(getGyroYaw(), getModulePositions()); as done in periodic for swerve odometry
-        m_poseEstimator.update(
-            gyro.getRotation2d(),
-            new SwerveModulePosition[] {
-                mSwerveMods[0].getPosition(), //front left
-                mSwerveMods[1].getPosition(), //front right
-                mSwerveMods[2].getPosition(), //back left
-                mSwerveMods[3].getPosition()  //back right
-            });
-        */   
+
         m_poseEstimator.update(getGyroYaw(), getModulePositions());
 
         boolean useMegaTag2 = true; //set to false to use MegaTag1
