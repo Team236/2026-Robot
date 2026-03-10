@@ -53,6 +53,7 @@ public class Robot extends TimedRobot {
     Constants.Targeting.rpmMap.get(0.0); // warmup map (had delays on first access, this should solve that issue)
     Constants.Targeting.preFeederMap.get(0.0); // warmup map (had delays on first access, this should solve that issue)
     Constants.Targeting.timeMap.get(0.0);
+    Constants.Targeting.nuetralMap.get(0.0);
     // myPDH.setSwitchableChannel(true);
 //
  // UsbCamera usbCamera0;
