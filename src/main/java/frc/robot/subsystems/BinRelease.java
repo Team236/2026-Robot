@@ -126,14 +126,14 @@ public class BinRelease extends SubsystemBase {
 
     public boolean isFullyRetracted(){   
         //want to zero the encoder when this limit is hit
-        return !maxRetractLimit.get(); // have to add not (!) because on the robot it is by default true
-        }
+        return maxRetractLimit.get(); // have to add not (!) because on the robot it is by default true
+    }
 
     public boolean isFullyExtended(){   
         // TBD make sure encoder reading is increasing as mechanism extends, so the ">" sign works below
-        return (getEncoderRevolutions() > Constants.BinReleaseConstants.ENC_REVS_MAX); //set to a high value at first, for code testing
-        // return (!maxExtendLimit.get() || getEncoderRevolutions() > Constants.BinReleaseConstants.ENC_REVS_MAX);
-        }
+        // return (getEncoderRevolutions() > Constants.BinReleaseConstants.ENC_REVS_MAX); //set to a high value at first, for code testing
+        return (maxExtendLimit.get() || getEncoderRevolutions() > Constants.BinReleaseConstants.ENC_REVS_MAX);
+    }
 
     public void manualSetSpeedSafe(double speed){
         if (isFullyRetracted() && speed < 0) {
