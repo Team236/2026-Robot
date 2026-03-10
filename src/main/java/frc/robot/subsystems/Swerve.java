@@ -534,58 +534,62 @@ public class Swerve extends SubsystemBase {
         m_poseEstimator.update(getGyroYaw(), getModulePositions());
 
         boolean useMegaTag2 = true; //set to false to use MegaTag1
-        boolean doUpdate = true;
+
         // evaluating which Megatag one or two to use based on above boolean value and 
         // only incorporate Limelight's estimates when more than one tag is visible (tagcount >= 1)
         if (useMegaTag2 == false)
         {
-            LimelightHelpers.PoseEstimate mt1 = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
+            for (String limelightName : Constants.Targeting.CAMERA_NAMES) {
+                boolean useThisEstimate = true;
+                LimelightHelpers.PoseEstimate estimateMT1 = LimelightHelpers.getBotPoseEstimate_wpiBlue(limelightName);
 
-            // sometimes when starting robot/building code, mt1 == null for a split second, so need to check for that or code errors and crashes
-            if (mt1 == null) {
-                return;
-            }
+                if (estimateMT1 == null) {
+                    break; // if estimate is null, skip to next limelight (this is to prevent errors/crashes when limelight is not detected for a split second, which happens sometimes when starting robot/building code)
+                }
 
-            if(mt1.tagCount == 1 && mt1.rawFiducials.length == 1)
-            {
-                if(mt1.rawFiducials[0].ambiguity > .7) { doUpdate = false; }
-                if(mt1.rawFiducials[0].distToCamera > 3) { doUpdate = false; }
-            }
-            if(mt1.tagCount == 0) {
-                doUpdate = false; 
-            }
-            if(doUpdate) {     // if doUpdate is true, then update the pose estimator (this used to be doRejectUpdate; logic was changed)
-                m_poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,0.01));
-                m_poseEstimator.addVisionMeasurement(
-                    mt1.pose,
-                    mt1.timestampSeconds);
-            }
+                if((estimateMT1.tagCount == 1 && estimateMT1.rawFiducials.length == 1))
+                {   
+                    if(estimateMT1.rawFiducials[0].ambiguity > .7) { useThisEstimate = false; }
+                    if(estimateMT1.rawFiducials[0].distToCamera > 3) { useThisEstimate = false; }
+                }
+
+                if(estimateMT1.tagCount == 0) { // if no tags are visible, ignore vision updates
+                    useThisEstimate = false; 
+                }
+
+                if(useThisEstimate) {
+                    m_poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,0.01));
+                    m_poseEstimator.addVisionMeasurement(
+                        estimateMT1.pose,
+                        estimateMT1.timestampSeconds);
+                }
+            }       
         } else if (useMegaTag2) {
-            // only incorporate Limelight's estimates when more than one tag is visible (tagcount >= 1)
-            // line below is required because megatag2 requires the limelight to know the robot's current rotation, as it USES it instead of providing it like in MT1
-            LimelightHelpers.SetRobotOrientation("limelight", m_poseEstimator.getEstimatedPosition().getRotation().getDegrees(), 0, 0, 0, 0, 0);
-            LimelightHelpers.PoseEstimate mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight");
-            
-            // sometimes when starting robot/building code, mt2 == null for a split second, so need to check for that or code errors and crashes
-            if (mt2 == null) {
-                return;
-            }
-            
-            if (Math.abs(gyro.getAngularVelocityZWorld().getValueAsDouble()) > 720 || mt2.tagCount == 0) // if our angular velocity is greater than 720 degrees per second, ignore vision updates
-            {
-                doUpdate = false;
-            }
+            for (String limelightName : Constants.Targeting.CAMERA_NAMES) {   
+                boolean useThisEstimate = true;
+                // only incorporate Limelight's estimates when more than one tag is visible (tagcount >= 1)
+                // line below is required because megatag2 requires the limelight to know the robot's current rotation, as it USES it instead of providing it like in MT1
+                LimelightHelpers.SetRobotOrientation(limelightName, m_poseEstimator.getEstimatedPosition().getRotation().getDegrees(), 0, 0, 0, 0, 0);
+                LimelightHelpers.PoseEstimate estimateMT2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(limelightName);
+                
+                // sometimes when starting robot/building code, mt2 == null for a split second, so need to check for that or code errors and crashes
+                if (estimateMT2 == null) {
+                    break;
+                }
+                
+                if (Math.abs(gyro.getAngularVelocityZWorld().getValueAsDouble()) > 720 || estimateMT2.tagCount == 0) // if our angular velocity is greater than 720 degrees per second, ignore vision updates
+                {
+                    useThisEstimate = false;
+                }
 
-            if (doUpdate)
-            {
-                // this line basically sets the "trust" level of vision measurements; higher number means to trust it less, and hence weight vision 
-                // measurements a lot less. In this case, the rotation stddev was enormous (9999999), so its essentially ignored entirely.
-                // update 11/12 it seems like according to limelight docs megatag2 does not calculate heading at all, number likely irrelevant 
-
-                m_poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7, 999999)); // n3 was 9999999 
-                m_poseEstimator.addVisionMeasurement(
-                    mt2.pose,
-                    mt2.timestampSeconds);
+                if (useThisEstimate)
+                {
+                    // n3 (yaw) set to high number because MegaTag2 uses robot's yaw instead of getting it for you
+                    m_poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7, 999999)); // n3 was 9999999 
+                    m_poseEstimator.addVisionMeasurement(
+                        estimateMT2.pose,
+                        estimateMT2.timestampSeconds);
+                }
             }
         }
     }

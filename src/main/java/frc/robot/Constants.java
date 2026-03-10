@@ -188,6 +188,12 @@ public final class Constants {
     // public static final double KP_TRANSLATION = 0.4;//kP value for forward (translation) motion
     // public static final double KP_STRAFE = 0.9;// 0.475;  //kP value for the sideways (strafe) motio%n 
 
+    public static final String[] CAMERA_NAMES = 
+    {
+        "limelight", // front limelight (4)
+        "limelight-back" // back limelight (3G)
+    };
+
     public static final double CHASSIS_WIDTH_INCHES = 27.5;
     public static final double CHASSIS_WIDTH_METERS = Units.inchesToMeters(CHASSIS_WIDTH_INCHES);
     public static final double ROBOT_WIDTH_INCHES = 33.5;
