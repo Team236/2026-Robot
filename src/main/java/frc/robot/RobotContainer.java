@@ -167,8 +167,8 @@ public class RobotContainer {
     NamedCommands.registerCommand("prep-climber", climberPrep);
     NamedCommands.registerCommand("climb-l1-front", climberL1Front);
     NamedCommands.registerCommand("startup-prep", new Eject(preFeeder, mainRoller, floor));
-    NamedCommands.registerCommand("intake", new PIDIntake(intake, 5500));
-    NamedCommands.registerCommand("bin-out", new PIDMove(binRelease, 31.8));
+    NamedCommands.registerCommand("intake", new IntakeWithBinExtend(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION, intake, 5500));
+    NamedCommands.registerCommand("bin-out", new PIDMove(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION));
     NamedCommands.registerCommand("bin-zero", new PIDMove(binRelease, 0.0));
     autoChooser = AutoBuilder.buildAutoChooserWithOptionsModifier(
       (stream) -> stream.filter(auto -> auto.getName().startsWith("COMP"))
