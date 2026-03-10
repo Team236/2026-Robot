@@ -753,12 +753,12 @@ public class Swerve extends SubsystemBase {
                 // RED ALLIANCE LOGIC
                 if (alliance.isPresent() && alliance.get() == Alliance.Red) {
                     if (yVelocity > velocityThreshold) {
-                        if(currentY > Constants.Targeting.RED_NEUTRAL_MID_RIGHT){
+                        if(currentY > Units.inchesToMeters(Constants.Targeting.RED_NEUTRAL_MID_RIGHT)){
                             return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(45));
                         } 
                     } 
                     else if (yVelocity > -velocityThreshold) {
-                        if (currentY < Constants.Targeting.RED_NEUTRAL_MID_LEFT) { 
+                        if (currentY < Units.inchesToMeters(Constants.Targeting.RED_NEUTRAL_MID_LEFT)) { 
                             return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(-45));
                         }
                     }
@@ -766,12 +766,12 @@ public class Swerve extends SubsystemBase {
                 // BLUE ALLIANCE LOGIC
                 else if (alliance.isPresent() && alliance.get() == Alliance.Blue) {
                     if (yVelocity > velocityThreshold) {
-                        if(currentY > Constants.Targeting.BLUE_NEUTRAL_MID_LEFT){ 
+                        if(currentY > Units.inchesToMeters(Constants.Targeting.BLUE_NEUTRAL_MID_LEFT)){ 
                             return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(45));
                         } 
                     } 
-                    else if (yVelocity < -velocityThreshold) {
-                        if (currentY < Constants.Targeting.BLUE_NEUTRAL_MID_RIGHT) { 
+                    else if (yVelocity > -velocityThreshold) {
+                        if (currentY < Units.inchesToMeters(Constants.Targeting.BLUE_NEUTRAL_MID_RIGHT)) { 
                             return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(-45));
                         }
                     }
