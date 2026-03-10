@@ -303,7 +303,13 @@ public final class Constants {
 
     public static final double RED_NEUTRAL_TOLERANCE_X = 446.36;
     public static final double BLUE_NEUTRAL_TOLERANCE_X = 203.76;
-    
+
+   public static final double RED_NEUTRAL_MID_RIGHT = 125;
+   public static final double RED_NEUTRAL_MID_LEFT = 192;
+
+
+   public static final double BLUE_NEUTRAL_MID_RIGHT = 192;
+   public static final double BLUE_NEUTRAL_MID_LEFT = 125;
 }
 
 public static final class PathPlanner { //TODO -- UPDATE TO NEW ROBOT
