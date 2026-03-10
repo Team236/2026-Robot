@@ -751,26 +751,26 @@ public class Swerve extends SubsystemBase {
             if (inNeutralMid(Units.metersToInches(currentPose.getY()))) {
                 
                 // RED ALLIANCE LOGIC
-                if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+                if (alliance.get() == Alliance.Red) {
                     if (yVelocity > velocityThreshold) {
                         if(currentY > Units.inchesToMeters(Constants.Targeting.RED_NEUTRAL_MID_RIGHT)){
                             return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(45));
                         } 
                     } 
-                    else if (yVelocity > -velocityThreshold) {
+                    else if (yVelocity < -velocityThreshold) { // <-- FIXED HERE
                         if (currentY < Units.inchesToMeters(Constants.Targeting.RED_NEUTRAL_MID_LEFT)) { 
                             return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(-45));
                         }
                     }
                 } 
                 // BLUE ALLIANCE LOGIC
-                else if (alliance.isPresent() && alliance.get() == Alliance.Blue) {
+                else if (alliance.get() == Alliance.Blue) {
                     if (yVelocity > velocityThreshold) {
                         if(currentY > Units.inchesToMeters(Constants.Targeting.BLUE_NEUTRAL_MID_LEFT)){ 
                             return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(45));
                         } 
                     } 
-                    else if (yVelocity > -velocityThreshold) {
+                    else if (yVelocity < -velocityThreshold) { // <-- FIXED HERE
                         if (currentY < Units.inchesToMeters(Constants.Targeting.BLUE_NEUTRAL_MID_RIGHT)) { 
                             return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(-45));
                         }
