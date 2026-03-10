@@ -24,38 +24,13 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "shc0_to_hcs$"
-          }
-        },
-        {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "shoot"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 4.0
-                }
-              }
-            ]
-          }
-        },
-        {
           "type": "race",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "hcs$_to_oc0"
+                  "pathName": "shc0_to_oc0"
                 }
               },
               {
@@ -70,7 +45,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 3.0
+            "waitTime": 1.0
           }
         },
         {
