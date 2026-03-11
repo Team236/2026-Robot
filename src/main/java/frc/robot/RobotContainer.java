@@ -171,11 +171,11 @@ public class RobotContainer {
     NamedCommands.registerCommand("intake", new IntakeWithBinExtend(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION, intake, 5500));
     NamedCommands.registerCommand("bin-out", new PIDMove(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION));
     NamedCommands.registerCommand("bin-zero", new PIDMove(binRelease, 0.0));
-    autoChooser = AutoBuilder.buildAutoChooserWithOptionsModifier(
-      (stream) -> stream.filter(auto -> auto.getName().startsWith("COMP"))
-    );
-    // autoChooser = null;
-    SmartDashboard.putData("Auto Mode", autoChooser);
+    // autoChooser = AutoBuilder.buildAutoChooserWithOptionsModifier(
+    //   (stream) -> stream.filter(auto -> auto.getName().startsWith("COMP"))
+    // );
+    autoChooser = null;
+    // SmartDashboard.putData("Auto Mode", autoChooser);
 
     configureBindings();
 
@@ -332,6 +332,7 @@ public class RobotContainer {
     boolean mirror = false;
     AutoSwitchHelpers.put(false, false, false, false, new PathPlannerAuto("COMP-trench-outpost-climb", mirror));
     AutoSwitchHelpers.put(true, false, false, false, new PathPlannerAuto("COMP-srt0_neutral_trench_shoot_and_climb", mirror));
+    AutoSwitchHelpers.put(false, true, false, false, new PathPlannerAuto("srbc135_bump_neutral_bump_shoot_and_climb", mirror));
 
     PathPlannerAuto pathPlannerAuto = AutoSwitchHelpers.getPathPlannerAuto();
     return pathPlannerAuto;
