@@ -57,7 +57,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "nbrc90_to_rcs$_via_bump"
+            "pathName": "nbrcr90_to_rbcs$_via_bump"
           }
         },
         {
@@ -82,7 +82,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "rcs$_to_tr0"
+            "pathName": "rbcs$_to_tr0"
           }
         },
         {
