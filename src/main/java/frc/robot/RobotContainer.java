@@ -332,7 +332,7 @@ public class RobotContainer {
     boolean mirror = false;
     AutoSwitchHelpers.put(false, false, false, false, new PathPlannerAuto("COMP-trench-outpost-climb", mirror));
     AutoSwitchHelpers.put(true, false, false, false, new PathPlannerAuto("COMP-srt0_neutral_trench_shoot_and_climb", mirror));
-    AutoSwtichHelpers.put(false, true, false, false, new PathPlannerAuto("srbc135_bump_neutral_bump_shoot_and_climb", mirror));
+    AutoSwitchHelpers.put(false, true, false, false, new PathPlannerAuto("srbc135_bump_neutral_bump_shoot_and_climb", mirror));
 
     PathPlannerAuto pathPlannerAuto = AutoSwitchHelpers.getPathPlannerAuto();
     return pathPlannerAuto;
