@@ -171,10 +171,11 @@ public class RobotContainer {
     NamedCommands.registerCommand("intake", new IntakeWithBinExtend(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION, intake, 5500));
     NamedCommands.registerCommand("bin-out", new PIDMove(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION));
     NamedCommands.registerCommand("bin-zero", new PIDMove(binRelease, 0.0));
-    autoChooser = AutoBuilder.buildAutoChooserWithOptionsModifier(
-      (stream) -> stream.filter(auto -> auto.getName().startsWith("COMP"))
-    );
-    SmartDashboard.putData("Auto Mode", autoChooser);
+    // autoChooser = AutoBuilder.buildAutoChooserWithOptionsModifier(
+    //   (stream) -> stream.filter(auto -> auto.getName().startsWith("COMP"))
+    // );
+    autoChooser = null;
+    // SmartDashboard.putData("Auto Mode", autoChooser);
 
     configureBindings();
 
