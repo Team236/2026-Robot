@@ -329,7 +329,7 @@ public class Swerve extends SubsystemBase {
             if (robotPoseBlue.getY() < Constants.Targeting.BLUE_TOWER_CENTER_Y_METERS) {
                 pathEndPose = new Pose2d(1.146 + Constants.Targeting.ROBOT_WIDTH_METERS / 2.0, 3.302, Rotation2d.fromDegrees(180)); 
             } else {
-                pathEndPose = new Pose2d(1.146 + Constants.Targeting.ROBOT_WIDTH_METERS / 2.0, 4.153, Rotation2d.fromDegrees(180));
+                pathEndPose = new Pose2d(1.146 + Constants.Targeting.ROBOT_WIDTH_METERS / 2.0, 4.162, Rotation2d.fromDegrees(180));
             }
 
             Rotation2d splineHeading = pathEndPose.getTranslation().minus(robotPoseBlue.getTranslation()).getAngle();

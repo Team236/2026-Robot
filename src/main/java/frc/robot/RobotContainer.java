@@ -227,32 +227,32 @@ public class RobotContainer {
     Trigger lt1 = new Trigger(() -> auxController.getRawAxis(Constants.XboxController.AxesXbox.LTrig) > 0.5);
     Trigger rt1 = new Trigger(() -> auxController.getRawAxis(Constants.XboxController.AxesXbox.RTrig) > 0.5);
 
-    Trigger joystickUp = new Trigger(() -> auxController.getRawAxis(XboxController.Axis.kLeftY.value) < -.5);
-    Trigger joystickDown = new Trigger(() -> auxController.getRawAxis(XboxController.Axis.kLeftY.value) > .5);
+    Trigger joystickUp1 = new Trigger(() -> auxController.getRawAxis(XboxController.Axis.kLeftY.value) < -.5);
+    Trigger joystickDown1 = new Trigger(() -> auxController.getRawAxis(XboxController.Axis.kLeftY.value) > .5);
 
     // command binds
     // a.onTrue(algaeGrab).onTrue(l3_Score); *EXAMPLE
 
-    rt.whileTrue(new SmartAutoTarget(
-        s_Swerve, 
-        () -> -driverController.getRawAxis(translationAxis), 
-        () -> -driverController.getRawAxis(strafeAxis), 
-        () -> robotCentric.getAsBoolean()
-    ));
+    // rt.whileTrue(new SmartAutoTarget(
+    //     s_Swerve, 
+    //     () -> -driverController.getRawAxis(translationAxis), 
+    //     () -> -driverController.getRawAxis(strafeAxis), 
+    //     () -> robotCentric.getAsBoolean()
+    // ));
 
-    lt.whileTrue(intakeWithBinExtend);
+    // lt.whileTrue(intakeWithBinExtend);
 
-    b.whileTrue(climberManualUp);
-    x.whileTrue(climberManualDown);
+    // b.whileTrue(climberManualUp);
+    // x.whileTrue(climberManualDown);
 
-    a.whileTrue(new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder, floor, intake, binRelease));
+    // a.whileTrue(new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder, floor, intake, binRelease));
 
-    upPov.whileTrue(binManualRetract);
-    downPov.whileTrue(binManualExtend);
-    leftPov.whileTrue(manualPivotRetract);
-    rightPov.whileTrue(manualPivotExtend);
+    // upPov.whileTrue(binManualRetract);
+    // downPov.whileTrue(binManualExtend);
+    // leftPov.whileTrue(manualPivotRetract);
+    // rightPov.whileTrue(manualPivotExtend);
 
-    menu.whileTrue(runOuttakeTest);
+    // menu.whileTrue(runOuttakeTest);
 
     // ********* NOT WORKING ***********
     // view.whileTrue(Commands.defer((() -> s_Swerve.getClimbTargetingPath()), Set.of(s_Swerve)));
@@ -265,20 +265,22 @@ public class RobotContainer {
 
     // zero gyro bind above, field centric driving defined above
 
-    // rt.whileTrue(new AutoPivotTowardHub(
-    //     s_Swerve, 
-    //     () -> -driverController.getRawAxis(translationAxis), 
-    //     () -> -driverController.getRawAxis(strafeAxis), 
-    //     () -> robotCentric.getAsBoolean()
-    // ));
+    rt.whileTrue(new SmartAutoTarget(
+        s_Swerve, 
+        () -> -driverController.getRawAxis(translationAxis), 
+        () -> -driverController.getRawAxis(strafeAxis), 
+        () -> robotCentric.getAsBoolean()
+    ));
 
-    // upPov.whileTrue(binManualRetract);
-    // downPov.whileTrue(binManualExtend);
+    upPov.whileTrue(binManualRetract);
+    downPov.whileTrue(binManualExtend);
 
-    // b.whileTrue(Commands.defer((() -> s_Swerve.getClimbTargetingPath()), Set.of(s_Swerve))); // NOT WORKING WANTS ALIGN SIDE
-    // x.whileTrue(Commands.defer((() -> s_Swerve.getClimbTargetingPath()), Set.of(s_Swerve))); // NOT WORKING WANTS ALIGN FRONT
+    b.whileTrue(Commands.defer((() -> s_Swerve.getClimbTargetingPath()), Set.of(s_Swerve))); // NOT WORKING WANTS ALIGN SIDE
+    x.whileTrue(Commands.defer((() -> s_Swerve.getClimbTargetingPath()), Set.of(s_Swerve))); // NOT WORKING WANTS ALIGN FRONT
 
-    // menu.whileTrue(new EjectWithOuttake(preFeeder, mainRoller, floor, binRelease, intake));
+    menu.whileTrue(new EjectWithOuttake(preFeeder, mainRoller, floor, binRelease, intake));
+
+    a.whileTrue(new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder, floor, intake, binRelease));
 
 
 
@@ -286,25 +288,25 @@ public class RobotContainer {
     // FINAL AUX BUTTONS
     // ------------------
 
-    // view1.onTrue(climberPrep);
-    // menu1.onTrue(climberL1Front);
+    view1.onTrue(climberPrep);
+    menu1.onTrue(climberL1Front);
 
-    // upPov1.whileTrue(climberManualUp);
-    // rightPov1.whileTrue(climberManualDown);
+    upPov1.whileTrue(climberManualUp);
+    downPov1.whileTrue(climberManualDown);
 
-    // downPov.whileTrue(binManualRetract);
-    // leftPov.whileTrue(binManualExtend);
+    leftPov1.whileTrue(binManualRetract);
+    rightPov1.whileTrue(binManualExtend);
 
-    // a1.whileTrue(new IntakeWithBinExtend(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION, intake, 4500));
-    // b.whileTrue(new IntakeWithBinExtend(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION, intake, -4500));
+    a1.whileTrue(new IntakeWithBinExtend(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION, intake, 4500));
+    b1.whileTrue(new IntakeWithBinExtend(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION, intake, -4500));
 
-    // x.whileTrue(new PIDMove(binRelease, 0));
-    // y.whileTrue(new PIDMove(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION));
+    x1.onTrue(new PIDMove(binRelease, 0));
+    y1.onTrue(new PIDMove(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION));
 
-    // joystickUp.whileTrue(manualPivotExtend);
-    // joystickDown.whileTrue(manualPivotRetract);
+    joystickUp1.whileTrue(manualPivotExtend);
+    joystickDown1.whileTrue(manualPivotRetract);
 
-    // rt.whileTrue (pidShoot);
+    rt1.whileTrue (new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder, floor, intake, binRelease));
 
     // -----------------------
     // TESTING COMMANDS BELOW
