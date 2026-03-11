@@ -329,16 +329,16 @@ public class RobotContainer {
     
     // SmartDashboard.putString("Auto", "none");
 
-    // boolean mirror = false;
-    // AutoSwitchHelpers.put(false, false, false, false, new PathPlannerAuto("srt0_neutral_bump_shoot_and_climb", mirror));
-    // AutoSwitchHelpers.put(true, false, false, false, new PathPlannerAuto("srt0_neutral_trench_shoot_and_climb", mirror));
+    boolean mirror = false;
+    AutoSwitchHelpers.put(false, false, false, false, new PathPlannerAuto("COMP-trench-outpost-climb", mirror));
+    AutoSwitchHelpers.put(true, false, false, false, new PathPlannerAuto("COMP-srt0_neutral_trench_shoot_and_climb", mirror));
 
-    // PathPlannerAuto pathPlannerAuto = AutoSwitchHelpers.getPathPlannerAuto();
-    // return pathPlannerAuto;
+    PathPlannerAuto pathPlannerAuto = AutoSwitchHelpers.getPathPlannerAuto();
+    return pathPlannerAuto;
 
-  //   if (!autoSwitch1.get() && !autoSwitch2.get() && !autoSwitch3.get() && !autoSwitch4.get()) {
-  //   return 
-  // } 
+    // if (!autoSwitch1.get() && !autoSwitch2.get() && !autoSwitch3.get() && !autoSwitch4.get()) {
+    //   return
+    // } 
     
 
     // TODO ALSO: SHOULD LOOK AT PATHPLANNER WEBSITE FOR SENDABLE CHOOSERS; AUTO CAN BE SELECTED ON SMART DASHBOARD OR EQUIVALENT
@@ -355,7 +355,7 @@ public class RobotContainer {
 
     //below does not work currently (mirror flips y, does not affect x)
     //boolean shouldMirror = DriverStation.getAlliance().isPresent() ? DriverStation.getAlliance().get() == Alliance.Red : false;
-    return new PathPlannerAuto("srt0_neutral_trench_shoot_and_climb");
+    // return new PathPlannerAuto("srt0_neutral_trench_shoot_and_climb");
 
     // ------------------------------------------------
     // AUTO PATHS THAT HAVE BEEN TESTED
