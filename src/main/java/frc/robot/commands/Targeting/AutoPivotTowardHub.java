@@ -60,10 +60,10 @@ public class AutoPivotTowardHub extends Command {
 
     double angleDelta = Units.radiansToDegrees(s_Swerve.getAngleOfHub(HUBX, HUBY)) - s_Swerve.getHeading().getDegrees();
     double angleDeltaMod = MathUtil.inputModulus(angleDelta, -180, 180);
-    SmartDashboard.putNumber("angle delta", angleDelta);
-    SmartDashboard.putNumber("angle delta mod", angleDeltaMod);
-    SmartDashboard.putNumber("robot angle", s_Swerve.getHeading().getDegrees());
-    SmartDashboard.putNumber("hub angle", Units.radiansToDegrees(s_Swerve.getAngleOfHub(HUBX, HUBY)));
+    // SmartDashboard.putNumber("angle delta", angleDelta);
+    // SmartDashboard.putNumber("angle delta mod", angleDeltaMod);
+    // SmartDashboard.putNumber("robot angle", s_Swerve.getHeading().getDegrees());
+    // SmartDashboard.putNumber("hub angle", Units.radiansToDegrees(s_Swerve.getAngleOfHub(HUBX, HUBY)));
     // MATH IS AT https://tinyurl.com/mvjft42z
     newRotation = this.s_Swerve.calculateTargetingPID(HUBX, HUBY);
     // if current angle is within tolerance of target, don't feed any rotation

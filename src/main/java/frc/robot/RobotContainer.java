@@ -171,11 +171,11 @@ public class RobotContainer {
     NamedCommands.registerCommand("intake", new IntakeWithBinExtend(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION, intake, 5500));
     NamedCommands.registerCommand("bin-out", new PIDMove(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION));
     NamedCommands.registerCommand("bin-zero", new PIDMove(binRelease, 0.0));
-    // autoChooser = AutoBuilder.buildAutoChooserWithOptionsModifier(
-    //   (stream) -> stream.filter(auto -> auto.getName().startsWith("COMP"))
-    // );
-    autoChooser = null;
-    // SmartDashboard.putData("Auto Mode", autoChooser);
+    autoChooser = AutoBuilder.buildAutoChooserWithOptionsModifier(
+      (stream) -> stream.filter(auto -> auto.getName().startsWith("COMP"))
+    );
+    // autoChooser = null;
+    SmartDashboard.putData("Auto Mode", autoChooser);
 
     configureBindings();
 
@@ -297,8 +297,8 @@ public class RobotContainer {
     leftPov1.whileTrue(binManualRetract);
     rightPov1.whileTrue(binManualExtend);
 
-    a1.whileTrue(new IntakeWithBinExtend(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION, intake, 4500));
-    b1.whileTrue(new IntakeWithBinExtend(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION, intake, -4500));
+    a1.whileTrue(new IntakeWithBinExtend(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION, intake, 3500));
+    b1.whileTrue(new EjectWithOuttake(preFeeder, mainRoller, floor, binRelease, intake));
 
     x1.onTrue(new PIDMove(binRelease, 0));
     y1.onTrue(new PIDMove(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION));
