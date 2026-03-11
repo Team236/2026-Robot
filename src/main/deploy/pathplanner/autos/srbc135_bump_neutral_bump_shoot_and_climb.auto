@@ -17,13 +17,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "bin-out"
+                  "name": "startup-prep"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "startup-prep"
+                  "name": "bin-out"
                 }
               }
             ]
@@ -34,25 +34,24 @@
           "data": {
             "commands": [
               {
-                "type": "sequential",
+                "type": "path",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "srbc135_to_nbc90"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "nbc90_to_rcs$"
-                      }
-                    }
-                  ]
+                  "pathName": "srbc135_to_nbrcr90"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "intake"
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "nbrc90_to_rcs$_via_bump"
           }
         },
         {
@@ -84,6 +83,12 @@
           "type": "race",
           "data": {
             "commands": [
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 2.0
+                }
+              },
               {
                 "type": "named",
                 "data": {
