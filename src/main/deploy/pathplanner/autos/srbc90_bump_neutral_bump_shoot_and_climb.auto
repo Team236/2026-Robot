@@ -5,6 +5,12 @@
     "data": {
       "commands": [
         {
+          "type": "path",
+          "data": {
+            "pathName": "srbc90_to_srbc135"
+          }
+        },
+        {
           "type": "race",
           "data": {
             "commands": [
