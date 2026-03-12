@@ -710,15 +710,28 @@ public class Swerve extends SubsystemBase {
     }
 
    public double getDistanceToHub() {
-        double HUBX = getHubX();
-        double HUBY = getHubY();
-      // CALCULATED THE DISTANCE TO THE CENTER OF THE HUB
-      Pose2d currentPose = getPose();
-      double dx = HUBX - Units.metersToInches(currentPose.getX());
-      double dy = HUBY - Units.metersToInches(currentPose.getY());
-      double distance = Math.hypot(dy, dx);
-  
-      return distance;
+
+    Optional<Alliance> alliance = DriverStation.getAlliance();
+    double HUBX;
+    double HUBY;
+
+    if (alliance.isPresent()) {
+           if (alliance.get() == Alliance.Red) {
+                HUBX = Constants.Targeting.RED_ALLIANCE_HUB_CENTER_X;
+                HUBY = Constants.Targeting.RED_ALLIANCE_HUB_CENTER_Y;
+           } else {
+                HUBX = Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_X;
+                HUBY = Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_Y;
+           }
+           // CALCULATED THE DISTANCE TO THE CENTER OF THE HUB
+            Pose2d currentPose = getPose();
+            double dx = HUBX - Units.metersToInches(currentPose.getX());
+            double dy = HUBY - Units.metersToInches(currentPose.getY());
+            double distance = Math.hypot(dy, dx);
+        
+            return distance;
+       }
+      return 0;
    }
 
    // THIS IS A DUPLICATE OF calculateTargetingAutoPID (DONT KNOW??)
