@@ -172,11 +172,11 @@ public class RobotContainer {
     NamedCommands.registerCommand("intake", new IntakeWithBinExtend(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION, intake, 5500));
     NamedCommands.registerCommand("bin-out", new PIDMove(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION));
     NamedCommands.registerCommand("bin-zero", new PIDMove(binRelease, 0.0));
-    autoChooser = AutoBuilder.buildAutoChooserWithOptionsModifier(
-      (stream) -> stream.filter(auto -> auto.getName().startsWith("COMP"))
-    );
-    // autoChooser = null;
-    SmartDashboard.putData("Auto Mode", autoChooser);
+    // autoChooser = AutoBuilder.buildAutoChooserWithOptionsModifier(
+    //   (stream) -> stream.filter(auto -> auto.getName().startsWith("COMP"))
+    // );
+    autoChooser = null;
+    // SmartDashboard.putData("Auto Mode", autoChooser);
 
     configureBindings();
 
@@ -306,66 +306,66 @@ public class RobotContainer {
   
   public Command getAutonomousCommand() 
   {  
-    return autoChooser.getSelected();
+    // return autoChooser.getSelected();
 
     // SmartDashboard.putString("Auto", "none");
-    // boolean mirror = false;
+    boolean mirror = false;
 
        //RIGHT means the OUTPOST side of the field
        //LEFT means the DEPOT side of the field
 
     //OOOO (OFF OFF OFF OFF)  Right Trench w/ Bin facing Drivers, Outpost, Shoot, front Right Tower Climb 
-    // AutoSwitchHelpers.put(false, false, false, false, new PathPlannerAuto("COMP-trench-outpost-climb", mirror));
+    AutoSwitchHelpers.put(false, false, false, false, new PathPlannerAuto("COMP-trench-outpost-climb", mirror));
 
     // //OOOX (OFF OFF OFF ON)  Right Trench w/ Bin facing away, Neutral Zone, Right Trench, Shoot, front Right Tower Climb 
-    // AutoSwitchHelpers.put(false, false, false, true, new PathPlannerAuto("COMP-srt0_neutral_trench_shoot_and_climb", mirror));
+    AutoSwitchHelpers.put(false, false, false, true, new PathPlannerAuto("COMP-srt0_neutral_trench_shoot_and_climb", mirror));
 
     // //OOXO (OFF OFF ON OFF)  Left Trench w/ Bin facing away, Neutral Zone, Left Trench, Shoot, front Left Tower Climb 
-    // AutoSwitchHelpers.put(false, false, true, false, new PathPlannerAuto("COMP-inverse-srt0_neutral_trench_shoot_and_climb", mirror));
+    AutoSwitchHelpers.put(false, false, true, false, new PathPlannerAuto("COMP-inverse-srt0_neutral_trench_shoot_and_climb", mirror));
 
     // //OOXX (OFF OFF ON ON)   Center Hub w/ Bin facing Hub, Shoot (no climb, just move back a few inches and shoot 8 Fuel)
-    // AutoSwitchHelpers.put(false, false, true, true, new PathPlannerAuto("COMP-hub-shoot", mirror));
+    AutoSwitchHelpers.put(false, false, true, true, new PathPlannerAuto("COMP-hub-shoot", mirror));
 
     // //OXOO (OFF ON OFF OFF)  Center Hub w/ Bin facing Hub, Shoot, Climb Left front Tower
-    // AutoSwitchHelpers.put(false, true, false, false, new PathPlannerAuto("COMP-hub-shoot-and-left-climb", mirror));
+    AutoSwitchHelpers.put(false, true, false, false, new PathPlannerAuto("COMP-hub-shoot-and-left-climb", mirror));
 
     // //OXOX (OFF ON OFF ON)   Center Hub w/ Bin facing Hub, Shoot, Climb Right front Tower 
-    // AutoSwitchHelpers.put(false, true, false, true, new PathPlannerAuto("COMP-hub-shoot-and-right-climb", mirror));
+    AutoSwitchHelpers.put(false, true, false, true, new PathPlannerAuto("COMP-hub-shoot-and-right-climb", mirror));
     
     // //NOT COMP TESTED YET - TRY ON THU:
     // //OXXO (OFF ON ON OFF)   Right Bump w/ Bin Facing 90 Left, Nuetral Zone, Bump, Shoot, Climb Right front Tower 
-    // AutoSwitchHelpers.put(false, true, true, false, new PathPlannerAuto("srbc90_bump_neutral_bump_shoot_and_climb", mirror));
+    AutoSwitchHelpers.put(false, true, true, false, new PathPlannerAuto("srbc90_bump_neutral_bump_shoot_and_climb", mirror));
 
     // //OXXX (OFF ON ON ON)    Right Trench w/ Bin Facing Hub, Neutral Zone, Bump, Shoot
-    // AutoSwitchHelpers.put(false, true, true, true, new PathPlannerAuto("COMP-srt0_neutral_trench_and_shoot", mirror));
+    AutoSwitchHelpers.put(false, true, true, true, new PathPlannerAuto("COMP-srt0_neutral_trench_and_shoot", mirror));
 
     // //XOOO (ON OFF OFF OFF)    Left Trench w/ Bin Facing Hub, Neutral Zone, Bump, Shoot
-    // AutoSwitchHelpers.put(true, false, false, false, new PathPlannerAuto("COMP-inverse-srt0_neutral_trench_and_shoot", mirror));
+    AutoSwitchHelpers.put(true, false, false, false, new PathPlannerAuto("COMP-inverse-srt0_neutral_trench_and_shoot", mirror));
 
     //XOOX (ON OFF OFF ON) 
-    //AutoSwitchHelpers.put(true, false, false, true, new PathPlannerAuto("?", mirror));
+    // AutoSwitchHelpers.put(true, false, false, true, new PathPlannerAuto("?", mirror));
       
     //XOXO (ON OFF ON OFF) 
-    //AutoSwitchHelpers.put(true, false, true, false, new PathPlannerAuto("?", mirror));
+    // AutoSwitchHelpers.put(true, false, true, false, new PathPlannerAuto("?", mirror));
     
     //XOXX (ON OFF ON ON) 
-    //AutoSwitchHelpers.put(true, false, true, true, new PathPlannerAuto("?", mirror));
+    // AutoSwitchHelpers.put(true, false, true, true, new PathPlannerAuto("?", mirror));
       
     //XXOO (ON ON OFF OFF) 
-    //AutoSwitchHelpers.put(true, true, false, false, new PathPlannerAuto("?", mirror));
+    // AutoSwitchHelpers.put(true, true, false, false, new PathPlannerAuto("?", mirror));
 
     //XXOX (ON ON OFF ON) 
-    //AutoSwitchHelpers.put(true, true, false, true, new PathPlannerAuto("?", mirror));
+    // AutoSwitchHelpers.put(true, true, false, true, new PathPlannerAuto("?", mirror));
       
     //XXXO (ON ON ON OFF) 
-    //AutoSwitchHelpers.put(true, true, true, false, new PathPlannerAuto("?", mirror));
+    // AutoSwitchHelpers.put(true, true, true, false, new PathPlannerAuto("?", mirror));
 
     //!!!!DO NOT USE THE ONE BELOW UNLESS REALLY NEEDED - WE DON'T WANT TO GO OVER THE DEPOT BUMPS!!!
     //XXXX (ON ON ON ON)  Center Hub, Depot, Shoot, Climb Left front Tower 
     // AutoSwitchHelpers.put(true, true, true, true, new PathPlannerAuto("COMP-hub-depot-shoot-and-climb", mirror));
 
-    // PathPlannerAuto pathPlannerAuto = AutoSwitchHelpers.getPathPlannerAuto();
-    // return pathPlannerAuto;
+    PathPlannerAuto pathPlannerAuto = AutoSwitchHelpers.getPathPlannerAuto();
+    return pathPlannerAuto;
 
     // if (!autoSwitch1.get() && !autoSwitch2.get() && !autoSwitch3.get() && !autoSwitch4.get()) {
     //   return
