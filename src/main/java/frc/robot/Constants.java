@@ -100,11 +100,11 @@ public final class Constants {
     public static final int DIO_EXT_LIMIT = 8;//DIO port number on RoboRio
     public static final int DIO_RET_LIMIT = 9; //DIO port number on RoboRio
 
-    public static final double KP_BIN_EXTEND = 0.4;  
+    public static final double KP_BIN_EXTEND = 1.0;  
     public static final double KI_BIN_EXTEND = 0;
     public static final double KD_BIN_EXTEND = 0;
 
-    public static final double KP_BIN_RETRACT = 1.2;  
+    public static final double KP_BIN_RETRACT = 3;  
     public static final double KI_BIN_RETRACT = 0;
     public static final double KD_BIN_RETRACT = 0;
 
@@ -116,7 +116,7 @@ public final class Constants {
     public static final double AGITATE_TOLERANCE = 0.5; // revs
     public static final double AGITATE_TEST_SPEED = 0.2; // seconds for one full cycle
 
-    public static final double BIN_DOWN_POSSITION = 31.6;
+    public static final double BIN_DOWN_POSSITION = 32.0;
   }
 
   public static class ShooterPivotConstants {
