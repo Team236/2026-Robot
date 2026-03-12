@@ -113,47 +113,47 @@ public class RobotContainer {
   private final Floor floor = new Floor();
   private final PreFeeder preFeeder = new PreFeeder();
 
-  //COMMANDS:
+//COMMANDS:
 
-//PIVOT
+//PIVOT (HOOD)
   private final ManualPivot manualPivotExtend = new ManualPivot(shooterPivot, Constants.ShooterPivotConstants.CONSTANT_FORWARD_SPEED);
   private final ManualPivot manualPivotRetract = new ManualPivot(shooterPivot, Constants.ShooterPivotConstants.CONSTANT_REVERSE_SPEED);
   // private final PIDPivot pidPivot = new PIDPivot(shooterPivot, Constants.ShooterPivotConstants.TARGET_REVS);
+
 //BIN RELEASE
-  private final ManualMove binManualExtend = new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_EXT_SPEED); // TBD TESTING VALUES
-  private final ManualMove binManualRetract = new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_RET_SPEED); // TBD TESTING VALUES
-  private final PIDMove pidToPositionTestA = new PIDMove(binRelease, Constants.BinReleaseConstants.POSITION1); // TBD TESTING VALUES, PID VALUES NEEDED
+  private final ManualMove binManualExtend = new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_EXT_SPEED); // 
+  private final ManualMove binManualRetract = new ManualMove(binRelease, Constants.BinReleaseConstants.MANUAL_RET_SPEED); // 
+ // private final PIDMove pidToPositionTestA = new PIDMove(binRelease, Constants.BinReleaseConstants.POSITION1); // TBD TESTING VALUES, PID VALUES NEEDED
+
 //CLIMBER
   private final ClimberPID climberPrep = new ClimberPID(climber, Constants.ClimberConstants.PREP_CLIMBER_REVS);
   private final ClimberPID climberL1Side = new ClimberPID(climber, Constants.ClimberConstants.CLIMB_L1_SIDE);
   private final ClimberPID climberL1Front = new ClimberPID(climber, Constants.ClimberConstants.CLIMB_L1_FRONT);
-  private final ClimberMotionMagic climberMotionMagicTest = new ClimberMotionMagic(climber, Constants.ClimberConstants.TEST_MM_REVS);
   private final ClimberSetSpeed climberManualUp = new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_UP_SPEED);
   private final ClimberSetSpeed climberManualDown = new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_DOWN_SPEED);
-  private final ClimberLock climberLock = new ClimberLock(climber, 1.0); // TBD TESTING VALUE
-  private final ClimberLock climberUnlock = new ClimberLock(climber, 0.0); // TBD TESTING VALUE
-
+ // private final ClimberLock climberLock = new ClimberLock(climber, 1.0); // TBD TESTING VALUE
+ // private final ClimberLock climberUnlock = new ClimberLock(climber, 0.0); // TBD TESTING VALUE
+ // private final ClimberMotionMagic climberMotionMagicTest = new ClimberMotionMagic(climber, Constants.ClimberConstants.TEST_MM_REVS);
 
 //SHOOTER
-  private final ManualMainRoller manualMainRoller = new ManualMainRoller(mainRoller, Constants.ShooterConstants.MAIN_MOTOR_SPEED);
-  private final ManualShoot manualShoot = new ManualShoot(mainRoller, preFeeder);
-  private final PIDMainRoller pidMainRoller = new PIDMainRoller(mainRoller, s_Swerve, Constants.ShooterConstants.MAIN_MOTOR_RPM);
-  private final PIDShoot pidShoot = new PIDShoot(mainRoller, s_Swerve, preFeeder, floor, intake, binRelease);
+ // private final ManualMainRoller manualMainRoller = new ManualMainRoller(mainRoller, Constants.ShooterConstants.MAIN_MOTOR_SPEED);
+ // private final ManualShoot manualShoot = new ManualShoot(mainRoller, preFeeder);
+ // private final PIDMainRoller pidMainRoller = new PIDMainRoller(mainRoller, s_Swerve, Constants.ShooterConstants.MAIN_MOTOR_RPM);
+ // private final PIDShoot pidShoot = new PIDShoot(mainRoller, s_Swerve, preFeeder, floor, intake, binRelease);
 
 //INTAKE  
-  private final RunIntake runIntakeTest = new RunIntake(intake, Constants.IntakeConstants.INTAKE_SPEED);
-  private final RunOuttake runOuttakeTest = new RunOuttake(intake, Constants.IntakeConstants.OUTTAKE_SPEED);
-  private final RunFloor runFloorTesting = new RunFloor(floor, Constants.FloorConstants.TEST_SPEED);
+  //private final RunIntake runIntakeTest = new RunIntake(intake, Constants.IntakeConstants.INTAKE_SPEED);
+  //private final RunOuttake runOuttakeTest = new RunOuttake(intake, Constants.IntakeConstants.OUTTAKE_SPEED);
+  //private final RunFloor runFloorTesting = new RunFloor(floor, Constants.FloorConstants.TEST_SPEED);
+  //private final IntakeWithBinExtend intakeWithBinExtend = new IntakeWithBinExtend(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION, intake, Constants.IntakeConstants.DESIRED_RPM);
 
-  private final IntakeWithBinExtend intakeWithBinExtend = new IntakeWithBinExtend(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION, intake, Constants.IntakeConstants.DESIRED_RPM);
-
-  // PREFEEDER
-  private final RunPreFeeder runPreFeederTesting = new RunPreFeeder(preFeeder, Constants.PreFeederConstants.TEST_SPEED);
-  private final RunPreFeederWithCounter runPreFeederWithCounterTesting = new RunPreFeederWithCounter(preFeeder, Constants.PreFeederConstants.TEST_SPEED);
-  private final PIDPrefeeder pidPrefeeder = new PIDPrefeeder(preFeeder, s_Swerve, Constants.PreFeederConstants.DESIRED_RPM);
-  private final PIDPreFeederWithCounter pidPreFeederWithCounter = new PIDPreFeederWithCounter(preFeeder, Constants.PreFeederConstants.DESIRED_RPM);
+//PREFEEDER
+ // private final RunPreFeeder runPreFeederTesting = new RunPreFeeder(preFeeder, Constants.PreFeederConstants.TEST_SPEED);
+ // private final RunPreFeederWithCounter runPreFeederWithCounterTesting = new RunPreFeederWithCounter(preFeeder, Constants.PreFeederConstants.TEST_SPEED);
+ // private final PIDPrefeeder pidPrefeeder = new PIDPrefeeder(preFeeder, s_Swerve, Constants.PreFeederConstants.DESIRED_RPM);
+ // private final PIDPreFeederWithCounter pidPreFeederWithCounter = new PIDPreFeederWithCounter(preFeeder, Constants.PreFeederConstants.DESIRED_RPM);
   
-// robot container -- contains subsystems, OI devices, and commandsd
+// robot container -- contains subsystems, OI devices, and commands
   public RobotContainer() {
     s_Swerve.setDefaultCommand(
       new TeleopSwerve(
@@ -234,27 +234,6 @@ public class RobotContainer {
     // command binds
     // a.onTrue(algaeGrab).onTrue(l3_Score); *EXAMPLE
 
-    // rt.whileTrue(new SmartAutoTarget(
-    //     s_Swerve, 
-    //     () -> -driverController.getRawAxis(translationAxis), 
-    //     () -> -driverController.getRawAxis(strafeAxis), 
-    //     () -> robotCentric.getAsBoolean()
-    // ));
-
-    // lt.whileTrue(intakeWithBinExtend);
-
-    // b.whileTrue(climberManualUp);
-    // x.whileTrue(climberManualDown);
-
-    // a.whileTrue(new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder, floor, intake, binRelease));
-
-    // upPov.whileTrue(binManualRetract);
-    // downPov.whileTrue(binManualExtend);
-    // leftPov.whileTrue(manualPivotRetract);
-    // rightPov.whileTrue(manualPivotExtend);
-
-    // menu.whileTrue(runOuttakeTest);
-
     // ********* NOT WORKING ***********
     // view.whileTrue(Commands.defer((() -> s_Swerve.getClimbTargetingPath()), Set.of(s_Swerve)));
 
@@ -326,14 +305,62 @@ public class RobotContainer {
   }
   
   public Command getAutonomousCommand() 
-  {
-    
+  {  
     // SmartDashboard.putString("Auto", "none");
-
     boolean mirror = false;
+
+  //RIGHT means the OUTPOST side of the field
+  //LEFT means the DEPOT side of field
+
+    //OOOO (OFF OFF OFF OFF)  Right Trench w/ Bin facing Drivers, Outpost, Shoot, front Right Tower Climb 
     AutoSwitchHelpers.put(false, false, false, false, new PathPlannerAuto("COMP-trench-outpost-climb", mirror));
-    AutoSwitchHelpers.put(true, false, false, false, new PathPlannerAuto("COMP-srt0_neutral_trench_shoot_and_climb", mirror));
-    AutoSwitchHelpers.put(false, true, false, false, new PathPlannerAuto("srbc90_bump_neutral_bump_shoot_and_climb", mirror));
+
+    //OOOX (OFF OFF OFF ON)  Right Trench w/ Bin facing away, Neutral Zone, Right Trench, Shoot, front Right Tower Climb 
+    AutoSwitchHelpers.put(false, false, false, true, new PathPlannerAuto("COMP-srt0_neutral_trench_shoot_and_climb", mirror));
+
+    //OOXO (OFF OFF ON OFF)  Left Trench w/ Bin facing away, Neutral Zone, Left Trench, Shoot, front Left Tower Climb 
+    AutoSwitchHelpers.put(false, false, true, false, new PathPlannerAuto("COMP-inverse-srt0_neutral_trench_shoot_and_climb", mirror));
+
+    //OOXX (OFF OFF ON ON)   Center Hub w/ Bin facing Hub, Shoot (no climb, just move back a few inches and shoot 8 Fuel)
+    AutoSwitchHelpers.put(false, false, true, true, new PathPlannerAuto("COMP-hub-shoot", mirror));
+
+    //OXOO (OFF ON OFF OFF)  Center Hub w/ Bin facing Hub, Shoot, Climb Left front Tower
+    AutoSwitchHelpers.put(false, true, false, false, new PathPlannerAuto("COMP-hub-shoot-and-left-climb", mirror));
+
+    //OXOX (OFF ON OFF ON)   Center Hub w/ Bin facing Hub, Shoot, Climb Right front Tower 
+    AutoSwitchHelpers.put(false, true, false, true, new PathPlannerAuto("COMP-hub-shoot-and-right-climb", mirror));
+    
+    //NOT COMP TESTED YET - TRY ON THU:
+    //OXXO (OFF ON ON OFF)   Right Bump w/ Bin Facing 90 Left, Nuetral Zone, Bump, Shoot, Climb Right front Tower 
+    AutoSwitchHelpers.put(false, true, true, false, new PathPlannerAuto("srbc90_bump_neutral_bump_shoot_and_climb", mirror));
+
+    //OXXX (OFF ON ON ON) 
+    //AutoSwitchHelpers.put(false, true, true, true, new PathPlannerAuto("?", mirror));
+
+    //XOOO (ON OFF OFF OFF) 
+    //AutoSwitchHelpers.put(true, false, false, false, new PathPlannerAuto("?", mirror));
+
+    //XOOX (ON OFF OFF ON) 
+    //AutoSwitchHelpers.put(true, false, false, true, new PathPlannerAuto("?", mirror));
+      
+    //XOXO (ON OFF ON OFF) 
+    //AutoSwitchHelpers.put(true, false, true, false, new PathPlannerAuto("?", mirror));
+    
+    //XOXX (ON OFF ON ON) 
+    //AutoSwitchHelpers.put(true, false, true, true, new PathPlannerAuto("?", mirror));
+      
+    //XXOO (ON ON OFF OFF) 
+    //AutoSwitchHelpers.put(true, true, false, false, new PathPlannerAuto("?", mirror));
+
+    //XXOX (ON ON OFF ON) 
+    //AutoSwitchHelpers.put(true, true, false, true, new PathPlannerAuto("?", mirror));
+      
+    //XXXO (ON ON ON OFF) 
+    //AutoSwitchHelpers.put(true, true, true, false, new PathPlannerAuto("?", mirror));
+
+    //!!!!DO NOT USE THE ONE BELOW UNLESS REALLY NEEDED - WE DON'T WANT TO GO OVER THE DEPOT BUMPS!!!
+    //XXXX (ON ON ON ON)  Center Hub, Depot, Shoot, Climb Left front Tower (Left means the Depot side of the field)
+    // AutoSwitchHelpers.put(true, true, true, true, new PathPlannerAuto("COMP-hub-depot-shoot-and-climb", mirror));
 
     PathPlannerAuto pathPlannerAuto = AutoSwitchHelpers.getPathPlannerAuto();
     return pathPlannerAuto;
