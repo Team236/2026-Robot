@@ -64,6 +64,7 @@ import frc.robot.commands.ShooterPivotCommands.ManualPivot;
 import frc.robot.commands.ShooterPivotCommands.PIDPivot;
 import frc.robot.commands.ShooterPivotCommands.ZeroPivotStartup;
 import frc.robot.commands.Targeting.AimOnMove;
+import frc.robot.commands.Targeting.AlignAndFullClimb;
 import frc.robot.commands.Targeting.AutoPivotRobotGroupCommand;
 import frc.robot.commands.Targeting.AutoPivotTowardHub;
 import frc.robot.commands.Targeting.AutoPrepShooter;
@@ -280,9 +281,9 @@ public class RobotContainer {
 
     menu.whileTrue(new EjectWithOuttake(preFeeder, mainRoller, floor, binRelease, intake));
 
-    a.whileTrue(new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder, floor, intake, binRelease));
+    // a.whileTrue(new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder, floor, intake, binRelease));
 
-
+    a.whileTrue(new  AlignAndFullClimb(s_Swerve, binManualExtend, climber, binRelease) );
 
     // ------------------
     // FINAL AUX BUTTONS
