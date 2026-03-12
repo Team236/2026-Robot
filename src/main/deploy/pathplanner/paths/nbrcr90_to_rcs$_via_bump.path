@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 1.8,
-        "y": 2.3
+        "x": 1.5,
+        "y": 2.5
       },
       "prevControl": {
-        "x": 2.03406916106491,
-        "y": 2.3878158746376146
+        "x": 2.2018149466192183,
+        "y": 2.168279952550415
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "rcs$"
     }
   ],
   "rotationTargets": [
@@ -65,7 +65,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 32.0
+    "rotation": 27.0
   },
   "reversed": false,
   "folder": "movement",
