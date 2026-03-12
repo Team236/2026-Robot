@@ -435,6 +435,51 @@ public class Swerve extends SubsystemBase {
         }
     }
 
+        public Command getFinishClimbCommand() {
+        try {
+            Pose2d robotPoseBlue;
+            
+            // Alliance Check
+            if (DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red) { 
+                robotPoseBlue = FlippingUtil.flipFieldPose(this.getPose());
+            } else  {
+                robotPoseBlue = this.getPose();    
+            }
+            
+            PathConstraints constraints = PathPlannerPath.fromPathFile("finish-climb").getGlobalConstraints();
+            Pose2d pathEndPose;
+
+            if (robotPoseBlue.getY() < Constants.Targeting.BLUE_TOWER_CENTER_Y_METERS) {
+                pathEndPose = new Pose2d(.955 + Constants.Targeting.ROBOT_WIDTH_METERS / 2.0, 3.302, Rotation2d.fromDegrees(180)); 
+            } else {
+                pathEndPose = new Pose2d(.955 + Constants.Targeting.ROBOT_WIDTH_METERS / 2.0, 4.162, Rotation2d.fromDegrees(180));
+            }
+
+            Rotation2d splineHeading = pathEndPose.getTranslation().minus(robotPoseBlue.getTranslation()).getAngle();
+            Pose2d startPoseForSpline = new Pose2d(robotPoseBlue.getTranslation(), splineHeading);
+
+            // USE START POSE BC IT USES BLUE ONLY AUTOBUILDER I THINK FLIPS IT FOR US
+            List<Waypoint> waypoints = PathPlannerPath.waypointsFromPoses(
+                startPoseForSpline, 
+                pathEndPose 
+            );
+
+            PathPlannerPath path = new PathPlannerPath(
+                waypoints, 
+                constraints, 
+                null, 
+                new GoalEndState(0.0, Rotation2d.fromDegrees(0))
+            );
+            
+            return AutoBuilder.followPath(path);
+            
+        } catch (Exception e) {
+            DriverStation.reportError("Error in getClimbTargetingPath: " + e.getMessage(), e.getStackTrace());
+            return Commands.none();
+        }
+    }
+    
+
     public ChassisSpeeds getChassisSpeeds() {
         SwerveModuleState[] states = getModuleStates();
         ChassisSpeeds fieldRelFromStates = Constants.Swerve.swerveKinematics.toChassisSpeeds(states);
