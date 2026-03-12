@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 7.6,
-        "y": 3.5
+        "y": 3.0
       },
       "prevControl": null,
       "nextControl": {
         "x": 7.6,
-        "y": 3.0
+        "y": 2.5
       },
       "isLocked": false,
       "linkedName": "nbrc90"
@@ -25,7 +25,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "brcs$"
+      "linkedName": null
     }
   ],
   "rotationTargets": [

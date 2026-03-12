@@ -8,11 +8,11 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.9245220882188114,
-        "y": 3.2908559218198503
+        "x": 1.9538576158940395,
+        "y": 3.1565480132450316
       },
       "isLocked": false,
-      "linkedName": "brcs$"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -20,8 +20,8 @@
         "y": 3.304
       },
       "prevControl": {
-        "x": 2.0378454852583516,
-        "y": 2.942732836786761
+        "x": 1.8812582781456957,
+        "y": 3.1710678807947024
       },
       "nextControl": null,
       "isLocked": false,

@@ -334,11 +334,11 @@ public class RobotContainer {
     //OXXO (OFF ON ON OFF)   Right Bump w/ Bin Facing 90 Left, Nuetral Zone, Bump, Shoot, Climb Right front Tower 
     AutoSwitchHelpers.put(false, true, true, false, new PathPlannerAuto("srbc90_bump_neutral_bump_shoot_and_climb", mirror));
 
-    //OXXX (OFF ON ON ON) 
-    //AutoSwitchHelpers.put(false, true, true, true, new PathPlannerAuto("?", mirror));
+    //OXXX (OFF ON ON ON)    Right Trench w/ Bin Facing Hub, Neutral Zone, Bump, Shoot
+    AutoSwitchHelpers.put(false, true, true, true, new PathPlannerAuto("COMP-srt0_neutral_trench_and_shoot", mirror));
 
-    //XOOO (ON OFF OFF OFF) 
-    //AutoSwitchHelpers.put(true, false, false, false, new PathPlannerAuto("?", mirror));
+    //XOOO (ON OFF OFF OFF)    Left Trench w/ Bin Facing Hub, Neutral Zone, Bump, Shoot
+    AutoSwitchHelpers.put(true, false, false, false, new PathPlannerAuto("COMP-inverse-srt0_neutral_trench_and_shoot", mirror));
 
     //XOOX (ON OFF OFF ON) 
     //AutoSwitchHelpers.put(true, false, false, true, new PathPlannerAuto("?", mirror));
