@@ -309,8 +309,8 @@ public class RobotContainer {
     // SmartDashboard.putString("Auto", "none");
     boolean mirror = false;
 
-  //RIGHT means the OUTPOST side of the field
-  //LEFT means the DEPOT side of field
+       //RIGHT means the OUTPOST side of the field
+       //LEFT means the DEPOT side of the field
 
     //OOOO (OFF OFF OFF OFF)  Right Trench w/ Bin facing Drivers, Outpost, Shoot, front Right Tower Climb 
     AutoSwitchHelpers.put(false, false, false, false, new PathPlannerAuto("COMP-trench-outpost-climb", mirror));
@@ -359,7 +359,7 @@ public class RobotContainer {
     //AutoSwitchHelpers.put(true, true, true, false, new PathPlannerAuto("?", mirror));
 
     //!!!!DO NOT USE THE ONE BELOW UNLESS REALLY NEEDED - WE DON'T WANT TO GO OVER THE DEPOT BUMPS!!!
-    //XXXX (ON ON ON ON)  Center Hub, Depot, Shoot, Climb Left front Tower (Left means the Depot side of the field)
+    //XXXX (ON ON ON ON)  Center Hub, Depot, Shoot, Climb Left front Tower 
     // AutoSwitchHelpers.put(true, true, true, true, new PathPlannerAuto("COMP-hub-depot-shoot-and-climb", mirror));
 
     PathPlannerAuto pathPlannerAuto = AutoSwitchHelpers.getPathPlannerAuto();
