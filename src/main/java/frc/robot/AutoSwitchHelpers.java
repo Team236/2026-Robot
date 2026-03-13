@@ -95,9 +95,11 @@ public class AutoSwitchHelpers {
         return mask;
     }
 
-    private static void putAutoSwitchesToSmartDashboard()
+    public static void putAutoSwitchesToSmartDashboard()
     {
         boolean[] output = getAutoSwitches();
-        SmartDashboard.putBooleanArray("Auto", output);
+        for (int i = 0; i < 4; i++) {
+            SmartDashboard.putBoolean("Switch " + (i + 1), output[i]);
+        }
     }
 }

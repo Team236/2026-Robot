@@ -4,9 +4,19 @@
 
 package frc.robot;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.path.PathPlannerPath;
+import com.pathplanner.lib.trajectory.PathPlannerTrajectory;
+
 import edu.wpi.first.hal.DriverStationJNI;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.MatchType;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /** Add your docs here. */
 public class DashboardUtil {
@@ -21,7 +31,7 @@ public class DashboardUtil {
     };
 
     public static double getShiftTime() {
-        if (DriverStation.getMatchType() == MatchType.None) {
+        if (!DriverStation.isTeleop()) {
             return -1.0;
         }
 
@@ -33,5 +43,25 @@ public class DashboardUtil {
         }
 
         return -1.0;
+    }
+
+    public static void putAutoToField(PathPlannerAuto auto) {
+        try {
+            Field2d field = (Field2d) SmartDashboard.getData("Field");
+            var traj = field.getObject("autoTrajectory");
+
+            List<PathPlannerPath> paths = PathPlannerAuto.getPathGroupFromAutoFile(auto.getName());
+
+            ArrayList<Pose2d> poses = new ArrayList<Pose2d>();
+            for (PathPlannerPath path : paths) {
+                for (Pose2d pose : path.getPathPoses()) {
+                    poses.add(pose);
+                }
+            }
+            traj.setPoses(poses);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("exception trying to display auto on Field2d on dashboard");
+        }   
     }
 }

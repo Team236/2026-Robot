@@ -97,6 +97,8 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putNumber("Match Time", DriverStation.getMatchTime());
     SmartDashboard.putNumber("Shift Time", DashboardUtil.getShiftTime());
+    // DashboardUtil.putAutoToField(AutoSwitchHelpers.getPathPlannerAuto());
+    AutoSwitchHelpers.putAutoSwitchesToSmartDashboard();
    
     //double totalCUrrent = myPDH.getTotalCurrent();
     //double current7 = myPDH.getCurrent(7);
