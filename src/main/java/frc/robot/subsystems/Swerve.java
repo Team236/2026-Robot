@@ -976,16 +976,16 @@ public class Swerve extends SubsystemBase {
         }
 
         field.setRobotPose(getPose());
-        var traj = field.getObject("trajectory");
-        traj.setPoses(
-            getPose(), 
-            getPose().plus(
-                new Transform2d(
-                    new Translation2d(5, 0), // 1 meter straight ahead of the robot
-                    new Rotation2d() // same rotation as robot
-                )
-            )
-            ); // example trajectory visualization, replace with actual trajectory if desired
+        // var traj = field.getObject("trajectory");
+        // traj.setPoses(
+        //     getPose(), 
+        //     getPose().plus(
+        //         new Transform2d(
+        //             new Translation2d(5, 0), // 1 meter straight ahead of the robot
+        //             new Rotation2d() // same rotation as robot
+        //         )
+        //     )
+        //     ); // example trajectory visualization, replace with actual trajectory if desired
         // SmartDashboard.putData("Field", field);
     }
 }
