@@ -93,7 +93,7 @@ public class RobotContainer {
   // private static DigitalInput autoSwitch2 = new DigitalInput(Constants.DIO_AUTO_2);
   // private static DigitalInput autoSwitch3 = new DigitalInput(Constants.DIO_AUTO_3);
   // private static DigitalInput autoSwitch4 = new DigitalInput(Constants.DIO_AUTO_4);
-  private final SendableChooser<Command> autoChooser;
+  // private final SendableChooser<Command> autoChooser;
   // drive controls
   private final int translationAxis = XboxController.Axis.kLeftY.value;
   private final int strafeAxis = XboxController.Axis.kLeftX.value;
@@ -172,11 +172,11 @@ public class RobotContainer {
     NamedCommands.registerCommand("intake", new IntakeWithBinExtend(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION, intake, 5500));
     NamedCommands.registerCommand("bin-out", new PIDMove(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION));
     NamedCommands.registerCommand("bin-zero", new PIDMove(binRelease, 0.0));
-    autoChooser = AutoBuilder.buildAutoChooserWithOptionsModifier(
-      (stream) -> stream.filter(auto -> auto.getName().startsWith("COMP"))
-    );
-    // autoChooser = null;
-    SmartDashboard.putData("Auto Routine", autoChooser);
+    // autoChooser = AutoBuilder.buildAutoChooserWithOptionsModifier(
+    //   (stream) -> stream.filter(auto -> auto.getName().startsWith("COMP"))
+    // );
+    // // autoChooser = null;
+    // SmartDashboard.putData("Auto Routine", autoChooser);
 
     configureBindings();
 
