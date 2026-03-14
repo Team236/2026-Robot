@@ -57,12 +57,12 @@ public class Robot extends TimedRobot {
     Constants.Targeting.nuetralMap.get(0.0);
     // myPDH.setSwitchableChannel(true);
 //
-    UsbCamera usbCamera0;
-      try {
-      usbCamera0 = CameraServer.startAutomaticCapture(0);
-        } catch (Exception e)  {
-    SmartDashboard.putString("camera capture failed", "failed");
-    }
+    // UsbCamera usbCamera0;
+    //   try {
+    //   usbCamera0 = CameraServer.startAutomaticCapture(0);
+    //     } catch (Exception e)  {
+    // SmartDashboard.putString("camera capture failed", "failed");
+    // }
   }
 
 
@@ -97,7 +97,7 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putNumber("Match Time", DriverStation.getMatchTime());
     SmartDashboard.putNumber("Shift Time", DashboardUtil.getShiftTime());
-    DashboardUtil.putAutoToField();
+    // DashboardUtil.putAutoToField();
     AutoSwitchHelpers.putAutoSwitchesToSmartDashboard();
    
     //double totalCUrrent = myPDH.getTotalCurrent();
