@@ -179,6 +179,7 @@ public class RobotContainer {
     // SmartDashboard.putData("Auto Routine", autoChooser);
 
     configureBindings();
+    configAutos();
 
   }
 
@@ -303,11 +304,8 @@ public class RobotContainer {
     // ));
 
   }
-  
-  public Command getAutonomousCommand() 
-  {  
-    // return autoChooser.getSelected();
 
+  private void configAutos() {
     //    //RIGHT means the OUTPOST side of the field
     //    //LEFT means the DEPOT side of the field
 
@@ -360,6 +358,11 @@ public class RobotContainer {
     //!!!!DO NOT USE THE ONE BELOW UNLESS REALLY NEEDED - WE DON'T WANT TO GO OVER THE DEPOT BUMPS!!!
     //XXXX (ON ON ON ON)  Center Hub, Depot, Shoot, Climb Left front Tower 
     // AutoSwitchHelpers.put(true, true, true, true, new PathPlannerAuto("COMP-hub-depot-shoot-and-climb", mirror));
+  }
+  
+  public Command getAutonomousCommand() 
+  {  
+    // return autoChooser.getSelected();
 
     PathPlannerAuto pathPlannerAuto = AutoSwitchHelpers.getPathPlannerAuto();
     return pathPlannerAuto;

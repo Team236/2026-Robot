@@ -22,6 +22,8 @@ import edu.wpi.first.wpilibj.DriverStation.MatchType;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 
 /** Add your docs here. */
 public class DashboardUtil {
@@ -34,6 +36,11 @@ public class DashboardUtil {
         30.0,
         0.0
     };
+
+    private static Field2d autoField = new Field2d();
+    static {
+        SmartDashboard.putData("Auto Field", autoField);
+    }
 
     public static double getShiftTime() {
         // if (!DriverStation.isTeleop()) {
@@ -51,17 +58,17 @@ public class DashboardUtil {
     }
 
     public static void putAutoToField() {
-        Field2d field = (Field2d) SmartDashboard.getData("Field");
+        Field2d field = (Field2d) SmartDashboard.getData("Auto Field");
         var traj = field.getObject("autoTrajectory");
         var alliance = DriverStation.getAlliance();
 
-        if (DriverStation.isTeleop() || DriverStation.isTeleopEnabled()) {
-            return;
-        }
-
         try {
-            PathPlannerAuto auto = AutoSwitchHelpers.getPathPlannerAuto();
-            auto = auto == null ? (PathPlannerAuto) ((SendableChooser) SmartDashboard.getData("Auto Routine")).getSelected() : auto;
+            PathPlannerAuto autoFromSwitches = AutoSwitchHelpers.getPathPlannerAuto();
+
+            var selectedAuto = ((SendableChooser<Command>) SmartDashboard.getData("Auto Routine")).getSelected();
+            if (selectedAuto.equals(Commands.none()) || selectedAuto == null) { return; }
+            
+            var auto = autoFromSwitches == null ? (PathPlannerAuto) selectedAuto : autoFromSwitches;
             
             if (auto == null) { return; }
 
@@ -74,6 +81,7 @@ public class DashboardUtil {
                 }
             }
             
+            field.setRobotPose(auto.getStartingPose());
             traj.setPoses(poses);
         } catch (Exception e) {
             e.printStackTrace();
