@@ -120,7 +120,7 @@ public class BinRelease extends SubsystemBase {
         }
 
     // sets speed between -1 and 1
-    private void manualSetSpeed(double speed){
+    public void manualSetSpeed(double speed){
         binReleaseMotor.set(speed);
         }
 

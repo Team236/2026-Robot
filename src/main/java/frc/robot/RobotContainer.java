@@ -76,6 +76,7 @@ import frc.robot.subsystems.Floor;
 import frc.robot.subsystems.PreFeeder;
 import frc.robot.subsystems.Swerve;
 import frc.robot.commands.BinRelease.ManualMove;
+import frc.robot.commands.BinRelease.OverrideMove;
 import frc.robot.commands.BinRelease.Agitate;
 import frc.robot.commands.BinRelease.PIDMove;
 import frc.robot.subsystems.BinRelease;
@@ -277,6 +278,9 @@ public class RobotContainer {
 
     leftPov1.whileTrue(binManualRetract);
     rightPov1.whileTrue(binManualExtend);
+
+    lt1.whileTrue(new OverrideMove(binRelease, 0.25));
+    lb1.whileTrue(new OverrideMove(binRelease, -0.25));
 
     a1.whileTrue(new IntakeWithBinExtend(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION, intake, 3500));
     b1.whileTrue(new EjectWithOuttake(preFeeder, mainRoller, floor, binRelease, intake));
