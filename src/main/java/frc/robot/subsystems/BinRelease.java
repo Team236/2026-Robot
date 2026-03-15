@@ -131,8 +131,8 @@ public class BinRelease extends SubsystemBase {
 
     public boolean isFullyExtended(){   
         // TBD make sure encoder reading is increasing as mechanism extends, so the ">" sign works below
-        // return (getEncoderRevolutions() > Constants.BinReleaseConstants.ENC_REVS_MAX); //set to a high value at first, for code testing
-        return (maxExtendLimit.get() || getEncoderRevolutions() > Constants.BinReleaseConstants.ENC_REVS_MAX);
+        // return (maxExtendLimit.get() || getEncoderRevolutions() > Constants.BinReleaseConstants.ENC_REVS_MAX);
+        return (getEncoderRevolutions() > Constants.BinReleaseConstants.ENC_REVS_MAX);
     }
 
     public void manualSetSpeedSafe(double speed){
