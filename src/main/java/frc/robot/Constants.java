@@ -104,7 +104,7 @@ public final class Constants {
     public static final double KI_BIN_EXTEND = 0;
     public static final double KD_BIN_EXTEND = 0;
 
-    public static final double KP_BIN_RETRACT = 1.4;  
+    public static final double KP_BIN_RETRACT = 3;  
     public static final double KI_BIN_RETRACT = 0;
     public static final double KD_BIN_RETRACT = 0;
 
@@ -127,8 +127,8 @@ public final class Constants {
     public static final double KD = 0;
     public static final double ENC_REVS_MAX = 12.4; //TODO find actual
     public static final double TARGET_REVS = 50;
-    public static final double CONSTANT_FORWARD_SPEED = 0.06;
-    public static final double CONSTANT_REVERSE_SPEED = -0.06;
+    public static final double CONSTANT_FORWARD_SPEED = 0.36;
+    public static final double CONSTANT_REVERSE_SPEED = -0.36;
   }
 
   public static class ClimberConstants {

@@ -270,11 +270,11 @@ public class RobotContainer {
     // FINAL AUX BUTTONS
     // ------------------
 
-    view1.onTrue(climberPrep);
-    menu1.onTrue(climberL1Front);
+    //view1.onTrue(climberPrep); RENABLE ONCE FIXED*
+    //menu1.onTrue(climberL1Front); RENABLE ONCE FIXED*
 
-    upPov1.whileTrue(climberManualUp);
-    downPov1.whileTrue(climberManualDown);
+    // upPov1.whileTrue(climberManualUp); RENABLE ONCE FIXED*
+    // downPov1.whileTrue(climberManualDown); RENABLE ONCE FIXED*
 
     leftPov1.whileTrue(binManualRetract);
     rightPov1.whileTrue(binManualExtend);
@@ -292,6 +292,7 @@ public class RobotContainer {
     joystickDown1.whileTrue(manualPivotRetract);
 
     rt1.whileTrue (new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder, floor, intake, binRelease));
+    rb1.whileTrue(new Eject(preFeeder, mainRoller, floor));
 
     // -----------------------
     // TESTING COMMANDS BELOW
@@ -341,17 +342,17 @@ public class RobotContainer {
     // //XOOO (ON OFF OFF OFF)    Left Trench w/ Bin Facing Hub, Neutral Zone, Bump, Shoot
     AutoSwitchHelpers.put(true, false, false, false, new PathPlannerAuto("COMP-inverse-srt0_neutral_trench_and_shoot"));
 
-    //XOOX (ON OFF OFF ON) 
-    // AutoSwitchHelpers.put(true, false, false, true, new PathPlannerAuto("?", mirror));
+    //XOOX (ON OFF OFF ON)    Right Trench w/ Bin Facing Hub, DOUBLE--Neutral Zone, Trench, Shoot
+    AutoSwitchHelpers.put(true, false, false, true, new PathPlannerAuto("COMP_srt0_double_neutral_trench_shoot"));
       
-    //XOXO (ON OFF ON OFF) 
-    // AutoSwitchHelpers.put(true, false, true, false, new PathPlannerAuto("?", mirror));
+    //XOXO (ON OFF ON OFF)    Left Trench w/ Bin Facing Hub, DOUBLE--Neutral Zone, Trench, Shoot
+    AutoSwitchHelpers.put(true, false, true, false, new PathPlannerAuto("COMP_slt0_double_neutral_trench_shoot"));
     
     //XOXX (ON OFF ON ON) 
-    // AutoSwitchHelpers.put(true, false, true, true, new PathPlannerAuto("?", mirror));
+    AutoSwitchHelpers.put(true, false, true, true, new PathPlannerAuto("COMP_speedy_srt0_double_neutral_trench_shoot"));
       
     //XXOO (ON ON OFF OFF) 
-    // AutoSwitchHelpers.put(true, true, false, false, new PathPlannerAuto("?", mirror));
+    AutoSwitchHelpers.put(true, true, false, false, new PathPlannerAuto("COMP_speedy_slt0_double_neutral_trench_shoot"));
 
     //XXOX (ON ON OFF ON) 
     // AutoSwitchHelpers.put(true, true, false, true, new PathPlannerAuto("?", mirror));
