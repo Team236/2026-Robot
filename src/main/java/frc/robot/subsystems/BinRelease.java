@@ -19,8 +19,10 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.units.Units;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.commands.BinRelease.PIDMove;
 
 public class BinRelease extends SubsystemBase {
     
@@ -179,6 +181,18 @@ public class BinRelease extends SubsystemBase {
         } else {
             binReleaseMotor.setControl(m_magicRequest.withPosition(desiredRevs));
         }
+    }
+
+    public Command getAgitateCommand() {
+        return 
+            new PIDMove(this, Constants.BinReleaseConstants.BIN_DOWN_POSSITION - 8)
+            .until(() -> Math.abs(this.getEncoderRevolutions() - (Constants.BinReleaseConstants.BIN_DOWN_POSSITION - 8)) < 0.2)
+            .andThen(
+                new PIDMove(this, Constants.BinReleaseConstants.BIN_DOWN_POSSITION)
+                .until(() -> Math.abs(this.getEncoderRevolutions() - Constants.BinReleaseConstants.BIN_DOWN_POSSITION) < 0.2)
+            )
+            .repeatedly()
+            .finallyDo(() -> this.PIDControlToPosition(Constants.BinReleaseConstants.BIN_DOWN_POSSITION));
     }
 
     @Override
