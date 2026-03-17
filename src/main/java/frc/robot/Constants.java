@@ -104,11 +104,11 @@ public final class Constants {
     public static final double KI_BIN_EXTEND = 0;
     public static final double KD_BIN_EXTEND = 0;
 
-    public static final double KP_BIN_RETRACT = 1.4;  
+    public static final double KP_BIN_RETRACT = 3;  
     public static final double KI_BIN_RETRACT = 0;
     public static final double KD_BIN_RETRACT = 0;
 
-    public static final double ENC_REVS_MAX = 32.5; //TBD
+    public static final double ENC_REVS_MAX = 32.5; //TBD //32.5
     public static final double MANUAL_EXT_SPEED = 0.3;
     public static final double MANUAL_RET_SPEED = -0.3;
     public static final double POSITION1 = 50;
@@ -116,7 +116,7 @@ public final class Constants {
     public static final double AGITATE_TOLERANCE = 0.5; // revs
     public static final double AGITATE_TEST_SPEED = 0.2; // seconds for one full cycle
 
-    public static final double BIN_DOWN_POSSITION = 33.0;
+    public static final double BIN_DOWN_POSSITION = 32.5;
   }
 
   public static class ShooterPivotConstants {
@@ -127,8 +127,8 @@ public final class Constants {
     public static final double KD = 0;
     public static final double ENC_REVS_MAX = 12.4; //TODO find actual
     public static final double TARGET_REVS = 50;
-    public static final double CONSTANT_FORWARD_SPEED = 0.06;
-    public static final double CONSTANT_REVERSE_SPEED = -0.06;
+    public static final double CONSTANT_FORWARD_SPEED = 0.36;
+    public static final double CONSTANT_REVERSE_SPEED = -0.36;
   }
 
   public static class ClimberConstants {

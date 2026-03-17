@@ -76,6 +76,7 @@ import frc.robot.subsystems.Floor;
 import frc.robot.subsystems.PreFeeder;
 import frc.robot.subsystems.Swerve;
 import frc.robot.commands.BinRelease.ManualMove;
+import frc.robot.commands.BinRelease.OverrideMove;
 import frc.robot.commands.BinRelease.Agitate;
 import frc.robot.commands.BinRelease.PIDMove;
 import frc.robot.subsystems.BinRelease;
@@ -179,6 +180,7 @@ public class RobotContainer {
     // SmartDashboard.putData("Auto Routine", autoChooser);
 
     configureBindings();
+    configAutos();
 
   }
 
@@ -268,14 +270,17 @@ public class RobotContainer {
     // FINAL AUX BUTTONS
     // ------------------
 
-    view1.onTrue(climberPrep);
-    menu1.onTrue(climberL1Front);
+    //view1.onTrue(climberPrep); RENABLE ONCE FIXED*
+    //menu1.onTrue(climberL1Front); RENABLE ONCE FIXED*
 
-    upPov1.whileTrue(climberManualUp);
-    downPov1.whileTrue(climberManualDown);
+    // upPov1.whileTrue(climberManualUp); RENABLE ONCE FIXED*
+    // downPov1.whileTrue(climberManualDown); RENABLE ONCE FIXED*
 
     leftPov1.whileTrue(binManualRetract);
     rightPov1.whileTrue(binManualExtend);
+
+    lt1.whileTrue(new OverrideMove(binRelease, 0.25));
+    lb1.whileTrue(new OverrideMove(binRelease, -0.25));
 
     a1.whileTrue(new IntakeWithBinExtend(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION, intake, 3500));
     b1.whileTrue(new EjectWithOuttake(preFeeder, mainRoller, floor, binRelease, intake));
@@ -287,6 +292,7 @@ public class RobotContainer {
     joystickDown1.whileTrue(manualPivotRetract);
 
     rt1.whileTrue (new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder, floor, intake, binRelease));
+    rb1.whileTrue(new Eject(preFeeder, mainRoller, floor));
 
     // -----------------------
     // TESTING COMMANDS BELOW
@@ -303,11 +309,8 @@ public class RobotContainer {
     // ));
 
   }
-  
-  public Command getAutonomousCommand() 
-  {  
-    // return autoChooser.getSelected();
 
+  private void configAutos() {
     //    //RIGHT means the OUTPOST side of the field
     //    //LEFT means the DEPOT side of the field
 
@@ -339,17 +342,17 @@ public class RobotContainer {
     // //XOOO (ON OFF OFF OFF)    Left Trench w/ Bin Facing Hub, Neutral Zone, Bump, Shoot
     AutoSwitchHelpers.put(true, false, false, false, new PathPlannerAuto("COMP-inverse-srt0_neutral_trench_and_shoot"));
 
-    //XOOX (ON OFF OFF ON) 
-    // AutoSwitchHelpers.put(true, false, false, true, new PathPlannerAuto("?", mirror));
+    //XOOX (ON OFF OFF ON)    Right Trench w/ Bin Facing Hub, DOUBLE--Neutral Zone, Trench, Shoot
+    AutoSwitchHelpers.put(true, false, false, true, new PathPlannerAuto("COMP_srt0_double_neutral_trench_shoot"));
       
-    //XOXO (ON OFF ON OFF) 
-    // AutoSwitchHelpers.put(true, false, true, false, new PathPlannerAuto("?", mirror));
+    //XOXO (ON OFF ON OFF)    Left Trench w/ Bin Facing Hub, DOUBLE--Neutral Zone, Trench, Shoot
+    AutoSwitchHelpers.put(true, false, true, false, new PathPlannerAuto("COMP_slt0_double_neutral_trench_shoot"));
     
     //XOXX (ON OFF ON ON) 
-    // AutoSwitchHelpers.put(true, false, true, true, new PathPlannerAuto("?", mirror));
+    AutoSwitchHelpers.put(true, false, true, true, new PathPlannerAuto("COMP_speedy_srt0_double_neutral_trench_shoot"));
       
     //XXOO (ON ON OFF OFF) 
-    // AutoSwitchHelpers.put(true, true, false, false, new PathPlannerAuto("?", mirror));
+    AutoSwitchHelpers.put(true, true, false, false, new PathPlannerAuto("COMP_speedy_slt0_double_neutral_trench_shoot"));
 
     //XXOX (ON ON OFF ON) 
     // AutoSwitchHelpers.put(true, true, false, true, new PathPlannerAuto("?", mirror));
@@ -360,6 +363,11 @@ public class RobotContainer {
     //!!!!DO NOT USE THE ONE BELOW UNLESS REALLY NEEDED - WE DON'T WANT TO GO OVER THE DEPOT BUMPS!!!
     //XXXX (ON ON ON ON)  Center Hub, Depot, Shoot, Climb Left front Tower 
     // AutoSwitchHelpers.put(true, true, true, true, new PathPlannerAuto("COMP-hub-depot-shoot-and-climb", mirror));
+  }
+  
+  public Command getAutonomousCommand() 
+  {  
+    // return autoChooser.getSelected();
 
     PathPlannerAuto pathPlannerAuto = AutoSwitchHelpers.getPathPlannerAuto();
     return pathPlannerAuto;

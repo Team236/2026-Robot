@@ -19,8 +19,11 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.units.Units;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.commands.BinRelease.PIDMove;
 
 public class BinRelease extends SubsystemBase {
     
@@ -35,6 +38,8 @@ public class BinRelease extends SubsystemBase {
     private PositionVoltage m_extendRequest;
     private PositionVoltage m_retractRequest;
     private MotionMagicVoltage m_magicRequest;
+
+    private double agitateSetpoint;
 
     /** Creates a new BinRelease. */
     //This system uses a motor to extend and retract the bin that holds the fuel
@@ -120,7 +125,7 @@ public class BinRelease extends SubsystemBase {
         }
 
     // sets speed between -1 and 1
-    private void manualSetSpeed(double speed){
+    public void manualSetSpeed(double speed){
         binReleaseMotor.set(speed);
         }
 
@@ -131,8 +136,8 @@ public class BinRelease extends SubsystemBase {
 
     public boolean isFullyExtended(){   
         // TBD make sure encoder reading is increasing as mechanism extends, so the ">" sign works below
-        // return (getEncoderRevolutions() > Constants.BinReleaseConstants.ENC_REVS_MAX); //set to a high value at first, for code testing
-        return (maxExtendLimit.get() || getEncoderRevolutions() > Constants.BinReleaseConstants.ENC_REVS_MAX);
+        // return (maxExtendLimit.get() || getEncoderRevolutions() > Constants.BinReleaseConstants.ENC_REVS_MAX);
+        return (getEncoderRevolutions() > Constants.BinReleaseConstants.ENC_REVS_MAX);
     }
 
     public void manualSetSpeedSafe(double speed){
@@ -179,6 +184,28 @@ public class BinRelease extends SubsystemBase {
         } else {
             binReleaseMotor.setControl(m_magicRequest.withPosition(desiredRevs));
         }
+    }
+
+    public Command getAgitateCommand() {
+        return 
+            new PIDMove(this, Constants.BinReleaseConstants.BIN_DOWN_POSSITION - 8)
+            .until(() -> Math.abs(this.getEncoderRevolutions() - (Constants.BinReleaseConstants.BIN_DOWN_POSSITION - 8)) < 0.2)
+            .andThen(
+                new PIDMove(this, Constants.BinReleaseConstants.BIN_DOWN_POSSITION)
+                .until(() -> Math.abs(this.getEncoderRevolutions() - Constants.BinReleaseConstants.BIN_DOWN_POSSITION) < 0.2)
+            )
+            .repeatedly()
+            .finallyDo(() -> this.PIDControlToPosition(Constants.BinReleaseConstants.BIN_DOWN_POSSITION));
+    }
+
+    public Command getRisingAgitateCommand() {
+        return
+            new InstantCommand(() -> this.agitateSetpoint = this.getEncoderRevolutions() - 5)
+            .andThen(new PIDMove(this, this.agitateSetpoint)
+            .until(() -> Math.abs(this.getEncoderRevolutions() - this.agitateSetpoint) < 0.2))
+            .andThen(new InstantCommand(() -> this.agitateSetpoint = this.getEncoderRevolutions() + 2.5))
+            .until(() -> Math.abs(this.getEncoderRevolutions() - this.agitateSetpoint) < 0.2)
+            .repeatedly();
     }
 
     @Override

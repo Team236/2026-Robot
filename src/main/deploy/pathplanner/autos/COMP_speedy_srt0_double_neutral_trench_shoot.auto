@@ -40,13 +40,19 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "slt0_to_nbl-90"
+                        "pathName": "srt0_to_nbr90_with_v"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "nbl-90_to_nblc-90"
+                        "pathName": "nbr90_to_nbrc90_with_v"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "nbrc90_to_rs$"
                       }
                     }
                   ]
@@ -64,33 +70,7 @@
         {
           "type": "parallel",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "inverse-nbrc90_to_rcs$_via_trench"
-                }
-              },
-              {
-                "type": "race",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.25
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "intake"
-                      }
-                    }
-                  ]
-                }
-              }
-            ]
+            "commands": []
           }
         },
         {
@@ -100,7 +80,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 5.0
+                  "waitTime": 7.0
                 }
               },
               {
@@ -117,38 +97,25 @@
           "data": {
             "commands": [
               {
-                "type": "wait",
-                "data": {
-                  "waitTime": 0.3
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "bin-zero"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
                 "type": "sequential",
                 "data": {
                   "commands": [
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "lcs$_to_tl0"
+                        "pathName": "rs$_to_nbr90_with_v"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "finish-climb-left"
+                        "pathName": "nbr90_to_nbrc90"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "nbrc90_to_rs$"
                       }
                     }
                   ]
@@ -157,7 +124,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "prep-climber"
+                  "name": "intake"
                 }
               }
             ]
@@ -168,15 +135,15 @@
           "data": {
             "commands": [
               {
-                "type": "named",
+                "type": "wait",
                 "data": {
-                  "name": "climb-l1-front"
+                  "waitTime": 7.0
                 }
               },
               {
-                "type": "wait",
+                "type": "named",
                 "data": {
-                  "waitTime": 2.0
+                  "name": "shoot"
                 }
               }
             ]
