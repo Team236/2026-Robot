@@ -17,7 +17,7 @@
             "properties": {
               "topic": "/SmartDashboard/Field",
               "period": 0.06,
-              "field_game": "Reefscape",
+              "field_game": "Rebuilt (No Fuel)",
               "robot_width": 0.85,
               "robot_length": 0.85,
               "show_other_objects": true,
@@ -60,20 +60,6 @@
               "false_color": 4294198070,
               "true_icon": "None",
               "false_icon": "None"
-            }
-          },
-          {
-            "title": "USB Camera ",
-            "x": 1280.0,
-            "y": 0.0,
-            "width": 256.0,
-            "height": 256.0,
-            "type": "Camera Stream",
-            "properties": {
-              "topic": "/CameraPublisher/USB Camera 0",
-              "period": 0.06,
-              "rotation_turns": 2,
-              "compression": 62
             }
           },
           {
@@ -151,19 +137,6 @@
             }
           },
           {
-            "title": "Distance to blue hub",
-            "x": 1024.0,
-            "y": 128.0,
-            "width": 256.0,
-            "height": 128.0,
-            "type": "Large Text Display",
-            "properties": {
-              "topic": "/SmartDashboard/Distance to blue hub",
-              "period": 0.06,
-              "data_type": "double"
-            }
-          },
-          {
             "title": "Match Time",
             "x": 1280.0,
             "y": 256.0,
@@ -224,6 +197,32 @@
               "red_start_time": 20,
               "yellow_start_time": 30
             }
+          },
+          {
+            "title": "Distance to hub",
+            "x": 1280.0,
+            "y": 0.0,
+            "width": 256.0,
+            "height": 128.0,
+            "type": "Large Text Display",
+            "properties": {
+              "topic": "/SmartDashboard/Distance to hub",
+              "period": 0.033,
+              "data_type": "double"
+            }
+          },
+          {
+            "title": "Current Shift",
+            "x": 1024.0,
+            "y": 128.0,
+            "width": 512.0,
+            "height": 128.0,
+            "type": "Large Text Display",
+            "properties": {
+              "topic": "/SmartDashboard/Current Shift",
+              "period": 0.06,
+              "data_type": "string"
+            }
           }
         ]
       }
@@ -233,27 +232,6 @@
       "grid_layout": {
         "layouts": [],
         "containers": [
-          {
-            "title": "Field",
-            "x": 0.0,
-            "y": 0.0,
-            "width": 768.0,
-            "height": 384.0,
-            "type": "Field",
-            "properties": {
-              "topic": "/SmartDashboard/Field",
-              "period": 0.06,
-              "field_game": "Reefscape",
-              "robot_width": 0.85,
-              "robot_length": 0.85,
-              "show_other_objects": true,
-              "show_trajectories": true,
-              "field_rotation": 0.0,
-              "robot_color": 4294198070,
-              "trajectory_color": 4294967295,
-              "show_robot_outside_widget": true
-            }
-          },
           {
             "title": "limelight",
             "x": 768.0,
@@ -413,6 +391,40 @@
               "false_color": 4294198070,
               "true_icon": "None",
               "false_icon": "None"
+            }
+          },
+          {
+            "title": "Auto Field",
+            "x": 0.0,
+            "y": 0.0,
+            "width": 768.0,
+            "height": 384.0,
+            "type": "Field",
+            "properties": {
+              "topic": "/SmartDashboard/Auto Field",
+              "period": 0.06,
+              "field_game": "Rebuilt",
+              "robot_width": 0.85,
+              "robot_length": 0.85,
+              "show_other_objects": true,
+              "show_trajectories": true,
+              "field_rotation": 0.0,
+              "robot_color": 4294194742,
+              "trajectory_color": 4294903795,
+              "show_robot_outside_widget": true
+            }
+          },
+          {
+            "title": "Auto Routine",
+            "x": 0.0,
+            "y": 384.0,
+            "width": 384.0,
+            "height": 128.0,
+            "type": "ComboBox Chooser",
+            "properties": {
+              "topic": "/SmartDashboard/Auto Routine",
+              "period": 0.06,
+              "sort_options": false
             }
           }
         ]

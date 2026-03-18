@@ -85,8 +85,8 @@ import frc.robot.subsystems.BinRelease;
 public class RobotContainer {
   
   // controllers
-  XboxController driverController = new XboxController(Constants.Controller.USB_DRIVECONTROLLER);
-  XboxController auxController = new XboxController(Constants.Controller.USB_AUXCONTROLLER);
+  public static final XboxController driverController = new XboxController(Constants.Controller.USB_DRIVECONTROLLER);
+  public static final XboxController auxController = new XboxController(Constants.Controller.USB_AUXCONTROLLER);
 
   // // auto switches
   // commented out because these are now declared in AutoSwitchHelpers
@@ -269,12 +269,12 @@ public class RobotContainer {
     // ------------------
     // FINAL AUX BUTTONS
     // ------------------
+    
+    view1.onTrue(climberPrep); //RENABLE ONCE FIXED*
+    menu1.onTrue(climberL1Front); //RENABLE ONCE FIXED*
 
-    //view1.onTrue(climberPrep); RENABLE ONCE FIXED*
-    //menu1.onTrue(climberL1Front); RENABLE ONCE FIXED*
-
-    // upPov1.whileTrue(climberManualUp); RENABLE ONCE FIXED*
-    // downPov1.whileTrue(climberManualDown); RENABLE ONCE FIXED*
+    upPov1.whileTrue(climberManualUp); //RENABLE ONCE FIXED*
+    downPov1.whileTrue(climberManualDown); //RENABLE ONCE FIXED*
 
     leftPov1.whileTrue(binManualRetract);
     rightPov1.whileTrue(binManualExtend);
