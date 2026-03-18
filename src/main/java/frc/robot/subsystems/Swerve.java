@@ -27,6 +27,7 @@ import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.path.Waypoint;
 import com.pathplanner.lib.util.FlippingUtil;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
@@ -920,8 +921,9 @@ public class Swerve extends SubsystemBase {
         double dy = HUBY - Units.metersToInches(currentPose.getY());
         double targetAngle = Math.atan2(dy, dx);
 
+        double angleDifference = MathUtil.angleModulus(targetAngle - currentPose.getRotation().getRadians());
 
-        if (Math.abs(targetAngle - currentPose.getRotation().getRadians()) < Units.degreesToRadians(1.0)) {
+        if (Math.abs(angleDifference) < Units.degreesToRadians(1.0)) {
             RobotContainer.driverController.setRumble(GenericHID.RumbleType.kBothRumble, 1.0);
             RobotContainer.auxController.setRumble(GenericHID.RumbleType.kBothRumble, 1.0);
         } else {
