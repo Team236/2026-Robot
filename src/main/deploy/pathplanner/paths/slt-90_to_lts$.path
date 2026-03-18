@@ -4,28 +4,28 @@
     {
       "anchor": {
         "x": 3.6,
-        "y": 0.42545
+        "y": 7.625
       },
       "prevControl": null,
       "nextControl": {
         "x": 3.6,
-        "y": 0.67545
+        "y": 7.375
       },
       "isLocked": false,
-      "linkedName": "srt90"
+      "linkedName": "slt-90"
     },
     {
       "anchor": {
-        "x": 3.22393831553974,
-        "y": 0.631
+        "x": 3.224,
+        "y": 7.369
       },
       "prevControl": {
-        "x": 3.47393831553974,
-        "y": 0.631
+        "x": 3.474,
+        "y": 7.369
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "rts$"
+      "linkedName": "lts$"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 68.0
+    "rotation": -67.0
   },
   "reversed": false,
   "folder": "movement",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 90.0
+    "rotation": -90.0
   },
   "useDefaultConstraints": true
 }

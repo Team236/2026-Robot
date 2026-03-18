@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.6,
-        "y": 0.42545
+        "x": 7.5,
+        "y": 7.0
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.6,
-        "y": 0.67545
+        "x": 7.506694395811759,
+        "y": 6.225901706471517
       },
       "isLocked": false,
-      "linkedName": "srt90"
+      "linkedName": "nbl-90"
     },
     {
       "anchor": {
-        "x": 3.22393831553974,
-        "y": 0.631
+        "x": 7.5,
+        "y": 5.0
       },
       "prevControl": {
-        "x": 3.47393831553974,
-        "y": 0.631
+        "x": 7.5,
+        "y": 5.25
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "rts$"
+      "linkedName": "nblc-90"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
+    "maxVelocity": 2.0,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 68.0
+    "rotation": -90.0
   },
   "reversed": false,
   "folder": "movement",
   "idealStartingState": {
-    "velocity": 0,
-    "rotation": 90.0
+    "velocity": 3.0,
+    "rotation": -90.0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

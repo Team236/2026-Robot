@@ -4,55 +4,57 @@
     {
       "anchor": {
         "x": 7.6,
-        "y": 4.0
+        "y": 3.0
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.410931695212513,
-        "y": 1.4252011974154337
+        "x": 6.1000000000000005,
+        "y": 0.401923788646684
       },
       "isLocked": false,
-      "linkedName": "nbc90"
+      "linkedName": "nbrc90"
     },
     {
       "anchor": {
-        "x": 1.5,
-        "y": 2.5
+        "x": 4.6,
+        "y": 0.631
       },
       "prevControl": {
-        "x": 1.8988712429833918,
-        "y": 1.4980232231030732
+        "x": 5.6,
+        "y": 0.6309999999999999
+      },
+      "nextControl": {
+        "x": 3.5999999999999996,
+        "y": 0.6310000000000001
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 3.22393831553974,
+        "y": 0.631
+      },
+      "prevControl": {
+        "x": 4.2239383155397405,
+        "y": 0.6309999999999999
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "rcs$"
+      "linkedName": "rts$"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.25,
-      "rotationDegrees": 135.0
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 0.0
     },
     {
-      "waypointRelativePos": 0.75,
-      "rotationDegrees": 135.0
+      "waypointRelativePos": 1.9,
+      "rotationDegrees": 0.0
     }
   ],
-  "constraintZones": [
-    {
-      "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.25,
-      "maxWaypointRelativePos": 0.75,
-      "constraints": {
-        "maxVelocity": 1.0,
-        "maxAcceleration": 3.0,
-        "maxAngularVelocity": 540.0,
-        "maxAngularAcceleration": 720.0,
-        "nominalVoltage": 12.0,
-        "unlimited": false
-      }
-    }
-  ],
+  "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
@@ -65,7 +67,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 27.0
+    "rotation": 68.0
   },
   "reversed": false,
   "folder": "movement",

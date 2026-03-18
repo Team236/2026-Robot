@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import frc.robot.SwerveModule;
 import frc.robot.Constants;
 import frc.robot.LimelightHelpers;
+import frc.robot.RobotContainer;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
@@ -42,6 +43,7 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.FieldObject2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -917,6 +919,15 @@ public class Swerve extends SubsystemBase {
         double dx = HUBX - Units.metersToInches(currentPose.getX());
         double dy = HUBY - Units.metersToInches(currentPose.getY());
         double targetAngle = Math.atan2(dy, dx);
+
+
+        if (Math.abs(targetAngle - currentPose.getRotation().getRadians()) < Units.degreesToRadians(1.0)) {
+            RobotContainer.driverController.setRumble(GenericHID.RumbleType.kBothRumble, 1.0);
+            RobotContainer.auxController.setRumble(GenericHID.RumbleType.kBothRumble, 1.0);
+        } else {
+            RobotContainer.driverController.setRumble(GenericHID.RumbleType.kBothRumble, 0.0);
+            RobotContainer.auxController.setRumble(GenericHID.RumbleType.kBothRumble, 0.0);
+        }
 
         return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), targetAngle);
     }
