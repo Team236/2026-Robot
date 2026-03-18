@@ -282,7 +282,7 @@ public class RobotContainer {
     lt1.whileTrue(new OverrideMove(binRelease, 0.25));
     lb1.whileTrue(new OverrideMove(binRelease, -0.25));
 
-    a1.whileTrue(new IntakeWithBinExtend(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION, intake, 3500));
+    a1.whileTrue(new IntakeWithBinExtend(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION, intake, 5000));
     b1.whileTrue(new EjectWithOuttake(preFeeder, mainRoller, floor, binRelease, intake));
 
     x1.onTrue(new PIDMove(binRelease, 0));
