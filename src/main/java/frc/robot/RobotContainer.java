@@ -94,7 +94,7 @@ public class RobotContainer {
   // private static DigitalInput autoSwitch2 = new DigitalInput(Constants.DIO_AUTO_2);
   // private static DigitalInput autoSwitch3 = new DigitalInput(Constants.DIO_AUTO_3);
   // private static DigitalInput autoSwitch4 = new DigitalInput(Constants.DIO_AUTO_4);
-  private final SendableChooser<Command> autoChooser;
+  // private final SendableChooser<Command> autoChooser;
   // drive controls
   private final int translationAxis = XboxController.Axis.kLeftY.value;
   private final int strafeAxis = XboxController.Axis.kLeftX.value;
@@ -173,11 +173,11 @@ public class RobotContainer {
     NamedCommands.registerCommand("intake", new IntakeWithBinExtend(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION, intake, 5500));
     NamedCommands.registerCommand("bin-out", new PIDMove(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION));
     NamedCommands.registerCommand("bin-zero", new PIDMove(binRelease, 0.0));
-    autoChooser = AutoBuilder.buildAutoChooserWithOptionsModifier(
-      (stream) -> stream.filter(auto -> auto.getName().startsWith("COMP"))
-    );
+    // autoChooser = AutoBuilder.buildAutoChooserWithOptionsModifier(
+    //   (stream) -> stream.filter(auto -> auto.getName().startsWith("COMP"))
+    // );
     // // autoChooser = null;
-    SmartDashboard.putData("Auto Routine", autoChooser);
+    // SmartDashboard.putData("Auto Routine", autoChooser);
 
     configureBindings();
     configAutos();
@@ -367,10 +367,10 @@ public class RobotContainer {
   
   public Command getAutonomousCommand() 
   {  
-    return autoChooser.getSelected();
+    // return autoChooser.getSelected();
 
-    // PathPlannerAuto pathPlannerAuto = AutoSwitchHelpers.getPathPlannerAuto();
-    // return pathPlannerAuto;
+    PathPlannerAuto pathPlannerAuto = AutoSwitchHelpers.getPathPlannerAuto();
+    return pathPlannerAuto;
 
     // if (!autoSwitch1.get() && !autoSwitch2.get() && !autoSwitch3.get() && !autoSwitch4.get()) {
     //   return

@@ -427,7 +427,7 @@ public static final class Swerve { //TODO -- UPDATE ALL VALUES / TUNE
             public static final int driveMotorID = 5;//testbed may be different!!!!!
             public static final int angleMotorID = 4;//testbed may be different!!!!!
             public static final int canCoderID = 2;//testbed may be different!!!!!
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(67.236); //66.09 new //67.061 //66.97 recent //(-117.42);//(8.1+180); TESTBED //106.35; old 106.87
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(66.97); //67.236 //66.09 new //67.061 //66.97 recent //(-117.42);//(8.1+180); TESTBED //106.35; old 106.87
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
