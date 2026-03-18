@@ -367,10 +367,10 @@ public class RobotContainer {
   
   public Command getAutonomousCommand() 
   {  
-    // return autoChooser.getSelected();
+    return autoChooser.getSelected();
 
-    PathPlannerAuto pathPlannerAuto = AutoSwitchHelpers.getPathPlannerAuto();
-    return pathPlannerAuto;
+    // PathPlannerAuto pathPlannerAuto = AutoSwitchHelpers.getPathPlannerAuto();
+    // return pathPlannerAuto;
 
     // if (!autoSwitch1.get() && !autoSwitch2.get() && !autoSwitch3.get() && !autoSwitch4.get()) {
     //   return

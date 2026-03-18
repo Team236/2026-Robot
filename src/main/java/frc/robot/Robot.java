@@ -56,7 +56,7 @@ public class Robot extends TimedRobot {
     Constants.Targeting.timeMap.get(0.0);
     Constants.Targeting.nuetralMap.get(0.0);
 
-    // DashboardUtil.putAutoToField();
+    DashboardUtil.putAutoToField();
     // myPDH.setSwitchableChannel(true);
 //
     // UsbCamera usbCamera0;

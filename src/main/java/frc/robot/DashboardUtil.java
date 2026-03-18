@@ -72,8 +72,11 @@ public class DashboardUtil {
                     var traj = field.getObject("autoTrajectory");
                     var alliance = DriverStation.getAlliance();
 
-                    System.out.println(autoCommand.getClass());
-                    if (autoCommand.getClass().getName().equals("InstantCommand") || autoCommand.equals(Commands.none()) || autoCommand == null) { return; }
+                    if (autoCommand instanceof InstantCommand || autoCommand.equals(Commands.none()) || autoCommand == null) {
+                        field.setRobotPose(new Pose2d());
+                        traj.setPoses(new Pose2d());
+                        return; 
+                    }
                     
                     var auto = (PathPlannerAuto) autoCommand;
                     
