@@ -85,8 +85,8 @@ import frc.robot.subsystems.BinRelease;
 public class RobotContainer {
   
   // controllers
-  XboxController driverController = new XboxController(Constants.Controller.USB_DRIVECONTROLLER);
-  XboxController auxController = new XboxController(Constants.Controller.USB_AUXCONTROLLER);
+  public static final XboxController driverController = new XboxController(Constants.Controller.USB_DRIVECONTROLLER);
+  public static final XboxController auxController = new XboxController(Constants.Controller.USB_AUXCONTROLLER);
 
   // // auto switches
   // commented out because these are now declared in AutoSwitchHelpers
