@@ -72,7 +72,8 @@ public class DashboardUtil {
                     var traj = field.getObject("autoTrajectory");
                     var alliance = DriverStation.getAlliance();
 
-                    if (autoCommand.equals(Commands.none()) || autoCommand == null) { return; }
+                    System.out.println(autoCommand.getClass());
+                    if (autoCommand.getClass().getName().equals("InstantCommand") || autoCommand.equals(Commands.none()) || autoCommand == null) { return; }
                     
                     var auto = (PathPlannerAuto) autoCommand;
                     
