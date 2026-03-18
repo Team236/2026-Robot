@@ -137,19 +137,6 @@
             }
           },
           {
-            "title": "Distance to blue hub",
-            "x": 1024.0,
-            "y": 128.0,
-            "width": 256.0,
-            "height": 128.0,
-            "type": "Large Text Display",
-            "properties": {
-              "topic": "/SmartDashboard/Distance to blue hub",
-              "period": 0.06,
-              "data_type": "double"
-            }
-          },
-          {
             "title": "Match Time",
             "x": 1280.0,
             "y": 256.0,
@@ -209,6 +196,32 @@
               "time_display_mode": "Minutes and Seconds",
               "red_start_time": 20,
               "yellow_start_time": 30
+            }
+          },
+          {
+            "title": "Distance to hub",
+            "x": 1280.0,
+            "y": 0.0,
+            "width": 256.0,
+            "height": 128.0,
+            "type": "Large Text Display",
+            "properties": {
+              "topic": "/SmartDashboard/Distance to hub",
+              "period": 0.033,
+              "data_type": "double"
+            }
+          },
+          {
+            "title": "Current Shift",
+            "x": 1024.0,
+            "y": 128.0,
+            "width": 512.0,
+            "height": 128.0,
+            "type": "Large Text Display",
+            "properties": {
+              "topic": "/SmartDashboard/Current Shift",
+              "period": 0.06,
+              "data_type": "string"
             }
           }
         ]
@@ -396,8 +409,8 @@
               "show_other_objects": true,
               "show_trajectories": true,
               "field_rotation": 0.0,
-              "robot_color": 4294198070,
-              "trajectory_color": 4294967295,
+              "robot_color": 4294194742,
+              "trajectory_color": 4294903795,
               "show_robot_outside_widget": true
             }
           },
