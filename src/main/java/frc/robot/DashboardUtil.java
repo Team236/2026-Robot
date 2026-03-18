@@ -6,6 +6,7 @@ package frc.robot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.path.PathPlannerPath;
@@ -24,6 +25,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /** Add your docs here. */
 public class DashboardUtil {
@@ -58,31 +60,46 @@ public class DashboardUtil {
     }
 
     public static void putAutoToField() {
-        Field2d field = (Field2d) SmartDashboard.getData("Auto Field");
-        var traj = field.getObject("autoTrajectory");
-        var alliance = DriverStation.getAlliance();
-
+        
         try {
-            PathPlannerAuto autoFromSwitches = AutoSwitchHelpers.getPathPlannerAuto();
+            var autoChooser = ((SendableChooser<Command>) SmartDashboard.getData("Auto Routine"));
 
-            var selectedAuto = ((SendableChooser<Command>) SmartDashboard.getData("Auto Routine")).getSelected();
-            if (selectedAuto.equals(Commands.none()) || selectedAuto == null) { return; }
-            
-            var auto = autoFromSwitches == null ? (PathPlannerAuto) selectedAuto : autoFromSwitches;
-            
-            if (auto == null) { return; }
+            if (autoChooser == null) { return; }
 
-            List<PathPlannerPath> paths = PathPlannerAuto.getPathGroupFromAutoFile(auto.getName());
+            Consumer<Command> onChange = 
+                autoCommand -> {
+                    Field2d field = (Field2d) SmartDashboard.getData("Auto Field");
+                    var traj = field.getObject("autoTrajectory");
+                    var alliance = DriverStation.getAlliance();
 
-            ArrayList<Pose2d> poses = new ArrayList<Pose2d>();
-            for (PathPlannerPath path : paths) {
-                for (Pose2d pose : path.getPathPoses()) {
-                    poses.add(alliance.isPresent() && alliance.get() == Alliance.Red ? FlippingUtil.flipFieldPose(pose) : pose);
-                }
-            }
+                    if (autoCommand.equals(Commands.none()) || autoCommand == null) { return; }
+                    
+                    var auto = (PathPlannerAuto) autoCommand;
+                    
+                    if (auto == null) { return; }
+
+                    try {
+                        List<PathPlannerPath> paths = PathPlannerAuto.getPathGroupFromAutoFile(auto.getName());
+                        
+                        ArrayList<Pose2d> poses = new ArrayList<Pose2d>();
+                        for (PathPlannerPath path : paths) {
+                            for (Pose2d pose : path.getPathPoses()) {
+                                poses.add(alliance.isPresent() && alliance.get() == Alliance.Red ? FlippingUtil.flipFieldPose(pose) : pose);
+                            }
+                        }
+                        
+                        field.setRobotPose(auto.getStartingPose());
+                        traj.setPoses(poses);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        System.out.println("exception getting paths from auto files, when displaying auto to field on dashboard");
+                    }
+
+                };
+                
+            autoChooser.onChange(onChange);
             
-            field.setRobotPose(auto.getStartingPose());
-            traj.setPoses(poses);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("exception trying to display auto on Field2d on dashboard");
