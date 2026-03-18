@@ -3,32 +3,37 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.6,
-        "y": 0.42545
+        "x": 7.5,
+        "y": 5.0
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.6,
-        "y": 0.67545
+        "x": 6.114359353944898,
+        "y": 5.8
       },
       "isLocked": false,
-      "linkedName": "srt90"
+      "linkedName": "nblc-90"
     },
     {
       "anchor": {
-        "x": 3.22393831553974,
-        "y": 0.631
+        "x": 3.3,
+        "y": 5.586
       },
       "prevControl": {
-        "x": 3.47393831553974,
-        "y": 0.631
+        "x": 5.299961946659676,
+        "y": 5.573662580770671
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "rts$"
+      "linkedName": "lbs$"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": -49.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -42,13 +47,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 68.0
+    "rotation": -49.0
   },
   "reversed": false,
   "folder": "movement",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 90.0
+    "rotation": -90.0
   },
   "useDefaultConstraints": true
 }

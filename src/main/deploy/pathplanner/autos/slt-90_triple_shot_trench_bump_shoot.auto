@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "srt90_to_rts$"
+            "pathName": "slt-90_to_lts$"
           }
         },
         {
@@ -30,9 +30,28 @@
           }
         },
         {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 1.0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "bin-out"
+                }
+              }
+            ]
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": "rts$_to_nbr90_with_v"
+            "pathName": "lts$_to_nbl-90_via_trench_with_v"
           }
         },
         {
@@ -40,22 +59,9 @@
           "data": {
             "commands": [
               {
-                "type": "sequential",
+                "type": "path",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "nbr90_to_nbrc90_with_v"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "nbrc90_to_rts$"
-                      }
-                    }
-                  ]
+                  "pathName": "nbl-90_to_nblc-90_with_v"
                 }
               },
               {
@@ -65,6 +71,12 @@
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "nblc-90_to_lbs$_via_bump"
           }
         },
         {
@@ -89,7 +101,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "rts$_to_nbr90_with_v"
+            "pathName": "lbs$_to_nbl-90_via_bump"
           }
         },
         {
@@ -97,25 +109,24 @@
           "data": {
             "commands": [
               {
-                "type": "sequential",
+                "type": "named",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "nbr90_to_nbrc90_with_v"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "nbrc90_to_rts$"
-                      }
-                    }
-                  ]
+                  "name": "intake"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "nbl-90_to_nblc-90_with_v"
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "nblc-90_to_lbs$_via_bump"
           }
         },
         {

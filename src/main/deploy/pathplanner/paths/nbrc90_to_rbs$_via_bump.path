@@ -8,51 +8,33 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.6,
-        "y": 2.5
+        "x": 6.387564434701785,
+        "y": 2.3000000000000003
       },
       "isLocked": false,
       "linkedName": "nbrc90"
     },
     {
       "anchor": {
-        "x": 2.201768901569186,
-        "y": 3.0710699001426542
+        "x": 3.3,
+        "y": 2.4136605234157025
       },
       "prevControl": {
-        "x": 3.2017689015691877,
-        "y": 3.0710699001426542
+        "x": 5.024809602649007,
+        "y": 2.3652152317880804
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "rbs$"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.25,
-      "rotationDegrees": 90.0
-    },
-    {
-      "waypointRelativePos": 0.75,
-      "rotationDegrees": 90.0
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 52.0
     }
   ],
-  "constraintZones": [
-    {
-      "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.25,
-      "maxWaypointRelativePos": 0.75,
-      "constraints": {
-        "maxVelocity": 1.0,
-        "maxAcceleration": 3.0,
-        "maxAngularVelocity": 540.0,
-        "maxAngularAcceleration": 720.0,
-        "nominalVoltage": 12.0,
-        "unlimited": false
-      }
-    }
-  ],
+  "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
@@ -65,7 +47,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 25.0
+    "rotation": 52.0
   },
   "reversed": false,
   "folder": "movement",
