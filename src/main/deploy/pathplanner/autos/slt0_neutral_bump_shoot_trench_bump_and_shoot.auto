@@ -80,7 +80,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "bin-out"
+                  "name": "bin-zero"
                 }
               }
             ]
