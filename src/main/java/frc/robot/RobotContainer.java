@@ -139,7 +139,7 @@ public class RobotContainer {
 
 //SHOOTER
  // private final ManualMainRoller manualMainRoller = new ManualMainRoller(mainRoller, Constants.ShooterConstants.MAIN_MOTOR_SPEED);
- // private final ManualShoot manualShoot = new ManualShoot(mainRoller, preFeeder);
+ private final ManualShoot manualShoot = new ManualShoot(mainRoller, preFeeder);
  // private final PIDMainRoller pidMainRoller = new PIDMainRoller(mainRoller, s_Swerve, Constants.ShooterConstants.MAIN_MOTOR_RPM);
  // private final PIDShoot pidShoot = new PIDShoot(mainRoller, s_Swerve, preFeeder, floor, intake, binRelease);
 
@@ -271,7 +271,8 @@ public class RobotContainer {
 
     // a.whileTrue(new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder, floor, intake, binRelease));
 
-    a.whileTrue(new  AlignAndFullClimb(s_Swerve, binManualExtend, climber, binRelease) );
+    // a.whileTrue(new  AlignAndFullClimb(s_Swerve, binManualExtend, climber, binRelease) );
+    a.whileTrue(manualShoot);
 
     // ------------------
     // FINAL AUX BUTTONS
@@ -362,7 +363,7 @@ public class RobotContainer {
     AutoSwitchHelpers.put(true, true, false, false, new PathPlannerAuto("COMP_speedy_slt0_double_neutral_trench_shoot"));
 
     //XXOX (ON ON OFF ON) 
-    AutoSwitchHelpers.put(true, true, false, true, new PathPlannerAuto("srt0_neutral_bump_shoot_trench_bump_and_shoot"));
+    AutoSwitchHelpers.put(true, true, false, true, new PathPlannerAuto("srt90_neutral_bump_shoot_trench_bump_and_shoot_speedy"));
       
     //XXXO (ON ON ON OFF) 
     // AutoSwitchHelpers.put(true, true, true, false, new PathPlannerAuto("?", mirror));
