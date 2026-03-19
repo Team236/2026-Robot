@@ -25,14 +25,14 @@
                 "data": {
                   "waitTime": 1.0
                 }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "srt90_to_rts$"
+                }
               }
             ]
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "srt90_to_rts$"
           }
         },
         {
