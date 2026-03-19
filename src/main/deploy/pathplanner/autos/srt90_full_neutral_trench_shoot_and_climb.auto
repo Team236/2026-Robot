@@ -1,0 +1,39 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "srt90_to_nbr90_and_prep_with_v"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "nbr90_to_nbl90_with_v"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "Untested Game Autos",
+  "choreoAuto": false
+}

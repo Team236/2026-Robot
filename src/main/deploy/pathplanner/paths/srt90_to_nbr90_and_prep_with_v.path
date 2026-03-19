@@ -3,32 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.6,
-        "y": 1.1
+        "x": 3.6,
+        "y": 0.42545
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.6,
-        "y": 0.6000000000000001
+        "x": 5.1,
+        "y": 0.4254499999999995
       },
       "isLocked": false,
-      "linkedName": "rs$"
-    },
-    {
-      "anchor": {
-        "x": 4.5,
-        "y": 0.6255542168674697
-      },
-      "prevControl": {
-        "x": 3.5,
-        "y": 0.6255542168674698
-      },
-      "nextControl": {
-        "x": 5.5,
-        "y": 0.6255542168674697
-      },
-      "isLocked": false,
-      "linkedName": null
+      "linkedName": "srt90"
     },
     {
       "anchor": {
@@ -44,19 +28,33 @@
       "linkedName": "nbr90"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.5,
-      "rotationDegrees": 0.0
-    },
-    {
-      "waypointRelativePos": 1.5,
-      "rotationDegrees": 0.0
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "bin-out",
+      "waypointRelativePos": 0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "bin-out"
+        }
+      }
+    },
+    {
+      "name": "startup-prep",
+      "waypointRelativePos": 0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "startup-prep"
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
@@ -66,14 +64,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
+    "velocity": 3.0,
     "rotation": 90.0
   },
   "reversed": false,
   "folder": "movement",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 56.0
+    "rotation": 90.0
   },
   "useDefaultConstraints": true
 }
