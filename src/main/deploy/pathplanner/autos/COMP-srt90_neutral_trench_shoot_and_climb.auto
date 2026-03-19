@@ -5,6 +5,12 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "startup-prep"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "srt90_to_rts$"
@@ -37,12 +43,6 @@
                 "type": "wait",
                 "data": {
                   "waitTime": 1.0
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "startup-prep"
                 }
               },
               {
