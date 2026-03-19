@@ -247,7 +247,7 @@ public class BinRelease extends SubsystemBase {
                     .until(() -> this.getEncoderRevolutions() >= state.baseline)
             )
             .repeatedly()
-            .until(() -> this.getEncoderRevolutions() >= finalTarget + 2.0)
+            .until(() -> this.getEncoderRevolutions() <= finalTarget + 2.0)
             .finallyDo(() -> this.stopMotor());
         }, Set.of(this));
     }
@@ -255,7 +255,7 @@ public class BinRelease extends SubsystemBase {
         public Command getManualAgitateCommand() {
         return new DeferredCommand(() -> {
             double binOutPose = Constants.BinReleaseConstants.BIN_DOWN_POSSITION;
-            double finalTarget = Constants.BinReleaseConstants.BIN_DOWN_POSSITION + 5.0;
+            double finalTarget = Constants.BinReleaseConstants.BIN_DOWN_POSSITION - 5.0;
 
             return new SequentialCommandGroup(
                 new RunCommand(() -> this.manualSetSpeedSafe(-0.4), this)
@@ -265,7 +265,7 @@ public class BinRelease extends SubsystemBase {
                     .until(() -> this.getEncoderRevolutions() >= binOutPose)
             )
             .repeatedly()
-            .until(() -> this.getEncoderRevolutions() >= finalTarget)
+            .until(() -> this.getEncoderRevolutions() <= finalTarget)
             .finallyDo(() -> this.stopMotor());
         }, Set.of(this));
     }
