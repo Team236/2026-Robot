@@ -134,6 +134,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "Untested Game Autos",
+  "folder": "Game Ready Autos",
   "choreoAuto": false
 }
