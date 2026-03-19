@@ -5,9 +5,28 @@
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "race",
           "data": {
-            "name": "startup-prep"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "startup-prep"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "bin-out"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 1.0
+                }
+              }
+            ]
           }
         },
         {
