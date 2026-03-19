@@ -103,7 +103,8 @@ public class DashboardUtil {
                 }
             }
             
-            field.setRobotPose(auto.getStartingPose());
+            Pose2d robotPose = alliance.isPresent() && alliance.get() == Alliance.Red ? FlippingUtil.flipFieldPose(auto.getStartingPose()) : auto.getStartingPose();
+            field.setRobotPose(robotPose);
             traj.setPoses(poses);
 
         } catch (Exception e) {

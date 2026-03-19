@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import java.util.Queue;
+import java.util.Set;
 
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
@@ -20,7 +21,10 @@ import edu.wpi.first.units.Units;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.DeferredCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.commands.BinRelease.PIDMove;
@@ -198,15 +202,72 @@ public class BinRelease extends SubsystemBase {
             .finallyDo(() -> this.PIDControlToPosition(Constants.BinReleaseConstants.BIN_DOWN_POSSITION));
     }
 
-    public Command getRisingAgitateCommand() {
-        return
-            new InstantCommand(() -> this.agitateSetpoint = this.getEncoderRevolutions() - 5)
-            .andThen(new PIDMove(this, this.agitateSetpoint)
-            .until(() -> Math.abs(this.getEncoderRevolutions() - this.agitateSetpoint) < 0.2))
-            .andThen(new InstantCommand(() -> this.agitateSetpoint = this.getEncoderRevolutions() + 2.5))
-            .andThen(new PIDMove(this, this.agitateSetpoint))
-            .until(() -> Math.abs(this.getEncoderRevolutions() - this.agitateSetpoint) < 0.2)
-            .repeatedly();
+    // public Command getRisingAgitateCommand() {
+    //     return
+    //         new InstantCommand(() -> this.agitateSetpoint = this.getEncoderRevolutions() - 5)
+    //         .andThen(new PIDMove(this, this.agitateSetpoint)
+    //         .until(() -> Math.abs(this.getEncoderRevolutions() - this.agitateSetpoint) < 0.2))
+    //         .andThen(new InstantCommand(() -> this.agitateSetpoint = this.getEncoderRevolutions() + 2.5))
+    //         .andThen(new PIDMove(this, this.agitateSetpoint))
+    //         .until(() -> Math.abs(this.getEncoderRevolutions() - this.agitateSetpoint) < 0.2)
+    //         .repeatedly();
+    // }
+
+        public Command getRisingAgitateCommand() {
+        return new SequentialCommandGroup(
+            new InstantCommand(() -> this.agitateSetpoint = this.getEncoderRevolutions() - 5),
+            
+            new DeferredCommand(() -> 
+                new PIDMove(this, this.agitateSetpoint)
+                    .until(() -> Math.abs(this.getEncoderRevolutions() - this.agitateSetpoint) < 0.2), 
+                Set.of(this)
+            ),
+            
+            new InstantCommand(() -> this.agitateSetpoint = this.getEncoderRevolutions() + 2.5),
+            
+            new DeferredCommand(() -> 
+                new PIDMove(this, this.agitateSetpoint)
+                    .until(() -> Math.abs(this.getEncoderRevolutions() - this.agitateSetpoint) < 0.2), 
+                Set.of(this)
+            )
+        ).repeatedly();
+    }
+
+    public Command getManualRisingAgitateCommand() {
+        return new DeferredCommand(() -> {
+            var state = new Object() { double baseline = getEncoderRevolutions(); };
+            double finalTarget = 0.0; 
+
+            return new SequentialCommandGroup(
+                new RunCommand(() -> this.manualSetSpeedSafe(-0.4), this)
+                    .until(() -> this.getEncoderRevolutions() <= state.baseline - 5),
+                
+                new InstantCommand(() -> state.baseline += 2.5), 
+                new RunCommand(() -> this.manualSetSpeedSafe(0.3), this) 
+                    .until(() -> this.getEncoderRevolutions() >= state.baseline)
+            )
+            .repeatedly()
+            .until(() -> this.getEncoderRevolutions() >= finalTarget + 2.0)
+            .finallyDo(() -> this.stopMotor());
+        }, Set.of(this));
+    }
+
+        public Command getManualAgitateCommand() {
+        return new DeferredCommand(() -> {
+            double binOutPose = Constants.BinReleaseConstants.BIN_DOWN_POSSITION;
+            double finalTarget = Constants.BinReleaseConstants.BIN_DOWN_POSSITION + 5.0;
+
+            return new SequentialCommandGroup(
+                new RunCommand(() -> this.manualSetSpeedSafe(-0.4), this)
+                    .until(() -> this.getEncoderRevolutions() <= finalTarget),
+                
+                new RunCommand(() -> this.manualSetSpeedSafe(0.3), this) 
+                    .until(() -> this.getEncoderRevolutions() >= binOutPose)
+            )
+            .repeatedly()
+            .until(() -> this.getEncoderRevolutions() >= finalTarget)
+            .finallyDo(() -> this.stopMotor());
+        }, Set.of(this));
     }
 
     @Override
