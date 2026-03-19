@@ -255,7 +255,7 @@ public class BinRelease extends SubsystemBase {
         public Command getManualAgitateCommand() {
         return new DeferredCommand(() -> {
             double binOutPose = Constants.BinReleaseConstants.BIN_DOWN_POSSITION;
-            double finalTarget = Constants.BinReleaseConstants.BIN_DOWN_POSSITION + 5.0;
+            double finalTarget = Constants.BinReleaseConstants.BIN_DOWN_POSSITION - 5.0;
 
             return new SequentialCommandGroup(
                 new RunCommand(() -> this.manualSetSpeedSafe(-0.4), this)
