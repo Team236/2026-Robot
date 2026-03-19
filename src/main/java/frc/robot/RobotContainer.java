@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -253,6 +254,12 @@ public class RobotContainer {
         () -> -driverController.getRawAxis(strafeAxis), 
         () -> robotCentric.getAsBoolean()
     ));
+
+    rt.onFalse( new InstantCommand(() -> {
+        RobotContainer.driverController.setRumble(GenericHID.RumbleType.kBothRumble, 0.0);
+        RobotContainer.auxController.setRumble(GenericHID.RumbleType.kBothRumble, 0.0);
+      })
+    ); 
 
     upPov.whileTrue(binManualRetract);
     downPov.whileTrue(binManualExtend);

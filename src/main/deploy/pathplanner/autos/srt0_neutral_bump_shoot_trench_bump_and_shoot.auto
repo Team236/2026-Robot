@@ -68,9 +68,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "race",
           "data": {
-            "pathName": "rbs$_to_srt0_with_v"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "bin-out"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "rbs$_to_srt0_with_v"
+                }
+              }
+            ]
           }
         },
         {
