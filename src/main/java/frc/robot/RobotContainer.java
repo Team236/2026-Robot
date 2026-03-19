@@ -170,7 +170,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("prep-climber", climberPrep);
     NamedCommands.registerCommand("climb-l1-front", climberL1Front);
     NamedCommands.registerCommand("startup-prep", new Eject(preFeeder, mainRoller, floor));
-    NamedCommands.registerCommand("intake", new IntakeWithBinExtend(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION, intake, 5500));
+    NamedCommands.registerCommand("intake", new IntakeWithBinExtend(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION, intake, 6500));
     NamedCommands.registerCommand("bin-out", new PIDMove(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION));
     NamedCommands.registerCommand("bin-zero", new PIDMove(binRelease, 0.0));
     // autoChooser = AutoBuilder.buildAutoChooserWithOptionsModifier(
@@ -282,7 +282,7 @@ public class RobotContainer {
     lt1.whileTrue(new OverrideMove(binRelease, 0.25));
     lb1.whileTrue(new OverrideMove(binRelease, -0.25));
 
-    a1.whileTrue(new IntakeWithBinExtend(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION, intake, 5000));
+    a1.whileTrue(new IntakeWithBinExtend(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION, intake, 6500));
     b1.whileTrue(new EjectWithOuttake(preFeeder, mainRoller, floor, binRelease, intake));
 
     x1.onTrue(new PIDMove(binRelease, 0));
@@ -355,7 +355,7 @@ public class RobotContainer {
     AutoSwitchHelpers.put(true, true, false, false, new PathPlannerAuto("COMP_speedy_slt0_double_neutral_trench_shoot"));
 
     //XXOX (ON ON OFF ON) 
-    // AutoSwitchHelpers.put(true, true, false, true, new PathPlannerAuto("?", mirror));
+    AutoSwitchHelpers.put(true, true, false, true, new PathPlannerAuto("srt0_neutral_bump_shoot_trench_bump_and_shoot"));
       
     //XXXO (ON ON ON OFF) 
     // AutoSwitchHelpers.put(true, true, true, false, new PathPlannerAuto("?", mirror));

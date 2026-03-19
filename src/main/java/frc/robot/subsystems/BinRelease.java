@@ -204,6 +204,7 @@ public class BinRelease extends SubsystemBase {
             .andThen(new PIDMove(this, this.agitateSetpoint)
             .until(() -> Math.abs(this.getEncoderRevolutions() - this.agitateSetpoint) < 0.2))
             .andThen(new InstantCommand(() -> this.agitateSetpoint = this.getEncoderRevolutions() + 2.5))
+            .andThen(new PIDMove(this, this.agitateSetpoint))
             .until(() -> Math.abs(this.getEncoderRevolutions() - this.agitateSetpoint) < 0.2)
             .repeatedly();
     }
