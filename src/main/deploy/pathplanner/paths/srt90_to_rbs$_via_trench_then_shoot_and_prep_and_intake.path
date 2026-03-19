@@ -4,15 +4,15 @@
     {
       "anchor": {
         "x": 3.6,
-        "y": 0.631
+        "y": 0.42545
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.6,
-        "y": 0.631
+        "x": 5.220827814569536,
+        "y": 0.44133278145695387
       },
       "isLocked": false,
-      "linkedName": "srt0"
+      "linkedName": "srt90"
     },
     {
       "anchor": {
@@ -56,7 +56,7 @@
         "y": 2.414
       },
       "nextControl": {
-        "x": 5.0,
+        "x": 5.5,
         "y": 2.414
       },
       "isLocked": false,
@@ -68,7 +68,7 @@
         "y": 2.4136605234157025
       },
       "prevControl": {
-        "x": 4.300000000000001,
+        "x": 3.8,
         "y": 2.4136605234157025
       },
       "nextControl": null,
@@ -79,7 +79,7 @@
   "rotationTargets": [
     {
       "waypointRelativePos": 1.0,
-      "rotationDegrees": 0.0
+      "rotationDegrees": 90.0
     },
     {
       "waypointRelativePos": 1.5,
@@ -94,23 +94,43 @@
       "rotationDegrees": 52.0
     }
   ],
-  "constraintZones": [
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [
     {
-      "name": "Constraints Zone",
-      "minWaypointRelativePos": 3.0,
-      "maxWaypointRelativePos": 4.0,
-      "constraints": {
-        "maxVelocity": 2.0,
-        "maxAcceleration": 3.0,
-        "maxAngularVelocity": 540.0,
-        "maxAngularAcceleration": 720.0,
-        "nominalVoltage": 12.0,
-        "unlimited": false
+      "name": "bin-out",
+      "waypointRelativePos": 1.0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "bin-out"
+        }
+      }
+    },
+    {
+      "name": "startup-prep",
+      "waypointRelativePos": 1.0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "startup-prep"
+        }
+      }
+    },
+    {
+      "name": "intake",
+      "waypointRelativePos": 1.0,
+      "endWaypointRelativePos": 0.02261484098939993,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "intake"
+        }
       }
     }
   ],
-  "pointTowardsZones": [],
-  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
@@ -127,7 +147,7 @@
   "folder": "movement",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 90.0
   },
   "useDefaultConstraints": true
 }
