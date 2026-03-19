@@ -4,28 +4,28 @@
     {
       "anchor": {
         "x": 7.6,
-        "y": 3.0
+        "y": 2.5
       },
       "prevControl": null,
       "nextControl": {
         "x": 7.257979856674332,
-        "y": 3.939692620785909
+        "y": 3.439692620785909
       },
       "isLocked": false,
-      "linkedName": "nbrc90"
+      "linkedName": "nbrcr90"
     },
     {
       "anchor": {
         "x": 6.244478476821192,
-        "y": 3.0
+        "y": 2.5
       },
       "prevControl": {
         "x": 6.415488548484026,
-        "y": 3.4698463103929544
+        "y": 2.9698463103929544
       },
       "nextControl": {
         "x": 5.902458333495525,
-        "y": 2.0603073792140956
+        "y": 1.5603073792140956
       },
       "isLocked": false,
       "linkedName": null

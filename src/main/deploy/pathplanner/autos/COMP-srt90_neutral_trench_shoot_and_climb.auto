@@ -42,7 +42,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 1.0
+                  "waitTime": 2.0
                 }
               },
               {
@@ -90,13 +90,13 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "nbr90_to_nbrc90_with_v"
+                        "pathName": "nbr90_to_nbrcr90_with_v"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "nbrc90_to_rcs$_uturn_via_trench_with_v"
+                        "pathName": "nbrcr90_to_rcs$_uturn_via_trench_with_v"
                       }
                     }
                   ]
