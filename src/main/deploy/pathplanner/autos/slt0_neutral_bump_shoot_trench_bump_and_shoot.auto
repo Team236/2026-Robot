@@ -68,9 +68,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "race",
           "data": {
-            "pathName": "lbs$_to_slt0_with_v"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "lbs$_to_slt0_with_v"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "bin-out"
+                }
+              }
+            ]
           }
         },
         {
@@ -80,7 +93,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "srt0_to_rbs$_via_trench_then_bump_tight_with_v"
+                  "pathName": "slt0_to_lbs$_via_trench_then_bump_with_v"
                 }
               },
               {
@@ -118,7 +131,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "rbs$_to_tr0"
+                  "pathName": "lbs$_to_tl0"
                 }
               },
               {
@@ -152,7 +165,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "tr0_to_cr0"
+            "pathName": "tl0_to_cl0"
           }
         },
         {
