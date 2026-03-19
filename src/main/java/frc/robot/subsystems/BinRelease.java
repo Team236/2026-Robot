@@ -239,11 +239,11 @@ public class BinRelease extends SubsystemBase {
             double finalTarget = 0.0; 
 
             return new SequentialCommandGroup(
-                new RunCommand(() -> this.manualSetSpeedSafe(-0.4), this)
+                new RunCommand(() -> this.manualSetSpeedSafe(-0.45), this)
                     .until(() -> this.getEncoderRevolutions() <= state.baseline - 5),
                 
-                new InstantCommand(() -> state.baseline += 2.5), 
-                new RunCommand(() -> this.manualSetSpeedSafe(0.3), this) 
+                new InstantCommand(() -> state.baseline -= 2.5), 
+                new RunCommand(() -> this.manualSetSpeedSafe(0.2), this) 
                     .until(() -> this.getEncoderRevolutions() >= state.baseline)
             )
             .repeatedly()
@@ -264,9 +264,7 @@ public class BinRelease extends SubsystemBase {
                 new RunCommand(() -> this.manualSetSpeedSafe(0.3), this) 
                     .until(() -> this.getEncoderRevolutions() >= binOutPose)
             )
-            .repeatedly()
-            .until(() -> this.getEncoderRevolutions() <= finalTarget)
-            .finallyDo(() -> this.stopMotor());
+            .repeatedly();
         }, Set.of(this));
     }
 
