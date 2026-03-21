@@ -174,6 +174,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("intake", new IntakeWithBinExtend(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION, intake, 6500));
     NamedCommands.registerCommand("bin-out", new PIDMove(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION));
     NamedCommands.registerCommand("bin-zero", new PIDMove(binRelease, 0.0));
+    NamedCommands.registerCommand("heading-override", s_Swerve.getPPOverrideHeadingCommand());
     autoChooser = AutoBuilder.buildAutoChooserWithOptionsModifier(
       (stream) -> stream.filter(auto -> auto.getName().startsWith("COMP"))
     );
