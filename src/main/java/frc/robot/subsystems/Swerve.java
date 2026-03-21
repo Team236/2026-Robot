@@ -695,6 +695,21 @@ public class Swerve extends SubsystemBase {
         return pidOutput;
     }
 
+    // this method will return pid output to rotate robot heading to face its moving direction.
+    public double getPPOverrideHeadingFeedback() {
+        Pose2d currentPose = getPose();
+        ChassisSpeeds robotChassisSpeeds = getChassisSpeeds();
+        Translation2d fieldRelativeVelocities = new Translation2d(
+                robotChassisSpeeds.vxMetersPerSecond, 
+                robotChassisSpeeds.vyMetersPerSecond
+        ).rotateBy(currentPose.getRotation());
+
+        double targetAngle = fieldRelativeVelocities.getAngle().getRadians();
+
+        double pidOutput = pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), targetAngle);
+        return pidOutput;
+    }
+
     public double getAngleOfHub (double HUBX, double HUBY) {
         Pose2d currentPose = getPose();
         double dx = HUBX - Units.metersToInches(currentPose.getX());
