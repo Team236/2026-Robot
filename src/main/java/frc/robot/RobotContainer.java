@@ -272,20 +272,22 @@ public class RobotContainer {
     // a.whileTrue(new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder, floor, intake, binRelease));
 
     // a.whileTrue(new  AlignAndFullClimb(s_Swerve, binManualExtend, climber, binRelease) );
-    a.whileTrue(manualShoot);
+    // a.whileTrue(manualShoot);
+
+    a.whileTrue(new IntakeWithBinExtend(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION, intake, 6500));
 
     // ------------------
     // FINAL AUX BUTTONS
     // ------------------
     
-    view1.onTrue(climberPrep); //RENABLE ONCE FIXED*
-    menu1.onTrue(climberL1Front); //RENABLE ONCE FIXED*
+    // view1.onTrue(climberPrep); //RENABLE ONCE FIXED*
+    // menu1.onTrue(climberL1Front); //RENABLE ONCE FIXED*
 
     upPov1.whileTrue(climberManualUp); //RENABLE ONCE FIXED*
     downPov1.whileTrue(climberManualDown); //RENABLE ONCE FIXED*
 
-    leftPov1.whileTrue(binManualRetract);
-    rightPov1.whileTrue(binManualExtend);
+    // lm1.whileTrue(binManualRetract);
+    // rm1.whileTrue(binManualExtend);
 
     lt1.whileTrue(new OverrideMove(binRelease, 0.25));
     lb1.whileTrue(new OverrideMove(binRelease, -0.25));
@@ -305,6 +307,12 @@ public class RobotContainer {
     // -----------------------
     // TESTING COMMANDS BELOW
     // -----------------------
+
+    lm1.whileTrue(binRelease.getManualRisingAgitateCommand());
+    rm1.whileTrue(binRelease.getManualAgitateCommand());
+
+    // rm1.onFalse(() -> binRelease.stopMotor());
+    // lm1.onFalse(() -> binRelease.stopMotor());
 
     // rt.whileTrue(new AimOnMove(
     //   s_Swerve, 

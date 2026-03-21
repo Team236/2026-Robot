@@ -239,15 +239,15 @@ public class BinRelease extends SubsystemBase {
             double finalTarget = 0.0; 
 
             return new SequentialCommandGroup(
-                new RunCommand(() -> this.manualSetSpeedSafe(-0.45), this)
-                    .until(() -> this.getEncoderRevolutions() <= state.baseline - 5),
+                new RunCommand(() -> this.manualSetSpeedSafe(-0.6), this)
+                    .until(() -> this.getEncoderRevolutions() <= state.baseline - 7.5),
                 
-                new InstantCommand(() -> state.baseline -= 2.5), 
-                new RunCommand(() -> this.manualSetSpeedSafe(0.2), this) 
+                new InstantCommand(() -> state.baseline -= 5.0), 
+                new RunCommand(() -> this.manualSetSpeedSafe(0.35), this) 
                     .until(() -> this.getEncoderRevolutions() >= state.baseline)
             )
             .repeatedly()
-            .until(() -> this.getEncoderRevolutions() <= finalTarget + 2.0)
+            .until(() -> this.getEncoderRevolutions() <= finalTarget + 5.0)
             .finallyDo(() -> this.stopMotor());
         }, Set.of(this));
     }
@@ -255,16 +255,17 @@ public class BinRelease extends SubsystemBase {
         public Command getManualAgitateCommand() {
         return new DeferredCommand(() -> {
             double binOutPose = Constants.BinReleaseConstants.BIN_DOWN_POSSITION;
-            double finalTarget = Constants.BinReleaseConstants.BIN_DOWN_POSSITION - 5.0;
+            double finalTarget = Constants.BinReleaseConstants.BIN_DOWN_POSSITION - 7.5;
 
             return new SequentialCommandGroup(
-                new RunCommand(() -> this.manualSetSpeedSafe(-0.4), this)
-                    .until(() -> this.getEncoderRevolutions() <= finalTarget),
+                new RunCommand(() -> this.manualSetSpeedSafe(-0.6), this)
+                    .until(() -> this.getEncoderRevolutions() <=finalTarget),
                 
-                new RunCommand(() -> this.manualSetSpeedSafe(0.3), this) 
+                new RunCommand(() -> this.manualSetSpeedSafe(0.35), this) 
                     .until(() -> this.getEncoderRevolutions() >= binOutPose)
             )
-            .repeatedly();
+            .repeatedly()
+            .finallyDo(() -> this.stopMotor());
         }, Set.of(this));
     }
 
