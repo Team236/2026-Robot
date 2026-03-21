@@ -1,0 +1,19 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "srt90_to_rbs$_via_trench_uturn_bump_shoot_intakeandstartup_no_climb"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "Untested Game Autos",
+  "choreoAuto": false
+}
