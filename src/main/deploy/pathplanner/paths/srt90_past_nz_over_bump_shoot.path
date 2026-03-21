@@ -137,19 +137,34 @@
       "name": "bin-out",
       "waypointRelativePos": 0,
       "endWaypointRelativePos": null,
-      "command": null
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "bin-out"
+        }
+      }
     },
     {
       "name": "startup-prep",
       "waypointRelativePos": 0,
       "endWaypointRelativePos": null,
-      "command": null
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "startup-prep"
+        }
+      }
     },
     {
       "name": "intake",
       "waypointRelativePos": 1.0,
       "endWaypointRelativePos": 5.25,
-      "command": null
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "intake"
+        }
+      }
     }
   ],
   "globalConstraints": {

@@ -160,10 +160,26 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
+      "name": "bin-out",
+      "waypointRelativePos": 0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "bin-out"
+        }
+      }
+    },
+    {
       "name": "intake",
       "waypointRelativePos": 1.0,
       "endWaypointRelativePos": 5.0,
-      "command": null
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "intake"
+        }
+      }
     }
   ],
   "globalConstraints": {
