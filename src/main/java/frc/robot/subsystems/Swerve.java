@@ -732,6 +732,34 @@ public class Swerve extends SubsystemBase {
             };
     }
 
+    public Command getPPTargetingCommand() {
+        return
+            new Command() {
+                double hubX;
+                double hubY;
+
+                @Override
+                public void initialize() {
+                    var alliance = DriverStation.getAlliance();
+
+                    if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+                        hubX = Constants.Targeting.RED_ALLIANCE_HUB_CENTER_X;
+                        hubY = Constants.Targeting.RED_ALLIANCE_HUB_CENTER_Y;
+                    } else {
+                        hubX = Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_X;
+                        hubY = Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_Y;
+                    }
+
+                    PPHolonomicDriveController.overrideRotationFeedback(() -> calculateTargetingPID(hubX, hubY));
+                }   
+
+                @Override
+                public void end(boolean interrupted) {
+                    PPHolonomicDriveController.clearRotationFeedbackOverride();
+                }
+            };
+    }
+
     public double getAngleOfHub (double HUBX, double HUBY) {
         Pose2d currentPose = getPose();
         double dx = HUBX - Units.metersToInches(currentPose.getX());
