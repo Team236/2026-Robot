@@ -77,6 +77,9 @@ public class Swerve extends SubsystemBase {
     //SmartDashboard
     private Field2d field = new Field2d();
 
+    // PathPlanner
+    private PIDController PPHeadingPIDController;
+
     //targeting
     public SwerveControllerCommand currentSwerveControllerCommand;
     public Trajectory currentTrajectory;
@@ -162,6 +165,11 @@ public class Swerve extends SubsystemBase {
         pidControllerForTrackingOutput.setTolerance(Math.toRadians(0.1));
         pidControllerForTrackingOutput.setSetpoint(0.0);
 
+        PPHeadingPIDController = new PIDController(
+            Constants.PathPlanner.ROTATION_PID_CONSTANTS.kP,
+            Constants.PathPlanner.ROTATION_PID_CONSTANTS.kI,
+            Constants.PathPlanner.ROTATION_PID_CONSTANTS.kD
+        );
 
         // Update cached hub coordinates once per loop (avoids repeated DriverStation.getAlliance() calls)
         var alliance = DriverStation.getAlliance();
@@ -702,12 +710,26 @@ public class Swerve extends SubsystemBase {
         Translation2d fieldRelativeVelocities = new Translation2d(
                 robotChassisSpeeds.vxMetersPerSecond, 
                 robotChassisSpeeds.vyMetersPerSecond
-        ).rotateBy(currentPose.getRotation());
+        ).rotateBy(getHeading());
 
         double targetAngle = fieldRelativeVelocities.getAngle().getRadians();
 
-        double pidOutput = pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), targetAngle);
-        return pidOutput;
+        return PPHeadingPIDController.calculate(currentPose.getRotation().getRadians(), targetAngle);
+    }
+
+    public Command getPPOverrideHeadingCommand() {
+        return 
+            new Command() {
+                @Override
+                public void initialize() {
+                    PPHolonomicDriveController.overrideRotationFeedback(Swerve.this::getPPOverrideHeadingFeedback);
+                }
+
+                @Override
+                public void end(boolean interrupted) {
+                    PPHolonomicDriveController.clearRotationFeedbackOverride();
+                }
+            };
     }
 
     public double getAngleOfHub (double HUBX, double HUBY) {
