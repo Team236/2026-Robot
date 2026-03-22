@@ -267,8 +267,6 @@ public class RobotContainer {
     upPov.whileTrue(binManualRetract);
     downPov.whileTrue(binManualExtend);
 
-    // b.whileTrue(Commands.defer((() -> s_Swerve.getClimbTargetingPath()), Set.of(s_Swerve))); // NOT WORKING WANTS ALIGN SIDE
-    // x.whileTrue(Commands.defer((() -> s_Swerve.getClimbTargetingPath()), Set.of(s_Swerve))); // NOT WORKING WANTS ALIGN FRONT
 
     b.whileTrue(new AlignAndFullClimb(s_Swerve, binManualExtend, climber, binRelease));
 
