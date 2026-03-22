@@ -120,7 +120,17 @@ public final class Constants {
 
     // changable in code
     public static final double BIN_AGITATE_DOWN_POSSITION = 31.0;
-    public static final double BIN_AGITATE_UP_POSSITION = 7.5;
+  }
+
+  public static class ChangableBinConstants{
+    public static double BIN_AGITATE_END_POSITION = 7.5;
+    public static double BIN_RETRACT_BEGINNING_SPEED = 0.6;
+    public static double BIN_EXTEND_BEGINNING_SPEED = 0.35;
+    public static double BIN_RETRACT_RISING_SPEED = 0.6;
+    public static double BIN_EXTEND_RISING_SPEED = 0.35;
+    public static double BIN_BEGINNING_TRAVEL_DISTANCE = 7.5;
+    public static double BIN_RISING_TRAVEL_UP_DISTANCE = 7.5;
+    public static double BIN_RISING_NET_CHANGE_DISTANCE = 2.5;
   }
 
   public static class ShooterPivotConstants {
