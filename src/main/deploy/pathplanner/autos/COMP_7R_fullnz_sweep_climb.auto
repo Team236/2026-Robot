@@ -21,13 +21,13 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "nbr90_to_nblcl90_with_v"
+                        "pathName": "nbr90_to_nblcl90_sweep_v"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "v_nblcl90_to_rcs$_via_bump_and_zigzag"
+                        "pathName": "v_sweep_to_rcs$_via_bump_and_zigzag"
                       }
                     }
                   ]
