@@ -239,30 +239,48 @@ public class BinRelease extends SubsystemBase {
             double finalTarget = 0.0; 
 
             return new SequentialCommandGroup(
-                new RunCommand(() -> this.manualSetSpeedSafe(-0.5), this)
+                new RunCommand(() -> this.manualSetSpeedSafe(-0.6), this)
                     .until(() -> this.getEncoderRevolutions() <= state.baseline - 7.5),
                 
                 new InstantCommand(() -> state.baseline -= 5.0), 
-                new RunCommand(() -> this.manualSetSpeedSafe(0.7), this) 
+                new RunCommand(() -> this.manualSetSpeedSafe(0.35), this) 
                     .until(() -> this.getEncoderRevolutions() >= state.baseline)
             )
             .repeatedly()
-            .until(() -> this.getEncoderRevolutions() <= finalTarget + 8.5)
+            .until(() -> this.getEncoderRevolutions() <= finalTarget + 5.0)
             .finallyDo(() -> this.stopMotor());
         }, Set.of(this));
     }
 
         public Command getManualAgitateCommand() {
         return new DeferredCommand(() -> {
-            double binOutPose = Constants.BinReleaseConstants.BIN_AGITATE_DOWN_POSSITION;
-            double finalTarget = Constants.BinReleaseConstants.BIN_AGITATE_DOWN_POSSITION - 7.5;
+            double binOutPose = Constants.BinReleaseConstants.BIN_DOWN_POSSITION;
+            double finalTarget = Constants.BinReleaseConstants.BIN_DOWN_POSSITION - 7.5;
 
             return new SequentialCommandGroup(
                 new RunCommand(() -> this.manualSetSpeedSafe(-0.6), this)
                     .until(() -> this.getEncoderRevolutions() <=finalTarget),
                 
-                new RunCommand(() -> this.manualSetSpeedSafe(0.75), this) 
+                new RunCommand(() -> this.manualSetSpeedSafe(0.35), this) 
                     .until(() -> this.getEncoderRevolutions() >= binOutPose)
+            )
+            .repeatedly()
+            .finallyDo(() -> this.stopMotor());
+        }, Set.of(this));
+    }
+
+    public Command getManualTopAgitateCommand() {
+        return new DeferredCommand(() -> {
+            double binTopPose = Constants.BinReleaseConstants.BIN_AGITATE_UP_POSSITION;
+            
+            double finalTarget = binTopPose + 7.5;
+
+            return new SequentialCommandGroup(
+                new RunCommand(() -> this.manualSetSpeedSafe(-0.6), this)
+                    .until(() -> this.getEncoderRevolutions() <= finalTarget),
+                
+                new RunCommand(() -> this.manualSetSpeedSafe(0.35), this) 
+                    .until(() -> this.getEncoderRevolutions() >= binTopPose)
             )
             .repeatedly()
             .finallyDo(() -> this.stopMotor());

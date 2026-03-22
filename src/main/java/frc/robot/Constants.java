@@ -117,7 +117,10 @@ public final class Constants {
     public static final double AGITATE_TEST_SPEED = 0.2; // seconds for one full cycle
 
     public static final double BIN_DOWN_POSSITION = 32.5;
+
+    // changable in code
     public static final double BIN_AGITATE_DOWN_POSSITION = 31.0;
+    public static final double BIN_AGITATE_UP_POSSITION = 7.5;
   }
 
   public static class ShooterPivotConstants {
