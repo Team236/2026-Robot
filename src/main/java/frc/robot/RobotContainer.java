@@ -264,6 +264,8 @@ public class RobotContainer {
       })
     ); 
 
+    lm.whileTrue(new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder, floor, intake, binRelease));
+
     upPov.whileTrue(binManualRetract);
     downPov.whileTrue(binManualExtend);
 

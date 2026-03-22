@@ -163,15 +163,15 @@ public class ShooterPivot extends SubsystemBase {
     targetRevs = Math.max(0.0, Math.min(targetRevs, Constants.ShooterPivotConstants.ENC_REVS_MAX));
 
     // Prevent driving further into limits
-    if (targetRevs > getEncoderRevs() && (isFullyExtended())) {
+    if (targetRevs > getEncoderRevs() && isFullyExtended()) {
       stopShooterPivot();
-      return; //causes the method to end here when the "if" is true
+      return; 
     }
 
     if (targetRevs < getEncoderRevs() && (isShooterRetLimit() || isFullyRetracted())) {
       stopShooterPivot();
       resetEncoder();
-      return;//causes the method to end here when the "if" is true
+      return;
     }
     shooterPivotMotor.setControl(m_positionRequest.withPosition(targetRevs));
   }
