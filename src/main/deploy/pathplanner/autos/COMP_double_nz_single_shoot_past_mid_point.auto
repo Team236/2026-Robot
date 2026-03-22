@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "shc0_to_dr90"
+            "pathName": "srt90_past_nz_over_bump_shoot"
           }
         },
         {
@@ -15,24 +15,30 @@
           "data": {
             "commands": [
               {
-                "type": "path",
+                "type": "wait",
                 "data": {
-                  "pathName": "dr90_to_dl90"
+                  "waitTime": 6.0
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "intake"
+                  "name": "shoot"
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "r$_to_nz_over_bump_wider"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "new",
+  "folder": "Hartford Ready",
   "choreoAuto": false
 }

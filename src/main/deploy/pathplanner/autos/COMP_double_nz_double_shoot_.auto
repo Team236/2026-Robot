@@ -5,25 +5,25 @@
     "data": {
       "commands": [
         {
+          "type": "path",
+          "data": {
+            "pathName": "srt90_to_rbs$_via_trench_uturn_bump_shoot_intakeandstartup_no_climb_no_mid"
+          }
+        },
+        {
           "type": "race",
           "data": {
             "commands": [
               {
-                "type": "named",
-                "data": {
-                  "name": "bin-out"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "startup-prep"
-                }
-              },
-              {
                 "type": "wait",
                 "data": {
-                  "waitTime": 2.5
+                  "waitTime": 3.5
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "shoot"
                 }
               }
             ]
@@ -32,19 +32,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "srt0_to_oc0"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 3.5
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "oc0_to_rs$"
+            "pathName": "r$_to_nz_over_bump_single"
           }
         },
         {
@@ -52,15 +40,15 @@
           "data": {
             "commands": [
               {
-                "type": "named",
-                "data": {
-                  "name": "shoot"
-                }
-              },
-              {
                 "type": "wait",
                 "data": {
                   "waitTime": 3.5
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "shoot"
                 }
               }
             ]
@@ -70,6 +58,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "new",
+  "folder": "Hartford Ready",
   "choreoAuto": false
 }

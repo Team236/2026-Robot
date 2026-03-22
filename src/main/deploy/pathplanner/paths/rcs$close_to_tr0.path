@@ -12,7 +12,7 @@
         "y": 3.2495111107797445
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "shoot-close-tower-right"
     },
     {
       "anchor": {
@@ -48,7 +48,7 @@
   "folder": "movement",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 20.072
+    "rotation": 19.36096836652467
   },
   "useDefaultConstraints": true
 }

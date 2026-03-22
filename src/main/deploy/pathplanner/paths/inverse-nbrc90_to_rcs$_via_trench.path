@@ -32,16 +32,16 @@
     },
     {
       "anchor": {
-        "x": 7.5,
+        "x": 1.5,
         "y": 5.0
       },
       "prevControl": {
-        "x": 8.25057523079731,
-        "y": 7.801184896238298
+        "x": 2.2505752307973097,
+        "y": 7.801184896238296
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "nblc-90"
+      "linkedName": "lcs$"
     }
   ],
   "rotationTargets": [
@@ -81,7 +81,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": -15.919387832117675
   },
   "reversed": false,
   "folder": "movement",

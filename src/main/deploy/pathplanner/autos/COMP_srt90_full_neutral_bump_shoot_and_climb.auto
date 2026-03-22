@@ -5,31 +5,6 @@
     "data": {
       "commands": [
         {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 1.0
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "bin-out"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "startup-prep"
-                }
-              }
-            ]
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "srt90_to_nbr90_with_v"
@@ -74,7 +49,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 4.0
+                  "waitTime": 5.5
                 }
               },
               {
@@ -87,19 +62,13 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "rcs$_to_tr0"
-          }
-        },
-        {
           "type": "race",
           "data": {
             "commands": [
               {
-                "type": "wait",
+                "type": "named",
                 "data": {
-                  "waitTime": 1.2
+                  "name": "bin-zero"
                 }
               },
               {
@@ -107,14 +76,27 @@
                 "data": {
                   "name": "prep-climber"
                 }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "rcs$close_to_tr0"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "tr0_to_cr0"
+                      }
+                    }
+                  ]
+                }
               }
             ]
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "tr0_to_cr0"
           }
         },
         {
@@ -127,6 +109,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "Game Ready Autos",
+  "folder": "Hartford Ready",
   "choreoAuto": false
 }

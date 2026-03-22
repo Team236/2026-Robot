@@ -41,15 +41,16 @@ public class PIDShoot extends ParallelCommandGroup {
         new WaitCommand(0.3),
         new ParallelCommandGroup(
           new PIDPrefeeder(preFeeder, s_Swerve,Constants.PreFeederConstants.DESIRED_RPM),
-          new RunFloor(floor, -0.5),
+          new RunFloor(floor, -0.9),
           new PIDIntake(intake, 4000)
         )
       ),
 
       new SequentialCommandGroup(
         new WaitCommand(0.3),
-        binRelease.getManualAgitateCommand().withTimeout(1.7),
-        binRelease.getManualRisingAgitateCommand()
+        new ManualMove(binRelease, -0.2).until(() -> binRelease.getEncoderRevolutions() < 8.5)
+        // binRelease.getManualAgitateCommand().withTimeout(1.7),
+        // binRelease.getManualRisingAgitateCommand()
       )
     );
     

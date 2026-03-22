@@ -5,32 +5,25 @@
     "data": {
       "commands": [
         {
-          "type": "sequential",
+          "type": "path",
+          "data": {
+            "pathName": "srt90_to_rbs$_via_trench_uturn_bump_shoot_intakeandstartup"
+          }
+        },
+        {
+          "type": "race",
           "data": {
             "commands": [
               {
-                "type": "path",
+                "type": "named",
                 "data": {
-                  "pathName": "srt90_to_rbs$_via_trench_uturn_bump_shoot_intakeandstartup"
+                  "name": "shoot"
                 }
               },
               {
-                "type": "race",
+                "type": "wait",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 4.5
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "shoot"
-                      }
-                    }
-                  ]
+                  "waitTime": 5.0
                 }
               }
             ]
@@ -47,15 +40,28 @@
                 }
               },
               {
-                "type": "named",
+                "type": "race",
                 "data": {
-                  "name": "prep-climber"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "bin-zero"
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.5
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "prep-climber"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "bin-zero"
+                      }
+                    }
+                  ]
                 }
               }
             ]
@@ -77,6 +83,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "Untested Game Autos",
+  "folder": "Hartford Ready",
   "choreoAuto": false
 }

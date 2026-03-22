@@ -215,6 +215,7 @@ public final class Constants {
       hoodAngleMap.put(111.5, 6.36);
       hoodAngleMap.put(145.5, 8.41);
       hoodAngleMap.put(180.0, 10.94);
+      hoodAngleMap.put(210.0, 12.0);
     }
 
     public static final InterpolatingDoubleTreeMap rpmMap = new InterpolatingDoubleTreeMap();
@@ -225,6 +226,7 @@ public final class Constants {
       rpmMap.put(111.5, 2400.0);
       rpmMap.put(145.5, 2500.0);
       rpmMap.put(180.0, 2650.0);
+      rpmMap.put(210.0, 2800.0);
     }
 
     public static final InterpolatingDoubleTreeMap preFeederMap = new InterpolatingDoubleTreeMap();
@@ -235,6 +237,7 @@ public final class Constants {
       preFeederMap.put(111.5, 2400.0);
       preFeederMap.put(145.5, 2500.0);
       preFeederMap.put(180.0, 2650.0);
+      preFeederMap.put(210.0, 2800.0);
     }
 
     public static final InterpolatingDoubleTreeMap timeMap = new InterpolatingDoubleTreeMap();
@@ -245,6 +248,7 @@ public final class Constants {
       timeMap.put(111.5, 1.2);
       timeMap.put(145.5, 1.15);
       timeMap.put(180.0, 1.15);
+      timeMap.put(210.0, 1.15);
     }
 
     public static final InterpolatingDoubleTreeMap nuetralMap = new InterpolatingDoubleTreeMap();
