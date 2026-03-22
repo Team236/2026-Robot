@@ -287,6 +287,8 @@ public class RobotContainer {
 
     upPov1.whileTrue(climberManualUp); //RENABLE ONCE FIXED*
     downPov1.whileTrue(climberManualDown); //RENABLE ONCE FIXED*
+    leftPov1.whileTrue(binManualRetract);
+    rightPov1.whileTrue(binManualExtend);
 
     // lm1.whileTrue(binManualRetract);
     // rm1.whileTrue(binManualExtend);
@@ -310,10 +312,10 @@ public class RobotContainer {
     // TESTING COMMANDS BELOW
     // -----------------------
 
-    lm1.whileTrue(binRelease.getManualRisingAgitateCommand());
-    rm1.whileTrue(binRelease.getManualAgitateCommand());
+    // lm1.whileTrue(binRelease.getManualRisingAgitateCommand());
+    // rm1.whileTrue(binRelease.getManualAgitateCommand());
 
-    lm.whileTrue(new PIDShoot(mainRoller, s_Swerve, preFeeder, floor, intake, binRelease));
+    // lm.whileTrue(new PIDShoot(mainRoller, s_Swerve, preFeeder, floor, intake, binRelease));
     
 
     // rm1.onFalse(() -> binRelease.stopMotor());

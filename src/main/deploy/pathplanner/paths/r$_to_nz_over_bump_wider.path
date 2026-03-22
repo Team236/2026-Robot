@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.11212048192771,
-        "y": 2.1117228915662656
+        "x": 3.055720399429386,
+        "y": 2.398259629101284
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.8362711202472353,
-        "y": 1.6705403062656892
+        "x": 2.779871037748911,
+        "y": 1.9570770438007075
       },
       "isLocked": false,
       "linkedName": "shoot-pose-double-nz"
@@ -96,12 +96,12 @@
     },
     {
       "anchor": {
-        "x": 3.11212048192771,
-        "y": 2.1117228915662656
+        "x": 3.055720399429386,
+        "y": 2.398259629101284
       },
       "prevControl": {
-        "x": 4.556604850213979,
-        "y": 2.3594436519258206
+        "x": 4.569543509272467,
+        "y": 2.527646219686162
       },
       "nextControl": null,
       "isLocked": false,
@@ -142,9 +142,9 @@
     {
       "name": "Constraints Zone",
       "minWaypointRelativePos": 5.05,
-      "maxWaypointRelativePos": 5.5,
+      "maxWaypointRelativePos": 5.82056663168939,
       "constraints": {
-        "maxVelocity": 2.0,
+        "maxVelocity": 1.6,
         "maxAcceleration": 3.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
@@ -188,13 +188,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 49.56764777043583
+    "rotation": 46.636577041616725
   },
   "reversed": false,
   "folder": "movement",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 49.56764777043583
+    "rotation": 46.636577041616725
   },
   "useDefaultConstraints": true
 }

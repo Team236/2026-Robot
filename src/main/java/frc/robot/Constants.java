@@ -124,16 +124,17 @@ public final class Constants {
   }
 
   public static class ChangableBinConstants{
-    public static double BIN_AGITATE_END_POSITION = 7.5;
-    public static double BIN_RETRACT_BEGINNING_SPEED = 0.3;
+    public static double BIN_AGITATE_END_POSITION = 8.0;
+    public static double BIN_RETRACT_BEGINNING_SPEED = 0.4;
     public static double BIN_EXTEND_BEGINNING_SPEED = 0.2;
-    public static double BIN_RETRACT_RISING_SPEED = 0.3;
+    public static double BIN_RETRACT_RISING_SPEED = 0.25;
     public static double BIN_EXTEND_RISING_SPEED = 0.2;
     public static double BIN_BEGINNING_TRAVEL_DISTANCE = 7.5;
-    public static double BIN_RISING_TRAVEL_UP_DISTANCE = 7.5;
-    public static double BIN_RISING_NET_CHANGE_DISTANCE = 2.5;
+    public static double BIN_RISING_TRAVEL_UP_DISTANCE = 8.0;
+    public static double BIN_RISING_NET_CHANGE_DISTANCE = 4.0;
     public static double BIN_WAIT_TIME = 0.75;
     public static double BIN_BEGINNING_TIME = 2.25;
+    public static boolean USE_RISING_AGITATE = true;
 
       public static void pushToDashboard() {
         SmartDashboard.putNumber("Bin Tuning/Agitate End Position", BIN_AGITATE_END_POSITION);
@@ -146,6 +147,7 @@ public final class Constants {
         SmartDashboard.putNumber("Bin Tuning/Rising Net Change Distance", BIN_RISING_NET_CHANGE_DISTANCE);
         SmartDashboard.putNumber("Bin Tuning/Bin Wait Time", BIN_WAIT_TIME);
         SmartDashboard.putNumber("Bin Tuning/Bin Beggining Time", BIN_BEGINNING_TIME);
+        SmartDashboard.putBoolean("Bin Tuning/Use Rising", USE_RISING_AGITATE);
      }
 
      public static void pullFromDashboard() {
@@ -158,6 +160,7 @@ public final class Constants {
         BIN_RISING_TRAVEL_UP_DISTANCE = SmartDashboard.getNumber("Bin Tuning/Rising Travel Up Distance", BIN_RISING_TRAVEL_UP_DISTANCE);
         BIN_RISING_NET_CHANGE_DISTANCE = SmartDashboard.getNumber("Bin Tuning/Rising Net Change Distance", BIN_RISING_NET_CHANGE_DISTANCE);
         BIN_WAIT_TIME = SmartDashboard.getNumber("Bin Tuning/Bin Beggining Time", BIN_BEGINNING_TIME);
+        USE_RISING_AGITATE = SmartDashboard.getBoolean("Bin Tuning/Use Rising", USE_RISING_AGITATE);
      }
   }
 

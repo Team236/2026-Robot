@@ -270,6 +270,14 @@ public class BinRelease extends SubsystemBase {
         }, Set.of(this));
     }
 
+    public Command getManualSmartAgitateCommand() {
+        if (Constants.ChangableBinConstants.USE_RISING_AGITATE) {
+            return this.getManualRisingAgitateCommand();
+        } else {
+            return this.getManualAgitateCommand();
+        }
+    }
+
     public Command getManualIncreasingAgitateCommand() {
        return new DeferredCommand(() -> {
            var state = new Object() { double baseline = Constants.BinReleaseConstants.BIN_AGITATE_DOWN_POSSITION; };
@@ -315,5 +323,6 @@ public class BinRelease extends SubsystemBase {
         SmartDashboard.putNumber("Bin encoder revolutions:", getEncoderRevolutions());
         SmartDashboard.putBoolean("Bin fully extended:", isFullyExtended());
         SmartDashboard.putBoolean("Bin fully retracted:", isFullyRetracted());
+        SmartDashboard.putNumber("Bin Tuning/Bin Speed", getMotorSpeed());
     }
 }

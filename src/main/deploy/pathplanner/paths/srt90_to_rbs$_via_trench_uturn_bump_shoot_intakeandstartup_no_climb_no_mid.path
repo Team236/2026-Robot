@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.6,
-        "y": 0.42545
+        "x": 3.9,
+        "y": 0.51
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.674783132530121,
-        "y": 0.49442168674698794
+        "x": 4.974783132530121,
+        "y": 0.578971686746988
       },
       "isLocked": false,
       "linkedName": "srt90"
@@ -80,12 +80,12 @@
     },
     {
       "anchor": {
-        "x": 3.11212048192771,
-        "y": 2.1117228915662656
+        "x": 3.055720399429386,
+        "y": 2.398259629101284
       },
       "prevControl": {
-        "x": 3.7976918800279087,
-        "y": 2.2777429673872485
+        "x": 3.7412917975295845,
+        "y": 2.5642797049222668
       },
       "nextControl": null,
       "isLocked": false,
@@ -120,7 +120,7 @@
       "minWaypointRelativePos": 4.05,
       "maxWaypointRelativePos": 4.5,
       "constraints": {
-        "maxVelocity": 2.0,
+        "maxVelocity": 1.6,
         "maxAcceleration": 3.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
@@ -175,7 +175,7 @@
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": 49.56764777043583
+    "rotation": 46.636577041616725
   },
   "reversed": false,
   "folder": "movement",

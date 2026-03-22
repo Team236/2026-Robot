@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.6,
-        "y": 0.42545
+        "x": 3.9,
+        "y": 0.51
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.220827814569536,
-        "y": 0.44133278145695387
+        "x": 5.520827814569536,
+        "y": 0.5258827814569539
       },
       "isLocked": false,
       "linkedName": "srt90"

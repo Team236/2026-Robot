@@ -4,6 +4,9 @@
 
 package frc.robot.commands.FuelShooting;
 
+import java.util.Set;
+
+import edu.wpi.first.wpilibj2.command.DeferredCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -47,10 +50,10 @@ public class PIDShoot extends ParallelCommandGroup {
       ),
 
       new SequentialCommandGroup(
-       new WaitCommand(Constants.ChangableBinConstants.BIN_WAIT_TIME),
+       new DeferredCommand(() -> new WaitCommand(Constants.ChangableBinConstants.BIN_WAIT_TIME), Set.of()),
        // new ManualMove(binRelease, -0.2).until(() -> binRelease.getEncoderRevolutions() < 8.5)
-       binRelease.getManualAgitateCommand().withTimeout(Constants.ChangableBinConstants.BIN_BEGINNING_TIME),
-       binRelease.getManualIncreasingAgitateCommand()
+       new DeferredCommand(() -> binRelease.getManualAgitateCommand().withTimeout(Constants.ChangableBinConstants.BIN_BEGINNING_TIME), Set.of(binRelease)),
+       new DeferredCommand(() -> binRelease.getManualSmartAgitateCommand(), Set.of(binRelease))
       //  binRelease.getManualRisingAgitateCommand()
      )
     );
