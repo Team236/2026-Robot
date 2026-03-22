@@ -336,47 +336,47 @@ public class RobotContainer {
     //    //LEFT means the DEPOT side of the field
 
     //OOOO (OFF OFF OFF OFF)  Right Trench w/ Bin facing Drivers, Outpost, Shoot, front Right Tower Climb 
-    AutoSwitchHelpers.put(false, false, false, false, new PathPlannerAuto("COMP-trench-outpost-climb"));
+    // AutoSwitchHelpers.put(false, false, false, false, new PathPlannerAuto("COMP-trench-outpost-climb"));
 
-    // //OOOX (OFF OFF OFF ON)  Right Trench w/ Bin facing away, Neutral Zone, Right Trench, Shoot, front Right Tower Climb 
-    AutoSwitchHelpers.put(false, false, false, true, new PathPlannerAuto("COMP-srt0_neutral_trench_shoot_and_climb"));
+    // // //OOOX (OFF OFF OFF ON)  Right Trench w/ Bin facing away, Neutral Zone, Right Trench, Shoot, front Right Tower Climb 
+    // AutoSwitchHelpers.put(false, false, false, true, new PathPlannerAuto("COMP-srt0_neutral_trench_shoot_and_climb"));
 
-    // //OOXO (OFF OFF ON OFF)  Left Trench w/ Bin facing away, Neutral Zone, Left Trench, Shoot, front Left Tower Climb 
-    AutoSwitchHelpers.put(false, false, true, false, new PathPlannerAuto("COMP-inverse-srt0_neutral_trench_shoot_and_climb"));
+    // // //OOXO (OFF OFF ON OFF)  Left Trench w/ Bin facing away, Neutral Zone, Left Trench, Shoot, front Left Tower Climb 
+    // AutoSwitchHelpers.put(false, false, true, false, new PathPlannerAuto("COMP-inverse-srt0_neutral_trench_shoot_and_climb"));
 
-    // //OOXX (OFF OFF ON ON)   Center Hub w/ Bin facing Hub, Shoot (no climb, just move back a few inches and shoot 8 Fuel)
-    AutoSwitchHelpers.put(false, false, true, true, new PathPlannerAuto("COMP-hub-shoot"));
+    // // //OOXX (OFF OFF ON ON)   Center Hub w/ Bin facing Hub, Shoot (no climb, just move back a few inches and shoot 8 Fuel)
+    // AutoSwitchHelpers.put(false, false, true, true, new PathPlannerAuto("COMP-hub-shoot"));
 
-    // //OXOO (OFF ON OFF OFF)  Center Hub w/ Bin facing Hub, Shoot, Climb Left front Tower
-    AutoSwitchHelpers.put(false, true, false, false, new PathPlannerAuto("COMP-hub-shoot-and-left-climb"));
+    // // //OXOO (OFF ON OFF OFF)  Center Hub w/ Bin facing Hub, Shoot, Climb Left front Tower
+    // AutoSwitchHelpers.put(false, true, false, false, new PathPlannerAuto("COMP-hub-shoot-and-left-climb"));
 
-    // //OXOX (OFF ON OFF ON)   Center Hub w/ Bin facing Hub, Shoot, Climb Right front Tower 
-    AutoSwitchHelpers.put(false, true, false, true, new PathPlannerAuto("COMP-hub-shoot-and-right-climb"));
+    // // //OXOX (OFF ON OFF ON)   Center Hub w/ Bin facing Hub, Shoot, Climb Right front Tower 
+    // AutoSwitchHelpers.put(false, true, false, true, new PathPlannerAuto("COMP-hub-shoot-and-right-climb"));
     
-    // //NOT COMP TESTED YET - TRY ON THU:
-    // //OXXO (OFF ON ON OFF)   Right Bump w/ Bin Facing 90 Left, Nuetral Zone, Bump, Shoot, Climb Right front Tower 
-    AutoSwitchHelpers.put(false, true, true, false, new PathPlannerAuto("srbc90_bump_neutral_bump_shoot_and_climb"));
+    // // //NOT COMP TESTED YET - TRY ON THU:
+    // // //OXXO (OFF ON ON OFF)   Right Bump w/ Bin Facing 90 Left, Nuetral Zone, Bump, Shoot, Climb Right front Tower 
+    // AutoSwitchHelpers.put(false, true, true, false, new PathPlannerAuto("srbc90_bump_neutral_bump_shoot_and_climb"));
 
-    // //OXXX (OFF ON ON ON)    Right Trench w/ Bin Facing Hub, Neutral Zone, Bump, Shoot
-    AutoSwitchHelpers.put(false, true, true, true, new PathPlannerAuto("COMP-srt0_neutral_trench_and_shoot"));
+    // // //OXXX (OFF ON ON ON)    Right Trench w/ Bin Facing Hub, Neutral Zone, Bump, Shoot
+    // AutoSwitchHelpers.put(false, true, true, true, new PathPlannerAuto("COMP-srt0_neutral_trench_and_shoot"));
 
-    // //XOOO (ON OFF OFF OFF)    Left Trench w/ Bin Facing Hub, Neutral Zone, Bump, Shoot
-    AutoSwitchHelpers.put(true, false, false, false, new PathPlannerAuto("COMP-inverse-srt0_neutral_trench_and_shoot"));
+    // // //XOOO (ON OFF OFF OFF)    Left Trench w/ Bin Facing Hub, Neutral Zone, Bump, Shoot
+    // AutoSwitchHelpers.put(true, false, false, false, new PathPlannerAuto("COMP-inverse-srt0_neutral_trench_and_shoot"));
 
-    //XOOX (ON OFF OFF ON)    Right Trench w/ Bin Facing Hub, DOUBLE--Neutral Zone, Trench, Shoot
-    AutoSwitchHelpers.put(true, false, false, true, new PathPlannerAuto("COMP_srt0_double_neutral_trench_shoot"));
+    // //XOOX (ON OFF OFF ON)    Right Trench w/ Bin Facing Hub, DOUBLE--Neutral Zone, Trench, Shoot
+    // AutoSwitchHelpers.put(true, false, false, true, new PathPlannerAuto("COMP_srt0_double_neutral_trench_shoot"));
       
-    //XOXO (ON OFF ON OFF)    Left Trench w/ Bin Facing Hub, DOUBLE--Neutral Zone, Trench, Shoot
-    AutoSwitchHelpers.put(true, false, true, false, new PathPlannerAuto("COMP_slt0_double_neutral_trench_shoot"));
+    // //XOXO (ON OFF ON OFF)    Left Trench w/ Bin Facing Hub, DOUBLE--Neutral Zone, Trench, Shoot
+    // AutoSwitchHelpers.put(true, false, true, false, new PathPlannerAuto("COMP_slt0_double_neutral_trench_shoot"));
     
-    //XOXX (ON OFF ON ON) 
-    AutoSwitchHelpers.put(true, false, true, true, new PathPlannerAuto("COMP_speedy_srt0_double_neutral_trench_shoot"));
+    // //XOXX (ON OFF ON ON) 
+    // AutoSwitchHelpers.put(true, false, true, true, new PathPlannerAuto("COMP_speedy_srt0_double_neutral_trench_shoot"));
       
-    //XXOO (ON ON OFF OFF) 
-    AutoSwitchHelpers.put(true, true, false, false, new PathPlannerAuto("COMP_speedy_slt0_double_neutral_trench_shoot"));
+    // //XXOO (ON ON OFF OFF) 
+    // AutoSwitchHelpers.put(true, true, false, false, new PathPlannerAuto("COMP_speedy_slt0_double_neutral_trench_shoot"));
 
-    //XXOX (ON ON OFF ON) 
-    AutoSwitchHelpers.put(true, true, false, true, new PathPlannerAuto("srt90_neutral_bump_shoot_trench_bump_and_shoot_speedy"));
+    // //XXOX (ON ON OFF ON) 
+    // AutoSwitchHelpers.put(true, true, false, true, new PathPlannerAuto("srt90_neutral_bump_shoot_trench_bump_and_shoot_speedy"));
       
     //XXXO (ON ON ON OFF) 
     // AutoSwitchHelpers.put(true, true, true, false, new PathPlannerAuto("?", mirror));
