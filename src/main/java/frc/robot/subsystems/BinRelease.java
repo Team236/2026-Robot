@@ -248,7 +248,8 @@ public class BinRelease extends SubsystemBase {
             )
             .repeatedly()
             .until(() -> this.getEncoderRevolutions() <= finalTarget + 5.0)
-            .finallyDo(() -> this.getManualTopAgitateCommand());
+            .andThen(this.getManualTopAgitateCommand())
+            .finallyDo(() -> this.stopMotor());
         }, Set.of(this));
     }
 
