@@ -988,7 +988,7 @@ public class Swerve extends SubsystemBase {
 
         double angleDifference = MathUtil.angleModulus(targetAngle - currentPose.getRotation().getRadians());
 
-        if (Math.abs(angleDifference) < Units.degreesToRadians(1.0)) {
+        if (Math.abs(angleDifference) < Units.degreesToRadians(2.0)) {
             RobotContainer.driverController.setRumble(GenericHID.RumbleType.kBothRumble, 1.0);
             RobotContainer.auxController.setRumble(GenericHID.RumbleType.kBothRumble, 1.0);
         } else {
