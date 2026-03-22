@@ -270,6 +270,27 @@ public class BinRelease extends SubsystemBase {
         }, Set.of(this));
     }
 
+    public Command getManualIncreasingAgitateCommand() {
+       return new DeferredCommand(() -> {
+           var state = new Object() { double baseline = Constants.BinReleaseConstants.BIN_AGITATE_DOWN_POSSITION; };
+           double finalTarget = 0.0;
+
+           return new SequentialCommandGroup(
+               new RunCommand(() -> this.manualSetSpeedSafe(-Constants.ChangableBinConstants.BIN_RETRACT_RISING_SPEED), this)
+                   .until(() -> this.getEncoderRevolutions() <= state.baseline - Constants.ChangableBinConstants.BIN_RISING_TRAVEL_UP_DISTANCE),
+              
+               new InstantCommand(() -> state.baseline -= Constants.ChangableBinConstants.BIN_RISING_NET_CHANGE_DISTANCE),
+               new RunCommand(() -> this.manualSetSpeedSafe(Constants.ChangableBinConstants.BIN_EXTEND_RISING_SPEED), this)
+                   .until(() -> this.getEncoderRevolutions() >= Constants.BinReleaseConstants.BIN_AGITATE_DOWN_POSSITION)
+           )
+           .repeatedly()
+           .until(() -> this.getEncoderRevolutions() <= finalTarget + Constants.ChangableBinConstants.BIN_AGITATE_END_POSITION)
+           .andThen(this.getManualTopAgitateCommand())
+           .finallyDo(() -> this.stopMotor());
+       }, Set.of(this));
+   }
+
+
     public Command getManualTopAgitateCommand() {
         return new DeferredCommand(() -> {
             double binTopPose = Constants.ChangableBinConstants.BIN_AGITATE_END_POSITION;
