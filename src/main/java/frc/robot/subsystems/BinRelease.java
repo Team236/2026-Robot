@@ -277,11 +277,11 @@ public class BinRelease extends SubsystemBase {
             double finalTarget = binTopPose + 7.5;
 
             return new SequentialCommandGroup(
-                new RunCommand(() -> this.manualSetSpeedSafe(-0.6), this)
-                    .until(() -> this.getEncoderRevolutions() <= finalTarget),
+                new RunCommand(() -> this.manualSetSpeedSafe(0.35), this)
+                    .until(() -> this.getEncoderRevolutions() >= finalTarget),
                 
-                new RunCommand(() -> this.manualSetSpeedSafe(0.35), this) 
-                    .until(() -> this.getEncoderRevolutions() >= binTopPose)
+                new RunCommand(() -> this.manualSetSpeedSafe(-0.6), this) 
+                    .until(() -> this.getEncoderRevolutions() <= binTopPose)
             )
             .repeatedly()
             .finallyDo(() -> this.stopMotor());
