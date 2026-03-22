@@ -28,6 +28,7 @@ import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.lib.util.COTSTalonFXSwerveConstants;
 
 /**
@@ -117,7 +118,42 @@ public final class Constants {
     public static final double AGITATE_TEST_SPEED = 0.2; // seconds for one full cycle
 
     public static final double BIN_DOWN_POSSITION = 32.5;
+
+    // changable in code
     public static final double BIN_AGITATE_DOWN_POSSITION = 31.0;
+  }
+
+  public static class ChangableBinConstants{
+    public static double BIN_AGITATE_END_POSITION = 7.5;
+    public static double BIN_RETRACT_BEGINNING_SPEED = 0.6;
+    public static double BIN_EXTEND_BEGINNING_SPEED = 0.35;
+    public static double BIN_RETRACT_RISING_SPEED = 0.6;
+    public static double BIN_EXTEND_RISING_SPEED = 0.35;
+    public static double BIN_BEGINNING_TRAVEL_DISTANCE = 7.5;
+    public static double BIN_RISING_TRAVEL_UP_DISTANCE = 7.5;
+    public static double BIN_RISING_NET_CHANGE_DISTANCE = 2.5;
+  
+    // public static void pushToDashboard() {
+    //       SmartDashboard.putNumber("Bin Tuning/Agitate End Position", BIN_AGITATE_END_POSITION);
+    //       SmartDashboard.putNumber("Bin Tuning/Retract Beginning Speed", BIN_RETRACT_BEGINNING_SPEED);
+    //       SmartDashboard.putNumber("Bin Tuning/Extend Beginning Speed", BIN_EXTEND_BEGINNING_SPEED);
+    //       SmartDashboard.putNumber("Bin Tuning/Retract Rising Speed", BIN_RETRACT_RISING_SPEED);
+    //       SmartDashboard.putNumber("Bin Tuning/Extend Rising Speed", BIN_EXTEND_RISING_SPEED);
+    //       SmartDashboard.putNumber("Bin Tuning/Beginning Travel Distance", BIN_BEGINNING_TRAVEL_DISTANCE);
+    //       SmartDashboard.putNumber("Bin Tuning/Rising Travel Up Distance", BIN_RISING_TRAVEL_UP_DISTANCE);
+    //       SmartDashboard.putNumber("Bin Tuning/Rising Net Change Distance", BIN_RISING_NET_CHANGE_DISTANCE);
+    //   }
+
+    //   public static void pullFromDashboard() {
+    //       BIN_AGITATE_END_POSITION = SmartDashboard.getNumber("Bin Tuning/Agitate End Position", BIN_AGITATE_END_POSITION);
+    //       BIN_RETRACT_BEGINNING_SPEED = SmartDashboard.getNumber("Bin Tuning/Retract Beginning Speed", BIN_RETRACT_BEGINNING_SPEED);
+    //       BIN_EXTEND_BEGINNING_SPEED = SmartDashboard.getNumber("Bin Tuning/Extend Beginning Speed", BIN_EXTEND_BEGINNING_SPEED);
+    //       BIN_RETRACT_RISING_SPEED = SmartDashboard.getNumber("Bin Tuning/Retract Rising Speed", BIN_RETRACT_RISING_SPEED);
+    //       BIN_EXTEND_RISING_SPEED = SmartDashboard.getNumber("Bin Tuning/Extend Rising Speed", BIN_EXTEND_RISING_SPEED);
+    //       BIN_BEGINNING_TRAVEL_DISTANCE = SmartDashboard.getNumber("Bin Tuning/Beginning Travel Distance", BIN_BEGINNING_TRAVEL_DISTANCE);
+    //       BIN_RISING_TRAVEL_UP_DISTANCE = SmartDashboard.getNumber("Bin Tuning/Rising Travel Up Distance", BIN_RISING_TRAVEL_UP_DISTANCE);
+    //       BIN_RISING_NET_CHANGE_DISTANCE = SmartDashboard.getNumber("Bin Tuning/Rising Net Change Distance", BIN_RISING_NET_CHANGE_DISTANCE);
+    //   }
   }
 
   public static class ShooterPivotConstants {
