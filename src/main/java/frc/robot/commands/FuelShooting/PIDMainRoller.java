@@ -4,6 +4,8 @@
 
 package frc.robot.commands.FuelShooting;
 
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.MainRoller;
 import frc.robot.subsystems.Swerve;
@@ -14,6 +16,7 @@ public class PIDMainRoller extends Command {
   private MainRoller mainRoller;
   private Swerve s_Swerve;
   private double mainMotorSetRPM, mainRPS;
+  private final Timer shootTimer = new Timer();
 
   /** Creates a new PIDMainRoller */
 
@@ -30,6 +33,7 @@ public class PIDMainRoller extends Command {
   @Override
   public void initialize() {
    mainRPS = mainMotorSetRPM / 60.0;
+   shootTimer.restart();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -53,6 +57,9 @@ public void execute() {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    shootTimer.stop();
+    SmartDashboard.putNumber("Bin Tuning/ Shot Time", shootTimer.get());
+
     mainRoller.stopMain();
   }
 
