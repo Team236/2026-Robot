@@ -132,10 +132,10 @@ public final class Constants {
     public static double BIN_RETRACT_BEGINNING_SPEED = 0.2;
     public static double BIN_EXTEND_BEGINNING_SPEED = 0.25;
     // rising
-    public static double BIN_RETRACT_RISING_SPEED = 0.45;
+    public static double BIN_RETRACT_RISING_SPEED = 0.35;
     public static double BIN_EXTEND_RISING_SPEED = 0.3;
     public static double BIN_RISING_TRAVEL_UP_DISTANCE = 8.0;
-    public static double BIN_RISING_NET_CHANGE_DISTANCE = 5.0;
+    public static double BIN_RISING_NET_CHANGE_DISTANCE = 4.0;
 
     public static double BIN_AGITATE_END_POSITION = 7.5;
     public static boolean USE_RISING_AGITATE = true;
