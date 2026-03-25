@@ -171,7 +171,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("prep-climber", climberPrep);
     NamedCommands.registerCommand("climb-l1-front", climberL1Front);
     NamedCommands.registerCommand("startup-prep", new Eject(preFeeder, mainRoller, floor));
-    NamedCommands.registerCommand("intake", new IntakeWithBinExtend(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION, intake, 6500));
+    NamedCommands.registerCommand("intake", new IntakeWithBinExtend(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION, intake, Constants.IntakeConstants.INTAKE_RPM)); // this is x60 rpm, x44 was 6500
     NamedCommands.registerCommand("bin-out", new PIDMove(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION));
     NamedCommands.registerCommand("bin-zero", new PIDMove(binRelease, 0.0));
     NamedCommands.registerCommand("heading-override", s_Swerve.getPPOverrideHeadingCommand());
@@ -278,7 +278,7 @@ public class RobotContainer {
     // a.whileTrue(new  AlignAndFullClimb(s_Swerve, binManualExtend, climber, binRelease) );
     // a.whileTrue(manualShoot);
 
-    a.whileTrue(new IntakeWithBinExtend(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION, intake, 6500));
+    a.whileTrue(new IntakeWithBinExtend(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION, intake, Constants.IntakeConstants.INTAKE_RPM));
 
     // ------------------
     // FINAL AUX BUTTONS
@@ -298,7 +298,7 @@ public class RobotContainer {
     lt1.whileTrue(new OverrideMove(binRelease, 0.25));
     lb1.whileTrue(new OverrideMove(binRelease, -0.25));
 
-    a1.whileTrue(new IntakeWithBinExtend(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION, intake, 6500));
+    a1.whileTrue(new IntakeWithBinExtend(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION, intake, Constants.IntakeConstants.INTAKE_RPM));
     b1.whileTrue(new EjectWithOuttake(preFeeder, mainRoller, floor, binRelease, intake));
 
     x1.onTrue(new PIDMove(binRelease, 0));

@@ -51,7 +51,7 @@ public class PIDShoot extends ParallelCommandGroup {
 
       new SequentialCommandGroup(
        new DeferredCommand(() -> new WaitCommand(Constants.ChangableBinConstants.BIN_WAIT_TIME), Set.of()),
-       // new ManualMove(binRelease, -0.2).until(() -> binRelease.getEncoderRevolutions() < 8.5)
+      //  new ManualMove(binRelease, -0.15).until(() -> binRelease.getEncoderRevolutions() < 8.5)
        new DeferredCommand(() -> binRelease.getManualAgitateCommand().withTimeout(Constants.ChangableBinConstants.BIN_BEGINNING_TIME), Set.of(binRelease)),
        new DeferredCommand(() -> binRelease.getManualSmartAgitateCommand(), Set.of(binRelease))
       //  binRelease.getManualRisingAgitateCommand()

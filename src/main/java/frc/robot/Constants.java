@@ -124,17 +124,17 @@ public final class Constants {
   }
 
   public static class ChangableBinConstants{
-    public static double BIN_WAIT_TIME = 0.75;
+    public static double BIN_WAIT_TIME = 1.75; // if not using agitate, wait 4.0 seconds.
     // beginning
-    public static double BIN_BEGINNING_TIME = 1.65;
-    public static double BIN_BEGINNING_TRAVEL_DISTANCE = 7.5;
-    public static double BIN_RETRACT_BEGINNING_SPEED = 0.3;
-    public static double BIN_EXTEND_BEGINNING_SPEED = 0.2;
+    public static double BIN_BEGINNING_TIME = 2.5;
+    public static double BIN_BEGINNING_TRAVEL_DISTANCE = 6.0;
+    public static double BIN_RETRACT_BEGINNING_SPEED = 0.2;
+    public static double BIN_EXTEND_BEGINNING_SPEED = 0.25;
     // rising
-    public static double BIN_RETRACT_RISING_SPEED = 0.35;
-    public static double BIN_EXTEND_RISING_SPEED = 0.2;
+    public static double BIN_RETRACT_RISING_SPEED = 0.45;
+    public static double BIN_EXTEND_RISING_SPEED = 0.3;
     public static double BIN_RISING_TRAVEL_UP_DISTANCE = 8.0;
-    public static double BIN_RISING_NET_CHANGE_DISTANCE = 4.0;
+    public static double BIN_RISING_NET_CHANGE_DISTANCE = 5.0;
 
     public static double BIN_AGITATE_END_POSITION = 7.5;
     public static boolean USE_RISING_AGITATE = true;
@@ -209,7 +209,8 @@ public final class Constants {
     //these next variables are for the intake pid command, but they are ripped straight from the prefeeder pid, so they may not be right.
     //TODO: TUNE THESE VALUES FOR INTAKE PID COMMAND
     public static final double TEST_SPEED = 0.3;//constant speed for testing
-    public static final int DESIRED_RPM = 3500;
+    public static final int EJECT_RPM = 3500;
+    public static final int INTAKE_RPM = 5500;
     public static final double KV_I = 0.108; //0.0975; // feed forward
     public static final double KP_I = 0.5; //0.4;
     public static final double KI_I = 0.0;
