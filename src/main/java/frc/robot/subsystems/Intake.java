@@ -18,9 +18,11 @@ import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 
 public class Intake extends SubsystemBase {
 
@@ -68,6 +70,22 @@ public class Intake extends SubsystemBase {
   }
 
   public void IntakePID(double targetMainVelocity) {//the target velocity must be in revs per second
+    double motorCurrent = intakeMotor.getStatorCurrent().getValueAsDouble(); // Amps
+
+    double motorRPS = intakeMotor.getVelocity().getValueAsDouble();
+    double motorRPM = motorRPS * 60.0; 
+
+    double STALL_CURRENT = 18.0; // Amps
+    double STALL_RPM = 750.0; 
+
+    if (motorCurrent >= STALL_CURRENT && Math.abs(motorRPM) < STALL_RPM) {
+      RobotContainer.driverController.setRumble(GenericHID.RumbleType.kBothRumble, 0.5);
+      RobotContainer.auxController.setRumble(GenericHID.RumbleType.kBothRumble, 0.5);
+    } else {
+        RobotContainer.driverController.setRumble(GenericHID.RumbleType.kBothRumble, 0.0);
+        RobotContainer.auxController.setRumble(GenericHID.RumbleType.kBothRumble, 0.0);
+    }
+
     intakeMotor.setControl(intake_m_request.withVelocity(targetMainVelocity).withFeedForward(Constants.IntakeConstants.KV_I));
   }
 
