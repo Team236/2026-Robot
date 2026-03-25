@@ -56,6 +56,7 @@ public final class Constants {
 
   public static class MotorControllers {
     public static final int SMART_CURRENT_LIMIT = 40;
+    public static final int INTAKE_CURRENT_LIMIT = 20;
     //MOTOR ID NUMBERS (for swerve drive/steer motors - see Swerve below):
     public static final int ID_BIN_REL = 8; //8
     public static final int ID_INTAKE_LEFT = 9; 
@@ -210,11 +211,11 @@ public final class Constants {
     //TODO: TUNE THESE VALUES FOR INTAKE PID COMMAND
     public static final double TEST_SPEED = 0.3;//constant speed for testing
     public static final int EJECT_RPM = 3500;
-    public static final int INTAKE_RPM = 5500;
-    public static final double KV_I = 0.108; //0.0975; // feed forward
-    public static final double KP_I = 0.5; //0.4;
-    public static final double KI_I = 0.0;
-    public static final double KD_I = 0.0;
+    public static final int INTAKE_RPM = 5500; // 6500 when we had x44
+    public static final double KV_I = .115; //0.108; //0.0975; // feed forward
+    public static final double KP_I = 1.0; //0.5; //0.4;
+    public static final double KI_I = 0.0; //0.0;
+    public static final double KD_I = 0.0; //0.0;
   }  
 
   public static class FloorConstants {

@@ -41,7 +41,7 @@ public class Intake extends SubsystemBase {
     // Motor Output Configs
     talonConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
     talonConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
-    talonConfig.CurrentLimits.SupplyCurrentLimit = Constants.MotorControllers.SMART_CURRENT_LIMIT;
+    talonConfig.CurrentLimits.SupplyCurrentLimit = Constants.MotorControllers.INTAKE_CURRENT_LIMIT;
     talonConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
     var slot0RMConfigs = talonConfig.Slot0;  
