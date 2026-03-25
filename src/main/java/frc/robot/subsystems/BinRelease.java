@@ -246,7 +246,7 @@ public class BinRelease extends SubsystemBase {
                 
                 new InstantCommand(() -> state.baseline -= Constants.ChangableBinConstants.BIN_RISING_NET_CHANGE_DISTANCE), 
                 new RunCommand(() -> this.manualSetSpeedSafe(Constants.ChangableBinConstants.BIN_EXTEND_RISING_SPEED), this) 
-                    .until(() -> this.getEncoderRevolutions() >= state.baseline).andThen(Commands.waitSeconds(.15))
+                    .until(() -> this.getEncoderRevolutions() >= state.baseline).andThen(Commands.waitSeconds(.25))
             )
             .repeatedly()
             .until(() -> this.getEncoderRevolutions() <= finalTarget + Constants.ChangableBinConstants.BIN_AGITATE_END_POSITION)
