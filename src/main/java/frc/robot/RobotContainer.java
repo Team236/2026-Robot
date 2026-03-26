@@ -269,7 +269,7 @@ public class RobotContainer {
     upPov.whileTrue(binManualRetract);
     downPov.whileTrue(binManualExtend);
 
-    b.whileTrue(new AlignAndFullClimb(s_Swerve, binManualExtend, climber, binRelease));
+    // b.whileTrue(new AlignAndFullClimb(s_Swerve, binManualExtend, climber, binRelease));
 
     menu.whileTrue(new EjectWithOuttake(preFeeder, mainRoller, floor, binRelease, intake));
 

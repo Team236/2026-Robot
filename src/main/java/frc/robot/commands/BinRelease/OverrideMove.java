@@ -25,6 +25,9 @@ public class OverrideMove extends Command
     {
         binRelease.manualSetSpeed(speed);
         
+        if (binRelease.isFullyRetracted()){
+            binRelease.resetEncoder();
+        }
     }
 
     @Override

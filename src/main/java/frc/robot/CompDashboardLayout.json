@@ -426,6 +426,20 @@
               "period": 0.06,
               "sort_options": false
             }
+          },
+          {
+            "title": " Shot Time",
+            "x": 1024.0,
+            "y": 384.0,
+            "width": 256.0,
+            "height": 128.0,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/SmartDashboard/Bin Tuning/ Shot Time",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
           }
         ]
       }
@@ -454,9 +468,9 @@
           },
           {
             "title": "Shooter Pivot Retract Limit?",
-            "x": 0.0,
-            "y": 128.0,
-            "width": 128.0,
+            "x": 384.0,
+            "y": 256.0,
+            "width": 256.0,
             "height": 128.0,
             "type": "Boolean Box",
             "properties": {
@@ -490,7 +504,7 @@
             "title": "Climber top limit hit",
             "x": 128.0,
             "y": 256.0,
-            "width": 128.0,
+            "width": 256.0,
             "height": 128.0,
             "type": "Boolean Box",
             "properties": {
@@ -505,9 +519,9 @@
           },
           {
             "title": "Shooter Pivot Extend Limit?",
-            "x": 128.0,
+            "x": 384.0,
             "y": 128.0,
-            "width": 128.0,
+            "width": 256.0,
             "height": 128.0,
             "type": "Boolean Box",
             "properties": {
@@ -535,6 +549,248 @@
               "false_color": 4294198070,
               "true_icon": "None",
               "false_icon": "None"
+            }
+          },
+          {
+            "title": "Shooter Pivot Retract Limit?",
+            "x": 640.0,
+            "y": 128.0,
+            "width": 128.0,
+            "height": 128.0,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/SmartDashboard/Shooter Pivot Retract Limit?",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "# Shooter Pivot Encoder Revolutions",
+            "x": 640.0,
+            "y": 256.0,
+            "width": 128.0,
+            "height": 128.0,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/SmartDashboard/# Shooter Pivot Encoder Revolutions",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Shooter Pivot is fully extended?",
+            "x": 512.0,
+            "y": 0.0,
+            "width": 128.0,
+            "height": 128.0,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/SmartDashboard/Shooter Pivot is fully extended?",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Bin Tuning",
+      "grid_layout": {
+        "layouts": [],
+        "containers": [
+          {
+            "title": "Bin encoder revolutions:",
+            "x": 0.0,
+            "y": 128.0,
+            "width": 512.0,
+            "height": 384.0,
+            "type": "Graph",
+            "properties": {
+              "topic": "/SmartDashboard/Bin encoder revolutions:",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 45.0,
+              "color": 4278238420,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Bin fully retracted:",
+            "x": 0.0,
+            "y": 0.0,
+            "width": 512.0,
+            "height": 128.0,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/SmartDashboard/Bin fully retracted:",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Agitate End Position",
+            "x": 1280.0,
+            "y": 384.0,
+            "width": 256.0,
+            "height": 128.0,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/SmartDashboard/Bin Tuning/Agitate End Position",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Beginning Travel Distance",
+            "x": 512.0,
+            "y": 0.0,
+            "width": 256.0,
+            "height": 128.0,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/SmartDashboard/Bin Tuning/Beginning Travel Distance",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Extend Beginning Speed",
+            "x": 512.0,
+            "y": 128.0,
+            "width": 256.0,
+            "height": 128.0,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/SmartDashboard/Bin Tuning/Extend Beginning Speed",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Extend Rising Speed",
+            "x": 896.0,
+            "y": 384.0,
+            "width": 256.0,
+            "height": 128.0,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/SmartDashboard/Bin Tuning/Extend Rising Speed",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Retract Beginning Speed",
+            "x": 512.0,
+            "y": 256.0,
+            "width": 256.0,
+            "height": 128.0,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/SmartDashboard/Bin Tuning/Retract Beginning Speed",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Retract Rising Speed",
+            "x": 896.0,
+            "y": 256.0,
+            "width": 256.0,
+            "height": 128.0,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/SmartDashboard/Bin Tuning/Retract Rising Speed",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Rising Net Change Distance",
+            "x": 896.0,
+            "y": 128.0,
+            "width": 256.0,
+            "height": 128.0,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/SmartDashboard/Bin Tuning/Rising Net Change Distance",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Rising Travel Up Distance",
+            "x": 896.0,
+            "y": 0.0,
+            "width": 256.0,
+            "height": 128.0,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/SmartDashboard/Bin Tuning/Rising Travel Up Distance",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Bin Wait Time",
+            "x": 1280.0,
+            "y": 0.0,
+            "width": 256.0,
+            "height": 128.0,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/SmartDashboard/Bin Tuning/Bin Wait Time",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Bin Beggining Time",
+            "x": 1280.0,
+            "y": 128.0,
+            "width": 256.0,
+            "height": 128.0,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/SmartDashboard/Bin Tuning/Bin Beggining Time",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Use Rising",
+            "x": 512.0,
+            "y": 384.0,
+            "width": 128.0,
+            "height": 128.0,
+            "type": "Toggle Switch",
+            "properties": {
+              "topic": "/SmartDashboard/Bin Tuning/Use Rising",
+              "period": 0.06,
+              "data_type": "boolean"
             }
           }
         ]

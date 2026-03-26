@@ -62,7 +62,7 @@ public class Swerve extends SubsystemBase {
     public double poseForwardDistance;
     public double poseSideDistance;
     public PIDController pidControllerForTrackingOutput;
-    public Double nuetralAimingTarget;
+    // public Double nuetralAimingTarget;
 
     // Cached hub coordinates — updated once per loop when alliance is known
     private double cachedHubX = Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_X;
@@ -916,62 +916,62 @@ public class Swerve extends SubsystemBase {
 
         if (shouldPass) {
             
-            if (inNeutralMid(Units.metersToInches(currentPose.getY()))) {
+            // if (inNeutralMid(Units.metersToInches(currentPose.getY()))) {
 
-                if (alliance.get() == Alliance.Red) {
-                    // if(nuetralAimingTarget != null){
-                        return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(nuetralAimingTarget));
-                    // } else {
-                    //     if (Math.abs(currentY - Constants.Targeting.RED_NEUTRAL_MID_RIGHT) <= Math.abs(currentY - Constants.Targeting.RED_NEUTRAL_MID_LEFT)){
-                    //         nuetralAimingTarget = -45.0;
-                    //         return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(-45));
-                    //     } else if (Math.abs(currentY - Constants.Targeting.RED_NEUTRAL_MID_RIGHT) > Math.abs(currentY - Constants.Targeting.RED_NEUTRAL_MID_LEFT)) {
-                    //         nuetralAimingTarget = 45.0;
-                    //         return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(45));
-                    //     }
-                    // }
-                } else { 
-                    // if(nuetralAimingTarget != null){
-                        return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(nuetralAimingTarget));
-                    // } else {
-                    // if (Math.abs(currentY - Constants.Targeting.BLUE_NEUTRAL_MID_RIGHT) <= Math.abs(currentY - Constants.Targeting.BLUE_NEUTRAL_MID_LEFT)){
-                    //     nuetralAimingTarget = -45.0;
-                    //     return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(-45));
-                    // } else if (Math.abs(currentY - Constants.Targeting.BLUE_NEUTRAL_MID_RIGHT) > Math.abs(currentY - Constants.Targeting.BLUE_NEUTRAL_MID_LEFT)) {
-                    //     nuetralAimingTarget = 45.0;
-                    //     return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(45));
-                    // }
-                    // }
-                }
-                // // RED ALLIANCE LOGIC
-                // if (alliance.get() == Alliance.Red) {
-                //     if (yVelocity > velocityThreshold) {
-                //         if(currentY > Units.inchesToMeters(Constants.Targeting.RED_NEUTRAL_MID_RIGHT) && currentY < Units.inchesToMeters(Constants.Targeting.RED_NEUTRAL_MID_LEFT)){
-                //             return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(-45));
-                //         } 
-                //     } 
-                //     else if (yVelocity < -velocityThreshold) { 
-                //         if (currentY < Units.inchesToMeters(Constants.Targeting.RED_NEUTRAL_MID_LEFT) && currentY > Units.inchesToMeters(Constants.Targeting.RED_NEUTRAL_MID_RIGHT)) { 
-                //             return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(45));
-                //         }
-                //     }
-                // } 
-                // // BLUE ALLIANCE LOGIC
-                // else if (alliance.get() == Alliance.Blue) {
-                //     if (yVelocity > velocityThreshold) {
-                //         if(currentY < Units.inchesToMeters(Constants.Targeting.RED_NEUTRAL_MID_LEFT) && currentY > Units.inchesToMeters(Constants.Targeting.RED_NEUTRAL_MID_RIGHT)){ 
-                //             return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(-45));
-                //         } 
-                //     } 
-                //     else if (yVelocity < -velocityThreshold) { 
-                //         if (currentY > Units.inchesToMeters(Constants.Targeting.RED_NEUTRAL_MID_RIGHT) && currentY < Units.inchesToMeters(Constants.Targeting.RED_NEUTRAL_MID_LEFT)) { 
-                //             return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(45));
-                //         }
-                //     }
-                // }
-            }
+            //     if (alliance.get() == Alliance.Red) {
+            //         // if(nuetralAimingTarget != null){
+            //             return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(nuetralAimingTarget));
+            //         // } else {
+            //         //     if (Math.abs(currentY - Constants.Targeting.RED_NEUTRAL_MID_RIGHT) <= Math.abs(currentY - Constants.Targeting.RED_NEUTRAL_MID_LEFT)){
+            //         //         nuetralAimingTarget = -45.0;
+            //         //         return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(-45));
+            //         //     } else if (Math.abs(currentY - Constants.Targeting.RED_NEUTRAL_MID_RIGHT) > Math.abs(currentY - Constants.Targeting.RED_NEUTRAL_MID_LEFT)) {
+            //         //         nuetralAimingTarget = 45.0;
+            //         //         return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(45));
+            //         //     }
+            //         // }
+            //     } else { 
+            //         // if(nuetralAimingTarget != null){
+            //             return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(nuetralAimingTarget));
+            //         // } else {
+            //         // if (Math.abs(currentY - Constants.Targeting.BLUE_NEUTRAL_MID_RIGHT) <= Math.abs(currentY - Constants.Targeting.BLUE_NEUTRAL_MID_LEFT)){
+            //         //     nuetralAimingTarget = -45.0;
+            //         //     return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(-45));
+            //         // } else if (Math.abs(currentY - Constants.Targeting.BLUE_NEUTRAL_MID_RIGHT) > Math.abs(currentY - Constants.Targeting.BLUE_NEUTRAL_MID_LEFT)) {
+            //         //     nuetralAimingTarget = 45.0;
+            //         //     return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(45));
+            //         // }
+            //         // }
+            //     }
+            //     // // RED ALLIANCE LOGIC
+            //     // if (alliance.get() == Alliance.Red) {
+            //     //     if (yVelocity > velocityThreshold) {
+            //     //         if(currentY > Units.inchesToMeters(Constants.Targeting.RED_NEUTRAL_MID_RIGHT) && currentY < Units.inchesToMeters(Constants.Targeting.RED_NEUTRAL_MID_LEFT)){
+            //     //             return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(-45));
+            //     //         } 
+            //     //     } 
+            //     //     else if (yVelocity < -velocityThreshold) { 
+            //     //         if (currentY < Units.inchesToMeters(Constants.Targeting.RED_NEUTRAL_MID_LEFT) && currentY > Units.inchesToMeters(Constants.Targeting.RED_NEUTRAL_MID_RIGHT)) { 
+            //     //             return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(45));
+            //     //         }
+            //     //     }
+            //     // } 
+            //     // // BLUE ALLIANCE LOGIC
+            //     // else if (alliance.get() == Alliance.Blue) {
+            //     //     if (yVelocity > velocityThreshold) {
+            //     //         if(currentY < Units.inchesToMeters(Constants.Targeting.RED_NEUTRAL_MID_LEFT) && currentY > Units.inchesToMeters(Constants.Targeting.RED_NEUTRAL_MID_RIGHT)){ 
+            //     //             return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(-45));
+            //     //         } 
+            //     //     } 
+            //     //     else if (yVelocity < -velocityThreshold) { 
+            //     //         if (currentY > Units.inchesToMeters(Constants.Targeting.RED_NEUTRAL_MID_RIGHT) && currentY < Units.inchesToMeters(Constants.Targeting.RED_NEUTRAL_MID_LEFT)) { 
+            //     //             return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(45));
+            //     //         }
+            //     //     }
+            //     // }
+            // }
 
-            nuetralAimingTarget = null;
+            // nuetralAimingTarget = null;
 
             // DEFAULT WALL AIMING
             if (alliance.isPresent() && alliance.get() == Alliance.Red) {
@@ -980,7 +980,7 @@ public class Swerve extends SubsystemBase {
                 return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(180));
             }
         }
-        nuetralAimingTarget = null;
+        // nuetralAimingTarget = null;
         // DEFAULT HUB AIMING
         double dx = HUBX - Units.metersToInches(currentPose.getX());
         double dy = HUBY - Units.metersToInches(currentPose.getY());

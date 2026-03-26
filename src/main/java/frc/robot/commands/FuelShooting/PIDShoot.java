@@ -34,7 +34,7 @@ public class PIDShoot extends ParallelCommandGroup {
     addCommands(
       new SequentialCommandGroup(
         new InstantCommand(() -> mainRoller.useInitialBoost = true),
-        new WaitCommand(0.55),
+        new WaitCommand(0.8),
         new InstantCommand(() -> mainRoller.useInitialBoost = false)
       ),
 

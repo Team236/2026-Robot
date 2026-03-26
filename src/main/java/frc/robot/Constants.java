@@ -272,8 +272,8 @@ public final class Constants {
 
     static {
       rpmMap.put(42.0, 2275.0); 
-      rpmMap.put(74.6, 2325.0);
-      rpmMap.put(111.5, 2425.0);
+      rpmMap.put(74.6, 2335.0);
+      rpmMap.put(111.5, 2435.0);
       rpmMap.put(145.5, 2525.0);
       rpmMap.put(180.0, 2675.0);
       rpmMap.put(210.0, 2800.0);
