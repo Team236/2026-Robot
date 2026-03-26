@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.93,
-        "y": 3.058
+        "x": 7.5,
+        "y": 7.0
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.7693030975783652,
-        "y": 3.2495111107797445
+        "x": 7.537377564117869,
+        "y": 5.3174974130432
       },
       "isLocked": false,
-      "linkedName": "shoot-close-tower-right"
+      "linkedName": "nbl-90"
     },
     {
       "anchor": {
-        "x": 1.64,
-        "y": 3.304
+        "x": 7.6,
+        "y": 2.5
       },
       "prevControl": {
-        "x": 1.8125407085895302,
-        "y": 3.123086474028549
+        "x": 7.56274048798573,
+        "y": 3.3141670978118403
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "tr0"
+      "linkedName": "nbrcr-90"
     }
   ],
   "rotationTargets": [],
@@ -41,14 +41,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0.2,
-    "rotation": 0.0
+    "velocity": 0,
+    "rotation": -90.0
   },
   "reversed": false,
   "folder": "movement",
   "idealStartingState": {
-    "velocity": 0,
-    "rotation": 19.360968366524673
+    "velocity": 3.0,
+    "rotation": -90.0
   },
   "useDefaultConstraints": true
 }
