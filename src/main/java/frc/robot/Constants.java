@@ -271,11 +271,11 @@ public final class Constants {
     public static final InterpolatingDoubleTreeMap rpmMap = new InterpolatingDoubleTreeMap();
 
     static {
-      rpmMap.put(42.0, 2250.0); 
-      rpmMap.put(74.6, 2300.0);
-      rpmMap.put(111.5, 2400.0);
-      rpmMap.put(145.5, 2500.0);
-      rpmMap.put(180.0, 2650.0);
+      rpmMap.put(42.0, 2275.0); 
+      rpmMap.put(74.6, 2325.0);
+      rpmMap.put(111.5, 2425.0);
+      rpmMap.put(145.5, 2525.0);
+      rpmMap.put(180.0, 2675.0);
       rpmMap.put(210.0, 2800.0);
     }
 
@@ -304,10 +304,11 @@ public final class Constants {
     public static final InterpolatingDoubleTreeMap nuetralMap = new InterpolatingDoubleTreeMap();
 
     static {
-      nuetralMap.put(0.0, 1800.0); 
-      nuetralMap.put(75.0, 2000.0);
-      nuetralMap.put(150.0, 2750.0);
-      nuetralMap.put(225.0, 3500.0);
+      nuetralMap.put(0.0, 2500.0); 
+      nuetralMap.put(75.0, 3000.0);
+      nuetralMap.put(150.0, 3500.0);
+      nuetralMap.put(225.0, 3750.0);
+      nuetralMap.put(300.0, 4500.0);
     }
 
     // public static Map<Integer, Pose2d> ID_TO_POSE = new HashMap<>();

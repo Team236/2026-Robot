@@ -76,7 +76,7 @@ public class Intake extends SubsystemBase {
     double motorRPM = motorRPS * 60.0; 
 
     double STALL_CURRENT = 18.0; // Amps
-    double STALL_RPM = 750.0; 
+    double STALL_RPM = 1500.0; 
 
     if (motorCurrent >= STALL_CURRENT && Math.abs(motorRPM) < STALL_RPM) {
       RobotContainer.driverController.setRumble(GenericHID.RumbleType.kBothRumble, 0.5);

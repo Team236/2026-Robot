@@ -919,29 +919,29 @@ public class Swerve extends SubsystemBase {
             if (inNeutralMid(Units.metersToInches(currentPose.getY()))) {
 
                 if (alliance.get() == Alliance.Red) {
-                    if(nuetralAimingTarget != null){
+                    // if(nuetralAimingTarget != null){
                         return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(nuetralAimingTarget));
-                    } else {
-                        if (Math.abs(currentY - Constants.Targeting.RED_NEUTRAL_MID_RIGHT) <= Math.abs(currentY - Constants.Targeting.RED_NEUTRAL_MID_LEFT)){
-                            nuetralAimingTarget = -45.0;
-                            return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(-45));
-                        } else if (Math.abs(currentY - Constants.Targeting.RED_NEUTRAL_MID_RIGHT) > Math.abs(currentY - Constants.Targeting.RED_NEUTRAL_MID_LEFT)) {
-                            nuetralAimingTarget = 45.0;
-                            return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(45));
-                        }
-                    }
+                    // } else {
+                    //     if (Math.abs(currentY - Constants.Targeting.RED_NEUTRAL_MID_RIGHT) <= Math.abs(currentY - Constants.Targeting.RED_NEUTRAL_MID_LEFT)){
+                    //         nuetralAimingTarget = -45.0;
+                    //         return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(-45));
+                    //     } else if (Math.abs(currentY - Constants.Targeting.RED_NEUTRAL_MID_RIGHT) > Math.abs(currentY - Constants.Targeting.RED_NEUTRAL_MID_LEFT)) {
+                    //         nuetralAimingTarget = 45.0;
+                    //         return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(45));
+                    //     }
+                    // }
                 } else { 
-                    if(nuetralAimingTarget != null){
+                    // if(nuetralAimingTarget != null){
                         return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(nuetralAimingTarget));
-                    } else {
-                    if (Math.abs(currentY - Constants.Targeting.BLUE_NEUTRAL_MID_RIGHT) <= Math.abs(currentY - Constants.Targeting.BLUE_NEUTRAL_MID_LEFT)){
-                        nuetralAimingTarget = -45.0;
-                        return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(-45));
-                    } else if (Math.abs(currentY - Constants.Targeting.BLUE_NEUTRAL_MID_RIGHT) > Math.abs(currentY - Constants.Targeting.BLUE_NEUTRAL_MID_LEFT)) {
-                        nuetralAimingTarget = 45.0;
-                        return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(45));
-                    }
-                    }
+                    // } else {
+                    // if (Math.abs(currentY - Constants.Targeting.BLUE_NEUTRAL_MID_RIGHT) <= Math.abs(currentY - Constants.Targeting.BLUE_NEUTRAL_MID_LEFT)){
+                    //     nuetralAimingTarget = -45.0;
+                    //     return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(-45));
+                    // } else if (Math.abs(currentY - Constants.Targeting.BLUE_NEUTRAL_MID_RIGHT) > Math.abs(currentY - Constants.Targeting.BLUE_NEUTRAL_MID_LEFT)) {
+                    //     nuetralAimingTarget = 45.0;
+                    //     return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(45));
+                    // }
+                    // }
                 }
                 // // RED ALLIANCE LOGIC
                 // if (alliance.get() == Alliance.Red) {
@@ -1022,9 +1022,9 @@ public class Swerve extends SubsystemBase {
 
     if (alliance.isPresent()) {
         if (alliance.get() == Alliance.Red) {
-            return Math.abs(currentPose.getX() - Constants.Targeting.RED_ALLIANCE_HUB_CENTER_X);
+            return Math.abs(Units.metersToInches(currentPose.getX()) - Constants.Targeting.RED_ALLIANCE_HUB_CENTER_X);
         } else {
-            return Math.abs(currentPose.getX() - Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_X);
+            return Math.abs(Units.metersToInches(currentPose.getX()) - Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_X);
         }
     }
         return 0.0;

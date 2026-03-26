@@ -284,8 +284,8 @@ public class RobotContainer {
     // FINAL AUX BUTTONS
     // ------------------
     
-    // view1.onTrue(climberPrep); //RENABLE ONCE FIXED*
-    // menu1.onTrue(climberL1Front); //RENABLE ONCE FIXED*
+    view1.onTrue(climberPrep); //RENABLE ONCE FIXED*
+    menu1.onTrue(climberL1Front); //RENABLE ONCE FIXED*
 
     upPov1.whileTrue(climberManualUp); //RENABLE ONCE FIXED*
     downPov1.whileTrue(climberManualDown); //RENABLE ONCE FIXED*
