@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -37,6 +38,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.FuelShooting.Eject;
 import frc.robot.commands.FuelShooting.EjectWithOuttake;
+import frc.robot.commands.FuelShooting.HubShot;
 import frc.robot.commands.FuelShooting.ManualMainRoller;
 import frc.robot.commands.FuelShooting.ManualShoot;
 import frc.robot.commands.FuelShooting.PIDMainRoller;
@@ -272,6 +274,8 @@ public class RobotContainer {
     // b.whileTrue(new AlignAndFullClimb(s_Swerve, binManualExtend, climber, binRelease));
 
     menu.whileTrue(new EjectWithOuttake(preFeeder, mainRoller, floor, binRelease, intake));
+
+    b.onTrue(new HubShot(shooterPivot, mainRoller));
 
     // a.whileTrue(new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder, floor, intake, binRelease));
 
