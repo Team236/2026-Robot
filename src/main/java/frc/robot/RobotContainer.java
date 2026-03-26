@@ -336,6 +336,12 @@ public class RobotContainer {
   }
 
   private void configAutos() {
+
+    autoChooser.addOption("COMP_2L_double_nz_double_shoot", new PathPlannerAuto("COMP_2R_double_nz_double_shoot", true));
+    autoChooser.addOption("COMP_3L_double_nz_single_shoot", new PathPlannerAuto("COMP_3R_double_nz_single_shoot", true));
+    autoChooser.addOption("COMP_4L_double_nz_double_shoot_greedy", new PathPlannerAuto("COMP_4R_double_nz_double_shoot_greedy", true));
+    autoChooser.addOption("COMP_5L_double_nz_single_shoot_greedy", new PathPlannerAuto("COMP_5R_double_nz_single_shoot_greedy", true));
+
     //    //RIGHT means the OUTPOST side of the field
     //    //LEFT means the DEPOT side of the field
 
