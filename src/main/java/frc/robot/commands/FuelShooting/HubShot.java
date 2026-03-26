@@ -11,5 +11,10 @@ public class HubShot extends ParallelCommandGroup {
       shooterPivot.run(() -> shooterPivot.pidSetPosition(5.0)),
       mainRoller.run(() -> mainRoller.spinMainMotor(2380.0/60.0))
     );
+
+    finallyDo((interrupted) -> {
+        mainRoller.spinMainMotor(0);
+    });
+
   }
 }
