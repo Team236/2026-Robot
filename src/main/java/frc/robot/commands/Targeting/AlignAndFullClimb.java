@@ -25,7 +25,7 @@ public class AlignAndFullClimb extends SequentialCommandGroup {
         ),
 
         new SequentialCommandGroup(
-          new PIDMove(binRelease, 0).until(() -> binRelease.getEncoderRevolutions() < 2),
+          new PIDMove(binRelease, 0).until(() -> binRelease.getEncoderRevolutions() < 5),
           new ClimberPID(climber, Constants.ClimberConstants.PREP_CLIMBER_REVS).until(() -> climber.getClimberEncoder() > Constants.ClimberConstants.PREP_CLIMBER_REVS - 1)
         )
 
