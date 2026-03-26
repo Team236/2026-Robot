@@ -9,7 +9,7 @@ public class HubShot extends ParallelCommandGroup {
   public HubShot(ShooterPivot shooterPivot, MainRoller mainRoller) {
     addCommands(
       shooterPivot.run(() -> shooterPivot.pidSetPosition(5.0)),
-      mainRoller.run(() -> mainRoller.spinMainMotor(2380.0))
+      mainRoller.run(() -> mainRoller.spinMainMotor(2380.0/60.0))
     );
   }
 }
