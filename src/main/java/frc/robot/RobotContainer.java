@@ -275,7 +275,7 @@ public class RobotContainer {
 
     menu.whileTrue(new EjectWithOuttake(preFeeder, mainRoller, floor, binRelease, intake));
 
-    b.onTrue(new HubShot(shooterPivot, mainRoller));
+    // b.onTrue(new HubShot(shooterPivot, mainRoller));
 
     // a.whileTrue(new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder, floor, intake, binRelease));
 
