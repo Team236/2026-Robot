@@ -265,7 +265,7 @@ public class BinRelease extends SubsystemBase {
                     .until(() -> this.getEncoderRevolutions() <=finalTarget),
                 
                 new RunCommand(() -> this.manualSetSpeedSafe(Constants.ChangableBinConstants.BIN_EXTEND_BEGINNING_SPEED), this) 
-                    .until(() -> this.getEncoderRevolutions() >= binOutPose).andThen(Commands.waitSeconds(1.25))
+                    .until(() -> this.getEncoderRevolutions() >= binOutPose).andThen(Commands.waitSeconds(1.0))
             )
             .repeatedly()
             .finallyDo(() -> this.stopMotor());
