@@ -118,54 +118,54 @@ public final class Constants {
     public static final double AGITATE_TOLERANCE = 0.5; // revs
     public static final double AGITATE_TEST_SPEED = 0.2; // seconds for one full cycle
 
-    public static final double BIN_DOWN_POSSITION = 32.5;
+    public static final double BIN_DOWN_POSSITION = 34.0;
 
     // changable in code
     public static final double BIN_AGITATE_DOWN_POSSITION = 31.0;
   }
 
   public static class ChangableBinConstants{
-    public static double BIN_WAIT_TIME = 1.75; // if not using agitate, wait 4.0 seconds.
+    public static double BIN_WAIT_TIME = 1.25; // if not using agitate, wait 4.0 seconds.
     // beginning
-    public static double BIN_BEGINNING_TIME = 2.5;
-    public static double BIN_BEGINNING_TRAVEL_DISTANCE = 6.0;
-    public static double BIN_RETRACT_BEGINNING_SPEED = 0.2;
-    public static double BIN_EXTEND_BEGINNING_SPEED = 0.25;
+    public static double BIN_BEGINNING_TIME = 2.0;
+    public static double BIN_BEGINNING_TRAVEL_DISTANCE = 8.0;
+    public static double BIN_RETRACT_BEGINNING_SPEED = 0.3;
+    public static double BIN_EXTEND_BEGINNING_SPEED = 0.35;
     // rising
     public static double BIN_RETRACT_RISING_SPEED = 0.35;
     public static double BIN_EXTEND_RISING_SPEED = 0.3;
-    public static double BIN_RISING_TRAVEL_UP_DISTANCE = 8.0;
-    public static double BIN_RISING_NET_CHANGE_DISTANCE = 4.0;
+    public static double BIN_RISING_TRAVEL_UP_DISTANCE = 9.0;
+    public static double BIN_RISING_NET_CHANGE_DISTANCE = 4.5;
 
     public static double BIN_AGITATE_END_POSITION = 7.5;
     public static boolean USE_RISING_AGITATE = true;
 
-      public static void pushToDashboard() {
-        SmartDashboard.putNumber("Bin Tuning/Agitate End Position", BIN_AGITATE_END_POSITION);
-        SmartDashboard.putNumber("Bin Tuning/Retract Beginning Speed", BIN_RETRACT_BEGINNING_SPEED);
-        SmartDashboard.putNumber("Bin Tuning/Extend Beginning Speed", BIN_EXTEND_BEGINNING_SPEED);
-        SmartDashboard.putNumber("Bin Tuning/Retract Rising Speed", BIN_RETRACT_RISING_SPEED);
-        SmartDashboard.putNumber("Bin Tuning/Extend Rising Speed", BIN_EXTEND_RISING_SPEED);
-        SmartDashboard.putNumber("Bin Tuning/Beginning Travel Distance", BIN_BEGINNING_TRAVEL_DISTANCE);
-        SmartDashboard.putNumber("Bin Tuning/Rising Travel Up Distance", BIN_RISING_TRAVEL_UP_DISTANCE);
-        SmartDashboard.putNumber("Bin Tuning/Rising Net Change Distance", BIN_RISING_NET_CHANGE_DISTANCE);
-        SmartDashboard.putNumber("Bin Tuning/Bin Wait Time", BIN_WAIT_TIME);
-        SmartDashboard.putNumber("Bin Tuning/Bin Beggining Time", BIN_BEGINNING_TIME);
-        SmartDashboard.putBoolean("Bin Tuning/Use Rising", USE_RISING_AGITATE);
-     }
+    //   public static void pushToDashboard() {
+    //     SmartDashboard.putNumber("Bin Tuning/Agitate End Position", BIN_AGITATE_END_POSITION);
+    //     SmartDashboard.putNumber("Bin Tuning/Retract Beginning Speed", BIN_RETRACT_BEGINNING_SPEED);
+    //     SmartDashboard.putNumber("Bin Tuning/Extend Beginning Speed", BIN_EXTEND_BEGINNING_SPEED);
+    //     SmartDashboard.putNumber("Bin Tuning/Retract Rising Speed", BIN_RETRACT_RISING_SPEED);
+    //     SmartDashboard.putNumber("Bin Tuning/Extend Rising Speed", BIN_EXTEND_RISING_SPEED);
+    //     SmartDashboard.putNumber("Bin Tuning/Beginning Travel Distance", BIN_BEGINNING_TRAVEL_DISTANCE);
+    //     SmartDashboard.putNumber("Bin Tuning/Rising Travel Up Distance", BIN_RISING_TRAVEL_UP_DISTANCE);
+    //     SmartDashboard.putNumber("Bin Tuning/Rising Net Change Distance", BIN_RISING_NET_CHANGE_DISTANCE);
+    //     SmartDashboard.putNumber("Bin Tuning/Bin Wait Time", BIN_WAIT_TIME);
+    //     SmartDashboard.putNumber("Bin Tuning/Bin Beggining Time", BIN_BEGINNING_TIME);
+    //     SmartDashboard.putBoolean("Bin Tuning/Use Rising", USE_RISING_AGITATE);
+    //  }
 
-     public static void pullFromDashboard() {
-        BIN_AGITATE_END_POSITION = SmartDashboard.getNumber("Bin Tuning/Agitate End Position", BIN_AGITATE_END_POSITION);
-        BIN_RETRACT_BEGINNING_SPEED = SmartDashboard.getNumber("Bin Tuning/Retract Beginning Speed", BIN_RETRACT_BEGINNING_SPEED);
-        BIN_EXTEND_BEGINNING_SPEED = SmartDashboard.getNumber("Bin Tuning/Extend Beginning Speed", BIN_EXTEND_BEGINNING_SPEED);
-        BIN_RETRACT_RISING_SPEED = SmartDashboard.getNumber("Bin Tuning/Retract Rising Speed", BIN_RETRACT_RISING_SPEED);
-        BIN_EXTEND_RISING_SPEED = SmartDashboard.getNumber("Bin Tuning/Extend Rising Speed", BIN_EXTEND_RISING_SPEED);
-        BIN_BEGINNING_TRAVEL_DISTANCE = SmartDashboard.getNumber("Bin Tuning/Beginning Travel Distance", BIN_BEGINNING_TRAVEL_DISTANCE);
-        BIN_RISING_TRAVEL_UP_DISTANCE = SmartDashboard.getNumber("Bin Tuning/Rising Travel Up Distance", BIN_RISING_TRAVEL_UP_DISTANCE);
-        BIN_RISING_NET_CHANGE_DISTANCE = SmartDashboard.getNumber("Bin Tuning/Rising Net Change Distance", BIN_RISING_NET_CHANGE_DISTANCE);
-        BIN_WAIT_TIME = SmartDashboard.getNumber("Bin Tuning/Bin Beggining Time", BIN_BEGINNING_TIME);
-        USE_RISING_AGITATE = SmartDashboard.getBoolean("Bin Tuning/Use Rising", USE_RISING_AGITATE);
-     }
+    //  public static void pullFromDashboard() {
+    //     BIN_AGITATE_END_POSITION = SmartDashboard.getNumber("Bin Tuning/Agitate End Position", BIN_AGITATE_END_POSITION);
+    //     BIN_RETRACT_BEGINNING_SPEED = SmartDashboard.getNumber("Bin Tuning/Retract Beginning Speed", BIN_RETRACT_BEGINNING_SPEED);
+    //     BIN_EXTEND_BEGINNING_SPEED = SmartDashboard.getNumber("Bin Tuning/Extend Beginning Speed", BIN_EXTEND_BEGINNING_SPEED);
+    //     BIN_RETRACT_RISING_SPEED = SmartDashboard.getNumber("Bin Tuning/Retract Rising Speed", BIN_RETRACT_RISING_SPEED);
+    //     BIN_EXTEND_RISING_SPEED = SmartDashboard.getNumber("Bin Tuning/Extend Rising Speed", BIN_EXTEND_RISING_SPEED);
+    //     BIN_BEGINNING_TRAVEL_DISTANCE = SmartDashboard.getNumber("Bin Tuning/Beginning Travel Distance", BIN_BEGINNING_TRAVEL_DISTANCE);
+    //     BIN_RISING_TRAVEL_UP_DISTANCE = SmartDashboard.getNumber("Bin Tuning/Rising Travel Up Distance", BIN_RISING_TRAVEL_UP_DISTANCE);
+    //     BIN_RISING_NET_CHANGE_DISTANCE = SmartDashboard.getNumber("Bin Tuning/Rising Net Change Distance", BIN_RISING_NET_CHANGE_DISTANCE);
+    //     BIN_WAIT_TIME = SmartDashboard.getNumber("Bin Tuning/Bin Beggining Time", BIN_BEGINNING_TIME);
+    //     USE_RISING_AGITATE = SmartDashboard.getBoolean("Bin Tuning/Use Rising", USE_RISING_AGITATE);
+    //  }
   }
 
 

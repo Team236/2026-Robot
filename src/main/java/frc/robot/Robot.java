@@ -57,7 +57,7 @@ public class Robot extends TimedRobot {
     Constants.Targeting.nuetralMap.get(0.0);
 
     DashboardUtil.putAutoToField();
-    Constants.ChangableBinConstants.pushToDashboard();
+    // Constants.ChangableBinConstants.pushToDashboard();
     // myPDH.setSwitchableChannel(true);
 //
     // UsbCamera usbCamera0;
@@ -102,7 +102,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Shift Time", DashboardUtil.getShiftTime());
     SmartDashboard.putString("Current Shift", DashboardUtil.getCurrentShift());
     AutoSwitchHelpers.putAutoSwitchesToSmartDashboard();
-    Constants.ChangableBinConstants.pullFromDashboard();
+    // Constants.ChangableBinConstants.pullFromDashboard();
    
     //double totalCUrrent = myPDH.getTotalCurrent();
     //double current7 = myPDH.getCurrent(7);

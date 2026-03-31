@@ -3,32 +3,53 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.73,
-        "y": 0.648
+        "x": 7.6,
+        "y": 5.5
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.3733570581257422,
-        "y": 1.4474139976275193
+        "x": 7.6,
+        "y": 4.5
+      },
+      "isLocked": false,
+      "linkedName": "nblcl-90"
+    },
+    {
+      "anchor": {
+        "x": 6.0,
+        "y": 5.5
+      },
+      "prevControl": {
+        "x": 6.0,
+        "y": 4.5
+      },
+      "nextControl": {
+        "x": 6.0,
+        "y": 6.5
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.0,
-        "y": 3.1
+        "x": 5.4,
+        "y": 7.35
       },
       "prevControl": {
-        "x": 1.980948991696323,
-        "y": 2.5208185053380783
+        "x": 6.9,
+        "y": 7.35
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "rcs$"
+      "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1.0,
+      "rotationDegrees": 90.001
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -42,13 +63,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 25.5
+    "rotation": 180.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "movement",
   "idealStartingState": {
-    "velocity": 0.0,
-    "rotation": 180.0
+    "velocity": 3.0,
+    "rotation": -90.0
   },
   "useDefaultConstraints": true
 }

@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.5,
-        "y": 2.5
+        "x": 2.0,
+        "y": 3.1
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.7037338583788715,
-        "y": 2.644887939284324
+        "x": 1.7153495007132662,
+        "y": 3.2164479315263907
       },
       "isLocked": false,
       "linkedName": "rcs$"
@@ -20,8 +20,8 @@
         "y": 3.304
       },
       "prevControl": {
-        "x": 1.8125403705079188,
-        "y": 3.1230861515942183
+        "x": 1.8288911487692125,
+        "y": 3.140231462372508
       },
       "nextControl": null,
       "isLocked": false,
@@ -48,7 +48,7 @@
   "folder": "movement",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 27.0
+    "rotation": 25.5
   },
   "useDefaultConstraints": true
 }

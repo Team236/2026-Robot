@@ -31,16 +31,20 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 /** Add your docs here. */
 public class DashboardUtil {
 
-    private static HashMap<Double, String> shifts = new HashMap<>();
+    private static HashMap<Double, String> shiftToName = new HashMap<>();
     
     static {
-        shifts.put(130.0, "TRANSITION SHIFT");
-        shifts.put(105.0, "SHIFT 1");
-        shifts.put(80.0, "SHIFT 2");
-        shifts.put(55.0, "SHIFT 3");
-        shifts.put(30.0, "SHIFT 4");
-        shifts.put(0.0, "ENDGAME");
+        shiftToName.put(130.0, "TRANSITION SHIFT");
+        shiftToName.put(105.0, "SHIFT 1");
+        shiftToName.put(80.0, "SHIFT 2");
+        shiftToName.put(55.0, "SHIFT 3");
+        shiftToName.put(30.0, "SHIFT 4");
+        shiftToName.put(0.0, "ENDGAME");
     }
+
+    private static double[] shiftTimes = new double[] {
+        130.0, 105.0, 80.0, 55.0, 30.0, 0.0
+    };
 
     private static Field2d autoField = new Field2d();
 
@@ -50,7 +54,7 @@ public class DashboardUtil {
 
     public static double getShiftTime() {
         double currentMatchTime = DriverStation.getMatchTime();
-        for (double shiftTime : shifts.keySet()) {
+        for (double shiftTime : shiftTimes) {
             if (shiftTime < currentMatchTime) {
                 return currentMatchTime - shiftTime;
             }
@@ -61,9 +65,9 @@ public class DashboardUtil {
 
     public static String getCurrentShift() {
         double currentMatchTime = DriverStation.getMatchTime();
-        for (double shiftTime : shifts.keySet()) {
+        for (double shiftTime : shiftTimes) {
             if (shiftTime < currentMatchTime) {
-                return shifts.get(shiftTime);
+                return shiftToName.get(shiftTime);
             }
         }
 

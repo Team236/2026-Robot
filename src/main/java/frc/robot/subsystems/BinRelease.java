@@ -194,14 +194,14 @@ public class BinRelease extends SubsystemBase {
 
     public Command getAgitateCommand() {
         return 
-            new PIDMove(this, Constants.BinReleaseConstants.BIN_DOWN_POSSITION - 8)
-            .until(() -> Math.abs(this.getEncoderRevolutions() - (Constants.BinReleaseConstants.BIN_DOWN_POSSITION - 8)) < 0.2)
+            new PIDMove(this, 32.5 - 8)
+            .until(() -> Math.abs(this.getEncoderRevolutions() - (32.5 - 8)) < 0.2)
             .andThen(
-                new PIDMove(this, Constants.BinReleaseConstants.BIN_DOWN_POSSITION)
-                .until(() -> Math.abs(this.getEncoderRevolutions() - Constants.BinReleaseConstants.BIN_DOWN_POSSITION) < 0.2)
+                new PIDMove(this, 32.5)
+                .until(() -> Math.abs(this.getEncoderRevolutions() - 32.5) < 0.2)
             )
             .repeatedly()
-            .finallyDo(() -> this.PIDControlToPosition(Constants.BinReleaseConstants.BIN_DOWN_POSSITION));
+            .finallyDo(() -> this.PIDControlToPosition(32.5));
     }
 
     // public Command getRisingAgitateCommand() {
@@ -257,15 +257,15 @@ public class BinRelease extends SubsystemBase {
 
         public Command getManualAgitateCommand() {
         return new DeferredCommand(() -> {
-            double binOutPose = Constants.BinReleaseConstants.BIN_DOWN_POSSITION;
-            double finalTarget = Constants.BinReleaseConstants.BIN_DOWN_POSSITION - Constants.ChangableBinConstants.BIN_BEGINNING_TRAVEL_DISTANCE;
+            double binOutPose = 32.5;
+            double finalTarget = 32.5 - Constants.ChangableBinConstants.BIN_BEGINNING_TRAVEL_DISTANCE;
 
             return new SequentialCommandGroup(
                 new RunCommand(() -> this.manualSetSpeedSafe(-Constants.ChangableBinConstants.BIN_RETRACT_RISING_SPEED), this)
                     .until(() -> this.getEncoderRevolutions() <=finalTarget),
                 
                 new RunCommand(() -> this.manualSetSpeedSafe(Constants.ChangableBinConstants.BIN_EXTEND_BEGINNING_SPEED), this) 
-                    .until(() -> this.getEncoderRevolutions() >= binOutPose).andThen(Commands.waitSeconds(1.0))
+                    .until(() -> this.getEncoderRevolutions() >= binOutPose).andThen(Commands.waitSeconds(0.67))
             )
             .repeatedly()
             .finallyDo(() -> this.stopMotor());
