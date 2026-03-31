@@ -20,25 +20,26 @@ public class AlignAndFullClimb extends SequentialCommandGroup {
 
       new ParallelCommandGroup(
         Commands.defer(
-          () -> s_Swerve.getClimbTargetingPath(), 
+          () -> s_Swerve.getClimbTargetingPathNew(), 
           Set.of(s_Swerve) 
         ),
 
         new SequentialCommandGroup(
-          new PIDMove(binRelease, 0).until(() -> binRelease.getEncoderRevolutions() < 5),
+          new PIDMove(binRelease, 0).until(() -> binRelease.getEncoderRevolutions() < 2),
           new ClimberPID(climber, Constants.ClimberConstants.PREP_CLIMBER_REVS).until(() -> climber.getClimberEncoder() > Constants.ClimberConstants.PREP_CLIMBER_REVS - 1)
         )
-
       ),
+
+      new ClimberPID(climber, Constants.ClimberConstants.CLIMB_L1_FRONT)
         
-        new SequentialCommandGroup(
-            Commands.defer(
-                () -> s_Swerve.getFinishClimbCommand(), 
-                Set.of(s_Swerve) 
-            ),
-  
-            new ClimberPID(climber, Constants.ClimberConstants.CLIMB_L1_FRONT)
-        )
+      // new SequentialCommandGroup(
+      //     Commands.defer(
+      //         () -> s_Swerve.getFinishClimbCommand(), 
+      //         Set.of(s_Swerve) 
+      //     ),
+
+      //     new ClimberPID(climber, Constants.ClimberConstants.CLIMB_L1_FRONT)
+      // )
     );
   }
 }
