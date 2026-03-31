@@ -366,6 +366,45 @@ public class Swerve extends SubsystemBase {
             return Commands.none();
         }
     }
+
+    public Command getClimbTargetingPathNew() { // rename to actual once tested
+        try {
+            Pose2d robotPoseBlue;
+            
+            // Alliance Check
+            if (DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red) { 
+                robotPoseBlue = FlippingUtil.flipFieldPose(this.getPose());
+            } else  {
+                robotPoseBlue = this.getPose();    
+            }
+            
+            Pose2d pathEndPoseBlue;
+            if (robotPoseBlue.getY() < Constants.Targeting.BLUE_TOWER_CENTER_Y_METERS) {
+                pathEndPoseBlue = new Pose2d(1.640, 3.304, Rotation2d.fromDegrees(0)); // 3.304 might be 3.302 instead
+            } else {
+                pathEndPoseBlue = new Pose2d(1.640, 4.162, Rotation2d.fromDegrees(0));
+            }
+
+            Pose2d pathEndPoseAlliance = DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red ? FlippingUtil.flipFieldPose(pathEndPoseBlue) : pathEndPoseBlue;
+            PathConstraints constraints = new PathConstraints(
+                2.25,
+                3.0,
+                540.0,
+                720.0,
+                12.0
+            );
+
+            if (robotPoseBlue.getY() < Constants.Targeting.BLUE_TOWER_CENTER_Y_METERS) { // right tower, from driver station pov
+                return AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("tr0-cr0"), constraints);
+            } else { // left tower, from driver station pov
+                return AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("tl0-cl0"), constraints);
+            }
+
+        } catch (Exception e) {
+            DriverStation.reportError("Error in getClimbTargetingPathNew: " + e.getMessage(), e.getStackTrace());
+            return Commands.none();
+        }
+    }
     
     // ALSO WE CAN USE AutoBuilder.pathfindToPose(targetPose, constraints); I FOUND OTHERS USING IT
 

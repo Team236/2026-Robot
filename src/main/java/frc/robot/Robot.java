@@ -5,6 +5,7 @@
 package frc.robot;
 
 import com.pathplanner.lib.commands.FollowPathCommand;
+import com.pathplanner.lib.commands.PathfindingCommand;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
@@ -50,6 +51,7 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
 
     CommandScheduler.getInstance().schedule(FollowPathCommand.warmupCommand()); // loads pathplanner classes, should solve issue of initial path follow being delayed
+    CommandScheduler.getInstance().schedule(PathfindingCommand.warmupCommand()); // loads pathplanner classes, should solve issue of initial path follow being delayed
     Constants.Targeting.hoodAngleMap.get(0.0); // warmup map (had delays on first access, this should solve that issue)
     Constants.Targeting.rpmMap.get(0.0); // warmup map (had delays on first access, this should solve that issue)
     Constants.Targeting.preFeederMap.get(0.0); // warmup map (had delays on first access, this should solve that issue)
