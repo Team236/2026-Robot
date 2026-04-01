@@ -395,9 +395,9 @@ public class Swerve extends SubsystemBase {
             );
 
             if (robotPoseBlue.getY() < Constants.Targeting.BLUE_TOWER_CENTER_Y_METERS) { // right tower, from driver station pov
-                return AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("tr0-cr0"), constraints);
+                return AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("tr0_to_cr0"), constraints);
             } else { // left tower, from driver station pov
-                return AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("tl0-cl0"), constraints);
+                return AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("tl0_to_cl0"), constraints);
             }
 
         } catch (Exception e) {

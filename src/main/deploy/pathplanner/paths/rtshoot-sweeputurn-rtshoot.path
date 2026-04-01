@@ -73,7 +73,7 @@
       },
       "nextControl": {
         "x": 6.322045515007283,
-        "y": 0.527573745561949
+        "y": 0.5275737455619489
       },
       "isLocked": false,
       "linkedName": null
@@ -119,6 +119,17 @@
         "type": "named",
         "data": {
           "name": "intake"
+        }
+      }
+    },
+    {
+      "name": "heading-override",
+      "waypointRelativePos": 1.6815320041972723,
+      "endWaypointRelativePos": 3.3079748163693603,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "heading-override"
         }
       }
     }
