@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 3.7349999999999994,
-        "y": 0.54
+        "y": 0.57
       },
       "prevControl": null,
       "nextControl": {
         "x": 4.569852272727272,
-        "y": 0.4585340909090917
+        "y": 0.4885340909090916
       },
       "isLocked": false,
       "linkedName": "right-trench-shoot"
@@ -32,16 +32,16 @@
     },
     {
       "anchor": {
-        "x": 5.950965909090908,
-        "y": 3.4062840909090912
+        "x": 6.19,
+        "y": 3.385228951255539
       },
       "prevControl": {
-        "x": 5.354333791260166,
-        "y": 2.0906337797951466
+        "x": 5.948847858197933,
+        "y": 2.233057607090103
       },
       "nextControl": {
-        "x": 6.352931818181817,
-        "y": 4.292670454545454
+        "x": 6.389387465624114,
+        "y": 4.337857953681862
       },
       "isLocked": false,
       "linkedName": null
@@ -81,11 +81,11 @@
     {
       "anchor": {
         "x": 3.7349999999999994,
-        "y": 0.54
+        "y": 0.56
       },
       "prevControl": {
         "x": 5.656390870185448,
-        "y": 0.5480313837375184
+        "y": 0.5680313837375184
       },
       "nextControl": null,
       "isLocked": false,
@@ -96,6 +96,18 @@
     {
       "waypointRelativePos": 0.14705882352941196,
       "rotationDegrees": 90.0
+    },
+    {
+      "waypointRelativePos": 1.7840069534984804,
+      "rotationDegrees": 90.0
+    },
+    {
+      "waypointRelativePos": 2.9747935680138697,
+      "rotationDegrees": -90.0
+    },
+    {
+      "waypointRelativePos": 3.68752716210339,
+      "rotationDegrees": 91.0
     },
     {
       "waypointRelativePos": 4.904411764705881,
@@ -119,17 +131,6 @@
         "type": "named",
         "data": {
           "name": "intake"
-        }
-      }
-    },
-    {
-      "name": "heading-override",
-      "waypointRelativePos": 1.6815320041972723,
-      "endWaypointRelativePos": 3.3079748163693603,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "heading-override"
         }
       }
     }

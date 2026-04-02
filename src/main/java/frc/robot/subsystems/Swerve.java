@@ -121,6 +121,8 @@ public class Swerve extends SubsystemBase {
         // PATH PLANNER
 
         SmartDashboard.putString("Starting swerve and pathplanner", "yes");
+        SmartDashboard.putNumber("PPOverrideHeading target angle", 0);
+        SmartDashboard.putNumber("PPOverrideHeading PID output", 0);
 
         RobotConfig config = null; // this is a PathPlannerLib object that will store the robot config values like mass, wheel numbers, etc. that are set in the App GUI
         try {
@@ -170,6 +172,7 @@ public class Swerve extends SubsystemBase {
             Constants.PathPlanner.ROTATION_PID_CONSTANTS.kI,
             Constants.PathPlanner.ROTATION_PID_CONSTANTS.kD
         );
+        PPHeadingPIDController.enableContinuousInput(-Math.PI, Math.PI);
 
         // Update cached hub coordinates once per loop (avoids repeated DriverStation.getAlliance() calls)
         var alliance = DriverStation.getAlliance();
@@ -745,14 +748,14 @@ public class Swerve extends SubsystemBase {
     // this method will return pid output to rotate robot heading to face its moving direction.
     public double getPPOverrideHeadingFeedback() {
         Pose2d currentPose = getPose();
+
         ChassisSpeeds robotChassisSpeeds = getChassisSpeeds();
-        Translation2d fieldRelativeVelocities = new Translation2d(
-                robotChassisSpeeds.vxMetersPerSecond, 
-                robotChassisSpeeds.vyMetersPerSecond
-        ).rotateBy(getHeading());
+        ChassisSpeeds fieldRelativeChassisSpeeds = ChassisSpeeds.fromRobotRelativeSpeeds(robotChassisSpeeds, getHeading());
 
-        double targetAngle = fieldRelativeVelocities.getAngle().getRadians();
+        double targetAngle = new Translation2d(fieldRelativeChassisSpeeds.vxMetersPerSecond, fieldRelativeChassisSpeeds.vyMetersPerSecond).getAngle().getRadians();
+        SmartDashboard.putNumber("PPOverrideHeading target angle", targetAngle);
 
+        SmartDashboard.putNumber("PPOverrideHeading PID output", PPHeadingPIDController.calculate(currentPose.getRotation().getRadians(), targetAngle));
         return PPHeadingPIDController.calculate(currentPose.getRotation().getRadians(), targetAngle);
     }
 
