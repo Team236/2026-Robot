@@ -8,27 +8,11 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.6613382150620306,
-        "y": 0.8830891107365106
+        "x": 3.3845681818181816,
+        "y": 0.24209090909090925
       },
       "isLocked": false,
       "linkedName": "shoot-close-trench-right"
-    },
-    {
-      "anchor": {
-        "x": 3.2323253012048188,
-        "y": 0.7239036144578312
-      },
-      "prevControl": {
-        "x": 2.6965457437741356,
-        "y": 0.847730552400009
-      },
-      "nextControl": {
-        "x": 5.112967189728957,
-        "y": 0.2892582025677609
-      },
-      "isLocked": false,
-      "linkedName": null
     },
     {
       "anchor": {
@@ -110,35 +94,35 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.5,
+      "waypointRelativePos": 0.25,
       "rotationDegrees": 0.0
     },
     {
-      "waypointRelativePos": 1.6,
+      "waypointRelativePos": 0.8,
       "rotationDegrees": 0.0
     },
     {
-      "waypointRelativePos": 2.33,
+      "waypointRelativePos": 1.33,
       "rotationDegrees": 90.0
     },
     {
-      "waypointRelativePos": 2.9,
+      "waypointRelativePos": 1.9,
       "rotationDegrees": 90.0
     },
     {
-      "waypointRelativePos": 3.9973924380703902,
+      "waypointRelativePos": 2.9973924380703902,
       "rotationDegrees": -90.0
     },
     {
-      "waypointRelativePos": 5.0,
+      "waypointRelativePos": 4.0,
       "rotationDegrees": 45.0
     }
   ],
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 5.002098635886658,
-      "maxWaypointRelativePos": 5.745015739769139,
+      "minWaypointRelativePos": 4.002098635886658,
+      "maxWaypointRelativePos": 4.745015739769139,
       "constraints": {
         "maxVelocity": 2.0,
         "maxAcceleration": 3.0,
@@ -164,12 +148,23 @@
     },
     {
       "name": "intake",
-      "waypointRelativePos": 1.0,
+      "waypointRelativePos": 0.5,
       "endWaypointRelativePos": 5.0,
       "command": {
         "type": "named",
         "data": {
           "name": "intake"
+        }
+      }
+    },
+    {
+      "name": "target",
+      "waypointRelativePos": 4.625623960066553,
+      "endWaypointRelativePos": 5.0,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "target"
         }
       }
     }

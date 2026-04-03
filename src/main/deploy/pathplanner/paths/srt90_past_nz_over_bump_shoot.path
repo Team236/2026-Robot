@@ -183,6 +183,17 @@
           "name": "intake"
         }
       }
+    },
+    {
+      "name": "target",
+      "waypointRelativePos": 5.8502495840266215,
+      "endWaypointRelativePos": 6.0,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "target"
+        }
+      }
     }
   ],
   "globalConstraints": {
