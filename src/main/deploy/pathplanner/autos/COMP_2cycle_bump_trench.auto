@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "srt90-intake-rtshoot"
+            "pathName": "srt90_to_rbs$_via_trench_uturn_bump_shoot_intakeandstartup_no_climb_no_mid"
           }
         },
         {
@@ -15,15 +15,15 @@
           "data": {
             "commands": [
               {
-                "type": "named",
+                "type": "wait",
                 "data": {
-                  "name": "shoot"
+                  "waitTime": 4.0
                 }
               },
               {
-                "type": "wait",
+                "type": "named",
                 "data": {
-                  "waitTime": 5.0
+                  "name": "shoot"
                 }
               }
             ]
@@ -32,13 +32,26 @@
         {
           "type": "path",
           "data": {
-            "pathName": "rtshoot-sweeputurn-rtshoot"
+            "pathName": "r$-sweeputurn-rtshoot"
           }
         },
         {
-          "type": "named",
+          "type": "race",
           "data": {
-            "name": "shoot"
+            "commands": [
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 3.0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "shoot"
+                }
+              }
+            ]
           }
         }
       ]

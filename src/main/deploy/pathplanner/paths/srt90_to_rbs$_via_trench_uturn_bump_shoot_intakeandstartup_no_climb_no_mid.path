@@ -37,7 +37,7 @@
       },
       "prevControl": {
         "x": 7.499025467804696,
-        "y": 2.680995393296973
+        "y": 2.6809953932969726
       },
       "nextControl": {
         "x": 7.6722045454545444,
@@ -136,7 +136,7 @@
     {
       "name": "intake",
       "waypointRelativePos": 0.8593913955928648,
-      "endWaypointRelativePos": 4.0954879328436515,
+      "endWaypointRelativePos": 2.513931888544886,
       "command": {
         "type": "named",
         "data": {
