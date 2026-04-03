@@ -49,6 +49,7 @@ import frc.robot.commands.ClimberCommands.ClimberPID;
 import frc.robot.commands.ClimberCommands.ClimberSetSpeed;
 import frc.robot.commands.ClimberCommands.ZeroClimberStartup;
 import frc.robot.commands.Floor.RunFloor;
+import frc.robot.commands.Intake.IntakeOvercurrentWithBinExtend;
 import frc.robot.commands.Intake.IntakeWithBinExtend;
 import frc.robot.commands.Intake.PIDIntake;
 import frc.robot.commands.Intake.RunIntake;

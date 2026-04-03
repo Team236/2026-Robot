@@ -80,16 +80,16 @@
     },
     {
       "anchor": {
-        "x": 3.055720399429386,
-        "y": 2.398259629101284
+        "x": 2.8875178316690437,
+        "y": 1.0267617689015696
       },
       "prevControl": {
-        "x": 3.7412917975295845,
-        "y": 2.5642797049222668
+        "x": 2.913395149786019,
+        "y": 2.4111982881597713
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "shoot-pose-double-nz"
+      "linkedName": "shoot-close-trench-right"
     }
   ],
   "rotationTargets": [
@@ -163,6 +163,17 @@
           "name": "intake"
         }
       }
+    },
+    {
+      "name": "target",
+      "waypointRelativePos": 4.409758656873025,
+      "endWaypointRelativePos": 5.0,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "target"
+        }
+      }
     }
   ],
   "globalConstraints": {
@@ -175,7 +186,7 @@
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": 46.332219853869645
+    "rotation": 60.387136394571954
   },
   "reversed": false,
   "folder": "movement",

@@ -105,6 +105,10 @@ public class Intake extends SubsystemBase {
     return intakeMotor.get();
   }
 
+  public double getIntakeCurrent() {
+    return intakeMotor.getSupplyCurrent().getValueAsDouble();
+  }
+
   @Override
   public void periodic() {     
     // This method will be called once per scheduler run

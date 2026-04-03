@@ -56,7 +56,7 @@ public final class Constants {
 
   public static class MotorControllers {
     public static final int SMART_CURRENT_LIMIT = 40;
-    public static final int INTAKE_CURRENT_LIMIT = 25;
+    public static final int INTAKE_CURRENT_LIMIT = 32;
     //MOTOR ID NUMBERS (for swerve drive/steer motors - see Swerve below):
     public static final int ID_BIN_REL = 8; //8
     public static final int ID_INTAKE_LEFT = 9; 
@@ -110,7 +110,7 @@ public final class Constants {
     public static final double KI_BIN_RETRACT = 0;
     public static final double KD_BIN_RETRACT = 0;
 
-    public static final double ENC_REVS_MAX = 32.5; //TBD //32.5
+    public static final double ENC_REVS_MAX = 31.8; //TBD //32.5
     public static final double MANUAL_EXT_SPEED = 0.3;
     public static final double MANUAL_RET_SPEED = -0.3;
     public static final double POSITION1 = 50;
@@ -118,7 +118,7 @@ public final class Constants {
     public static final double AGITATE_TOLERANCE = 0.5; // revs
     public static final double AGITATE_TEST_SPEED = 0.2; // seconds for one full cycle
 
-    public static final double BIN_DOWN_POSSITION = 32.5;
+    public static final double BIN_DOWN_POSSITION = 31.8;
 
     // changable in code
     public static final double BIN_AGITATE_DOWN_POSSITION = 31.0;
@@ -207,6 +207,7 @@ public final class Constants {
   public static  class IntakeConstants {
     public static final double INTAKE_SPEED = 0.5;
     public static final double OUTTAKE_SPEED = -0.5;
+    public static final double DISABLE_CURRENT = 30.0;
     //these next variables are for the intake pid command, but they are ripped straight from the prefeeder pid, so they may not be right.
     //TODO: TUNE THESE VALUES FOR INTAKE PID COMMAND
     public static final double TEST_SPEED = 0.3;//constant speed for testing

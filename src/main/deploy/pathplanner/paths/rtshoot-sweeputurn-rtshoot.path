@@ -120,8 +120,13 @@
     {
       "name": "bin-out",
       "waypointRelativePos": 0.0,
-      "endWaypointRelativePos": 4.400998336106488,
-      "command": null
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "bin-out"
+        }
+      }
     },
     {
       "name": "intake",
