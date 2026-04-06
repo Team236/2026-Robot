@@ -63,6 +63,7 @@ public class Swerve extends SubsystemBase {
     public double poseForwardDistance;
     public double poseSideDistance;
     public PIDController pidControllerForTrackingOutput;
+    public PIDController pidForShaking;
     // public Double nuetralAimingTarget;
 
     // Cached hub coordinates — updated once per loop when alliance is known
@@ -163,10 +164,18 @@ public class Swerve extends SubsystemBase {
         0.0,
         Constants.Targeting.AUTO_ROTATE_KD);
 
+        pidForShaking = new PIDController(
+        Constants.Targeting.AUTO_ROTATE_KP + 1.0,
+        0.0,
+        Constants.Targeting.AUTO_ROTATE_KD);
+
         pidControllerForTrackingOutput.enableContinuousInput(-Math.PI, Math.PI);
+        pidForShaking.enableContinuousInput(-Math.PI, Math.PI);
         // tolerance is to prevent gittering (this will need to be tuned)
         pidControllerForTrackingOutput.setTolerance(Math.toRadians(0.1));
         pidControllerForTrackingOutput.setSetpoint(0.0);
+        pidForShaking.setTolerance(Math.toRadians(0.1));
+        pidForShaking.setSetpoint(0.0);
 
         PPHeadingPIDController = new PIDController(
             Constants.PathPlanner.ROTATION_PID_CONSTANTS.kP,
@@ -968,18 +977,20 @@ public class Swerve extends SubsystemBase {
         double dynamicTolerance = Math.toRadians(2.0) + Math.abs(amplitudeRadians);
 
         if (Math.abs(angleDifference) < dynamicTolerance) {
-            RobotContainer.driverController.setRumble(GenericHID.RumbleType.kBothRumble, 1.0);
-            RobotContainer.auxController.setRumble(GenericHID.RumbleType.kBothRumble, 1.0);
+            RobotContainer.driverController.setRumble(GenericHID.RumbleType.kBothRumble, 0.33);
+            RobotContainer.auxController.setRumble(GenericHID.RumbleType.kBothRumble, 0.33);
 
             finalTargetAngle = targetAngle + offsetRadians;
+
+            return pidForShaking.calculate(currentPose.getRotation().getRadians(), finalTargetAngle);
         } else {
             RobotContainer.driverController.setRumble(GenericHID.RumbleType.kBothRumble, 0.0);
             RobotContainer.auxController.setRumble(GenericHID.RumbleType.kBothRumble, 0.0);
 
             finalTargetAngle = targetAngle;
-        }
 
-        return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), finalTargetAngle);
+            return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), finalTargetAngle);
+        }
     }
 
     public double getShakingOffset() {

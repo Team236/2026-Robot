@@ -278,6 +278,9 @@ public final class Constants {
     public static final double AUTO_ROTATE_FEEDFORWARD = 0.5;
     public static final double AUTO_ROTATE_TOLERANCE = 1; //degrees
 
+    public static final double AUTO_SHAKE_KP = 10.0;
+    public static final double AUTO_SHAKE_KD = 0.0;
+
     public static final InterpolatingDoubleTreeMap hoodAngleMap = new InterpolatingDoubleTreeMap();
 
     static {
