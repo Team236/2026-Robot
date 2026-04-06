@@ -241,7 +241,7 @@ public final class Constants {
     // public static final double KP_STRAFE = 0.9;// 0.475;  //kP value for the sideways (strafe) motio%n
 
     public static double SHAKE_FREQUENCY = 1.0;
-    public static double SHAKE_SPREAD = 10.0;
+    public static double SHAKE_SPREAD = 5.0;
     public static double WAIT_TIME = 0.0;
     public static double END_TIME = 100.0;
 

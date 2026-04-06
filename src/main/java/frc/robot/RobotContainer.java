@@ -73,6 +73,7 @@ import frc.robot.commands.Targeting.AutoPivotRobotGroupCommand;
 import frc.robot.commands.Targeting.AutoPivotTowardHub;
 import frc.robot.commands.Targeting.AutoPrepShooter;
 import frc.robot.commands.Targeting.SmartAutoTarget;
+import frc.robot.commands.Targeting.ShakeAutoTarget;
 import frc.robot.subsystems.ShooterPivot;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Intake;
@@ -261,11 +262,24 @@ public class RobotContainer {
         () -> robotCentric.getAsBoolean()
     ));
 
+    rm.whileTrue(new ShakeAutoTarget(
+      s_Swerve,
+      () -> -driverController.getRawAxis(translationAxis), 
+      () -> -driverController.getRawAxis(strafeAxis), 
+      () -> robotCentric.getAsBoolean()
+    ));
+
+    rm.onFalse(new InstantCommand(() -> {
+        RobotContainer.driverController.setRumble(GenericHID.RumbleType.kBothRumble, 0.0);
+        RobotContainer.auxController.setRumble(GenericHID.RumbleType.kBothRumble, 0.0);
+      })
+      );
+
     rt.onFalse( new InstantCommand(() -> {
         RobotContainer.driverController.setRumble(GenericHID.RumbleType.kBothRumble, 0.0);
         RobotContainer.auxController.setRumble(GenericHID.RumbleType.kBothRumble, 0.0);
       })
-    ); 
+    );
 
     lm.whileTrue(new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder, floor, intake, binRelease));
 
@@ -304,7 +318,7 @@ public class RobotContainer {
     lb1.whileTrue(new OverrideMove(binRelease, -0.25));
 
     a1.whileTrue(new IntakeWithBinExtend(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION, intake, Constants.IntakeConstants.INTAKE_RPM));
-    b1.whileTrue(new EjectWithOuttake(preFeeder, mainRoller, floor, binReleas/e, intake));
+    b1.whileTrue(new EjectWithOuttake(preFeeder, mainRoller, floor, binRelease, intake));
 
     x1.onTrue(new PIDMove(binRelease, 0));
     y1.onTrue(new PIDMove(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION));
@@ -346,6 +360,10 @@ public class RobotContainer {
     autoChooser.addOption("COMP_3L_double_nz_single_shoot", new PathPlannerAuto("COMP_3R_double_nz_single_shoot", true));
     autoChooser.addOption("COMP_4L_double_nz_double_shoot_greedy", new PathPlannerAuto("COMP_4R_double_nz_double_shoot_greedy", true));
     autoChooser.addOption("COMP_5L_double_nz_single_shoot_greedy", new PathPlannerAuto("COMP_5R_double_nz_single_shoot_greedy", true));
+
+    autoChooser.addOption("COMP_mirrored-double-trench-shoot", new PathPlannerAuto("COMP_double-trench-shoot", true));
+    autoChooser.addOption("COMP_mirrored-2cycle_bump_bump_no_climb", new PathPlannerAuto("COMP_2cycle_bump_bump_no_climb", true));
+    autoChooser.addOption("COMP_mirrored-2cycle_bump_trench", new PathPlannerAuto("COMP_2cycle_bump_trench", true));
 
     //    //RIGHT means the OUTPOST side of the field
     //    //LEFT means the DEPOT side of the field
