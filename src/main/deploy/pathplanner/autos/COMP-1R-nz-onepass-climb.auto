@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "srt90_to_rbs$_via_trench_uturn_bump_shoot_intakeandstartup"
+            "pathName": "srt90_to_rbs$_over_bump_tower_shoot"
           }
         },
         {
@@ -23,7 +23,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 6.5
+                  "waitTime": 9.0
                 }
               }
             ]

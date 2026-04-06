@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.055720399429386,
-        "y": 2.398259629101284
+        "x": 2.8875178316690437,
+        "y": 1.0267617689015696
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.779871037748911,
-        "y": 1.9570770438007075
+        "x": 2.66756062767475,
+        "y": 0.7550499286733237
       },
       "isLocked": false,
-      "linkedName": "shoot-pose-double-nz"
+      "linkedName": "shoot-close-trench-right"
     },
     {
       "anchor": {
@@ -20,28 +20,28 @@
         "y": 0.7239036144578312
       },
       "prevControl": {
-        "x": 2.6739342994580397,
-        "y": 0.7269869510405791
+        "x": 2.8487018544935796,
+        "y": 0.7550499286733237
       },
       "nextControl": {
-        "x": 4.621298145506419,
-        "y": 0.71623395149786
+        "x": 4.616763854779466,
+        "y": 0.6115013132654977
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.073530120481928,
-        "y": 1.2812168674698796
+        "x": 6.031611982881596,
+        "y": 1.337289586305278
       },
       "prevControl": {
-        "x": 5.682931572297696,
-        "y": 0.4925625296975815
+        "x": 5.919703273308334,
+        "y": 0.4643524001043804
       },
       "nextControl": {
-        "x": 6.519920753526271,
-        "y": 2.182520548008121
+        "x": 6.14495775398312,
+        "y": 2.221436484883901
       },
       "isLocked": false,
       "linkedName": null
@@ -68,12 +68,12 @@
         "y": 3.499542168674699
       },
       "prevControl": {
-        "x": 8.060909074820541,
-        "y": 4.3823319339629485
+        "x": 7.95947218259629,
+        "y": 4.222610556348074
       },
       "nextControl": {
-        "x": 7.4548644793152645,
-        "y": 2.035977175463623
+        "x": 7.572234679282583,
+        "y": 2.010587852690061
       },
       "isLocked": false,
       "linkedName": null
@@ -176,6 +176,17 @@
           "name": "intake"
         }
       }
+    },
+    {
+      "name": "target",
+      "waypointRelativePos": 5.8,
+      "endWaypointRelativePos": 6.0,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "target"
+        }
+      }
     }
   ],
   "globalConstraints": {
@@ -194,7 +205,7 @@
   "folder": "movement",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 46.332219853869645
+    "rotation": 59.88255502086047
   },
   "useDefaultConstraints": true
 }

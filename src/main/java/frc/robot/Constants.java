@@ -253,8 +253,8 @@ public final class Constants {
     public static final double BLUE_TOWER_CENTER_Y_METERS = 3.746; // meters
     public static final double RED_TOWER_CENTER_Y_METERS = 4.324; // meters
 
-    public static final double AUTO_ROTATE_KP = 6;
-    public static final double AUTO_ROTATE_KD = 0.05;
+    public static final double AUTO_ROTATE_KP = 6.0;
+    public static final double AUTO_ROTATE_KD = 0.075;
     public static final double AUTO_ROTATE_FEEDFORWARD = 0.5;
     public static final double AUTO_ROTATE_TOLERANCE = 1; //degrees
 

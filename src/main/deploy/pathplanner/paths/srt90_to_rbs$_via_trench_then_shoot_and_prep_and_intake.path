@@ -129,6 +129,17 @@
           "name": "intake"
         }
       }
+    },
+    {
+      "name": "target",
+      "waypointRelativePos": 3.75,
+      "endWaypointRelativePos": 4.0,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "target"
+        }
+      }
     }
   ],
   "globalConstraints": {

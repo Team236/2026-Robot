@@ -84,28 +84,28 @@
         "y": 2.592339514978602
       },
       "prevControl": {
-        "x": 6.251569186875892,
-        "y": 2.695848787446505
+        "x": 6.253058526534839,
+        "y": 2.6829311470711454
       },
       "nextControl": {
-        "x": 4.27865868482428,
-        "y": 2.453029033347845
+        "x": 4.207261055634806,
+        "y": 2.462952924393724
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.055720399429386,
-        "y": 2.398259629101284
+        "x": 2.8875178316690437,
+        "y": 1.0267617689015696
       },
       "prevControl": {
-        "x": 3.5991440798858774,
-        "y": 2.864051355206848
+        "x": 2.745192582025677,
+        "y": 3.0710699001426542
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "shoot-pose-double-nz"
+      "linkedName": "shoot-close-trench-right"
     }
   ],
   "rotationTargets": [
@@ -130,7 +130,7 @@
       "rotationDegrees": -45.0
     },
     {
-      "waypointRelativePos": 5.697522816166903,
+      "waypointRelativePos": 5.5,
       "rotationDegrees": -45.0
     }
   ],
@@ -186,7 +186,7 @@
     },
     {
       "name": "target",
-      "waypointRelativePos": 5.8502495840266215,
+      "waypointRelativePos": 5.55,
       "endWaypointRelativePos": 6.0,
       "command": {
         "type": "named",
@@ -206,7 +206,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 46.332219853869645
+    "rotation": 59.88255502086047
   },
   "reversed": false,
   "folder": "movement",

@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.0,
-        "y": 3.2
+        "x": 2.1111982881597715,
+        "y": 2.6570328102710414
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.8393030975783653,
-        "y": 3.391511110779745
+        "x": 1.9505013857381368,
+        "y": 2.848543921050786
       },
       "isLocked": false,
       "linkedName": "shoot-close-tower-right"
@@ -48,7 +48,7 @@
   "folder": "movement",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 17.6
+    "rotation": 29.583938519363834
   },
   "useDefaultConstraints": true
 }
