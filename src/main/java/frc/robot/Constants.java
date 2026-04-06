@@ -238,7 +238,27 @@ public final class Constants {
     // public static final double DIST_CAMERA_TO_BUMPER_FWD = BUMPER_THICKNESS + DIST_FORWARDS_CAMERA_TO_FRAME;
     // public static final double KP_ROTATION = 0.008; //kP value for rotation
     // public static final double KP_TRANSLATION = 0.4;//kP value for forward (translation) motion
-    // public static final double KP_STRAFE = 0.9;// 0.475;  //kP value for the sideways (strafe) motio%n 
+    // public static final double KP_STRAFE = 0.9;// 0.475;  //kP value for the sideways (strafe) motio%n
+
+    public static double SHAKE_FREQUENCY = 1.0;
+    public static double SHAKE_SPREAD = 10.0;
+    public static double WAIT_TIME = 0.0;
+    public static double END_TIME = 100.0;
+
+    public static void pushToDashboard() {
+        SmartDashboard.putNumber("Shooter Tuning/SHAKE_FREQUENCY", SHAKE_FREQUENCY);
+        SmartDashboard.putNumber("Shooter Tuning/SHAKE_SPREAD", SHAKE_SPREAD);
+        SmartDashboard.putNumber("Shooter Tuning/WAIT_TIME", WAIT_TIME);
+        SmartDashboard.putNumber("Shooter Tuning/END_TIME", END_TIME);
+
+     }
+
+     public static void pullFromDashboard() {
+        SHAKE_FREQUENCY = SmartDashboard.getNumber("Shooter Tuning/SHAKE_FREQUENCY", SHAKE_FREQUENCY);
+        SHAKE_SPREAD = SmartDashboard.getNumber("Shooter Tuning/SHAKE_SPREAD", SHAKE_SPREAD);
+        WAIT_TIME = SmartDashboard.getNumber("Shooter Tuning/WAIT_TIME", WAIT_TIME);
+        END_TIME = SmartDashboard.getNumber("Shooter Tuning/END_TIME", END_TIME);
+     }
 
     public static final String[] CAMERA_NAMES = 
     {

@@ -10,7 +10,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 
-public class SmartAutoTarget extends Command {
+public class ShakeAutoTarget extends Command {
   /** Creates a new SmartAutoTarget. */
 
   private Swerve s_Swerve;
@@ -22,8 +22,7 @@ public class SmartAutoTarget extends Command {
   private double HUBX;
   private double HUBY;
 
-  public SmartAutoTarget(Swerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup,
-      BooleanSupplier robotCentricSup) {
+  public ShakeAutoTarget(Swerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, BooleanSupplier robotCentricSup) {
     // USING SWERVE FOR TAKING OVER ROTATION
     this.s_Swerve = s_Swerve;
     this.translationSup = translationSup;
@@ -57,9 +56,10 @@ public class SmartAutoTarget extends Command {
     double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.stickDeadband);
     double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.stickDeadband);
 
-    PIDRotation = this.s_Swerve.getAllianceWallHeading(HUBX, HUBY, 0.0);
+    double shakeOffsetRadians = s_Swerve.getShakingOffset();
 
-    // DRIVE COMMAND WITH THE NEW INPUTS FOR ROTATION
+    PIDRotation = s_Swerve.getAllianceWallHeading(HUBX, HUBY, shakeOffsetRadians);
+
     s_Swerve.drive(
         new Translation2d(curveDrive(translationVal), curveDrive(strafeVal)).times(Constants.Swerve.maxSpeed),
         MathUtil.clamp(PIDRotation, -Constants.Swerve.maxAngularVelocity, Constants.Swerve.maxAngularVelocity),
