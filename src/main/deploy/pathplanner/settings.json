@@ -3,13 +3,15 @@
   "robotLength": 0.8509,
   "holonomicMode": true,
   "pathFolders": [
+    "new-convention",
     "movement"
   ],
   "autoFolders": [
+    "DCMP unconfirmed",
     "Game Ready Autos",
     "Hartford Ready",
     "New Folder",
-    "DCMP unconfirmed"
+    "new-convention"
   ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,
