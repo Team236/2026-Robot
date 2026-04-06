@@ -963,9 +963,11 @@ public class Swerve extends SubsystemBase {
         double targetAngle = Math.atan2(dy, dx);
 
         double angleDifference = MathUtil.angleModulus(targetAngle - currentPose.getRotation().getRadians());
+        double amplitudeRadians = Constants.Targeting.SHAKE_SPREAD / Math.max(getDistanceToHub(), 1.0);
 
+        double dynamicTolerance = Math.toRadians(2.0) + Math.abs(amplitudeRadians);
 
-        if (Math.abs(angleDifference) < Units.degreesToRadians(2.0)) {
+        if (Math.abs(angleDifference) < dynamicTolerance) {
             RobotContainer.driverController.setRumble(GenericHID.RumbleType.kBothRumble, 1.0);
             RobotContainer.auxController.setRumble(GenericHID.RumbleType.kBothRumble, 1.0);
 
