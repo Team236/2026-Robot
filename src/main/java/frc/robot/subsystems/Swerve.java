@@ -934,6 +934,7 @@ public class Swerve extends SubsystemBase {
         Pose2d currentPose = getPose();
         boolean shouldPass = false;
         var alliance = DriverStation.getAlliance();
+        double finalTargetAngle;
 
         if (alliance.isPresent()){
             if (alliance.get() == Alliance.Red) {
@@ -961,16 +962,19 @@ public class Swerve extends SubsystemBase {
         double dy = HUBY - Units.metersToInches(currentPose.getY());
         double targetAngle = Math.atan2(dy, dx);
 
-        double finalTargetAngle = targetAngle + offsetRadians;
-
         double angleDifference = MathUtil.angleModulus(targetAngle - currentPose.getRotation().getRadians());
+
 
         if (Math.abs(angleDifference) < Units.degreesToRadians(2.0)) {
             RobotContainer.driverController.setRumble(GenericHID.RumbleType.kBothRumble, 1.0);
             RobotContainer.auxController.setRumble(GenericHID.RumbleType.kBothRumble, 1.0);
+
+            finalTargetAngle = targetAngle + offsetRadians;
         } else {
             RobotContainer.driverController.setRumble(GenericHID.RumbleType.kBothRumble, 0.0);
             RobotContainer.auxController.setRumble(GenericHID.RumbleType.kBothRumble, 0.0);
+
+            finalTargetAngle = targetAngle;
         }
 
         return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), finalTargetAngle);
