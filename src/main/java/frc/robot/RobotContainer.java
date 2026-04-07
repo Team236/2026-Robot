@@ -255,21 +255,21 @@ public class RobotContainer {
 
     // zero gyro bind above, field centric driving defined above
 
-    rt.whileTrue(new SmartAutoTarget(
+    rt.whileTrue(new ShakeAutoTarget(
         s_Swerve, 
         () -> -driverController.getRawAxis(translationAxis), 
         () -> -driverController.getRawAxis(strafeAxis), 
         () -> robotCentric.getAsBoolean()
     ));
 
-    rm.whileTrue(new ShakeAutoTarget(
+    lt.whileTrue(new SmartAutoTarget(
       s_Swerve,
       () -> -driverController.getRawAxis(translationAxis), 
       () -> -driverController.getRawAxis(strafeAxis), 
       () -> robotCentric.getAsBoolean()
     ));
 
-    rm.onFalse(new InstantCommand(() -> {
+    lt.onFalse(new InstantCommand(() -> {
         RobotContainer.driverController.setRumble(GenericHID.RumbleType.kBothRumble, 0.0);
         RobotContainer.auxController.setRumble(GenericHID.RumbleType.kBothRumble, 0.0);
       })

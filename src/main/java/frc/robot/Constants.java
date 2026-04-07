@@ -240,10 +240,10 @@ public final class Constants {
     // public static final double KP_TRANSLATION = 0.4;//kP value for forward (translation) motion
     // public static final double KP_STRAFE = 0.9;// 0.475;  //kP value for the sideways (strafe) motio%n
 
-    public static double SHAKE_FREQUENCY = 1.0;
-    public static double SHAKE_SPREAD = 5.0;
+    public static double SHAKE_FREQUENCY = 2.4;
+    public static double SHAKE_SPREAD = 15.0;
     public static double WAIT_TIME = 0.0;
-    public static double END_TIME = 100.0;
+    public static double END_TIME = 115.0;
 
     public static void pushToDashboard() {
         SmartDashboard.putNumber("Shooter Tuning/SHAKE_FREQUENCY", SHAKE_FREQUENCY);
@@ -278,7 +278,7 @@ public final class Constants {
     public static final double AUTO_ROTATE_FEEDFORWARD = 0.5;
     public static final double AUTO_ROTATE_TOLERANCE = 1; //degrees
 
-    public static final double AUTO_SHAKE_KP = 10.0;
+    public static final double AUTO_SHAKE_KP = 90.0;
     public static final double AUTO_SHAKE_KD = 0.0;
 
     public static final InterpolatingDoubleTreeMap hoodAngleMap = new InterpolatingDoubleTreeMap();
