@@ -20,7 +20,7 @@
         "y": 4.162
       },
       "prevControl": {
-        "x": 1.8167766952966369,
+        "x": 1.816776695296637,
         "y": 4.3387766952966365
       },
       "nextControl": null,
@@ -35,7 +35,7 @@
     {
       "name": "bin-zero",
       "waypointRelativePos": 0,
-      "endWaypointRelativePos": null,
+      "endWaypointRelativePos": 1.0,
       "command": {
         "type": "named",
         "data": {
@@ -46,7 +46,7 @@
     {
       "name": "prep-climber",
       "waypointRelativePos": 0,
-      "endWaypointRelativePos": null,
+      "endWaypointRelativePos": 1.0,
       "command": {
         "type": "named",
         "data": {
