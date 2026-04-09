@@ -262,8 +262,8 @@ public final class Constants {
 
     public static final String[] CAMERA_NAMES = 
     {
-        "limelight", // front limelight (4)
-        "limelight-back" // back limelight (3G)
+        "limelight", // front limelight (4) limelight.local
+        "limelight-back" // back limelight (3G) limelight-back.local
     };
 
     public static final double CHASSIS_WIDTH_INCHES = 27.5;
@@ -284,22 +284,22 @@ public final class Constants {
     public static final InterpolatingDoubleTreeMap hoodAngleMap = new InterpolatingDoubleTreeMap();
 
     static {
-      hoodAngleMap.put(42.0, 2.83); 
-      hoodAngleMap.put(74.6, 4.36);
-      hoodAngleMap.put(111.5, 6.36);
-      hoodAngleMap.put(145.5, 8.41);
-      hoodAngleMap.put(180.0, 10.94);
-      hoodAngleMap.put(210.0, 12.0);
+      hoodAngleMap.put(42.0, 3.0); 
+      hoodAngleMap.put(74.6, 4.75);
+      hoodAngleMap.put(111.5, 6.45);
+      hoodAngleMap.put(145.5, 8.5);
+      hoodAngleMap.put(180.0, 11.1);
+      hoodAngleMap.put(210.0, 12.1);
     }
 
     public static final InterpolatingDoubleTreeMap rpmMap = new InterpolatingDoubleTreeMap();
 
     static {
-      rpmMap.put(42.0, 2275.0); 
-      rpmMap.put(74.6, 2335.0);
-      rpmMap.put(111.5, 2435.0);
-      rpmMap.put(145.5, 2525.0);
-      rpmMap.put(180.0, 2675.0);
+      rpmMap.put(42.0, 2300.0); 
+      rpmMap.put(74.6, 2410.0);
+      rpmMap.put(111.5, 2490.0);
+      rpmMap.put(145.5, 2545.0);
+      rpmMap.put(180.0, 2690.0);
       rpmMap.put(210.0, 2800.0);
     }
 
