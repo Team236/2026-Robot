@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "srt90_past_nz_over_bump_shoot"
+            "pathName": "srt90_to_rbs$_via_trench_uturn_bump_shoot_intakeandstartup_no_climb_no_mid"
           }
         },
         {
@@ -32,7 +32,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "r$_to_nz_over_bump_wider"
+            "pathName": "r$_to_nz_over_bump_single"
           }
         },
         {
@@ -42,7 +42,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 2.0
+                  "waitTime": 3.0
                 }
               },
               {

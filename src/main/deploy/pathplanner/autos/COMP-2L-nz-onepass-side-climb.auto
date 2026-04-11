@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "srt90_to_rbs$_over_bump_tower_shoot"
+            "pathName": "slt-90_to_lcs$_via_trench_uturn_bump_shoot_intakeandstartup"
           }
         },
         {
@@ -23,7 +23,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 9.0
+                  "waitTime": 6.0
                 }
               }
             ]
@@ -36,32 +36,19 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "rcs$close_to_tr0"
+                  "pathName": "left-tower-shoot-side-climb"
                 }
               },
               {
-                "type": "race",
+                "type": "named",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 1.5
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "prep-climber"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "bin-zero"
-                      }
-                    }
-                  ]
+                  "name": "bin-zero"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "prep-climber"
                 }
               }
             ]
@@ -70,7 +57,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "tr0_to_cr0_with_startv"
+            "pathName": "finish-left-side-climb"
           }
         },
         {

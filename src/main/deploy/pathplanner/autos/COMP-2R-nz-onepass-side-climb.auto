@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "srt90_to_rbs$_via_trench_uturn_bump_shoot_intakeandstartup_no_climb_no_mid"
+            "pathName": "srt90_to_rbs$_over_bump_tower_shoot"
           }
         },
         {
@@ -15,15 +15,40 @@
           "data": {
             "commands": [
               {
+                "type": "named",
+                "data": {
+                  "name": "shoot"
+                }
+              },
+              {
                 "type": "wait",
                 "data": {
-                  "waitTime": 4.0
+                  "waitTime": 6.0
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "right-tower-shoot-side-climb"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "shoot"
+                  "name": "bin-zero"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "prep-climber"
                 }
               }
             ]
@@ -32,32 +57,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "r$_to_nz_over_bump_single"
+            "pathName": "finish-right-side-climb"
           }
         },
         {
-          "type": "race",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 3.0
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "shoot"
-                }
-              }
-            ]
+            "name": "climb-l1-front"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "Hartford Ready",
+  "folder": "New England COMP",
   "choreoAuto": false
 }

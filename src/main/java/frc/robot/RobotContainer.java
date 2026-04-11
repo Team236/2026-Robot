@@ -356,14 +356,15 @@ public class RobotContainer {
 
   private void configAutos() {
 
-    autoChooser.addOption("COMP_2L_double_nz_double_shoot", new PathPlannerAuto("COMP_2R_double_nz_double_shoot", true));
-    autoChooser.addOption("COMP_3L_double_nz_single_shoot", new PathPlannerAuto("COMP_3R_double_nz_single_shoot", true));
+    autoChooser.addOption("COMP_4L_double_nz_double_shoot", new PathPlannerAuto("COMP_4R_double_nz_double_shoot", true));
+    autoChooser.addOption("COMP_4L_double_nz_single_shoot", new PathPlannerAuto("COMP_4R_double_nz_single_shoot", true));
     autoChooser.addOption("COMP_4L_double_nz_double_shoot_greedy", new PathPlannerAuto("COMP_4R_double_nz_double_shoot_greedy", true));
-    autoChooser.addOption("COMP_5L_double_nz_single_shoot_greedy", new PathPlannerAuto("COMP_5R_double_nz_single_shoot_greedy", true));
+    autoChooser.addOption("COMP_4L_double_nz_double_shoot_greedy", new PathPlannerAuto("COMP_4R_double_nz_double_shoot_greedy", true));
 
     autoChooser.addOption("COMP_mirrored-double-trench-shoot", new PathPlannerAuto("COMP_double-trench-shoot", true));
-    autoChooser.addOption("COMP_mirrored-2cycle_bump_bump_no_climb", new PathPlannerAuto("COMP_2cycle_bump_bump_no_climb", true));
-    autoChooser.addOption("COMP_mirrored-2cycle_bump_trench", new PathPlannerAuto("COMP_2cycle_bump_trench", true));
+    autoChooser.addOption("COMP_3L_bump_bump", new PathPlannerAuto("COMP_3R_bump_bump", true));
+    autoChooser.addOption("COMP_3L_bump_trench", new PathPlannerAuto("COMP_3R_bump_trench", true));
+    autoChooser.addOption("COMP_3L_bump_bump_GREEDY", new PathPlannerAuto("COMP_3R_bump_bump_GREEDY", true));
 
     //    //RIGHT means the OUTPOST side of the field
     //    //LEFT means the DEPOT side of the field

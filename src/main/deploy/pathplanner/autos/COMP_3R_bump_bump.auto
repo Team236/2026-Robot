@@ -17,7 +17,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 4.75
+                  "waitTime": 4.85
                 }
               },
               {
@@ -45,6 +45,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "DCMP unconfirmed",
+  "folder": "New England COMP",
   "choreoAuto": false
 }

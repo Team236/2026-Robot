@@ -17,7 +17,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 8.0
+                  "waitTime": 5.5
                 }
               },
               {
@@ -32,13 +32,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "r$_to_nz_over_bump_single"
+            "pathName": "r$-sweeputurn-rtshoot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shoot"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "Hartford Ready",
+  "folder": "New England COMP",
   "choreoAuto": false
 }

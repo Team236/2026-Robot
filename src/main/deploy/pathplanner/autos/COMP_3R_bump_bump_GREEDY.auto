@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "srt90_past_nz_over_bump_shoot"
+            "pathName": "srt90_greedy_bump_shoot"
           }
         },
         {
@@ -17,7 +17,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 4.0
+                  "waitTime": 4.85
                 }
               },
               {
@@ -32,32 +32,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "r$_to_nz_over_bump_wider"
+            "pathName": "r$-bump-sweeputurn-rtshoot"
           }
         },
         {
-          "type": "race",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 2.0
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "shoot"
-                }
-              }
-            ]
+            "name": "shoot"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "New England COMP",
   "choreoAuto": false
 }
