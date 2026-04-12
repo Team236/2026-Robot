@@ -190,7 +190,7 @@ public final class Constants {
     public static final double CLIMBER_DOWN_SPEED = -0.75;
     public static final double TEST_MM_REVS = 35.0;
     public static final double PREP_CLIMBER_REVS = 109.0;
-    public static final double CLIMB_L1_SIDE = 50.0;
+    public static final double CLIMB_L1_SIDE_REVS = 109.0;
     public static final double CLIMB_L1_FRONT = 44.0;
 
     public static final double CLIMBER_KP = 3;
@@ -273,10 +273,10 @@ public final class Constants {
     public static final double BLUE_TOWER_CENTER_Y_METERS = 3.746; // meters
     public static final double RED_TOWER_CENTER_Y_METERS = 4.324; // meters
 
-    public static final double AUTO_ROTATE_KP = 6.0;
-    public static final double AUTO_ROTATE_KD = 0.075;
+    public static final double AUTO_ROTATE_KP = 4.25; //6.0;
+    public static final double AUTO_ROTATE_KD = 0.025; //0.075;
     public static final double AUTO_ROTATE_FEEDFORWARD = 0.5;
-    public static final double AUTO_ROTATE_TOLERANCE = 1; //degrees
+    public static final double AUTO_ROTATE_TOLERANCE = 2.0; //degrees
 
     public static final double AUTO_SHAKE_KP = 90.0;
     public static final double AUTO_SHAKE_KD = 0.0;

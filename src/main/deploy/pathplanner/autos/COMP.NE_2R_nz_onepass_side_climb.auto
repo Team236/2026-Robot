@@ -17,6 +17,25 @@
               {
                 "type": "named",
                 "data": {
+                  "name": "target-with-tolerance"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 1.2
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
                   "name": "shoot"
                 }
               },
@@ -30,7 +49,7 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "race",
           "data": {
             "commands": [
               {
@@ -48,7 +67,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "prep-climber"
+                  "name": "prep-side-climber"
                 }
               }
             ]

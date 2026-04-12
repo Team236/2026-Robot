@@ -72,6 +72,7 @@ import frc.robot.commands.Targeting.AlignAndFullClimb;
 import frc.robot.commands.Targeting.AutoPivotRobotGroupCommand;
 import frc.robot.commands.Targeting.AutoPivotTowardHub;
 import frc.robot.commands.Targeting.AutoPrepShooter;
+import frc.robot.commands.Targeting.PathPlannerTarget;
 import frc.robot.commands.Targeting.SmartAutoTarget;
 import frc.robot.commands.Targeting.ShakeAutoTarget;
 import frc.robot.subsystems.ShooterPivot;
@@ -133,7 +134,7 @@ public class RobotContainer {
 
 //CLIMBER
   private final ClimberPID climberPrep = new ClimberPID(climber, Constants.ClimberConstants.PREP_CLIMBER_REVS);
-  private final ClimberPID climberL1Side = new ClimberPID(climber, Constants.ClimberConstants.CLIMB_L1_SIDE);
+  private final ClimberPID climberSidePrep = new ClimberPID(climber, Constants.ClimberConstants.CLIMB_L1_SIDE_REVS);
   private final ClimberPID climberL1Front = new ClimberPID(climber, Constants.ClimberConstants.CLIMB_L1_FRONT);
   private final ClimberSetSpeed climberManualUp = new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_UP_SPEED);
   private final ClimberSetSpeed climberManualDown = new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_DOWN_SPEED);
@@ -174,12 +175,14 @@ public class RobotContainer {
     NamedCommands.registerCommand("shoot", new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder, floor, intake, binRelease));
     NamedCommands.registerCommand("prep-climber", climberPrep);
     NamedCommands.registerCommand("climb-l1-front", climberL1Front);
+    NamedCommands.registerCommand("prep-side-climber", climberSidePrep);
     NamedCommands.registerCommand("startup-prep", new Eject(preFeeder, mainRoller, floor));
     NamedCommands.registerCommand("intake", new IntakeWithBinExtend(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION, intake, Constants.IntakeConstants.INTAKE_RPM)); // this is x60 rpm, x44 was 6500
     NamedCommands.registerCommand("bin-out", new PIDMove(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION));
     NamedCommands.registerCommand("bin-zero", new PIDMove(binRelease, 0.0));
     NamedCommands.registerCommand("heading-override", s_Swerve.getPPOverrideHeadingCommand());
     NamedCommands.registerCommand("target", s_Swerve.getPPTargetingCommand());
+    NamedCommands.registerCommand("target-with-tolerance", new PathPlannerTarget(s_Swerve));
 
     autoChooser = AutoBuilder.buildAutoChooserWithOptionsModifier(
       (stream) -> stream.filter(auto -> auto.getName().startsWith("COMP"))
@@ -305,6 +308,7 @@ public class RobotContainer {
     
     view1.onTrue(climberPrep); //RENABLE ONCE FIXED*
     menu1.onTrue(climberL1Front); //RENABLE ONCE FIXED*
+    lm1.onTrue(climberSidePrep); //RENABLE ONCE FIXED*
 
     upPov1.whileTrue(climberManualUp); //RENABLE ONCE FIXED*
     downPov1.whileTrue(climberManualDown); //RENABLE ONCE FIXED*
