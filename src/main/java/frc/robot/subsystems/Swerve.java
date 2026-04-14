@@ -863,52 +863,28 @@ public class Swerve extends SubsystemBase {
   }
 
     public double[] getRotationMoving () {
+        final double TIME_OF_FLIGHT = 1.2;
+
         ChassisSpeeds robotChassisSpeeds = getChassisSpeeds();
         ChassisSpeeds fieldSpeeds = ChassisSpeeds.fromRobotRelativeSpeeds(robotChassisSpeeds, getHeading());
 
-
         Pose2d currentPose2d = getPose();
-
 
         double hubXMeters = Units.inchesToMeters(getHubX());
         double hubYMeters = Units.inchesToMeters(getHubY());
 
+        double virtualX = hubXMeters - (fieldSpeeds.vxMetersPerSecond * TIME_OF_FLIGHT);
+        double virtualY = hubYMeters - (fieldSpeeds.vyMetersPerSecond * TIME_OF_FLIGHT);
+        
+        Translation2d virtualGoal = new Translation2d(virtualX, virtualY);
 
-        double distanceToHubInches = getDistanceToHub();
-        double finalDistanceInches = 0;
+        double finalDistanceMeters = currentPose2d.getTranslation().getDistance(virtualGoal);
+        double finalDistanceInches = Units.metersToInches(finalDistanceMeters);
 
-
-        double timeOfFlight = Constants.Targeting.timeMap.get(distanceToHubInches);
-
-
-        Translation2d virtualGoal = new Translation2d();
-
-
-        for (int i = 0; i < 2; i++) {
-            // Virtual goal in meter: For the pose.
-            double virtualX = hubXMeters - (fieldSpeeds.vxMetersPerSecond * timeOfFlight);
-            double virtualY = hubYMeters - (fieldSpeeds.vyMetersPerSecond * timeOfFlight);
-
-
-            virtualGoal = new Translation2d(virtualX, virtualY);
-
-
-            double newDistanceMeters = currentPose2d.getTranslation().getDistance(virtualGoal);
-
-
-            // Back to inches for the timeMap
-            double newDistanceInches = Units.metersToInches(newDistanceMeters);
-            timeOfFlight = Constants.Targeting.timeMap.get(newDistanceInches);
-            finalDistanceInches = newDistanceInches;
-        }
-
-
-        // is now in radians.
         Rotation2d finalRot = new Rotation2d(
             virtualGoal.getX() - currentPose2d.getX(),
             virtualGoal.getY() - currentPose2d.getY()
         );
-
 
         SmartDashboard.putNumber("AimOnMove/VirtualGoalX (m)", virtualGoal.getX());
         SmartDashboard.putNumber("AimOnMove/VirtualGoalY (m)", virtualGoal.getY());
@@ -917,11 +893,7 @@ public class Swerve extends SubsystemBase {
         SmartDashboard.putNumber("AimOnMove/FieldVx (m/s)", fieldSpeeds.vxMetersPerSecond);
         SmartDashboard.putNumber("AimOnMove/FieldVy (m/s)", fieldSpeeds.vyMetersPerSecond);
 
-
-    double[] returnData = {finalDistanceInches, finalRot.getRadians()};
-
-
-    return returnData;
+        return new double[] {finalDistanceInches, finalRot.getRadians()};
     }
 
        public boolean inNeutralZone() {
