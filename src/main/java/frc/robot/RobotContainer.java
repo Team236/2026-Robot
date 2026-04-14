@@ -369,6 +369,7 @@ public class RobotContainer {
     autoChooser.addOption("COMP_3L_bump_bump", new PathPlannerAuto("COMP_3R_bump_bump", true));
     autoChooser.addOption("COMP_3L_bump_trench", new PathPlannerAuto("COMP_3R_bump_trench", true));
     autoChooser.addOption("COMP_3L_bump_bump_GREEDY", new PathPlannerAuto("COMP_3R_bump_bump_GREEDY", true));
+    autoChooser.addOption("COMP_3L_bump_bump_no_mid", new PathPlannerAuto("COMP_3R_bump_bump_no_mid", true));
 
     //    //RIGHT means the OUTPOST side of the field
     //    //LEFT means the DEPOT side of the field
