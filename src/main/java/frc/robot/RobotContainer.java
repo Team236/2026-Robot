@@ -183,6 +183,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("heading-override", s_Swerve.getPPOverrideHeadingCommand());
     NamedCommands.registerCommand("target", s_Swerve.getPPTargetingCommand());
     NamedCommands.registerCommand("target-with-tolerance", new PathPlannerTarget(s_Swerve));
+    NamedCommands.registerCommand("shake-target", new ShakeAutoTarget(s_Swerve, () -> 0.0, () -> 0.0, () -> true));
 
     autoChooser = AutoBuilder.buildAutoChooserWithOptionsModifier(
       (stream) -> stream.filter(auto -> auto.getName().startsWith("COMP"))

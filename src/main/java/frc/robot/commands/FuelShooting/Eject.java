@@ -21,8 +21,8 @@ public class Eject extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ManualMainRoller(mainRoller, -0.35),
-      new RunPreFeeder(preFeeder, -0.35),
+      new ManualMainRoller(mainRoller, -0.15),
+      new RunPreFeeder(preFeeder, -0.2),
       new RunFloor(floor, 0.35)
       // eventuall add the PID BIN OUT here?
     );

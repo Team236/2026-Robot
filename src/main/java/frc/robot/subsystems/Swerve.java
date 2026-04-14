@@ -960,9 +960,53 @@ public class Swerve extends SubsystemBase {
         if (shouldPass) {
             
             if (alliance.isPresent() && alliance.get() == Alliance.Red) {
-                return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), 0);
+                double targetAngle = 0.0;
+
+                double angleDifference = MathUtil.angleModulus(targetAngle - currentPose.getRotation().getRadians());
+                double amplitudeRadians = Constants.Targeting.SHAKE_SPREAD / Math.max(getDistanceToHub(), 1.0);
+
+                double dynamicTolerance = Math.toRadians(2.0) + Math.abs(amplitudeRadians);
+
+                if (Math.abs(angleDifference) < dynamicTolerance) {
+                    RobotContainer.driverController.setRumble(GenericHID.RumbleType.kBothRumble, 0.33);
+                    RobotContainer.auxController.setRumble(GenericHID.RumbleType.kBothRumble, 0.33);
+
+                    finalTargetAngle = targetAngle + offsetRadians;
+
+                    return pidForShaking.calculate(currentPose.getRotation().getRadians(), finalTargetAngle);
+                } else {
+                    RobotContainer.driverController.setRumble(GenericHID.RumbleType.kBothRumble, 0.0);
+                    RobotContainer.auxController.setRumble(GenericHID.RumbleType.kBothRumble, 0.0);
+
+                    finalTargetAngle = targetAngle;
+
+                    return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), finalTargetAngle);
+                }
+
             } else {
-                return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(180));
+                double targetAngle = 180.0;
+
+                double angleDifference = MathUtil.angleModulus(targetAngle - currentPose.getRotation().getRadians());
+                double amplitudeRadians = Constants.Targeting.SHAKE_SPREAD / Math.max(getDistanceToHub(), 1.0);
+
+                double dynamicTolerance = Math.toRadians(2.0) + Math.abs(amplitudeRadians);
+
+                if (Math.abs(angleDifference) < dynamicTolerance) {
+                    RobotContainer.driverController.setRumble(GenericHID.RumbleType.kBothRumble, 0.33);
+                    RobotContainer.auxController.setRumble(GenericHID.RumbleType.kBothRumble, 0.33);
+
+                    finalTargetAngle = targetAngle + offsetRadians;
+
+                    return pidForShaking.calculate(currentPose.getRotation().getRadians(), finalTargetAngle);
+                } else {
+                    RobotContainer.driverController.setRumble(GenericHID.RumbleType.kBothRumble, 0.0);
+                    RobotContainer.auxController.setRumble(GenericHID.RumbleType.kBothRumble, 0.0);
+
+                    finalTargetAngle = targetAngle;
+
+                    return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), finalTargetAngle);
+                }
+
             }
         }
 

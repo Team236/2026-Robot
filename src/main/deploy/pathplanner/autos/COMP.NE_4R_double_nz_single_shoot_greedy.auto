@@ -25,6 +25,12 @@
                 "data": {
                   "name": "shoot"
                 }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "shake-target"
+                }
               }
             ]
           }

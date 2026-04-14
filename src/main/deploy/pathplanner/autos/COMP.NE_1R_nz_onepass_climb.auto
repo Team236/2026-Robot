@@ -25,6 +25,12 @@
                 "data": {
                   "waitTime": 9.0
                 }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "shake-target"
+                }
               }
             ]
           }

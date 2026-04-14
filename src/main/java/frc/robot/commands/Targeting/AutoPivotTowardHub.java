@@ -76,7 +76,7 @@ public class AutoPivotTowardHub extends Command {
     s_Swerve.drive(
         new Translation2d(curveDrive(translationVal), curveDrive(strafeVal)).times(Constants.Swerve.maxSpeed),
         MathUtil.clamp(newRotation, -Constants.Swerve.maxAngularVelocity, Constants.Swerve.maxAngularVelocity),
-        !robotCentricSup.getAsBoolean(),
+        true,
         true
     );
   }

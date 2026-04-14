@@ -56,7 +56,7 @@ public final class Constants {
 
   public static class MotorControllers {
     public static final int SMART_CURRENT_LIMIT = 40;
-    public static final int INTAKE_CURRENT_LIMIT = 32;
+    public static final int INTAKE_CURRENT_LIMIT = 33;
     //MOTOR ID NUMBERS (for swerve drive/steer motors - see Swerve below):
     public static final int ID_BIN_REL = 8; //8
     public static final int ID_INTAKE_LEFT = 9; 
@@ -127,15 +127,15 @@ public final class Constants {
   public static class ChangableBinConstants{
     public static double BIN_WAIT_TIME = 1.25; // if not using agitate, wait 4.0 seconds.
     // beginning
-    public static double BIN_BEGINNING_TIME = 2.0;
+    public static double BIN_BEGINNING_TIME = 2.5;
     public static double BIN_BEGINNING_TRAVEL_DISTANCE = 8.0;
-    public static double BIN_RETRACT_BEGINNING_SPEED = 0.3;
-    public static double BIN_EXTEND_BEGINNING_SPEED = 0.35;
+    public static double BIN_RETRACT_BEGINNING_SPEED = 0.25;
+    public static double BIN_EXTEND_BEGINNING_SPEED = 0.5;
     // rising
-    public static double BIN_RETRACT_RISING_SPEED = 0.35;
-    public static double BIN_EXTEND_RISING_SPEED = 0.3;
-    public static double BIN_RISING_TRAVEL_UP_DISTANCE = 9.0;
-    public static double BIN_RISING_NET_CHANGE_DISTANCE = 4.5;
+    public static double BIN_RETRACT_RISING_SPEED = 0.25;
+    public static double BIN_EXTEND_RISING_SPEED = 0.35;
+    public static double BIN_RISING_TRAVEL_UP_DISTANCE = 8.5;
+    public static double BIN_RISING_NET_CHANGE_DISTANCE = 4.0;
 
     public static double BIN_AGITATE_END_POSITION = 7.5;
     public static boolean USE_RISING_AGITATE = true;
@@ -241,9 +241,9 @@ public final class Constants {
     // public static final double KP_STRAFE = 0.9;// 0.475;  //kP value for the sideways (strafe) motio%n
 
     public static double SHAKE_FREQUENCY = 2.4;
-    public static double SHAKE_SPREAD = 15.0;
+    public static double SHAKE_SPREAD = 20;
     public static double WAIT_TIME = 0.0;
-    public static double END_TIME = 115.0;
+    public static double END_TIME = 125.0;
 
     public static void pushToDashboard() {
         SmartDashboard.putNumber("Shooter Tuning/SHAKE_FREQUENCY", SHAKE_FREQUENCY);
@@ -333,6 +333,7 @@ public final class Constants {
       nuetralMap.put(150.0, 3500.0);
       nuetralMap.put(225.0, 3750.0);
       nuetralMap.put(300.0, 4500.0);
+      nuetralMap.put(375.0, 5500.0);
     }
 
     // public static Map<Integer, Pose2d> ID_TO_POSE = new HashMap<>();
