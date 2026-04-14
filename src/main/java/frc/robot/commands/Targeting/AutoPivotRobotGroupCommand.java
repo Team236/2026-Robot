@@ -37,7 +37,7 @@ public class AutoPivotRobotGroupCommand extends Command {
       double newRotation = this.s_Swerve.calculateTargetingAutoPID(desiredAngle.getAsDouble());
 
     s_Swerve.drive(
-        new Translation2d(curveDrive(translationVal), curveDrive(strafeVal)).times(Constants.Swerve.maxSpeed),
+        new Translation2d((curveDrive(translationVal)), (curveDrive(strafeVal))).times((Constants.Swerve.maxSpeed)/2),
         MathUtil.clamp(newRotation, -Constants.Swerve.maxAngularVelocity, Constants.Swerve.maxAngularVelocity),
         !robotCentricSup.getAsBoolean(),
         true

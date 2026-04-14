@@ -22,13 +22,11 @@ public class AimOnMove extends ParallelCommandGroup {
   public AimOnMove(Swerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, BooleanSupplier robotCentricSup, MainRoller mainRoller, ShooterPivot shooterPivot, PreFeeder preFeeder) {
     addCommands(
       new AutoPivotRobotGroupCommand(s_Swerve, translationSup, strafeSup, robotCentricSup, () -> s_Swerve.getRotationMoving()[1]),
+      new AutoPivotShooterGroupCommand(s_Swerve, mainRoller, shooterPivot, () -> s_Swerve.getRotationMoving()[0]),
 
       new SequentialCommandGroup(
           new WaitCommand(0.3),
-        new ParallelCommandGroup(
-          new AutoPivotShooterGroupCommand(s_Swerve, mainRoller, shooterPivot, () -> s_Swerve.getRotationMoving()[0]),
           new PIDPrefeeder(preFeeder, s_Swerve, Constants.PreFeederConstants.DESIRED_RPM)
-        )
       )
     );
   }
