@@ -863,7 +863,7 @@ public class Swerve extends SubsystemBase {
   }
 
     public double[] getRotationMoving () {
-        final double TIME_OF_FLIGHT = 1.2;
+        final double TIME_OF_FLIGHT = 1.35;
 
         ChassisSpeeds robotChassisSpeeds = getChassisSpeeds();
         ChassisSpeeds fieldSpeeds = ChassisSpeeds.fromRobotRelativeSpeeds(robotChassisSpeeds, getHeading());
@@ -873,8 +873,8 @@ public class Swerve extends SubsystemBase {
         double hubXMeters = Units.inchesToMeters(getHubX());
         double hubYMeters = Units.inchesToMeters(getHubY());
 
-        double virtualX = hubXMeters - (fieldSpeeds.vxMetersPerSecond * TIME_OF_FLIGHT);
-        double virtualY = hubYMeters - (fieldSpeeds.vyMetersPerSecond * TIME_OF_FLIGHT);
+        double virtualX = hubXMeters + (fieldSpeeds.vxMetersPerSecond * TIME_OF_FLIGHT);
+        double virtualY = hubYMeters + (fieldSpeeds.vyMetersPerSecond * TIME_OF_FLIGHT);
         
         Translation2d virtualGoal = new Translation2d(virtualX, virtualY);
 

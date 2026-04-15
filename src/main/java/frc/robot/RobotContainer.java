@@ -266,12 +266,12 @@ public class RobotContainer {
         () -> robotCentric.getAsBoolean()
     ));
 
-    // lt.whileTrue(new SmartAutoTarget(
-    //   s_Swerve,
-    //   () -> -driverController.getRawAxis(translationAxis), 
-    //   () -> -driverController.getRawAxis(strafeAxis), 
-    //   () -> robotCentric.getAsBoolean()
-    // ));
+    lt.whileTrue(new SmartAutoTarget(
+      s_Swerve,
+      () -> -driverController.getRawAxis(translationAxis), 
+      () -> -driverController.getRawAxis(strafeAxis), 
+      () -> robotCentric.getAsBoolean()
+    ));
 
     lt.onFalse(new InstantCommand(() -> {
         RobotContainer.driverController.setRumble(GenericHID.RumbleType.kBothRumble, 0.0);
@@ -307,9 +307,9 @@ public class RobotContainer {
     // FINAL AUX BUTTONS
     // ------------------
     
-    view1.onTrue(climberPrep); //RENABLE ONCE FIXED*
+    view1.onTrue(climberPrep.alongWith(new PIDMove(binRelease, 0.0))); //RENABLE ONCE FIXED*
     menu1.onTrue(climberL1Front); //RENABLE ONCE FIXED*
-    lm1.onTrue(climberSidePrep); //RENABLE ONCE FIXED*
+    lm1.onTrue(climberSidePrep.alongWith(new PIDMove(binRelease, 0.0))); //RENABLE ONCE FIXED*
 
     upPov1.whileTrue(climberManualUp); //RENABLE ONCE FIXED*
     downPov1.whileTrue(climberManualDown); //RENABLE ONCE FIXED*
@@ -354,7 +354,10 @@ public class RobotContainer {
     //   () -> robotCentric.getAsBoolean(), 
     //   mainRoller,
     //   shooterPivot,
-    //   preFeeder
+    //   preFeeder,
+    //   floor,
+    //   intake,
+    //   binRelease
     // ));
 
   }

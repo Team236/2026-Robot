@@ -1,4 +1,5 @@
 package frc.robot.commands.Targeting;
+import java.util.Set;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
@@ -7,6 +8,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.DeferredCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -31,10 +33,20 @@ public class AimOnMove extends ParallelCommandGroup {
 
       new SequentialCommandGroup(
           new WaitCommand(0.45),
+          new ParallelCommandGroup(
           new PIDPrefeeder(preFeeder, s_Swerve, Constants.PreFeederConstants.DESIRED_RPM),
           new RunFloor(floor, -0.9),
           new PIDIntake(intake, 4000)
-      )
+          )
+      ),
+
+      new SequentialCommandGroup(
+       new DeferredCommand(() -> new WaitCommand(Constants.ChangableBinConstants.BIN_WAIT_TIME), Set.of()),
+      //  new ManualMove(binRelease, -0.15).until(() -> binRelease.getEncoderRevolutions() < 8.5)
+       new DeferredCommand(() -> binRelease.getManualAgitateCommand().withTimeout(Constants.ChangableBinConstants.BIN_BEGINNING_TIME), Set.of(binRelease)),
+       new DeferredCommand(() -> binRelease.getManualSmartAgitateCommand(), Set.of(binRelease))
+      //  binRelease.getManualRisingAgitateCommand()
+     )
     );
   }
 }
