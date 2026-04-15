@@ -7,11 +7,10 @@
     "movement"
   ],
   "autoFolders": [
-    "new-convention",
-    "New England COMP",
-    "Hartford Ready",
     "Game Ready Autos",
-    "DCMP unconfirmed"
+    "Hartford Ready",
+    "New England COMP",
+    "new-convention"
   ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,

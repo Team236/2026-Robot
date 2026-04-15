@@ -125,15 +125,15 @@ public final class Constants {
   }
 
   public static class ChangableBinConstants{
-    public static double BIN_WAIT_TIME = 1.25; // if not using agitate, wait 4.0 seconds.
+    public static double BIN_WAIT_TIME = 1.5; // if not using agitate, wait 4.0 seconds.
     // beginning
-    public static double BIN_BEGINNING_TIME = 2.5;
+    public static double BIN_BEGINNING_TIME = 2.0;
     public static double BIN_BEGINNING_TRAVEL_DISTANCE = 8.0;
     public static double BIN_RETRACT_BEGINNING_SPEED = 0.25;
-    public static double BIN_EXTEND_BEGINNING_SPEED = 0.5;
+    public static double BIN_EXTEND_BEGINNING_SPEED = 0.3;
     // rising
     public static double BIN_RETRACT_RISING_SPEED = 0.25;
-    public static double BIN_EXTEND_RISING_SPEED = 0.35;
+    public static double BIN_EXTEND_RISING_SPEED = 0.3;
     public static double BIN_RISING_TRAVEL_UP_DISTANCE = 8.5;
     public static double BIN_RISING_NET_CHANGE_DISTANCE = 4.0;
 

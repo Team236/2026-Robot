@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "slt-90_to_lcs$_via_trench_uturn_bump_shoot_intakeandstartup"
+            "pathName": "inverse_srt90_to_rbs$_over_bump_tower_shoot"
           }
         },
         {
@@ -23,7 +23,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 6.5
+                  "waitTime": 8.5
                 }
               },
               {
@@ -76,7 +76,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "tl0_to_cl0"
+            "pathName": "tl0_to_cl0_start_v"
           }
         },
         {

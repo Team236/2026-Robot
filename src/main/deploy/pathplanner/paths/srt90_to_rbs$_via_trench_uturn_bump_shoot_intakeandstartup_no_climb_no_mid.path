@@ -137,7 +137,7 @@
     },
     {
       "name": "startup-prep",
-      "waypointRelativePos": 0,
+      "waypointRelativePos": 0.2,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",

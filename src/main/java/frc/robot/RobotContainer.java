@@ -186,7 +186,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("shake-target", new ShakeAutoTarget(s_Swerve, () -> 0.0, () -> 0.0, () -> true));
 
     autoChooser = AutoBuilder.buildAutoChooserWithOptionsModifier(
-      (stream) -> stream.filter(auto -> auto.getName().startsWith("COMP"))
+      (stream) -> stream.filter(auto -> auto.getName().startsWith("COMP.NE"))
     );
     // // autoChooser = null;
     SmartDashboard.putData("Auto Routine", autoChooser);
@@ -266,12 +266,12 @@ public class RobotContainer {
         () -> robotCentric.getAsBoolean()
     ));
 
-    lt.whileTrue(new SmartAutoTarget(
-      s_Swerve,
-      () -> -driverController.getRawAxis(translationAxis), 
-      () -> -driverController.getRawAxis(strafeAxis), 
-      () -> robotCentric.getAsBoolean()
-    ));
+    // lt.whileTrue(new SmartAutoTarget(
+    //   s_Swerve,
+    //   () -> -driverController.getRawAxis(translationAxis), 
+    //   () -> -driverController.getRawAxis(strafeAxis), 
+    //   () -> robotCentric.getAsBoolean()
+    // ));
 
     lt.onFalse(new InstantCommand(() -> {
         RobotContainer.driverController.setRumble(GenericHID.RumbleType.kBothRumble, 0.0);
@@ -347,7 +347,7 @@ public class RobotContainer {
     // rm1.onFalse(() -> binRelease.stopMotor());
     // lm1.onFalse(() -> binRelease.stopMotor());
 
-    // rt.whileTrue(new AimOnMove(
+    // lt.whileTrue(new AimOnMove(
     //   s_Swerve, 
     //   () -> -driverController.getRawAxis(translationAxis), 
     //   () -> -driverController.getRawAxis(strafeAxis), 
@@ -361,16 +361,16 @@ public class RobotContainer {
 
   private void configAutos() {
 
-    autoChooser.addOption("COMP_4L_double_nz_double_shoot", new PathPlannerAuto("COMP_4R_double_nz_double_shoot", true));
-    autoChooser.addOption("COMP_4L_double_nz_single_shoot", new PathPlannerAuto("COMP_4R_double_nz_single_shoot", true));
-    autoChooser.addOption("COMP_4L_double_nz_double_shoot_greedy", new PathPlannerAuto("COMP_4R_double_nz_double_shoot_greedy", true));
-    autoChooser.addOption("COMP_4L_double_nz_double_shoot_greedy", new PathPlannerAuto("COMP_4R_double_nz_double_shoot_greedy", true));
+    autoChooser.addOption("COMP.NE_4L_double_nz_single_shoot_greedy", new PathPlannerAuto("COMP.NE_4R_double_nz_single_shoot_greedy", true));
+    autoChooser.addOption("COMP.NE_4L_double_nz_single_shoot", new PathPlannerAuto("COMP.NE_4R_double_nz_single_shoot", true));
+    // autoChooser.addOption("COMP_4L_double_nz_double_shoot_greedy", new PathPlannerAuto("COMP_4R_double_nz_double_shoot_greedy", true));
+    // autoChooser.addOption("COMP_4L_double_nz_double_shoot_greedy", new PathPlannerAuto("COMP_4R_double_nz_double_shoot_greedy", true));
 
-    autoChooser.addOption("COMP_mirrored-double-trench-shoot", new PathPlannerAuto("COMP_double-trench-shoot", true));
-    autoChooser.addOption("COMP_3L_bump_bump", new PathPlannerAuto("COMP_3R_bump_bump", true));
-    autoChooser.addOption("COMP_3L_bump_trench", new PathPlannerAuto("COMP_3R_bump_trench", true));
-    autoChooser.addOption("COMP_3L_bump_bump_GREEDY", new PathPlannerAuto("COMP_3R_bump_bump_GREEDY", true));
-    autoChooser.addOption("COMP_3L_bump_bump_no_mid", new PathPlannerAuto("COMP_3R_bump_bump_no_mid", true));
+    // autoChooser.addOption("COMP_mirrored-double-trench-shoot", new PathPlannerAuto("COMP_double-trench-shoot", true));
+    autoChooser.addOption("COMP.NE_3L_bump_bump", new PathPlannerAuto("COMP.NE_3R_bump_bump", true));
+    autoChooser.addOption("COMP.NE_3L_bump_trench", new PathPlannerAuto("COMP.NE_3R_bump_trench", true));
+    autoChooser.addOption("COMP.NE_3L_bump_bump_GREEDY", new PathPlannerAuto("COMP.NE_3R_bump_bump_GREEDY", true));
+    autoChooser.addOption("COMP.NE_3L_bump_bump_no_mid", new PathPlannerAuto("COMP.NE_3R_bump_bump_no_mid", true));
 
     //    //RIGHT means the OUTPOST side of the field
     //    //LEFT means the DEPOT side of the field
