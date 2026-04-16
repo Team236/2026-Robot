@@ -56,7 +56,7 @@
         "y": 5.597491015502859
       },
       "nextControl": {
-        "x": 2.0071865742594754,
+        "x": 2.007186574259476,
         "y": 5.499205098197615
       },
       "isLocked": false,
@@ -159,7 +159,7 @@
     {
       "name": "startup-prep",
       "waypointRelativePos": 0.2,
-      "endWaypointRelativePos": null,
+      "endWaypointRelativePos": 0.7562457798784603,
       "command": {
         "type": "named",
         "data": {

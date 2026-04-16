@@ -49,10 +49,10 @@ public final class Constants {
   }
 
   //AUTO SWITCHES
-  public static final int DIO_AUTO_1 = 0;
-  public static final int DIO_AUTO_2 = 1;
-  public static final int DIO_AUTO_3 = 2;
-  public static final int DIO_AUTO_4 = 3;
+  // public static final int DIO_AUTO_1 = 0;
+  // public static final int DIO_AUTO_2 = 1;
+  // public static final int DIO_AUTO_3 = 2;
+  // public static final int DIO_AUTO_4 = 3;
 
   public static class MotorControllers {
     public static final int SMART_CURRENT_LIMIT = 40;
@@ -171,11 +171,11 @@ public final class Constants {
 
   public static class ShooterPivotConstants {
     public static final int DIO_EXT_LIMIT = 4;//DIO port number on RoboRio
-    public static final int DIO_RET_LIMIT = 5;//DIO port number on RoboRio
+    public static final int DIO_RET_LIMIT = 3;//DIO port number on RoboRio
     public static final double KP = 6; 
     public static final double KI = 0;
     public static final double KD = 0;
-    public static final double ENC_REVS_MAX = 12.4; //TODO find actual
+    public static final double ENC_REVS_MAX = 12.4; //TODO find 
     public static final double TARGET_REVS = 50;
     public static final double CONSTANT_FORWARD_SPEED = 0.1;
     public static final double CONSTANT_REVERSE_SPEED = -0.1;

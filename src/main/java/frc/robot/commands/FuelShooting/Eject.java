@@ -23,7 +23,7 @@ public class Eject extends ParallelCommandGroup {
     addCommands(
       new ManualMainRoller(mainRoller, -0.15),
       new RunPreFeeder(preFeeder, -0.2),
-      new RunFloor(floor, 0.35)
+      new RunFloor(floor, 0.3)
       // eventuall add the PID BIN OUT here?
     );
   }

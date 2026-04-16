@@ -27,7 +27,7 @@ public class EjectWithOuttake extends ParallelCommandGroup {
     addCommands(
       new ManualMainRoller(mainRoller, -0.35),
       new RunPreFeeder(preFeeder, -0.35),
-      new RunFloor(floor, 0.35),
+      new RunFloor(floor, 0.75),
       new PIDMove(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION),
       new PIDIntake(intake, -Constants.IntakeConstants.EJECT_RPM) 
     );
