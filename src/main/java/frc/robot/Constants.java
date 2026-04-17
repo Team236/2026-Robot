@@ -295,12 +295,12 @@ public final class Constants {
     public static final InterpolatingDoubleTreeMap rpmMap = new InterpolatingDoubleTreeMap();
 
     static {
-      rpmMap.put(42.0, 2300.0); 
-      rpmMap.put(74.6, 2410.0);
-      rpmMap.put(111.5, 2490.0);
-      rpmMap.put(145.5, 2545.0);
-      rpmMap.put(180.0, 2690.0);
-      rpmMap.put(210.0, 2800.0);
+      rpmMap.put(42.0, 2320.0); 
+      rpmMap.put(74.6, 2455.0);
+      rpmMap.put(111.5, 2550.0);
+      rpmMap.put(145.5, 2565.0);
+      rpmMap.put(180.0, 2710.0);
+      rpmMap.put(210.0, 2820.0);
     }
 
     public static final InterpolatingDoubleTreeMap preFeederMap = new InterpolatingDoubleTreeMap();
