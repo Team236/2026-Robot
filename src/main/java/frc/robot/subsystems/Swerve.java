@@ -693,6 +693,64 @@ public class Swerve extends SubsystemBase {
         }
     }
 
+    private boolean updateMT1(String limelightName) {
+        LimelightHelpers.PoseEstimate estimateMT1 = LimelightHelpers.getBotPoseEstimate_wpiBlue(limelightName);
+
+        if (estimateMT1 == null) {
+            return false; // if estimate is null, skip to next limelight (this is to prevent errors/crashes when limelight is not detected for a split second, which happens sometimes when starting robot/building code)
+        }
+
+        if((estimateMT1.tagCount >= 2)) {   
+            if(estimateMT1.rawFiducials[0].ambiguity > .7) { return false; }
+            if(estimateMT1.rawFiducials[0].distToCamera > 3) { return false; }
+        } else {
+            return false; // less than 2 tags, no mt1
+        }
+
+        m_poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,0.01));
+        m_poseEstimator.addVisionMeasurement(
+            estimateMT1.pose,
+            estimateMT1.timestampSeconds);
+
+        return true;
+    }
+
+    public void visionUpdate() { // new method
+        m_poseEstimator.update(getGyroYaw(), getModulePositions());
+
+        // boolean usedMegaTag1 = updateMT1(limelightName);
+
+        for (String limelightName : Constants.Targeting.CAMERA_NAMES) {
+            if (!updateMT1(limelightName)) { // initially tries to update with mt1, if failure will use mt2
+                boolean useThisEstimate = true;
+                // only incorporate Limelight's estimates when more than one tag is visible (tagcount >= 1)
+
+                // line below is required because megatag2 requires the limelight to know the robot's current rotation, as it USES it instead of providing it like in MT1
+                LimelightHelpers.SetRobotOrientation(limelightName, m_poseEstimator.getEstimatedPosition().getRotation().getDegrees(), 0, 0, 0, 0, 0);
+                LimelightHelpers.PoseEstimate estimateMT2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(limelightName);
+                
+                // sometimes when starting robot/building code, mt2 == null for a split second, so need to check for that or code errors and crashes
+                if (estimateMT2 == null) {
+                    break;
+                }
+                
+                if (Math.abs(gyro.getAngularVelocityZWorld().getValueAsDouble()) > 720 || estimateMT2.tagCount == 0) // if our angular velocity is greater than 720 degrees per second, ignore vision updates
+                {
+                    useThisEstimate = false;
+                }
+
+                if (useThisEstimate)
+                {
+                    // n3 (yaw) set to high number because MegaTag2 uses robot's yaw instead of getting it for you
+                    m_poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7, 999999)); // n3 was 9999999 
+                    m_poseEstimator.addVisionMeasurement(
+                        estimateMT2.pose,
+                        estimateMT2.timestampSeconds);
+                }
+            }
+        }
+    }
+
     public double calculateTargetingPID (double HUBX, double HUBY) {
       // CALCULATED THE ANGLE TO FACE THE CENTER OF THE HUB
       Pose2d currentPose = getPose();
@@ -1057,7 +1115,7 @@ public class Swerve extends SubsystemBase {
         //SmartDashboard.putNumber("limelight standoff fwd", LimelightHelpers.getTargetPose_CameraSpace("limelight")[2]);
 
         //swerveOdometry.update(getGyroYaw(), getModulePositions());
-        MegaTag2UpdateOdometry();
+        visionUpdate();
         SmartDashboard.putNumber("auto pivot desired rotation (red)", Units.radiansToDegrees(getAngleOfHub(Constants.Targeting.RED_ALLIANCE_HUB_CENTER_X, Constants.Targeting.RED_ALLIANCE_HUB_CENTER_Y)));
         SmartDashboard.putNumber("auto pivot current rotation (red)", getPose().getRotation().getDegrees());
         SmartDashboard.putNumber("Distance to hub", getDistanceToHub());
