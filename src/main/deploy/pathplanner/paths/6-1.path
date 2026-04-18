@@ -4,40 +4,35 @@
     {
       "anchor": {
         "x": 3.533,
-        "y": 4.0344
+        "y": 4.034
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.906925820256775,
-        "y": 5.775249643366619
+        "x": 3.1103817382593006,
+        "y": 4.94030778703665
       },
       "isLocked": false,
-      "linkedName": "Center-hub"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 0.7,
-        "y": 7.0
+        "x": 0.725,
+        "y": 5.95
       },
       "prevControl": {
-        "x": 2.9733614172998637,
-        "y": 6.95269742625519
+        "x": 1.725,
+        "y": 5.95
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Depot-left-intake"
+      "linkedName": null
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.5988973121984781,
-      "rotationDegrees": -119.99999999999999
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.8,
+      "minWaypointRelativePos": 0.75,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
         "maxVelocity": 1.0,
@@ -50,7 +45,41 @@
     }
   ],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "startup-prep",
+      "waypointRelativePos": 0,
+      "endWaypointRelativePos": 0.3,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "startup-prep"
+        }
+      }
+    },
+    {
+      "name": "bin-out",
+      "waypointRelativePos": 0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "bin-out"
+        }
+      }
+    },
+    {
+      "name": "intake",
+      "waypointRelativePos": 0.5,
+      "endWaypointRelativePos": 1.0,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "intake"
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
@@ -61,10 +90,10 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -135.0
+    "rotation": 180.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "new-convention",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 180.0
