@@ -23,54 +23,68 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 /**
- * The VM is configured to automatically run this class, and to call the functions corresponding to
- * each mode, as described in the TimedRobot documentation. If you change the name of this class or
- * the package after creating this project, you must also update the build.gradle file in the
+ * The VM is configured to automatically run this class, and to call the
+ * functions corresponding to
+ * each mode, as described in the TimedRobot documentation. If you change the
+ * name of this class or
+ * the package after creating this project, you must also update the
+ * build.gradle file in the
  * project.
  */
+
 public class Robot extends TimedRobot {
   public static final CTREConfigs ctreConfigs = new CTREConfigs();
 
- // public UsbCamera usbCamera;
-//  public PowerDistribution myPDH = new PowerDistribution(0, ModuleType.kRev);
- 
+  // public UsbCamera usbCamera;
+  // public PowerDistribution myPDH = new PowerDistribution(0, ModuleType.kRev);
+
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
 
- public Field2d field;
+  public Field2d field;
 
   /**
-   * This function is run when the robot is first started up and should be used for any
+   * This function is run when the robot is first started up and should be used
+   * for any
    * initialization code.
    */
   @Override
   public void robotInit() {
-    // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
+    // Instantiate our RobotContainer. This will perform all our button bindings,
+    // and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
 
     CommandScheduler.getInstance().schedule(FollowPathCommand.warmupCommand()); // loads pathplanner classes, should solve issue of initial path follow being delayed
     CommandScheduler.getInstance().schedule(PathfindingCommand.warmupCommand()); // loads pathplanner classes, should solve issue of initial path follow being delayed
-    Constants.Targeting.hoodAngleMap.get(0.0); // warmup map (had delays on first access, this should solve that issue)
-    Constants.Targeting.rpmMap.get(0.0); // warmup map (had delays on first access, this should solve that issue)
-    Constants.Targeting.preFeederMap.get(0.0); // warmup map (had delays on first access, this should solve that issue)
+
+    // --------------------------------------------------------------------------------------------------------
+    // These warm up the interpolation maps, (loading the math components while the robot is waiting for coms)
+    // --------------------------------------------------------------------------------------------------------
+
+    Constants.Targeting.hoodAngleMap.get(0.0);
+    Constants.Targeting.rpmMap.get(0.0);
+    Constants.Targeting.preFeederMap.get(0.0);
     Constants.Targeting.timeMap.get(0.0);
     Constants.Targeting.nuetralMap.get(0.0);
 
     DashboardUtil.putAutoToField();
+
+    // ------------------------------------------------------------------------------
+    // This is how to add a camera on the robot, and push into output to a dashboard
+    // ------------------------------------------------------------------------------
+
     // Constants.ChangableBinConstants.pushToDashboard();
     // myPDH.setSwitchableChannel(true);
-//
+    //
     // UsbCamera usbCamera0;
-    //   try {
-    //   usbCamera0 = CameraServer.startAutomaticCapture(0);
-    //     } catch (Exception e)  {
+    // try {
+    // usbCamera0 = CameraServer.startAutomaticCapture(0);
+    // } catch (Exception e) {
     // SmartDashboard.putString("camera capture failed", "failed");
     // }
   }
-
-
 
   // TrajectoryConfig config =
   //         new TrajectoryConfig(
@@ -105,12 +119,11 @@ public class Robot extends TimedRobot {
     SmartDashboard.putString("Current Shift", DashboardUtil.getCurrentShift());
     // AutoSwitchHelpers.putAutoSwitchesToSmartDashboard();
     // Constants.ChangableBinConstants.pullFromDashboard();
-   
-    //double totalCUrrent = myPDH.getTotalCurrent();
-    //double current7 = myPDH.getCurrent(7);
-    //SmartDashboard.putNumber("PDH total current: ", totalCUrrent);
-   // SmartDashboard.putNumber("PDH channel 7 current: ", current7);
 
+    // double totalCUrrent = myPDH.getTotalCurrent();
+    // double current7 = myPDH.getCurrent(7);
+    // SmartDashboard.putNumber("PDH total current: ", totalCUrrent);
+    // SmartDashboard.putNumber("PDH channel 7 current: ", current7);
 
   }
 
@@ -122,9 +135,13 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() {
+  }
 
-  /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
+  /**
+   * This autonomous runs the autonomous command selected by your
+   * {@link RobotContainer} class.
+   */
   @Override
   public void autonomousInit() {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
@@ -139,8 +156,8 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    //ADD HERE TO UPDATE SWERVE ODOMETRY?  
-   // s_Swerve.MegaTag2UpdateOdometry();
+    // ADD HERE TO UPDATE SWERVE ODOMETRY?
+    // s_Swerve.MegaTag2UpdateOdometry();
   }
 
   @Override
@@ -158,9 +175,10 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    //LimelightHelpers.setCropWindow("limelight", -.5, .7, -1, .9);
+    // LimelightHelpers.setCropWindow("limelight", -.5, .7, -1, .9);
     // SmartDashboard.putData(CommandScheduler.getInstance());
   }
+
   @Override
   public void testInit() {
     // Cancels all running commands at the start of test mode.
@@ -169,5 +187,6 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during test mode. */
   @Override
-  public void testPeriodic() {}
+  public void testPeriodic() {
+  }
 }

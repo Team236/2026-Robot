@@ -94,12 +94,6 @@ public class RobotContainer {
   public static final XboxController driverController = new XboxController(Constants.Controller.USB_DRIVECONTROLLER);
   public static final XboxController auxController = new XboxController(Constants.Controller.USB_AUXCONTROLLER);
 
-  // // auto switches
-  // commented out because these are now declared in AutoSwitchHelpers
-  // private static DigitalInput autoSwitch1 = new DigitalInput(Constants.DIO_AUTO_1);
-  // private static DigitalInput autoSwitch2 = new DigitalInput(Constants.DIO_AUTO_2);
-  // private static DigitalInput autoSwitch3 = new DigitalInput(Constants.DIO_AUTO_3);
-  // private static DigitalInput autoSwitch4 = new DigitalInput(Constants.DIO_AUTO_4);
   private final SendableChooser<Command> autoChooser;
   // drive controls
   private final int translationAxis = XboxController.Axis.kLeftY.value;
