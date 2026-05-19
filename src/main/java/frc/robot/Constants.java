@@ -1,7 +1,3 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot;
 
 import java.util.Arrays;
@@ -32,66 +28,65 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.lib.util.COTSTalonFXSwerveConstants;
 
 /**
- * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
- * constants. This class should not be used for any other purpose. All constants should be declared
+ * The Constants class provides a convenient place for teams to hold robot-wide
+ * numerical or boolean
+ * constants. This class should not be used for any other purpose. All constants
+ * should be declared
  * globally (i.e. public static). Do not put anything functional in this class.
  *
- * <p>It is advised to statically import this class (or one of its inner classes) wherever the
+ * <p>
+ * It is advised to statically import this class (or one of its inner classes)
+ * wherever the
  * constants are needed, to reduce verbosity.F
  */
+
 public final class Constants {
   public static final double stickDeadband = 0.1;
 
   public static final class Controller {
-   //USB port number of the xbox controllers
-   public static final int USB_DRIVECONTROLLER = 0;
-   public static final int USB_AUXCONTROLLER = 1;
+    // USB port number of the xbox controllers
+    public static final int USB_DRIVECONTROLLER = 0;
+    public static final int USB_AUXCONTROLLER = 1;
   }
-
-  //AUTO SWITCHES
-  // public static final int DIO_AUTO_1 = 0;
-  // public static final int DIO_AUTO_2 = 1;
-  // public static final int DIO_AUTO_3 = 2;
-  // public static final int DIO_AUTO_4 = 3;
 
   public static class MotorControllers {
     public static final int SMART_CURRENT_LIMIT = 40;
     public static final int INTAKE_CURRENT_LIMIT = 33;
-    //MOTOR ID NUMBERS (for swerve drive/steer motors - see Swerve below):
-    public static final int ID_BIN_REL = 8; //8
-    public static final int ID_INTAKE_LEFT = 9; 
-    public static final int ID_FLOOR = 10; 
+    // MOTOR ID NUMBERS (for swerve drive/steer motors - see Swerve below):
+    public static final int ID_BIN_REL = 8;
+    public static final int ID_INTAKE_LEFT = 9;
+    public static final int ID_FLOOR = 10;
     public static final int ID_SHOOTER_LEFT_MAIN = 12; // 11
     public static final int ID_SHOOTER_RIGHT_MAIN = 11; // 12
-   // public static final int ID_SHOOTER_MID_MAIN = 18;
-   // public static final int ID_SHOOTER_LEFT_TOP = 16;
-   // public static final int ID_SHOOTER_RIGHT_TOP = 17;
+    // public static final int ID_SHOOTER_MID_MAIN = 18;
+    // public static final int ID_SHOOTER_LEFT_TOP = 16;
+    // public static final int ID_SHOOTER_RIGHT_TOP = 17;
     public static final int ID_SHOOTER_PIVOT = 15;
-    public static final int ID_CLIMBER = 13; //13
-    public static final int ID_PRE_FEEDER = 14; //14
+    public static final int ID_CLIMBER = 13;
+    public static final int ID_PRE_FEEDER = 14;
   }
 
   public static class ShooterConstants {
     public static final double MAIN_MOTOR_RPM = 2550;
     public static final double MAIN_MOTOR_SPEED = 0.3;
-    public static final double KV_MAIN = 0.122; // feed forward
+    public static final double KV_MAIN = 0.122; // feed forward value
     public static final double KP_MAIN = 0.63;
     public static final double KI_MAIN = 0;
-    public static final double KD_MAIN = 0; 
+    public static final double KD_MAIN = 0;
 
-    //public static final double TOP_MOTOR_RPM = 2100;
-    //public static final double TOP_MOTOR_SPEED = -0.5;
-    //public static final double KV_TOP = 0.117; // feed forward
-    //public static final double KP_TOP = 0.4;
-    //public static final double KI_TOP = 0;
-    //public static final double KD_TOP = 0;
+    // public static final double TOP_MOTOR_RPM = 2100;
+    // public static final double TOP_MOTOR_SPEED = -0.5;
+    // public static final double KV_TOP = 0.117; // feed forward value
+    // public static final double KP_TOP = 0.4;
+    // public static final double KI_TOP = 0;
+    // public static final double KD_TOP = 0;
   }
-  
+
   public static class PreFeederConstants {
     public static final int DIO_COUNTER = 10;
-    public static final double TEST_SPEED = 0.3;//constant speed for testing
-    public static final int DESIRED_RPM = 2550; //3150;
-    public static final double KV_PF = 0.0983; // feed forward
+    public static final double TEST_SPEED = 0.3; // constant speed for testing
+    public static final int DESIRED_RPM = 2550; // 3150;
+    public static final double KV_PF = 0.0983; // feed forward value
     public static final double KP_PF = 0.97;
     public static final double KI_PF = 0;
     public static final double KD_PF = 0;
@@ -99,18 +94,18 @@ public final class Constants {
 
   public static final class BinReleaseConstants {
 
-    public static final int DIO_EXT_LIMIT = 8;//DIO port number on RoboRio
-    public static final int DIO_RET_LIMIT = 9; //DIO port number on RoboRio
+    public static final int DIO_EXT_LIMIT = 8; // DIO port number on RoboRio
+    public static final int DIO_RET_LIMIT = 9; // DIO port number on RoboRio
 
-    public static final double KP_BIN_EXTEND = 1.0;  
+    public static final double KP_BIN_EXTEND = 1.0;
     public static final double KI_BIN_EXTEND = 0;
     public static final double KD_BIN_EXTEND = 0;
 
-    public static final double KP_BIN_RETRACT = 1.5;  
+    public static final double KP_BIN_RETRACT = 1.5;
     public static final double KI_BIN_RETRACT = 0;
     public static final double KD_BIN_RETRACT = 0;
 
-    public static final double ENC_REVS_MAX = 31.8; //TBD //32.5
+    public static final double ENC_REVS_MAX = 31.8; // TBD //32.5
     public static final double MANUAL_EXT_SPEED = 0.3;
     public static final double MANUAL_RET_SPEED = -0.3;
     public static final double POSITION1 = 50;
@@ -120,18 +115,17 @@ public final class Constants {
 
     public static final double BIN_DOWN_POSSITION = 31.8;
 
-    // changable in code
     public static final double BIN_AGITATE_DOWN_POSSITION = 31.0;
   }
 
-  public static class ChangableBinConstants{
+  public static class ChangableBinConstants {
     public static double BIN_WAIT_TIME = 1.5; // if not using agitate, wait 4.0 seconds.
-    // beginning
+    // beginning constants
     public static double BIN_BEGINNING_TIME = 2.0;
     public static double BIN_BEGINNING_TRAVEL_DISTANCE = 8.0;
     public static double BIN_RETRACT_BEGINNING_SPEED = 0.25;
     public static double BIN_EXTEND_BEGINNING_SPEED = 0.3;
-    // rising
+    // rising constants
     public static double BIN_RETRACT_RISING_SPEED = 0.25;
     public static double BIN_EXTEND_RISING_SPEED = 0.3;
     public static double BIN_RISING_TRAVEL_UP_DISTANCE = 8.5;
@@ -140,52 +134,55 @@ public final class Constants {
     public static double BIN_AGITATE_END_POSITION = 7.5;
     public static boolean USE_RISING_AGITATE = true;
 
-    //   public static void pushToDashboard() {
-    //     SmartDashboard.putNumber("Bin Tuning/Agitate End Position", BIN_AGITATE_END_POSITION);
-    //     SmartDashboard.putNumber("Bin Tuning/Retract Beginning Speed", BIN_RETRACT_BEGINNING_SPEED);
-    //     SmartDashboard.putNumber("Bin Tuning/Extend Beginning Speed", BIN_EXTEND_BEGINNING_SPEED);
-    //     SmartDashboard.putNumber("Bin Tuning/Retract Rising Speed", BIN_RETRACT_RISING_SPEED);
-    //     SmartDashboard.putNumber("Bin Tuning/Extend Rising Speed", BIN_EXTEND_RISING_SPEED);
-    //     SmartDashboard.putNumber("Bin Tuning/Beginning Travel Distance", BIN_BEGINNING_TRAVEL_DISTANCE);
-    //     SmartDashboard.putNumber("Bin Tuning/Rising Travel Up Distance", BIN_RISING_TRAVEL_UP_DISTANCE);
-    //     SmartDashboard.putNumber("Bin Tuning/Rising Net Change Distance", BIN_RISING_NET_CHANGE_DISTANCE);
-    //     SmartDashboard.putNumber("Bin Tuning/Bin Wait Time", BIN_WAIT_TIME);
-    //     SmartDashboard.putNumber("Bin Tuning/Bin Beggining Time", BIN_BEGINNING_TIME);
-    //     SmartDashboard.putBoolean("Bin Tuning/Use Rising", USE_RISING_AGITATE);
-    //  }
+    // -----------------------------------------------------
+    // These are dashboard statements for the bin agitation
+    // -----------------------------------------------------
 
-    //  public static void pullFromDashboard() {
-    //     BIN_AGITATE_END_POSITION = SmartDashboard.getNumber("Bin Tuning/Agitate End Position", BIN_AGITATE_END_POSITION);
-    //     BIN_RETRACT_BEGINNING_SPEED = SmartDashboard.getNumber("Bin Tuning/Retract Beginning Speed", BIN_RETRACT_BEGINNING_SPEED);
-    //     BIN_EXTEND_BEGINNING_SPEED = SmartDashboard.getNumber("Bin Tuning/Extend Beginning Speed", BIN_EXTEND_BEGINNING_SPEED);
-    //     BIN_RETRACT_RISING_SPEED = SmartDashboard.getNumber("Bin Tuning/Retract Rising Speed", BIN_RETRACT_RISING_SPEED);
-    //     BIN_EXTEND_RISING_SPEED = SmartDashboard.getNumber("Bin Tuning/Extend Rising Speed", BIN_EXTEND_RISING_SPEED);
-    //     BIN_BEGINNING_TRAVEL_DISTANCE = SmartDashboard.getNumber("Bin Tuning/Beginning Travel Distance", BIN_BEGINNING_TRAVEL_DISTANCE);
-    //     BIN_RISING_TRAVEL_UP_DISTANCE = SmartDashboard.getNumber("Bin Tuning/Rising Travel Up Distance", BIN_RISING_TRAVEL_UP_DISTANCE);
-    //     BIN_RISING_NET_CHANGE_DISTANCE = SmartDashboard.getNumber("Bin Tuning/Rising Net Change Distance", BIN_RISING_NET_CHANGE_DISTANCE);
-    //     BIN_WAIT_TIME = SmartDashboard.getNumber("Bin Tuning/Bin Beggining Time", BIN_BEGINNING_TIME);
-    //     USE_RISING_AGITATE = SmartDashboard.getBoolean("Bin Tuning/Use Rising", USE_RISING_AGITATE);
-    //  }
+    // public static void pushToDashboard() {
+    // SmartDashboard.putNumber("Bin Tuning/Agitate End Position", BIN_AGITATE_END_POSITION);
+    // SmartDashboard.putNumber("Bin Tuning/Retract Beginning Speed", BIN_RETRACT_BEGINNING_SPEED);
+    // SmartDashboard.putNumber("Bin Tuning/Extend Beginning Speed", BIN_EXTEND_BEGINNING_SPEED);
+    // SmartDashboard.putNumber("Bin Tuning/Retract Rising Speed", BIN_RETRACT_RISING_SPEED);
+    // SmartDashboard.putNumber("Bin Tuning/Extend Rising Speed", BIN_EXTEND_RISING_SPEED);
+    // SmartDashboard.putNumber("Bin Tuning/Beginning Travel Distance", BIN_BEGINNING_TRAVEL_DISTANCE);
+    // SmartDashboard.putNumber("Bin Tuning/Rising Travel Up Distance", BIN_RISING_TRAVEL_UP_DISTANCE);
+    // SmartDashboard.putNumber("Bin Tuning/Rising Net Change Distance",BIN_RISING_NET_CHANGE_DISTANCE);
+    // SmartDashboard.putNumber("Bin Tuning/Bin Wait Time", BIN_WAIT_TIME);
+    // SmartDashboard.putNumber("Bin Tuning/Bin Beggining Time", BIN_BEGINNING_TIME);
+    // SmartDashboard.putBoolean("Bin Tuning/Use Rising", USE_RISING_AGITATE);
+    // }
+
+    // public static void pullFromDashboard() {
+    // BIN_AGITATE_END_POSITION = SmartDashboard.getNumber("Bin Tuning/Agitate End Position", BIN_AGITATE_END_POSITION);
+    // BIN_RETRACT_BEGINNING_SPEED = SmartDashboard.getNumber("Bin Tuning/Retract Beginning Speed", BIN_RETRACT_BEGINNING_SPEED);
+    // BIN_EXTEND_BEGINNING_SPEED = SmartDashboard.getNumber("Bin Tuning/Extend Beginning Speed", BIN_EXTEND_BEGINNING_SPEED);
+    // BIN_RETRACT_RISING_SPEED = SmartDashboard.getNumber("Bin Tuning/Retract Rising Speed", BIN_RETRACT_RISING_SPEED);
+    // BIN_EXTEND_RISING_SPEED = SmartDashboard.getNumber("Bin Tuning/Extend Rising Speed", BIN_EXTEND_RISING_SPEED);
+    // BIN_BEGINNING_TRAVEL_DISTANCE = SmartDashboard.getNumber("Bin Tuning/Beginning Travel Distance", BIN_BEGINNING_TRAVEL_DISTANCE);
+    // BIN_RISING_TRAVEL_UP_DISTANCE = SmartDashboard.getNumber("Bin Tuning/Rising Travel Up Distance", BIN_RISING_TRAVEL_UP_DISTANCE);
+    // BIN_RISING_NET_CHANGE_DISTANCE = SmartDashboard.getNumber("Bin Tuning/Rising Net Change Distance", BIN_RISING_NET_CHANGE_DISTANCE);
+    // BIN_WAIT_TIME = SmartDashboard.getNumber("Bin Tuning/Bin Beggining Time", BIN_BEGINNING_TIME);
+    // USE_RISING_AGITATE = SmartDashboard.getBoolean("Bin Tuning/Use Rising", USE_RISING_AGITATE);
+    // }
   }
 
-
   public static class ShooterPivotConstants {
-    public static final int DIO_EXT_LIMIT = 4;//DIO port number on RoboRio
-    public static final int DIO_RET_LIMIT = 3;//DIO port number on RoboRio
-    public static final double KP = 6; 
+    public static final int DIO_EXT_LIMIT = 4; // DIO port number on RoboRio
+    public static final int DIO_RET_LIMIT = 3; // DIO port number on RoboRio
+    public static final double KP = 6;
     public static final double KI = 0;
     public static final double KD = 0;
-    public static final double ENC_REVS_MAX = 12.4; //TODO find 
+    public static final double ENC_REVS_MAX = 12.4; // TODO find
     public static final double TARGET_REVS = 50;
     public static final double CONSTANT_FORWARD_SPEED = 0.1;
     public static final double CONSTANT_REVERSE_SPEED = -0.1;
   }
 
   public static class ClimberConstants {
-    public static final int DIO_CLIMBER_TOP = 6; //DIO port number on RoboRio
-    public static final int DIO_CLIMBER_BOTTOM = 7; //DIO port number on RoboRio
-    public static final int PWM_CLIMB_LOCK = 0;  //PWM port number on RoboRio
-    public static final double MAX_ENCODER_REVS = 120.0;//TBD MotionMagic/PID, stops if here; DO NOT PID CLIMB HIGHER 
+    public static final int DIO_CLIMBER_TOP = 6; // DIO port number on RoboRio
+    public static final int DIO_CLIMBER_BOTTOM = 7; // DIO port number on RoboRio
+    public static final int PWM_CLIMB_LOCK = 0; // PWM port number on RoboRio
+    public static final double MAX_ENCODER_REVS = 120.0; // TBD MotionMagic/PID, stops if here; DO NOT PID CLIMB HIGHER
     public static final double CLIMBER_UP_SPEED = 0.75;
     public static final double CLIMBER_DOWN_SPEED = -0.75;
     public static final double TEST_MM_REVS = 35.0;
@@ -197,27 +194,28 @@ public final class Constants {
 
     /*
      * blue tower left (driver perspective):
-     *   55.0, 129.0 according to robot? cad says 57.32, 130
-     *   
+     * 55.0, 129.0 according to robot? cad says 57.32, 130
+     * 
      * 
      */
-      
+
   }
 
-  public static  class IntakeConstants {
+  public static class IntakeConstants {
     public static final double INTAKE_SPEED = 0.5;
     public static final double OUTTAKE_SPEED = -0.5;
     public static final double DISABLE_CURRENT = 30.0;
-    //these next variables are for the intake pid command, but they are ripped straight from the prefeeder pid, so they may not be right.
-    //TODO: TUNE THESE VALUES FOR INTAKE PID COMMAND
-    public static final double TEST_SPEED = 0.3;//constant speed for testing
+    // these next variables are for the intake pid command, but they are ripped
+    // straight from the prefeeder pid, so they may not be right.
+    // TODO: TUNE THESE VALUES FOR INTAKE PID COMMAND
+    public static final double TEST_SPEED = 0.3;// constant speed for testing
     public static final int EJECT_RPM = 3500;
     public static final int INTAKE_RPM = 5500; // 6500 when we had x44
-    public static final double KV_I = .115; //0.108; //0.0975; // feed forward
-    public static final double KP_I = 1.0; //0.5; //0.4;
-    public static final double KI_I = 0.0; //0.0;
-    public static final double KD_I = 0.0; //0.0;
-  }  
+    public static final double KV_I = .115; // 0.108; //0.0975; // feed forward
+    public static final double KP_I = 1.0; // 0.5; //0.4;
+    public static final double KI_I = 0.0; // 0.0;
+    public static final double KD_I = 0.0; // 0.0;
+  }
 
   public static class FloorConstants {
     public static final double TEST_SPEED = -0.1;
@@ -228,17 +226,23 @@ public final class Constants {
     public static final double KD_F = 0.0;
   }
 
-  public static final class Targeting { //UPDATE FOR 2026 ROBOT 
-    //Use these do MetricDriveFwdSideDist field centric robot to tag 
-    // public static final double DIST_ROBOT_CENTER_TO_FRONT_WITH_BUMPER = 18.25; // inches
+  public static final class Targeting {
+
+    // UPDATE FOR 2026 ROBOT
+    // Use these do MetricDriveFwdSideDist field centric robot to tag
+    // public static final double DIST_ROBOT_CENTER_TO_FRONT_WITH_BUMPER = 18.25; //
+    // inches
     // public static final double DIST_ROBOT_CENTER_TO_LL_SIDEWAYS = 8; //
-    //use this with TargetPose-CameraSpace: inches
+    // use this with TargetPose-CameraSpace: inches
     // public static final double DIST_FORWARDS_CAMERA_TO_FRAME = 5.2;
     // public static final double BUMPER_THICKNESS = 3.25;
-    // public static final double DIST_CAMERA_TO_BUMPER_FWD = BUMPER_THICKNESS + DIST_FORWARDS_CAMERA_TO_FRAME;
+    // public static final double DIST_CAMERA_TO_BUMPER_FWD = BUMPER_THICKNESS +
+    // DIST_FORWARDS_CAMERA_TO_FRAME;
     // public static final double KP_ROTATION = 0.008; //kP value for rotation
-    // public static final double KP_TRANSLATION = 0.4;//kP value for forward (translation) motion
-    // public static final double KP_STRAFE = 0.9;// 0.475;  //kP value for the sideways (strafe) motio%n
+    // public static final double KP_TRANSLATION = 0.4;//kP value for forward
+    // (translation) motion
+    // public static final double KP_STRAFE = 0.9;// 0.475; //kP value for the
+    // sideways (strafe) motio%n
 
     public static double SHAKE_FREQUENCY = 2.4;
     public static double SHAKE_SPREAD = 20;
@@ -246,22 +250,21 @@ public final class Constants {
     public static double END_TIME = 125.0;
 
     public static void pushToDashboard() {
-        SmartDashboard.putNumber("Shooter Tuning/SHAKE_FREQUENCY", SHAKE_FREQUENCY);
-        SmartDashboard.putNumber("Shooter Tuning/SHAKE_SPREAD", SHAKE_SPREAD);
-        SmartDashboard.putNumber("Shooter Tuning/WAIT_TIME", WAIT_TIME);
-        SmartDashboard.putNumber("Shooter Tuning/END_TIME", END_TIME);
+      SmartDashboard.putNumber("Shooter Tuning/SHAKE_FREQUENCY", SHAKE_FREQUENCY);
+      SmartDashboard.putNumber("Shooter Tuning/SHAKE_SPREAD", SHAKE_SPREAD);
+      SmartDashboard.putNumber("Shooter Tuning/WAIT_TIME", WAIT_TIME);
+      SmartDashboard.putNumber("Shooter Tuning/END_TIME", END_TIME);
 
-     }
+    }
 
-     public static void pullFromDashboard() {
-        SHAKE_FREQUENCY = SmartDashboard.getNumber("Shooter Tuning/SHAKE_FREQUENCY", SHAKE_FREQUENCY);
-        SHAKE_SPREAD = SmartDashboard.getNumber("Shooter Tuning/SHAKE_SPREAD", SHAKE_SPREAD);
-        WAIT_TIME = SmartDashboard.getNumber("Shooter Tuning/WAIT_TIME", WAIT_TIME);
-        END_TIME = SmartDashboard.getNumber("Shooter Tuning/END_TIME", END_TIME);
-     }
+    public static void pullFromDashboard() {
+      SHAKE_FREQUENCY = SmartDashboard.getNumber("Shooter Tuning/SHAKE_FREQUENCY", SHAKE_FREQUENCY);
+      SHAKE_SPREAD = SmartDashboard.getNumber("Shooter Tuning/SHAKE_SPREAD", SHAKE_SPREAD);
+      WAIT_TIME = SmartDashboard.getNumber("Shooter Tuning/WAIT_TIME", WAIT_TIME);
+      END_TIME = SmartDashboard.getNumber("Shooter Tuning/END_TIME", END_TIME);
+    }
 
-    public static final String[] CAMERA_NAMES = 
-    {
+    public static final String[] CAMERA_NAMES = {
         "limelight", // front limelight (4) limelight.local
         "limelight-back" // back limelight (3G) limelight-back.local
     };
@@ -273,18 +276,23 @@ public final class Constants {
     public static final double BLUE_TOWER_CENTER_Y_METERS = 3.746; // meters
     public static final double RED_TOWER_CENTER_Y_METERS = 4.324; // meters
 
-    public static final double AUTO_ROTATE_KP = 4.25; //6.0;
-    public static final double AUTO_ROTATE_KD = 0.025; //0.075;
+    public static final double AUTO_ROTATE_KP = 4.25; // 6.0;
+    public static final double AUTO_ROTATE_KD = 0.025; // 0.075;
     public static final double AUTO_ROTATE_FEEDFORWARD = 0.5;
-    public static final double AUTO_ROTATE_TOLERANCE = 2.0; //degrees
+    public static final double AUTO_ROTATE_TOLERANCE = 2.0; // degrees
 
     public static final double AUTO_SHAKE_KP = 90.0;
     public static final double AUTO_SHAKE_KD = 0.0;
 
+    // ----------------------------------------------------------------------------------------
+    // Interpolation Maps are a way to store data and then pull data estamates from
+    // them later
+    // ----------------------------------------------------------------------------------------
+
     public static final InterpolatingDoubleTreeMap hoodAngleMap = new InterpolatingDoubleTreeMap();
 
     static {
-      hoodAngleMap.put(42.0, 3.0); 
+      hoodAngleMap.put(42.0, 3.0);
       hoodAngleMap.put(74.6, 4.75);
       hoodAngleMap.put(111.5, 6.45);
       hoodAngleMap.put(145.5, 8.5);
@@ -295,7 +303,7 @@ public final class Constants {
     public static final InterpolatingDoubleTreeMap rpmMap = new InterpolatingDoubleTreeMap();
 
     static {
-      rpmMap.put(42.0, 2320.0); 
+      rpmMap.put(42.0, 2320.0);
       rpmMap.put(74.6, 2455.0);
       rpmMap.put(111.5, 2550.0);
       rpmMap.put(145.5, 2565.0);
@@ -306,7 +314,7 @@ public final class Constants {
     public static final InterpolatingDoubleTreeMap preFeederMap = new InterpolatingDoubleTreeMap();
 
     static {
-      preFeederMap.put(42.0, 2250.0); 
+      preFeederMap.put(42.0, 2250.0);
       preFeederMap.put(74.6, 2300.0);
       preFeederMap.put(111.5, 2400.0);
       preFeederMap.put(145.5, 2500.0);
@@ -317,7 +325,7 @@ public final class Constants {
     public static final InterpolatingDoubleTreeMap timeMap = new InterpolatingDoubleTreeMap();
 
     static {
-      timeMap.put(42.0, 1.22); 
+      timeMap.put(42.0, 1.22);
       timeMap.put(74.6, 1.05);
       timeMap.put(111.5, 1.2);
       timeMap.put(145.5, 1.15);
@@ -328,7 +336,7 @@ public final class Constants {
     public static final InterpolatingDoubleTreeMap nuetralMap = new InterpolatingDoubleTreeMap();
 
     static {
-      nuetralMap.put(0.0, 2500.0); 
+      nuetralMap.put(0.0, 2500.0);
       nuetralMap.put(75.0, 3000.0);
       nuetralMap.put(150.0, 3500.0);
       nuetralMap.put(225.0, 3750.0);
@@ -337,51 +345,12 @@ public final class Constants {
     }
 
     // public static Map<Integer, Pose2d> ID_TO_POSE = new HashMap<>();
-    
+
     // Turns out a class already exists to help us get poses for tags if needed (below)
-    public static AprilTagFieldLayout APRIL_TAG_LAYOUT = AprilTagFieldLayout.loadField(AprilTagFields.k2026RebuiltAndymark); //should this be andymark or welded?
+    public static AprilTagFieldLayout APRIL_TAG_LAYOUT = AprilTagFieldLayout
+        .loadField(AprilTagFields.k2026RebuiltAndymark); // should this be andymark or welded?
     private static Pose3d poseExample = APRIL_TAG_LAYOUT.getTagPose(10).get(); // example for id 10
 
-    // 
-    // static {
-
-    //   Constants.Targeting.ID_TO_POSE.put(1, new Pose2d(Units.inchesToMeters(467.08), Units.inchesToMeters(291.79), new Rotation2d(Units.degreesToRadians(180))));
-    //   Constants.Targeting.ID_TO_POSE.put(2, new Pose2d(Units.inchesToMeters(468.56), Units.inchesToMeters(182.08), new Rotation2d(Units.degreesToRadians(90))));
-    //   Constants.Targeting.ID_TO_POSE.put(3, new Pose2d(Units.inchesToMeters(444.80), Units.inchesToMeters(172.32), new Rotation2d(Units.degreesToRadians(180))));
-    //   Constants.Targeting.ID_TO_POSE.put(4, new Pose2d(Units.inchesToMeters(444.80), Units.inchesToMeters(158.32), new Rotation2d(Units.degreesToRadians(180))));
-    //   Constants.Targeting.ID_TO_POSE.put(5, new Pose2d(Units.inchesToMeters(468.56), Units.inchesToMeters(134.56), new Rotation2d(Units.degreesToRadians(270))));
-    //   Constants.Targeting.ID_TO_POSE.put(6, new Pose2d(Units.inchesToMeters(467.08), Units.inchesToMeters(24.85), new Rotation2d(Units.degreesToRadians(180))));
-    //   Constants.Targeting.ID_TO_POSE.put(7, new Pose2d(Units.inchesToMeters(470.03), Units.inchesToMeters(24.85), new Rotation2d(Units.degreesToRadians(0))));
-    //   Constants.Targeting.ID_TO_POSE.put(8, new Pose2d(Units.inchesToMeters(482.56), Units.inchesToMeters(134.56), new Rotation2d(Units.degreesToRadians(270))));
-    //   Constants.Targeting.ID_TO_POSE.put(9, new Pose2d(Units.inchesToMeters(492.33), Units.inchesToMeters(144.32), new Rotation2d(Units.degreesToRadians(0))));
-    //   Constants.Targeting.ID_TO_POSE.put(10, new Pose2d(Units.inchesToMeters(492.33), Units.inchesToMeters(158.32), new Rotation2d(Units.degreesToRadians(0))));
-    //   Constants.Targeting.ID_TO_POSE.put(11, new Pose2d(Units.inchesToMeters(482.56), Units.inchesToMeters(182.08), new Rotation2d(Units.degreesToRadians(90))));
-    //   Constants.Targeting.ID_TO_POSE.put(12, new Pose2d(Units.inchesToMeters(470.03), Units.inchesToMeters(291.79), new Rotation2d(Units.degreesToRadians(0))));
-    //   Constants.Targeting.ID_TO_POSE.put(13, new Pose2d(Units.inchesToMeters(649.58), Units.inchesToMeters(291.02), new Rotation2d(Units.degreesToRadians(180))));
-    //   Constants.Targeting.ID_TO_POSE.put(14, new Pose2d(Units.inchesToMeters(649.58), Units.inchesToMeters(274.02), new Rotation2d(Units.degreesToRadians(180))));
-    //   Constants.Targeting.ID_TO_POSE.put(15, new Pose2d(Units.inchesToMeters(649.57), Units.inchesToMeters(169.78), new Rotation2d(Units.degreesToRadians(180))));
-    //   Constants.Targeting.ID_TO_POSE.put(16, new Pose2d(Units.inchesToMeters(649.57), Units.inchesToMeters(152.78), new Rotation2d(Units.degreesToRadians(180))));
-
-    //   Constants.Targeting.ID_TO_POSE.put(17, new Pose2d(Units.inchesToMeters(183.03), Units.inchesToMeters(24.85), new Rotation2d(Units.degreesToRadians(0))));
-    //   Constants.Targeting.ID_TO_POSE.put(18, new Pose2d(Units.inchesToMeters(181.56), Units.inchesToMeters(134.56), new Rotation2d(Units.degreesToRadians(270))));
-    //   Constants.Targeting.ID_TO_POSE.put(19, new Pose2d(Units.inchesToMeters(205.32), Units.inchesToMeters(144.32), new Rotation2d(Units.degreesToRadians(0))));
-    //   Constants.Targeting.ID_TO_POSE.put(20, new Pose2d(Units.inchesToMeters(205.32), Units.inchesToMeters(158.32), new Rotation2d(Units.degreesToRadians(0))));
-    //   Constants.Targeting.ID_TO_POSE.put(21, new Pose2d(Units.inchesToMeters(181.56), Units.inchesToMeters(182.08), new Rotation2d(Units.degreesToRadians(90))));
-    //   Constants.Targeting.ID_TO_POSE.put(22, new Pose2d(Units.inchesToMeters(183.03), Units.inchesToMeters(291.79), new Rotation2d(Units.degreesToRadians(0))));
-    //   Constants.Targeting.ID_TO_POSE.put(23, new Pose2d(Units.inchesToMeters(180.08), Units.inchesToMeters(291.79), new Rotation2d(Units.degreesToRadians(180))));
-    //   Constants.Targeting.ID_TO_POSE.put(24, new Pose2d(Units.inchesToMeters(167.56), Units.inchesToMeters(182.08), new Rotation2d(Units.degreesToRadians(90))));
-    //   Constants.Targeting.ID_TO_POSE.put(25, new Pose2d(Units.inchesToMeters(157.79), Units.inchesToMeters(172.32), new Rotation2d(Units.degreesToRadians(180))));
-    //   Constants.Targeting.ID_TO_POSE.put(26, new Pose2d(Units.inchesToMeters(157.79), Units.inchesToMeters(158.32), new Rotation2d(Units.degreesToRadians(180))));
-    //   Constants.Targeting.ID_TO_POSE.put(27, new Pose2d(Units.inchesToMeters(167.56), Units.inchesToMeters(134.56), new Rotation2d(Units.degreesToRadians(270))));
-    //   Constants.Targeting.ID_TO_POSE.put(28, new Pose2d(Units.inchesToMeters(180.08), Units.inchesToMeters(24.85), new Rotation2d(Units.degreesToRadians(180))));
-    //   Constants.Targeting.ID_TO_POSE.put(29, new Pose2d(Units.inchesToMeters(.54), Units.inchesToMeters(25.62), new Rotation2d(Units.degreesToRadians(0))));
-    //   Constants.Targeting.ID_TO_POSE.put(30, new Pose2d(Units.inchesToMeters(.54), Units.inchesToMeters(42.62), new Rotation2d(Units.degreesToRadians(0))));
-    //   Constants.Targeting.ID_TO_POSE.put(31, new Pose2d(Units.inchesToMeters(.55), Units.inchesToMeters(146.86), new Rotation2d(Units.degreesToRadians(0))));
-    //   Constants.Targeting.ID_TO_POSE.put(32, new Pose2d(Units.inchesToMeters(.55), Units.inchesToMeters(163.86), new Rotation2d(Units.degreesToRadians(0))));
-        
-    // }
-
-    // this is from subtracting opposing April Tags on https://firstfrc.blob.core.windows.net/frc2026/FieldAssets/2026-field-dimension-dwgs.pdf find actual values in cad
     public static final double RED_ALLIANCE_HUB_CENTER_X = 468.56;
     public static final double RED_ALLIANCE_HUB_CENTER_Y = 158.32;
 
@@ -391,154 +360,163 @@ public final class Constants {
     public static final double RED_NEUTRAL_TOLERANCE_X = 446.36;
     public static final double BLUE_NEUTRAL_TOLERANCE_X = 203.76;
 
-   public static final double RED_NEUTRAL_MID_RIGHT = 125;
-   public static final double RED_NEUTRAL_MID_LEFT = 192;
+    public static final double RED_NEUTRAL_MID_RIGHT = 125;
+    public static final double RED_NEUTRAL_MID_LEFT = 192;
 
+    public static final double BLUE_NEUTRAL_MID_RIGHT = 192;
+    public static final double BLUE_NEUTRAL_MID_LEFT = 125;
+  }
 
-   public static final double BLUE_NEUTRAL_MID_RIGHT = 192;
-   public static final double BLUE_NEUTRAL_MID_LEFT = 125;
-}
+  public static final class PathPlanner { // TODO -- UPDATE TO NEW ROBOT
+    public static final PIDConstants TRANSLATION_PID_CONSTANTS = new PIDConstants(10, 0.0, 0.0); // seems like these affect movement of robot when it tries to correct itself (goes off path), not for just regular movement
+    public static final PIDConstants ROTATION_PID_CONSTANTS = new PIDConstants(4, 0.0, 0.2); // ^^^^
+  }
 
-public static final class PathPlanner { //TODO -- UPDATE TO NEW ROBOT
-  public static final PIDConstants TRANSLATION_PID_CONSTANTS = new PIDConstants(10, 0.0, 0.0); // seems like these affect movement of robot when it tries to correct itself (goes off path), not for just regular movement
-  public static final PIDConstants ROTATION_PID_CONSTANTS = new PIDConstants(4, 0.0, 0.2); // ^^^^
-}
+  public static final class Swerve { // TODO -- UPDATE ALL VALUES / TUNE
+    public static final int pigeonID = 1; // gryo
 
-public static final class Swerve { //TODO -- UPDATE ALL VALUES / TUNE
-        public static final int pigeonID = 1; //gryo
+    public static final COTSTalonFXSwerveConstants chosenModule = // TODO:Find for specific swerve module
+        // TODO: X2_10 has 10 tooth, 6.56/1, X2_11 5.96/1, X2_12 5.46/1;
+        COTSTalonFXSwerveConstants.WCP.SwerveXFlipped
+            .KrakenX60(COTSTalonFXSwerveConstants.WCP.SwerveXFlipped.driveRatios.X2_11);// TODO - X2
+    // COTSTalonFXSwerveConstants.SDS.MK4.KrakenX60(COTSTalonFXSwerveConstants.SDS.MK4.driveRatios.L2);
+    // SDS.MK4.KrakenX60(COTSTalonFXSwerveConstants.SDS.MK4.driveRatios.L2);
 
-        public static final COTSTalonFXSwerveConstants chosenModule =  //TODO:Find for specific swerve module
-        //TODO:  X2_10 has 10 tooth, 6.56/1,  X2_11 5.96/1, X2_12 5.46/1;
-        COTSTalonFXSwerveConstants.WCP.SwerveXFlipped.KrakenX60(COTSTalonFXSwerveConstants.WCP.SwerveXFlipped.driveRatios.X2_11);//TODO - X2
-        // COTSTalonFXSwerveConstants.SDS.MK4.KrakenX60(COTSTalonFXSwerveConstants.SDS.MK4.driveRatios.L2);
-        //SDS.MK4.KrakenX60(COTSTalonFXSwerveConstants.SDS.MK4.driveRatios.L2);
-      
-        /* Drivetrain Constants */
-        public static final double trackWidth = Units.inchesToMeters(20.5); //23.5 in 2025 //TODO MUST BE UPDATED
-        public static final double wheelBase = Units.inchesToMeters(20.5); //23.5 in 2025
-        public static final double wheelCircumference = chosenModule.wheelCircumference;
+    /* Drivetrain Constants */
+    public static final double trackWidth = Units.inchesToMeters(20.5); // 23.5 in 2025 //TODO MUST BE UPDATED
+    public static final double wheelBase = Units.inchesToMeters(20.5); // 23.5 in 2025
+    public static final double wheelCircumference = chosenModule.wheelCircumference;
 
-        /* Swerve Kinematics 
-         * No need to ever change this unless you are not doing a traditional rectangular/square 4 module swerve 
-         * Since these wheel positions are declared relative to the physical center of the robot, the center is 0, 0,
-         * or in other words, its pose is it physical center */
-         public static final SwerveDriveKinematics swerveKinematics = new SwerveDriveKinematics(
-            new Translation2d(wheelBase / 2.0, trackWidth / 2.0),
-            new Translation2d(wheelBase / 2.0, -trackWidth / 2.0),
-            new Translation2d(-wheelBase / 2.0, trackWidth / 2.0),
-            new Translation2d(-wheelBase / 2.0, -trackWidth / 2.0));
+    /*
+     * Swerve Kinematics
+     * No need to ever change this unless you are not doing a traditional
+     * rectangular/square 4 module swerve
+     * Since these wheel positions are declared relative to the physical center of
+     * the robot, the center is 0, 0,
+     * or in other words, its pose is it physical center
+     */
+    public static final SwerveDriveKinematics swerveKinematics = new SwerveDriveKinematics(
+        new Translation2d(wheelBase / 2.0, trackWidth / 2.0),
+        new Translation2d(wheelBase / 2.0, -trackWidth / 2.0),
+        new Translation2d(-wheelBase / 2.0, trackWidth / 2.0),
+        new Translation2d(-wheelBase / 2.0, -trackWidth / 2.0));
 
-        /* Module Gear Ratios */
-        public static final double driveGearRatio = chosenModule.driveGearRatio;
-        public static final double angleGearRatio = chosenModule.angleGearRatio;
+    /* Module Gear Ratios */
+    public static final double driveGearRatio = chosenModule.driveGearRatio;
+    public static final double angleGearRatio = chosenModule.angleGearRatio;
 
-        /* Motor Inverts */
-        public static final InvertedValue angleMotorInvert = chosenModule.angleMotorInvert;
-        public static final InvertedValue driveMotorInvert = chosenModule.driveMotorInvert;
+    /* Motor Inverts */
+    public static final InvertedValue angleMotorInvert = chosenModule.angleMotorInvert;
+    public static final InvertedValue driveMotorInvert = chosenModule.driveMotorInvert;
 
-        /* Angle Encoder Invert */
-        public static final SensorDirectionValue cancoderInvert = chosenModule.cancoderInvert;
+    /* Angle Encoder Invert */
+    public static final SensorDirectionValue cancoderInvert = chosenModule.cancoderInvert;
 
-        /* Swerve Current Limiting */
-        public static final int angleCurrentLimit = 25; //TODO check compared to last year
-        public static final int angleCurrentThreshold = 40;
-        public static final double angleCurrentThresholdTime = 0.1;
-        public static final boolean angleEnableCurrentLimit = true;
+    /* Swerve Current Limiting */
+    public static final int angleCurrentLimit = 25; // TODO check compared to last year
+    public static final int angleCurrentThreshold = 40;
+    public static final double angleCurrentThresholdTime = 0.1;
+    public static final boolean angleEnableCurrentLimit = true;
 
-        public static final int driveCurrentLimit = 35;
-        public static final int driveCurrentThreshold = 60;
-        public static final double driveCurrentThresholdTime = 0.1;
-        public static final boolean driveEnableCurrentLimit = true;
+    public static final int driveCurrentLimit = 35;
+    public static final int driveCurrentThreshold = 60;
+    public static final double driveCurrentThresholdTime = 0.1;
+    public static final boolean driveEnableCurrentLimit = true;
 
-        /* These values are used by the drive falcon to ramp in open loop and closed loop driving.
-         * We found a small open loop ramp (0.25) helps with tread wear, tipping, etc */
-        public static final double openLoopRamp = 0.25;
-        public static final double closedLoopRamp = 0.0;
+    /*
+     * These values are used by the drive falcon to ramp in open loop and closed
+     * loop driving.
+     * We found a small open loop ramp (0.25) helps with tread wear, tipping, etc
+     */
+    public static final double openLoopRamp = 0.25;
+    public static final double closedLoopRamp = 0.0;
 
-        /* Angle Motor PID Values */
-        public static final double angleKP = 100.0; //100.0
-        public static final double angleKI = 0.0;
-        public static final double angleKD = 0.05;
-        public static final double angleKS = 0.05;
-        public static final double angleKV = 1.5;
+    /* Angle Motor PID Values */
+    public static final double angleKP = 100.0; // 100.0
+    public static final double angleKI = 0.0;
+    public static final double angleKD = 0.05;
+    public static final double angleKS = 0.05;
+    public static final double angleKV = 1.5;
 
-        /* Drive Motor PID Values */    
-        public static final double driveKP = 2.5; //0.5, 1 //TODO: This must be tuned to specific robot, default is 0.1
-        public static final double driveKI = 0; //2
-        public static final double driveKD = 0.0;
-        public static final double driveKF = 0.0; 
+    /* Drive Motor PID Values */
+    public static final double driveKP = 2.5; // 0.5, 1 //TODO: This must be tuned to specific robot, default is 0.1
+    public static final double driveKI = 0; // 2
+    public static final double driveKD = 0.0;
+    public static final double driveKF = 0.0;
 
-        /* Drive Motor Characterization Values From SYSID */
-        public static final double driveKS = 0; //0.32; //TODO: This must be tuned to specific robot
-        public static final double driveKV = 0; //1.51;
-        public static final double driveKA = 0; //.27; 
+    /* Drive Motor Characterization Values From SYSID */
+    public static final double driveKS = 0; // 0.32; //TODO: This must be tuned to specific robot
+    public static final double driveKV = 0; // 1.51;
+    public static final double driveKA = 0; // .27;
 
-        /* Swerve Profiling Values, Meters per Second*/
-        public static final double maxSpeed = 4.5; //TODO: This must be tuned to specific robot
-        public static final double throttle = 1.0;
-        /** Radians per Second */
-        public static final double maxAngularVelocity = 10.0; //TODO: This must be tuned to specific robot
+    /* Swerve Profiling Values, Meters per Second */
+    public static final double maxSpeed = 4.5; // TODO: This must be tuned to specific robot
+    public static final double throttle = 1.0;
+    /** Radians per Second */
+    public static final double maxAngularVelocity = 10.0; // TODO: This must be tuned to specific robot
 
-        /* Neutral Modes */
-        public static final NeutralModeValue angleNeutralMode = NeutralModeValue.Coast;
-        public static final NeutralModeValue driveNeutralMode = NeutralModeValue.Brake;
+    /* Neutral Modes */
+    public static final NeutralModeValue angleNeutralMode = NeutralModeValue.Coast;
+    public static final NeutralModeValue driveNeutralMode = NeutralModeValue.Brake;
 
-        /* Module Specific Constants */
+    /* Module Specific Constants */
 
-        /* FRONT LEFT Module - Module 0 */
-        public static final class Mod0 { //TODO: These must be changed for each specific robot!!!
-            public static final int driveMotorID = 7;//testbed may be different!!!!! old 7
-            public static final int angleMotorID = 6;//testbed may be different!!!!! old 6
-            public static final int canCoderID = 3;//testbed may be different!!!!! old 
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(40.78); //36.123 //35.77 new //36.210 //37.26 most recent //(-146.33);//(81.1+180); TESTBED//-119.79; old -120.15
-            public static final SwerveModuleConstants constants = 
-                new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
-        }
-        /* FRONT RIGHT Module - Module 1 */
-            public static final class Mod1 { //TODO: These must be changed for each specific robot!!!
-            public static final int driveMotorID = 3;//testbed may be different!!!!!
-            public static final int angleMotorID = 2;//testbed may be different!!!!!
-            public static final int canCoderID = 1;//testbed may be different!!!!!
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-175.34); //-172.793 //6.94 new //-176.045 //-173.49 most recent //(10.01);//(-20.83+180)Estbed; 130.87;old 131.045
-            public static final SwerveModuleConstants constants = 
-                new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset); 
-        }    
-        /* BACK LEFT Module - Module 2 */
-        public static final class Mod2 { //TODO: These must be changed for each specific robot!!!
-            public static final int driveMotorID = 5;//testbed may be different!!!!!
-            public static final int angleMotorID = 4;//testbed may be different!!!!!
-            public static final int canCoderID = 2;//testbed may be different!!!!!
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(67.32); //66.97 //67.236 //66.09 new //67.061 //66.97 recent //(-117.42);//(8.1+180); TESTBED //106.35; old 106.87
-            public static final SwerveModuleConstants constants = 
-                new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
-        }
-        /* BACK RIGHT Module - Module 3 */
-        public static final class Mod3 { //TODO: These must be changed for each specific robot!!!
-            public static final int driveMotorID = 1;//testbed may be different!!!!!
-            public static final int angleMotorID = 0;//testbed may be different!!!!!
-            public static final int canCoderID = 0;//testbed may be different!!!!!
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-74.44); //-74.092 // 106.17 new //-74.18 //-73.91 recent //(105.9);//(-17.75+180);  TESTBED//130.87; old 130.95
-            public static final SwerveModuleConstants constants = 
-                new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
-        }
+    /* FRONT LEFT Module - Module 0 */
+    public static final class Mod0 { // TODO: These must be changed for each specific robot!!!
+      public static final int driveMotorID = 7;// testbed may be different!!!!! old 7
+      public static final int angleMotorID = 6;// testbed may be different!!!!! old 6
+      public static final int canCoderID = 3;// testbed may be different!!!!! old
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(40.78); // 36.123 //35.77 new //36.210 //37.26 most recent //(-146.33);//(81.1+180); TESTBED//-119.79; old -120.15
+      public static final SwerveModuleConstants constants = new SwerveModuleConstants(driveMotorID, angleMotorID,
+          canCoderID, angleOffset);
     }
 
-    public static final class AutoConstants { //TODO: these are for example auto - must be tuned to specific robot TUNE
-        public static final double kMaxSpeedMetersPerSecond = 5.0; //4 //2.5
-        public static final double kMaxAccelerationMetersPerSecondSquared = 4.0; //4 //2.5
-        public static final double kMaxAngularSpeedRadiansPerSecond = 4*Math.PI;
-        public static final double kMaxAngularSpeedRadiansPerSecondSquared = 4*Math.PI;
-        //X = forward, Y = to the left, Theta positive CCW for swerve
-        public static final double kPXController = 4; //4//  12 
-        public static final double kPYController = 6;//7;//12; //6//TODO: RETUNE!
-        public static final double kPThetaController = 10; //TODO: RETUNE!
-    
-        /* Constraint for the motion profilied robot angle controller */
-        public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
-            new TrapezoidProfile.Constraints(
-                kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
+    /* FRONT RIGHT Module - Module 1 */
+    public static final class Mod1 { // TODO: These must be changed for each specific robot!!!
+      public static final int driveMotorID = 3;// testbed may be different!!!!!
+      public static final int angleMotorID = 2;// testbed may be different!!!!!
+      public static final int canCoderID = 1;// testbed may be different!!!!!
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-175.34); // -172.793 //6.94 new //-176.045 //-173.49 most recent //(10.01);//(-20.83+180)Estbed; 130.87;old 131.045
+      public static final SwerveModuleConstants constants = new SwerveModuleConstants(driveMotorID, angleMotorID,
+          canCoderID, angleOffset);
     }
-  
+
+    /* BACK LEFT Module - Module 2 */
+    public static final class Mod2 { // TODO: These must be changed for each specific robot!!!
+      public static final int driveMotorID = 5;// testbed may be different!!!!!
+      public static final int angleMotorID = 4;// testbed may be different!!!!!
+      public static final int canCoderID = 2;// testbed may be different!!!!!
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(67.32); // 66.97 //67.236 //66.09 new //67.061 //66.97 recent //(-117.42);//(8.1+180); TESTBED //106.35; old 106.87
+      public static final SwerveModuleConstants constants = new SwerveModuleConstants(driveMotorID, angleMotorID,
+          canCoderID, angleOffset);
+    }
+
+    /* BACK RIGHT Module - Module 3 */
+    public static final class Mod3 { // TODO: These must be changed for each specific robot!!!
+      public static final int driveMotorID = 1;// testbed may be different!!!!!
+      public static final int angleMotorID = 0;// testbed may be different!!!!!
+      public static final int canCoderID = 0;// testbed may be different!!!!!
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-74.44); // -74.092 // 106.17 new //-74.18 //-73.91 recent //(105.9);//(-17.75+180); TESTBED//130.87; old 130.95
+      public static final SwerveModuleConstants constants = new SwerveModuleConstants(driveMotorID, angleMotorID,
+          canCoderID, angleOffset);
+    }
+  }
+
+  public static final class AutoConstants { // TODO: these are for example auto - must be tuned to specific robot TUNE
+    public static final double kMaxSpeedMetersPerSecond = 5.0; // 4 //2.5
+    public static final double kMaxAccelerationMetersPerSecondSquared = 4.0; // 4 //2.5
+    public static final double kMaxAngularSpeedRadiansPerSecond = 4 * Math.PI;
+    public static final double kMaxAngularSpeedRadiansPerSecondSquared = 4 * Math.PI;
+    // X = forward, Y = to the left, Theta positive CCW for swerve
+    public static final double kPXController = 4; // 4// 12
+    public static final double kPYController = 6;// 7;//12; //6//TODO: RETUNE!
+    public static final double kPThetaController = 10; // TODO: RETUNE!
+
+    /* Constraint for the motion profilied robot angle controller */
+    public static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(
+        kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
+  }
+
   public static class XboxController {
     public static final int A = 1;
     public static final int B = 2;
@@ -569,11 +547,8 @@ public static final class Swerve { //TODO -- UPDATE ALL VALUES / TUNE
   }
 }
 
-
-
-
 /*
- * ROBO STUFF YAY
+ * ROBO CONSTANTS FOR PATHPLANNER
  * 
  * Width: 27.5in, 0.6985m
  * Length: 27.5in, 0.6985m
