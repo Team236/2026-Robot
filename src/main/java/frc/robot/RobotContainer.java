@@ -89,6 +89,10 @@ import frc.robot.subsystems.BinRelease;
 
 
 public class RobotContainer {
+
+  // ----------------------------------------------------------------------------------------------------
+  // This is where instances are created (instances are creating the object / file in memory)
+  // ----------------------------------------------------------------------------------------------------
   
   // controllers
   public static final XboxController driverController = new XboxController(Constants.Controller.USB_DRIVECONTROLLER);
@@ -115,6 +119,10 @@ public class RobotContainer {
   private final PreFeeder preFeeder = new PreFeeder();
 
 //COMMANDS:
+
+  // ----------------------------------------------------------------------------------------------------
+  // This is where command instances are created (they will be later linked to controller buttons)
+  // ----------------------------------------------------------------------------------------------------
 
 //PIVOT (HOOD)
   private final ManualPivot manualPivotExtend = new ManualPivot(shooterPivot, Constants.ShooterPivotConstants.CONSTANT_FORWARD_SPEED);
@@ -166,6 +174,10 @@ public class RobotContainer {
       )
     );
 
+    // -------------------------------------------------------------------------------------------------------
+    // Named commands are custom commands that pathplanner can call to run at different times during the path
+    // -------------------------------------------------------------------------------------------------------
+
     NamedCommands.registerCommand("shoot", new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder, floor, intake, binRelease));
     NamedCommands.registerCommand("prep-climber", climberPrep);
     NamedCommands.registerCommand("climb-l1-front", climberL1Front);
@@ -192,6 +204,11 @@ public class RobotContainer {
 
   private void configureBindings() {
     zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
+
+    // ----------------------------------------------------------------------------------------
+    // This is where we are creating different buttons on the controller and calling them names
+    // ----------------------------------------------------------------------------------------
+
     // driver controller
     JoystickButton a = new JoystickButton(driverController, Constants.XboxController.A); // feeder
     JoystickButton b = new JoystickButton(driverController, Constants.XboxController.B); // feeder
@@ -252,6 +269,10 @@ public class RobotContainer {
     // ---------------------
 
     // zero gyro bind above, field centric driving defined above
+
+    // ------------------------------------------------------------------------------------
+    // This is where we link the commands to run on a botton press on the controller
+    // ------------------------------------------------------------------------------------
 
     rt.whileTrue(new ShakeAutoTarget(
         s_Swerve, 
@@ -358,6 +379,10 @@ public class RobotContainer {
 
   private void configAutos() {
 
+    // ----------------------------------------------------------------------------------------------------------
+    // Here we are mirroring paths over the y axis, across the shortes midpoint to edge (used for symetric paths)
+    // ----------------------------------------------------------------------------------------------------------
+
     autoChooser.addOption("COMP.NE_4L_double_nz_single_shoot_greedy", new PathPlannerAuto("COMP.NE_4R_double_nz_single_shoot_greedy", true));
     autoChooser.addOption("COMP.NE_4L_double_nz_single_shoot", new PathPlannerAuto("COMP.NE_4R_double_nz_single_shoot", true));
     // autoChooser.addOption("COMP_4L_double_nz_double_shoot_greedy", new PathPlannerAuto("COMP_4R_double_nz_double_shoot_greedy", true));
@@ -371,6 +396,10 @@ public class RobotContainer {
 
     //    //RIGHT means the OUTPOST side of the field
     //    //LEFT means the DEPOT side of the field
+
+    // --------------------------------------------------------------------------------------------------------
+    // Auto switches are an older / outdated way of choosing an auto path, use physical binary switch on robot
+    // --------------------------------------------------------------------------------------------------------
 
     //OOOO (OFF OFF OFF OFF)  Right Trench w/ Bin facing Drivers, Outpost, Shoot, front Right Tower Climb 
     // AutoSwitchHelpers.put(false, false, false, false, new PathPlannerAuto("COMP-trench-outpost-climb"));
@@ -423,6 +452,10 @@ public class RobotContainer {
     // AutoSwitchHelpers.put(true, true, true, true, new PathPlannerAuto("COMP-hub-depot-shoot-and-climb", mirror));
   }
   
+  // ----------------------------------------------------------------------------------------------------
+  // This is called whenever autonomous is enabled it is looking for what path / auto command to run
+  // ----------------------------------------------------------------------------------------------------
+
   public Command getAutonomousCommand() 
   {  
     return autoChooser.getSelected();
