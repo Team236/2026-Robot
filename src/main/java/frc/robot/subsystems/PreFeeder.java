@@ -1,7 +1,3 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
@@ -9,7 +5,6 @@ import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-
 import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -18,7 +13,7 @@ import frc.robot.Constants;
 import frc.robot.Constants.PreFeederConstants;
 
 public class PreFeeder extends SubsystemBase {
-  
+
   private TalonFX preFeederMotor;
   private TalonFXConfiguration motorConfig;
   private VelocityVoltage m_request;
@@ -30,51 +25,41 @@ public class PreFeeder extends SubsystemBase {
 
   public PreFeeder() {
     preFeederMotor = new TalonFX(Constants.MotorControllers.ID_PRE_FEEDER, "rio");
-    
+
     motorConfig = new TalonFXConfiguration();
 
     motorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
     motorConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
     motorConfig.CurrentLimits.SupplyCurrentLimit = Constants.MotorControllers.SMART_CURRENT_LIMIT;
     motorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-  
-      // set slot 0 gains TODO tune these, find info online (velocity control - no Ks or kA) 
-      var slot0Configs = motorConfig.Slot0;  
-        slot0Configs.kV = Constants.PreFeederConstants.KV_PF; // FF
-        slot0Configs.kP = PreFeederConstants.KP_PF; //4.8
-        slot0Configs.kI = PreFeederConstants.KI_PF;
-        slot0Configs.kD = PreFeederConstants.KD_PF;
 
-      preFeederMotor.getConfigurator().apply(motorConfig);
+    var slot0Configs = motorConfig.Slot0;
+    slot0Configs.kV = Constants.PreFeederConstants.KV_PF;
+    slot0Configs.kP = PreFeederConstants.KP_PF;
+    slot0Configs.kI = PreFeederConstants.KI_PF;
+    slot0Configs.kD = PreFeederConstants.KD_PF;
 
-      m_request = new VelocityVoltage(0).withSlot(0);
+    preFeederMotor.getConfigurator().apply(motorConfig);
 
-
+    m_request = new VelocityVoltage(0).withSlot(0);
 
     try {
       lightSensorState = new DigitalInput(Constants.PreFeederConstants.DIO_COUNTER);
-    } catch (Exception e)
-    {
+    } catch (Exception e) {
       isSensorUnplugged = true;
       SmartDashboard.putBoolean("is lightSensor unplugged:", isSensorUnplugged);
     }
-
 
     try {
       counter = new Counter();
       counter.setUpSource(Constants.PreFeederConstants.DIO_COUNTER);
       counter.reset();
-    }
-    catch (Exception e) {
+    } catch (Exception e) {
       isCounterUnplugged = true;
       SmartDashboard.putBoolean("is lightSensor unplugged:", isSensorUnplugged);
     }
 
-  //
-   // counter.reset(); //sets counter to zero
   }
-
-  //METHODS START HERE:
 
   public int getCount() {
     int count;
@@ -82,24 +67,23 @@ public class PreFeeder extends SubsystemBase {
       count = 0;
       SmartDashboard.putBoolean("Intake counter unplugged:", isCounterUnplugged);
     } else {
-      count =  counter.get();
+      count = counter.get();
     }
     return count;
   }
 
   public boolean getLightSensorState() {
-  boolean sensorState;
+    boolean sensorState;
     if (isSensorUnplugged) {
       sensorState = false;
       SmartDashboard.putBoolean("LightSensor is unplugged", isCounterUnplugged);
     } else {
-      sensorState =  lightSensorState.get();
+      sensorState = lightSensorState.get();
     }
     return sensorState;
   }
 
   public void resetCount() {
-    // automaticaly sets counter to 0 at start 
     counter.reset();
   }
 
@@ -111,14 +95,15 @@ public class PreFeeder extends SubsystemBase {
     preFeederMotor.set(speed);
   }
 
-  public void PreFeederPID(double targetTopVelocity) {//the target velocity below needs to be in revs per second
-    preFeederMotor.setControl(m_request.withVelocity(targetTopVelocity).withFeedForward(Constants.PreFeederConstants.KV_PF));
+  public void PreFeederPID(double targetTopVelocity) {
+    preFeederMotor
+        .setControl(m_request.withVelocity(targetTopVelocity).withFeedForward(Constants.PreFeederConstants.KV_PF));
   }
 
-    public double getPreFeederVelocity() { //Returns velocity in RPM
+  public double getPreFeederVelocity() {
     return 60 * preFeederMotor.getRotorVelocity().getValueAsDouble();
   }
-  
+
   public double calculateRPM(double distance) {
     return Constants.Targeting.preFeederMap.get(distance);
   }

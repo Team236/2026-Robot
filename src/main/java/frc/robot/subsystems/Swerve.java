@@ -6,18 +6,13 @@ import frc.robot.LimelightHelpers;
 import frc.robot.RobotContainer;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
-import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import com.ctre.phoenix6.configs.Pigeon2Configuration;
 import com.ctre.phoenix6.hardware.Pigeon2;
 import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.commands.FollowPathCommand;
-import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.path.GoalEndState;
@@ -26,20 +21,15 @@ import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.path.Waypoint;
 import com.pathplanner.lib.util.FlippingUtil;
-
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.trajectory.Trajectory;
-import edu.wpi.first.math.trajectory.TrajectoryConfig;
-import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -51,38 +41,31 @@ import edu.wpi.first.wpilibj.smartdashboard.FieldObject2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 
 public class Swerve extends SubsystemBase {
     public SwerveModule[] mSwerveMods;
     public Pigeon2 gyro;
-    public SwerveDrivePoseEstimator m_poseEstimator; // this pose estimator can do essentially everything swerve odometry can, with added vision capabilities
+    public SwerveDrivePoseEstimator m_poseEstimator;
     public double poseAngle;
     public double poseForwardDistance;
     public double poseSideDistance;
     public PIDController pidControllerForTrackingOutput;
     public PIDController pidForShaking;
-    // public Double nuetralAimingTarget;
 
-    // Cached hub coordinates — updated once per loop when alliance is known
     private double cachedHubX = Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_X;
     private double cachedHubY = Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_Y;
 
-    //ll stuff
     private double pipeline = 0; 
     private double tv;
-    public Pose2d poseLL; //want to use this pose after this command, after moving with odometry
+    public Pose2d poseLL;
     public Pose2d targetPose;
 
-    //SmartDashboard
     private Field2d field = new Field2d();
 
-    // PathPlanner
     private PIDController PPHeadingPIDController;
 
-    //targeting
     public SwerveControllerCommand currentSwerveControllerCommand;
     public Trajectory currentTrajectory;
 
@@ -90,51 +73,44 @@ public class Swerve extends SubsystemBase {
 
     public Swerve() {
         gyro = new Pigeon2(Constants.Swerve.pigeonID, "usb");
-        //when calibrated on 3/31/25, gyro mount pose configs quarternion values were:
-        //gyro.getConfigurator().apply(-0.041875,  0.012086,  0.005250, Z	-0.997314))
         gyro.getConfigurator().apply(new Pigeon2Configuration());
         gyro.setYaw(0);
         
         mSwerveMods = new SwerveModule[] {
-            new SwerveModule(0, Constants.Swerve.Mod0.constants), //front left
-            new SwerveModule(1, Constants.Swerve.Mod1.constants), //front right
-            new SwerveModule(2, Constants.Swerve.Mod2.constants), //back left
-            new SwerveModule(3, Constants.Swerve.Mod3.constants) //back right
+            new SwerveModule(0, Constants.Swerve.Mod0.constants),
+            new SwerveModule(1, Constants.Swerve.Mod1.constants), 
+            new SwerveModule(2, Constants.Swerve.Mod2.constants), 
+            new SwerveModule(3, Constants.Swerve.Mod3.constants) 
         };
-
-        /* Here we use SwerveDrivePoseEstimator so that we can fuse odometry readings, for 3D targeting. 
-        The numbers used below are robot specific, and should be tuned. */
         m_poseEstimator = new SwerveDrivePoseEstimator(
             Constants.Swerve.swerveKinematics,
             gyro.getRotation2d(),
             new SwerveModulePosition[] {
-                mSwerveMods[0].getPosition(), //front left
-                mSwerveMods[1].getPosition(), //front right
-                mSwerveMods[2].getPosition(), //back left
-                mSwerveMods[3].getPosition()  //back right
+                mSwerveMods[0].getPosition(), 
+                mSwerveMods[1].getPosition(),
+                mSwerveMods[2].getPosition(),
+                mSwerveMods[3].getPosition()  
             },
             new Pose2d(),
-            VecBuilder.fill(0.05, 0.05, Math.toRadians(5)), //std deviations in X, Y (meters), and angle of the pose estimate
-            VecBuilder.fill(0.5, 0.5, Math.toRadians(30))  //std deviations  in X, Y (meters) and angle of the vision (LL) measurement
+            VecBuilder.fill(0.05, 0.05, Math.toRadians(5)), 
+            VecBuilder.fill(0.5, 0.5, Math.toRadians(30)) 
         );
 
         SmartDashboard.putData("Field", field);
 
-        // PATH PLANNER
 
         SmartDashboard.putString("Starting swerve and pathplanner", "yes");
         SmartDashboard.putNumber("PPOverrideHeading target angle", 0);
         SmartDashboard.putNumber("PPOverrideHeading PID output", 0);
 
-        RobotConfig config = null; // this is a PathPlannerLib object that will store the robot config values like mass, wheel numbers, etc. that are set in the App GUI
+        RobotConfig config = null; 
         try {
             config = RobotConfig.fromGUISettings();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        // PathPlanner requires an "AutoBuilder" object to be configured in order to run any paths. This object needs access to the robot's drive/pose methods and other
-        // important information. PathPlanner recommends that this is configured in the drive subsystem's constructor (because it can take a bit to load), so it's done here.
+        
         if (config == null) {
             System.out.println("PathPlanner RobotConfig settings null, may have errored");
         } else {
@@ -144,14 +120,14 @@ public class Swerve extends SubsystemBase {
                 this::getChassisSpeeds,
                 (speeds, feedforwards) -> driveWithChassisSpeeds(speeds),
                 new PPHolonomicDriveController(
-                    Constants.PathPlanner.TRANSLATION_PID_CONSTANTS, //translation
-                    Constants.PathPlanner.ROTATION_PID_CONSTANTS // rotation -- both can be tuned I think
+                    Constants.PathPlanner.TRANSLATION_PID_CONSTANTS,
+                    Constants.PathPlanner.ROTATION_PID_CONSTANTS 
                 ),
                 config,
                 () -> { 
                     Optional<Alliance> alliance = DriverStation.getAlliance();
                     if (alliance.isPresent()) {
-                        return alliance.get() == Alliance.Red; //0 = red, 1 = blue
+                        return alliance.get() == Alliance.Red; 
                     }
                     return false;
                 },
@@ -171,7 +147,6 @@ public class Swerve extends SubsystemBase {
 
         pidControllerForTrackingOutput.enableContinuousInput(-Math.PI, Math.PI);
         pidForShaking.enableContinuousInput(-Math.PI, Math.PI);
-        // tolerance is to prevent gittering (this will need to be tuned)
         pidControllerForTrackingOutput.setTolerance(Math.toRadians(0.1));
         pidControllerForTrackingOutput.setSetpoint(0.0);
         pidForShaking.setTolerance(Math.toRadians(0.1));
@@ -184,7 +159,6 @@ public class Swerve extends SubsystemBase {
         );
         PPHeadingPIDController.enableContinuousInput(-Math.PI, Math.PI);
 
-        // Update cached hub coordinates once per loop (avoids repeated DriverStation.getAlliance() calls)
         var alliance = DriverStation.getAlliance();
         if (alliance.isPresent() && alliance.get() == Alliance.Red) {
             cachedHubX = Constants.Targeting.RED_ALLIANCE_HUB_CENTER_X;
@@ -195,7 +169,6 @@ public class Swerve extends SubsystemBase {
         }
     }
 
-//Methods start here:
 
     public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
         var alliance = DriverStation.getAlliance();
@@ -220,12 +193,12 @@ public class Swerve extends SubsystemBase {
         }
     }    
 
-    /* Used by SwerveControllerCommand in Auto */
+   
     public void setModuleStates(SwerveModuleState[] desiredStates) {
         SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, Constants.Swerve.maxSpeed);
         
         for(SwerveModule mod : mSwerveMods){
-            mod.setDesiredState(desiredStates[mod.moduleNumber], false); //closed loop auto
+            mod.setDesiredState(desiredStates[mod.moduleNumber], false);
         }
     }
 
@@ -245,17 +218,14 @@ public class Swerve extends SubsystemBase {
         return positions;
     }
 
-    // drive method used/required for path planner. Basically just a rewritten drive() (refer to above) method 
     public void driveWithChassisSpeeds(ChassisSpeeds chassisSpeeds) {
         SwerveModuleState[] swerveModuleStates = Constants.Swerve.swerveKinematics.toSwerveModuleStates(chassisSpeeds);
         SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.Swerve.maxSpeed);
 
         for(SwerveModule mod : mSwerveMods){
-            mod.setDesiredState(swerveModuleStates[mod.moduleNumber], true); //TODO: may be worth it to check out closedLoop, especially for auto. light research indicates it may be more precise (but less responsive to input)?
+            mod.setDesiredState(swerveModuleStates[mod.moduleNumber], true);
         }
     }
-
-        //Follows path that assumes starting pose is robot's current pose (by RESETTING the robots odometry to be the start pose of the path)
 
     public Command followPathCommand(String pathName) {
         try {
@@ -265,9 +235,9 @@ public class Swerve extends SubsystemBase {
 
             PathPlannerPath path = PathPlannerPath.fromPathFile(pathName);
             
-            Pose2d bluePathStartingPose = path.getStartingHolonomicPose().get(); // starting pose of path, defaults to blue side coordinates
+            Pose2d bluePathStartingPose = path.getStartingHolonomicPose().get();
             
-            if (DriverStation.getAlliance().get() == Alliance.Red) { // if red alliance, flip the path starting pose
+            if (DriverStation.getAlliance().get() == Alliance.Red) { 
                 this.resetPose(FlippingUtil.flipFieldPose(bluePathStartingPose));
             } else  {
                 this.resetPose(path.getStartingHolonomicPose().get());
@@ -300,8 +270,6 @@ public class Swerve extends SubsystemBase {
         }
     }
 
-    // Barebones and default PathPlanner way of following a path. This means that if the robot is not at the start pose of the path,
-    // it will attempt to move there (this is done by PathPlanner). Therefore, ONLY USE if you know robot has a pose and it is at/extremely close to start pose
     public Command followPathCommandNoReset(String pathName) {
         try {
             PathPlannerPath path = PathPlannerPath.fromPathFile(pathName);
@@ -313,14 +281,13 @@ public class Swerve extends SubsystemBase {
         }
     }
 
-    //Follows a path where end pose does not change, but it starts at the robot's current pose. Does not retain event markers (if applicable)
     public Command followPathCommandRobotStartingPose(String pathName) {
         try {
             PathPlannerPath originalPath = PathPlannerPath.fromPathFile(pathName);
-            PathConstraints constraints = originalPath.getGlobalConstraints(); // just use original path's constraints by default. if this doesn't work then can reconstruct
+            PathConstraints constraints = originalPath.getGlobalConstraints();
 
             List<Waypoint> newWaypoints = originalPath.getWaypoints();
-            newWaypoints.set(0, PathPlannerPath.waypointsFromPoses(this.getPose()).get(0)); // turns robot's current pose into waypoint, sets it as first waypoint
+            newWaypoints.set(0, PathPlannerPath.waypointsFromPoses(this.getPose()).get(0)); 
 
             PathPlannerPath path = new PathPlannerPath(
                 newWaypoints, 
@@ -340,7 +307,7 @@ public class Swerve extends SubsystemBase {
         try {
             Pose2d robotPoseBlue;
             
-            // Alliance Check
+        
             if (DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red) { 
                 robotPoseBlue = FlippingUtil.flipFieldPose(this.getPose());
             } else  {
@@ -359,7 +326,7 @@ public class Swerve extends SubsystemBase {
             Rotation2d splineHeading = pathEndPose.getTranslation().minus(robotPoseBlue.getTranslation()).getAngle();
             Pose2d startPoseForSpline = new Pose2d(robotPoseBlue.getTranslation(), splineHeading);
 
-            // USE START POSE BC IT USES BLUE ONLY AUTOBUILDER I THINK FLIPS IT FOR US
+        
             List<Waypoint> waypoints = PathPlannerPath.waypointsFromPoses(
                 startPoseForSpline, 
                 pathEndPose 
@@ -380,11 +347,10 @@ public class Swerve extends SubsystemBase {
         }
     }
 
-    public Command getClimbTargetingPathNew() { // rename to actual once tested
+    public Command getClimbTargetingPathNew() {
         try {
             Pose2d robotPoseBlue;
             
-            // Alliance Check
             if (DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red) { 
                 robotPoseBlue = FlippingUtil.flipFieldPose(this.getPose());
             } else  {
@@ -393,7 +359,7 @@ public class Swerve extends SubsystemBase {
             
             Pose2d pathEndPoseBlue;
             if (robotPoseBlue.getY() < Constants.Targeting.BLUE_TOWER_CENTER_Y_METERS) {
-                pathEndPoseBlue = new Pose2d(1.640, 3.304, Rotation2d.fromDegrees(0)); // 3.304 might be 3.302 instead
+                pathEndPoseBlue = new Pose2d(1.640, 3.304, Rotation2d.fromDegrees(0));
             } else {
                 pathEndPoseBlue = new Pose2d(1.640, 4.162, Rotation2d.fromDegrees(0));
             }
@@ -407,9 +373,9 @@ public class Swerve extends SubsystemBase {
                 12.0
             );
 
-            if (robotPoseBlue.getY() < Constants.Targeting.BLUE_TOWER_CENTER_Y_METERS) { // right tower, from driver station pov
+            if (robotPoseBlue.getY() < Constants.Targeting.BLUE_TOWER_CENTER_Y_METERS) {
                 return AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("tr0_to_cr0"), constraints);
-            } else { // left tower, from driver station pov
+            } else { 
                 return AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("tl0_to_cl0"), constraints);
             }
 
@@ -419,65 +385,22 @@ public class Swerve extends SubsystemBase {
         }
     }
     
-    // ALSO WE CAN USE AutoBuilder.pathfindToPose(targetPose, constraints); I FOUND OTHERS USING IT
-
-    // public Command getClimbTargetingPath() {
-    //     try {
-    //         Pose2d robotPoseBlue;
-            
-    //         if (DriverStation.getAlliance().get() == Alliance.Red) { // if red alliance, flip the path starting pose
-    //             robotPoseBlue = (FlippingUtil.flipFieldPose(this.getPose()));
-    //         } else  {
-    //             robotPoseBlue = this.getPose();    
-    //         }
-
-            
-    //         // this placeholder path is only used to get global constraints; could also put in manually
-    //         PathConstraints constraints = PathPlannerPath.fromPathFile("climb-targeting").getGlobalConstraints();
-    //         Pose2d pathEndPose;
-
-    //         if (robotPoseBlue.getY() < Constants.Targeting.BLUE_TOWER_CENTER_Y_METERS) {
-    //             pathEndPose = new Pose2d(1.146 + Constants.Targeting.ROBOT_WIDTH_METERS / 2.0, 3.302, Rotation2d.fromDegrees(180)); // 0 degrees is travel direction at poitn, not heading
-    //         } else {
-    //             pathEndPose = new Pose2d(1.146 + Constants.Targeting.ROBOT_WIDTH_METERS / 2.0, 4.153, Rotation2d.fromDegrees(180));
-    //         }
-
-    //         List<Waypoint> waypoints = PathPlannerPath.waypointsFromPoses(
-    //             this.getPose(), // start at robot's current pose
-    //             pathEndPose // end at fixed pose in front of tower)
-    //         );
-
-    //         // this path is all blue relative. however, it should be flipped automatically according to PathPlanner
-    //         PathPlannerPath path = new PathPlannerPath(
-    //             waypoints, 
-    //             constraints, // these constraints will likely need to be tuned
-    //             null, 
-    //             new GoalEndState(0.0, Rotation2d.fromDegrees(0))
-    //         );
-            
-    //         return AutoBuilder.followPath(path);
-    //     } catch (Exception e) {
-    //         DriverStation.reportError(e.getMessage(), e.getStackTrace());
-    //         return Commands.none();
-    //     }
-    // }
-
-    //Follows path relative to robot's current pose (shifts all poses and states to accomodate). Different than just changing the starting pose to Robot and keeping end same (as above)
+    
     public Command followPathCommandRobotRelative(String pathName) {
         try {
             PathPlannerPath originalPath = PathPlannerPath.fromPathFile(pathName);
 
-            PathConstraints constraints = originalPath.getGlobalConstraints(); // just use original path's constraints by default. if this doesn't work then can reconstruct
+            PathConstraints constraints = originalPath.getGlobalConstraints(); 
             IdealStartingState originalStartingState = originalPath.getIdealStartingState();
             GoalEndState originalGoalEndState = originalPath.getGoalEndState();
             
             Pose2d pathInitialPose = originalPath.getStartingHolonomicPose().get(); 
             List<Pose2d> newPoses = new ArrayList<>();
-            newPoses.add(this.getPose()); // start with current robot pose
+            newPoses.add(this.getPose()); 
 
             int i = 0;
             for (Pose2d pose : originalPath.getPathPoses()) {
-                if (i > 0) { // skip first pose since it has already been added
+                if (i > 0) { 
                     newPoses.add(this.getPose().transformBy(pose.minus(pathInitialPose))); 
                 }
 
@@ -502,7 +425,6 @@ public class Swerve extends SubsystemBase {
         try {
             Pose2d robotPoseBlue;
             
-            // Alliance Check
             if (DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red) { 
                 robotPoseBlue = FlippingUtil.flipFieldPose(this.getPose());
             } else  {
@@ -521,7 +443,6 @@ public class Swerve extends SubsystemBase {
             Rotation2d splineHeading = pathEndPose.getTranslation().minus(robotPoseBlue.getTranslation()).getAngle();
             Pose2d startPoseForSpline = new Pose2d(robotPoseBlue.getTranslation(), splineHeading);
 
-            // USE START POSE BC IT USES BLUE ONLY AUTOBUILDER I THINK FLIPS IT FOR US
             List<Waypoint> waypoints = PathPlannerPath.waypointsFromPoses(
                 startPoseForSpline, 
                 pathEndPose 
@@ -570,7 +491,6 @@ public class Swerve extends SubsystemBase {
     }
 
     public Rotation2d getGyroYaw() {
-        //return Rotation2d.fromDegrees(gyro.getYaw().getValue());
        return Rotation2d.fromDegrees(gyro.getYaw().getValueAsDouble());
     }
 
@@ -581,38 +501,32 @@ public class Swerve extends SubsystemBase {
     }
 
     public void getLLPose() {
-            // turn on the LED,  3 = force on
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
-        // s_Swerve.zeroHeading(); //added this to fix the targeting going the wrong way
-
-        //tv =1 means Limelight sees a target
         tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
 
         Optional<Alliance> ally = DriverStation.getAlliance();
-        if (ally.isPresent()  && (tv == 1)) { //have alliance color and see target
+        if (ally.isPresent()  && (tv == 1)) {
             if (ally.get() == Alliance.Red){
             poseLL = LimelightHelpers.getBotPose2d_wpiRed("limelight");
-            //  s_Swerve.resetPose(poseLL); //do this later in ResetPose command
+
             }
             if (ally.get() == Alliance.Blue){
             poseLL = LimelightHelpers.getBotPose2d_wpiBlue("limelight");
-            // s_Swerve.resetPose(poseLL); //do this later in ResetPose command
+            
             }   
         }
-        //else do nothing
+
     }
 
     public void getTargetPose(Pose2d targetPose) {
         Optional<Alliance> ally = DriverStation.getAlliance();
         if (ally.get() == Alliance.Blue){
-            this.targetPose = new Pose2d(targetPose.getX(), targetPose.getY(), targetPose.getRotation().plus(new Rotation2d(Math.PI))); //do this later in ResetPose command
+            this.targetPose = new Pose2d(targetPose.getX(), targetPose.getY(), targetPose.getRotation().plus(new Rotation2d(Math.PI)));
         }
-        if (ally.get() == Alliance.Red){ // not sure why but we needed to swap these
-            this.targetPose = targetPose; //do this later in ResetPose command
+        if (ally.get() == Alliance.Red){ 
+            this.targetPose = targetPose; 
         }   
-
-        // this.resetPose(targetPose);
 
     }
 
@@ -632,10 +546,8 @@ public class Swerve extends SubsystemBase {
 
         m_poseEstimator.update(getGyroYaw(), getModulePositions());
 
-        boolean useMegaTag2 = true; //set to false to use MegaTag1
+        boolean useMegaTag2 = true;
 
-        // evaluating which Megatag one or two to use based on above boolean value and 
-        // only incorporate Limelight's estimates when more than one tag is visible (tagcount >= 1)
         if (useMegaTag2 == false)
         {
             for (String limelightName : Constants.Targeting.CAMERA_NAMES) {
@@ -643,7 +555,7 @@ public class Swerve extends SubsystemBase {
                 LimelightHelpers.PoseEstimate estimateMT1 = LimelightHelpers.getBotPoseEstimate_wpiBlue(limelightName);
 
                 if (estimateMT1 == null) {
-                    break; // if estimate is null, skip to next limelight (this is to prevent errors/crashes when limelight is not detected for a split second, which happens sometimes when starting robot/building code)
+                    break; 
                 }
 
                 if((estimateMT1.tagCount == 1 && estimateMT1.rawFiducials.length == 1))
@@ -652,7 +564,7 @@ public class Swerve extends SubsystemBase {
                     if(estimateMT1.rawFiducials[0].distToCamera > 3) { useThisEstimate = false; }
                 }
 
-                if(estimateMT1.tagCount == 0) { // if no tags are visible, ignore vision updates
+                if(estimateMT1.tagCount == 0) { 
                     useThisEstimate = false; 
                 }
 
@@ -666,25 +578,21 @@ public class Swerve extends SubsystemBase {
         } else if (useMegaTag2) {
             for (String limelightName : Constants.Targeting.CAMERA_NAMES) {   
                 boolean useThisEstimate = true;
-                // only incorporate Limelight's estimates when more than one tag is visible (tagcount >= 1)
-                // line below is required because megatag2 requires the limelight to know the robot's current rotation, as it USES it instead of providing it like in MT1
                 LimelightHelpers.SetRobotOrientation(limelightName, m_poseEstimator.getEstimatedPosition().getRotation().getDegrees(), 0, 0, 0, 0, 0);
                 LimelightHelpers.PoseEstimate estimateMT2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(limelightName);
                 
-                // sometimes when starting robot/building code, mt2 == null for a split second, so need to check for that or code errors and crashes
                 if (estimateMT2 == null) {
                     break;
                 }
                 
-                if (Math.abs(gyro.getAngularVelocityZWorld().getValueAsDouble()) > 720 || estimateMT2.tagCount == 0) // if our angular velocity is greater than 720 degrees per second, ignore vision updates
+                if (Math.abs(gyro.getAngularVelocityZWorld().getValueAsDouble()) > 720 || estimateMT2.tagCount == 0)
                 {
                     useThisEstimate = false;
                 }
 
                 if (useThisEstimate)
                 {
-                    // n3 (yaw) set to high number because MegaTag2 uses robot's yaw instead of getting it for you
-                    m_poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7, 999999)); // n3 was 9999999 
+                    m_poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7, 999999));
                     m_poseEstimator.addVisionMeasurement(
                         estimateMT2.pose,
                         estimateMT2.timestampSeconds);
@@ -694,41 +602,12 @@ public class Swerve extends SubsystemBase {
     }
 
     public double calculateTargetingPID (double HUBX, double HUBY) {
-      // CALCULATED THE ANGLE TO FACE THE CENTER OF THE HUB
       Pose2d currentPose = getPose();
-
-    // --------------------------------------------------
-    // RATHER HAVE THIS IN TWO SEPERATE COMANDS
-    // --------------------------------------------------
-
-    //   boolean shouldPass = false;
-    //   var alliance = DriverStation.getAlliance();
-
-    //   if (alliance.isPresent()){
-    //     if (alliance.get() == Alliance.Red) {
-    //         if (currentPose.getX() < Units.inchesToMeters(Constants.Targeting.RED_ALLIANCE_HUB_CENTER_X - Constants.Targeting.ROBOT_WIDTH_INCHES * 1.5)) {
-    //             shouldPass = true;
-    //         }
-    //     } else {
-    //         if (currentPose.getX() > Units.inchesToMeters(Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_X + Constants.Targeting.ROBOT_WIDTH_INCHES * 1.5)) {
-    //             shouldPass = true;
-    //         }
-    //     }
-    //   }
-
-    //   if (shouldPass) {
-    //     if (alliance.get() == Alliance.Red) {
-    //         return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), 0); // if we have passed the hub, just face backwards
-    //     } else {
-    //         return pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), Math.toRadians(180)); // if we have passed the hub, just face backwards
-    //     }
-    //   }
 
       double dx = HUBX - Units.metersToInches(currentPose.getX());
       double dy = HUBY - Units.metersToInches(currentPose.getY());
       double targetAngle = Math.atan2(dy, dx);
 
-      // USES PID TO ROTATE THE ROBOT EFFECTIVELY
       double pidOutput = pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), targetAngle);
       return pidOutput;
     }
@@ -739,9 +618,9 @@ public class Swerve extends SubsystemBase {
         var alliance = DriverStation.getAlliance();
 
         if (alliance.isPresent() && alliance.get() == Alliance.Red) {
-            targetAngle = 0; // opposite of blue
+            targetAngle = 0; 
         } else {
-            targetAngle = Math.toRadians(180); // facing 180 on blue will face towards drivers
+            targetAngle = Math.toRadians(180); 
         }
 
         double pidOutput = pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), targetAngle);
@@ -755,7 +634,6 @@ public class Swerve extends SubsystemBase {
         return pidOutput;
     }
 
-    // this method will return pid output to rotate robot heading to face its moving direction.
     public double getPPOverrideHeadingFeedback() {
         Pose2d currentPose = getPose();
 
@@ -843,7 +721,7 @@ public class Swerve extends SubsystemBase {
                 HUBX = Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_X;
                 HUBY = Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_Y;
            }
-           // CALCULATED THE DISTANCE TO THE CENTER OF THE HUB
+           
             Pose2d currentPose = getPose();
             double dx = HUBX - Units.metersToInches(currentPose.getX());
             double dy = HUBY - Units.metersToInches(currentPose.getY());
@@ -854,7 +732,6 @@ public class Swerve extends SubsystemBase {
       return 0;
    }
 
-   // THIS IS A DUPLICATE OF calculateTargetingAutoPID (DONT KNOW??)
    public double pidCalculateAngle (double targetAngle) {
    Pose2d currentPose = getPose();
    double pidOutput = pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), targetAngle);
@@ -938,7 +815,6 @@ public class Swerve extends SubsystemBase {
             }
         }
 
-        // DEFAULT HUB AIMING
         double dx = HUBX - Units.metersToInches(currentPose.getX());
         double dy = HUBY - Units.metersToInches(currentPose.getY());
         double targetAngle = Math.atan2(dy, dx);
@@ -966,10 +842,10 @@ public class Swerve extends SubsystemBase {
     }
 
     public double getShakingOffset() {
-        double shakeFrequency = Constants.Targeting.SHAKE_FREQUENCY; // # OF FULL SHAKES PER SECOND
-        double shakeSpread = Constants.Targeting.SHAKE_SPREAD; // THE CHANGE FROM CENTER HUB
+        double shakeFrequency = Constants.Targeting.SHAKE_FREQUENCY;
+        double shakeSpread = Constants.Targeting.SHAKE_SPREAD;
 
-        double distanceInches = Math.max(getDistanceToHub(), 1.0); // CLAMP INCASE DISTANCE RETURNS 0
+        double distanceInches = Math.max(getDistanceToHub(), 1.0);
 
         double amplitudeRadians = shakeSpread / distanceInches;
 
@@ -1010,9 +886,6 @@ public class Swerve extends SubsystemBase {
 
     @Override
     public void periodic(){
-        //SmartDashboard.putNumber("limelight standoff fwd", LimelightHelpers.getTargetPose_CameraSpace("limelight")[2]);
-
-        //swerveOdometry.update(getGyroYaw(), getModulePositions());
         MegaTag2UpdateOdometry();
         SmartDashboard.putNumber("auto pivot desired rotation (red)", Units.radiansToDegrees(getAngleOfHub(Constants.Targeting.RED_ALLIANCE_HUB_CENTER_X, Constants.Targeting.RED_ALLIANCE_HUB_CENTER_Y)));
         SmartDashboard.putNumber("auto pivot current rotation (red)", getPose().getRotation().getDegrees());
@@ -1021,26 +894,13 @@ public class Swerve extends SubsystemBase {
         SmartDashboard.putNumber("** RobotPoseY (Estimator)", Units.metersToInches( m_poseEstimator.getEstimatedPosition().getY()));
         SmartDashboard.putNumber("MegaTag2Rotation (Estimator)", m_poseEstimator.getEstimatedPosition().getRotation().getDegrees());
        SmartDashboard.putBoolean("Is in nuetral", inNeutralZone());
-        //System.out.println(swerveOdometry.getPoseMeters().getX() + " " + swerveOdometry.getPoseMeters().getY() + " Rotation: " + swerveOdometry.getPoseMeters().getRotation().getDegrees());
 
         for(SwerveModule mod : mSwerveMods){
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " CANcoder degrees", mod.getCANcoder().getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Angle degrees", mod.getPosition().angle.getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);
-            // Can't use m/s in the key!! SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity m/s", mod.getState().speedMetersPerSecond);
         }
 
         field.setRobotPose(getPose());
-        // var traj = field.getObject("trajectory");
-        // traj.setPoses(
-        //     getPose(), 
-        //     getPose().plus(
-        //         new Transform2d(
-        //             new Translation2d(5, 0), // 1 meter straight ahead of the robot
-        //             new Rotation2d() // same rotation as robot
-        //         )
-        //     )
-        //     ); // example trajectory visualization, replace with actual trajectory if desired
-        // SmartDashboard.putData("Field", field);
     }
 }
