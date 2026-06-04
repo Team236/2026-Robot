@@ -17,18 +17,30 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.lib.util.COTSTalonFXSwerveConstants;
 
+// -------------------------------------------------------------------------------------------
+// The constants file is contains numeric values for different variables that can be accessed.
+// This prevents hardcoded values (magic numbers) in subsystem / command files, minimizes
+// error, and simplifies tuning by allowing robot variables to be updated in one place.
+// -------------------------------------------------------------------------------------------
+
 public final class Constants {
   public static final double stickDeadband = 0.1;
+
+  // -------------------------------------------------------------------------------------------
+  // Within the Constants "class" the varaibles are organized into more descriptive classes. 
+  // This makes it easier to locate specific variables. For example the Controller class holds
+  // the value of the different drive controllers. (See lines 36 to 37)
+  // -------------------------------------------------------------------------------------------
 
   public static final class Controller {
     public static final int USB_DRIVECONTROLLER = 0;
     public static final int USB_AUXCONTROLLER = 1;
   }
 
-  public static final int DIO_AUTO_1 = 0;
-  public static final int DIO_AUTO_2 = 1;
-  public static final int DIO_AUTO_3 = 2;
-  public static final int DIO_AUTO_4 = 3;
+  // -------------------------------------------------------------------------------------------
+  // To control a motor it must have a unique ID associated with it. This allows the computing
+  // system to send and recieve data from that motor. (See lines 48 to 55)
+  // -------------------------------------------------------------------------------------------
 
   public static class MotorControllers {
     public static final int SMART_CURRENT_LIMIT = 40;
@@ -42,6 +54,15 @@ public final class Constants {
     public static final int ID_CLIMBER = 13;
     public static final int ID_PRE_FEEDER = 14;
   }
+
+  // -------------------------------------------------------------------------------------------
+  // PIDF controlers are a common way to control a motor and use feedback. It stands for 
+  // proportinal, integral, and dirivative. The Kv is an initial baseline voltage, Kp is a 
+  // corrective force based on current error, Ki is an accumulative error to eliminates steady 
+  // state error by accumulating past error over time, Kd is a "breaking force" as the motor 
+  // approaches its target to prevent overshoot. Their numeric values are stored within this
+  // constants file and are used in subsystems. (See lines 70 to 73 & 80 to 83)
+  // -------------------------------------------------------------------------------------------
 
   public static class ShooterConstants {
     public static final double MAIN_MOTOR_RPM = 2550;
@@ -61,6 +82,13 @@ public final class Constants {
     public static final double KI_PF = 0;
     public static final double KD_PF = 0;
   }
+
+  // -------------------------------------------------------------------------------------------
+  // The "BinReleaseConstants" class contains many numeric values including DIO variables. DIO
+  // stands for Digital Input Output. DIO's are sensors using booleans. In this case the DIO's
+  // are used to know if a bin mechanism is able to continue to move foward or backwards. These
+  // values "8" and "9" tell the code what pins to read on the Robo Rio. (See lines 95 to 96)
+  // -------------------------------------------------------------------------------------------
 
   public static final class BinReleaseConstants {
 
@@ -88,7 +116,24 @@ public final class Constants {
     public static final double BIN_AGITATE_DOWN_POSSITION = 31.0;
   }
 
+  // -------------------------------------------------------------------------------------------
+  // Similar to the DIOs used in the "BinReleaseConstants" class, motor revs, revolutions, can
+  // be monitored to know where a mechanism is relative to its starting possitition. These revs
+  // also serve as target positions for a PIDF controller. (See lines 106, 109, & 114 to 116)
+  // -------------------------------------------------------------------------------------------
+
+  // ----------------------------------------------------------------------------------------------
+  // The "ChangableBinConstants" class allows for changable values of variables through a dashboard.
+  // This improves testing time as new values can be evaluated without editing code and redeploying.
+  // (See lines 131 to 184)
+  // ----------------------------------------------------------------------------------------------
+
   public static class ChangableBinConstants {
+
+    // ----------------------------------------------------------------------------------------------
+    // Initial numeric values are set to each variable (See line 137 to 147)
+    // ----------------------------------------------------------------------------------------------
+
     public static double BIN_WAIT_TIME = 1.25;
     public static double BIN_BEGINNING_TIME = 2.0;
     public static double BIN_BEGINNING_TRAVEL_DISTANCE = 8.0;
@@ -98,9 +143,12 @@ public final class Constants {
     public static double BIN_EXTEND_RISING_SPEED = 0.3;
     public static double BIN_RISING_TRAVEL_UP_DISTANCE = 9.0;
     public static double BIN_RISING_NET_CHANGE_DISTANCE = 4.5;
-
     public static double BIN_AGITATE_END_POSITION = 7.5;
     public static boolean USE_RISING_AGITATE = true;
+
+    // ----------------------------------------------------------------------------------------------
+    // The method "pushToDashboard()" sends the current values of each variable (See line 153 to 165)
+    // ----------------------------------------------------------------------------------------------
 
     public static void pushToDashboard() {
       SmartDashboard.putNumber("Bin Tuning/Agitate End Position", BIN_AGITATE_END_POSITION);
@@ -116,6 +164,11 @@ public final class Constants {
       SmartDashboard.putBoolean("Bin Tuning/Use Rising", USE_RISING_AGITATE);
     }
 
+    // ----------------------------------------------------------------------------------------------
+    // The method "pullFromDashboard()" gets the current number assigned to each of the dashboard
+    // elements and updates the varaibles in the "ChangableBinConstants" class. (See line 172 to 183)
+    // ----------------------------------------------------------------------------------------------
+
     public static void pullFromDashboard() {
       BIN_AGITATE_END_POSITION = SmartDashboard.getNumber("Bin Tuning/Agitate End Position", BIN_AGITATE_END_POSITION);
       BIN_RETRACT_BEGINNING_SPEED = SmartDashboard.getNumber("Bin Tuning/Retract Beginning Speed", BIN_RETRACT_BEGINNING_SPEED);
@@ -130,6 +183,12 @@ public final class Constants {
     }
   }
 
+  // ----------------------------------------------------------------------------------------------
+  // The "FORWARD_SPEED" and "REVERSE_SPEED" contian a number -1 to 1 instructing the computer how
+  // much voltage should be supplied to a motor, where -1 is 100% reverse and 1 is 100% forward.
+  // (See lines 200 to 201)
+  // ----------------------------------------------------------------------------------------------
+
   public static class ShooterPivotConstants {
     public static final int DIO_EXT_LIMIT = 4;
     public static final int DIO_RET_LIMIT = 5;
@@ -141,6 +200,10 @@ public final class Constants {
     public static final double CONSTANT_FORWARD_SPEED = 0.1;
     public static final double CONSTANT_REVERSE_SPEED = -0.1;
   }
+
+  // ----------------------------------------------------------------------------------------------
+  // The constants classes below are similar to the ones explained before (See lines 204 to 243)
+  // ----------------------------------------------------------------------------------------------
 
   public static class ClimberConstants {
     public static final int DIO_CLIMBER_TOP = 6;
@@ -178,6 +241,10 @@ public final class Constants {
     public static final double KI_F = 0.0;
     public static final double KD_F = 0.0;
   }
+  
+  // ----------------------------------------------------------------------------------------------
+  // The "Targeting" class contains similar code to "ChangableBinConstants" (See lines 251 to 269)
+  // ----------------------------------------------------------------------------------------------
 
   public static final class Targeting {
 
@@ -201,6 +268,10 @@ public final class Constants {
       END_TIME = SmartDashboard.getNumber("Shooter Tuning/END_TIME", END_TIME);
     }
 
+    // ----------------------------------------------------------------------------------------------
+    //  The "CAMERA_NAMES" array defines 2 unique camera names for limelights (See lines 275 to 278)
+    // ----------------------------------------------------------------------------------------------
+
     public static final String[] CAMERA_NAMES = {
         "limelight",
         "limelight-back"
@@ -220,6 +291,12 @@ public final class Constants {
 
     public static final double AUTO_SHAKE_KP = 90.0;
     public static final double AUTO_SHAKE_KD = 0.0;
+
+    // ----------------------------------------------------------------------------------------------
+    // The use of "InterpolatingDoubleTreeMap" allows for data to be stored and later pulled from.
+    // These are usefull as they return values for any key passed in. A key that of 200 might not be
+    // entered however an interpolation will be performed and a value returned. (See lines 301 to 353)
+    // ----------------------------------------------------------------------------------------------
 
     public static final InterpolatingDoubleTreeMap hoodAngleMap = new InterpolatingDoubleTreeMap();
 
