@@ -1,5 +1,4 @@
 package frc.robot;
-
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.signals.SensorDirectionValue;
@@ -29,7 +28,7 @@ public final class Constants {
   // -------------------------------------------------------------------------------------------
   // Within the Constants "class" the varaibles are organized into more descriptive classes. 
   // This makes it easier to locate specific variables. For example the Controller class holds
-  // the value of the different drive controllers. (See lines 36 to 37)
+  // the value of the different drive controllers. (See lines 35 to 38)
   // -------------------------------------------------------------------------------------------
 
   public static final class Controller {
@@ -356,6 +355,10 @@ public final class Constants {
         .loadField(AprilTagFields.k2026RebuiltAndymark);
     private static Pose3d poseExample = APRIL_TAG_LAYOUT.getTagPose(10).get();
 
+    // ----------------------------------------------------------------------------------------------
+    // Field coordinates can also be stored in Constants. (See lines 363 to 376)
+    // ----------------------------------------------------------------------------------------------
+
     public static final double RED_ALLIANCE_HUB_CENTER_X = 468.56;
     public static final double RED_ALLIANCE_HUB_CENTER_Y = 158.32;
 
@@ -372,10 +375,20 @@ public final class Constants {
     public static final double BLUE_NEUTRAL_MID_LEFT = 125;
   }
 
+    // ----------------------------------------------------------------------------------------------
+    // Pathplanner uses PID controllers. These constants are stored below. (See lines 384 to 385)
+    // ----------------------------------------------------------------------------------------------
+
   public static final class PathPlanner {
     public static final PIDConstants TRANSLATION_PID_CONSTANTS = new PIDConstants(10, 0.0, 0.0);
     public static final PIDConstants ROTATION_PID_CONSTANTS = new PIDConstants(4, 0.0, 0.2);
   }
+
+    // ----------------------------------------------------------------------------------------------
+    // The Constants file holds many values, critical for many systems. The code below stores values
+    // that the swerve code uses during its calculations. Try to understand the code bellow on your
+    // own using the information you have already learned. (See lines 394 to 489)
+    // ----------------------------------------------------------------------------------------------
 
   public static final class Swerve {
     public static final int pigeonID = 1;
@@ -388,6 +401,10 @@ public final class Constants {
     public static final double trackWidth = Units.inchesToMeters(20.5);
     public static final double wheelBase = Units.inchesToMeters(20.5);
     public static final double wheelCircumference = chosenModule.wheelCircumference;
+
+    // ----------------------------------------------------------------------------------------------
+    // Translation2d is a method used to store cordinates in one object. (See lines 411 to 414)
+    // ----------------------------------------------------------------------------------------------
 
     public static final SwerveDriveKinematics swerveKinematics = new SwerveDriveKinematics(
         new Translation2d(wheelBase / 2.0, trackWidth / 2.0),
@@ -437,6 +454,18 @@ public final class Constants {
     public static final NeutralModeValue angleNeutralMode = NeutralModeValue.Coast;
     public static final NeutralModeValue driveNeutralMode = NeutralModeValue.Brake;
 
+    // ----------------------------------------------------------------------------------------------
+    // It is not necessary to understand the exact definitions of all constants. Rather understanding
+    // the idea of a global set of values interacting with all systems in far more inportant. 
+    // ----------------------------------------------------------------------------------------------
+
+    // ----------------------------------------------------------------------------------------------
+    // Mod, or modules, refer to the physical swerve modules we use. Mod0 contains  a drive and 
+    // stearing motor. These hardware components are defined below. The "angleOffset" constant
+    // provides an offset value to help the wheels auto rotate straight when enableing the robot.
+    // (See lines 470 to 504)
+    // ----------------------------------------------------------------------------------------------
+
     public static final class Mod0 {
       public static final int driveMotorID = 7;
       public static final int angleMotorID = 6;
@@ -474,6 +503,11 @@ public final class Constants {
     }
   }
 
+  // ----------------------------------------------------------------------------------------------
+  // The "AutoConstants" class contains set values specific to this years robot. These can be later
+  // used for pathplanner or path creations. (See lines 512 to 522)
+  // ----------------------------------------------------------------------------------------------
+
   public static final class AutoConstants {
     public static final double kMaxSpeedMetersPerSecond = 5.0;
     public static final double kMaxAccelerationMetersPerSecondSquared = 4.0;
@@ -486,6 +520,11 @@ public final class Constants {
     public static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(
         kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
   }
+
+  // ----------------------------------------------------------------------------------------------
+  // The "XboxController" maps button, axis, and POV constants corresponding to standard Xbox 
+  // controller mappings. (See lines 530 to 557)
+  // ----------------------------------------------------------------------------------------------
 
   public static class XboxController {
     public static final int A = 1;
@@ -516,14 +555,3 @@ public final class Constants {
     }
   }
 }
-
-/*
- * ROBO STUFF YAY
- * 
- * Width: 27.5in, 0.6985m
- * Length: 27.5in, 0.6985m
- * LLForward: -8.5in, -0.2159m
- * LLSideways: 0in, 0m
- * LLUp: 20.5in, 0.5207m
- * LLPitch: 24deg
- */
