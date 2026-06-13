@@ -36,19 +36,39 @@ import frc.robot.commands.BinRelease.OverrideMove;
 import frc.robot.commands.BinRelease.PIDMove;
 import frc.robot.subsystems.BinRelease;
 
+/**
+ * This class is where the bulk of the robot is declared. Since Command-based is a
+ * "declarative" paradigm, very little robot logic should actually be handled in the 
+ * {@link Robot} periodic methods. Instead, the structure of the robot (including
+ * subsystems, commands, and button mappings) should be declared here.
+ */
+
 public class RobotContainer {
 
+  /** The primary controller used by the chassis driver. */
   public static final XboxController driverController = new XboxController(Constants.Controller.USB_DRIVECONTROLLER);
+
+  /** The secondary controller used by the mechanism operator (co-driver). */
   public static final XboxController auxController = new XboxController(Constants.Controller.USB_AUXCONTROLLER);
 
+  /**
+   * A dropdown menu sent to the SmartDashboard allowing the drive team to select
+   * the autonomous routine.
+   */
   private final SendableChooser<Command> autoChooser;
+
+  // Joystick axis mappings for the swerve drive
   private final int translationAxis = XboxController.Axis.kLeftY.value;
   private final int strafeAxis = XboxController.Axis.kLeftX.value;
   private final int rotationAxis = XboxController.Axis.kRightX.value;
 
+  // Driver controller buttons
   private final JoystickButton zeroGyro = new JoystickButton(driverController, XboxController.Button.kY.value);
   private final JoystickButton robotCentric = new JoystickButton(driverController, XboxController.Button.kLeftBumper.value);
 
+  // Subsystem Declarations. These instantiate the physical mechanisms of the
+  // robot exactly once.
+  // They are then passed (they are parameters) into the commands that need to use them.
   private final ShooterPivot shooterPivot = new ShooterPivot();
   private final MainRoller mainRoller = new MainRoller();
   private final BinRelease binRelease = new BinRelease();
@@ -58,6 +78,8 @@ public class RobotContainer {
   private final Floor floor = new Floor();
   private final PreFeeder preFeeder = new PreFeeder();
 
+  // Command Declarations.
+  // These instantiate specific actions the robot can perform, linking a behavior to a subsystem.
   private final ManualPivot manualPivotExtend = new ManualPivot(shooterPivot, Constants.ShooterPivotConstants.CONSTANT_FORWARD_SPEED);
   private final ManualPivot manualPivotRetract = new ManualPivot(shooterPivot, Constants.ShooterPivotConstants.CONSTANT_REVERSE_SPEED);
 
@@ -70,7 +92,15 @@ public class RobotContainer {
   private final ClimberSetSpeed climberManualUp = new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_UP_SPEED);
   private final ClimberSetSpeed climberManualDown = new ClimberSetSpeed(climber, Constants.ClimberConstants.CLIMBER_DOWN_SPEED);
 
+  /**
+   * The container for the robot. Contains subsystems, OI devices, and commands.
+   * This constructor runs once when the robot boots up.
+   */
+
   public RobotContainer() {
+
+    // Defines the default state of the swerve drive when no other commands are
+    // actively requiring it.
     s_Swerve.setDefaultCommand(
       new TeleopSwerve(
         s_Swerve,
@@ -80,6 +110,9 @@ public class RobotContainer {
         () -> robotCentric.getAsBoolean())
     );
 
+    // PathPlanner Named Commands.
+    // Registers specific command routines so they can be triggered visually within
+    // the PathPlanner UI.
     NamedCommands.registerCommand("shoot", new AutoPrepShooter(shooterPivot, mainRoller, s_Swerve, preFeeder, floor, intake, binRelease));
     NamedCommands.registerCommand("prep-climber", climberPrep);
     NamedCommands.registerCommand("climb-l1-front", climberL1Front);
@@ -92,9 +125,9 @@ public class RobotContainer {
     NamedCommands.registerCommand("target", s_Swerve.getPPTargetingCommand());
     NamedCommands.registerCommand("target-with-tolerance", new PathPlannerTarget(s_Swerve));
 
+    // Builds the autonomous chooser using PathPlanner's auto builder.
     autoChooser = AutoBuilder.buildAutoChooserWithOptionsModifier(
-      (stream) -> stream.filter(auto -> auto.getName().startsWith("COMP"))
-    );
+        (stream) -> stream.filter(auto -> auto.getName().startsWith("COMP")));
 
     SmartDashboard.putData("Auto Routine", autoChooser);
 
@@ -102,9 +135,16 @@ public class RobotContainer {
     configAutos();
   }
 
+  /**
+   * Wires the controller buttons and triggers to specific commands.
+   * For example, using `.whileTrue()` will run a command only while the button is
+   * actively held down.
+   */
+
   private void configureBindings() {
     zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
 
+    // Instantiate Driver Buttons
     JoystickButton a = new JoystickButton(driverController, Constants.XboxController.A);
     JoystickButton b = new JoystickButton(driverController, Constants.XboxController.B);
     JoystickButton x = new JoystickButton(driverController, Constants.XboxController.X);
@@ -123,6 +163,7 @@ public class RobotContainer {
     Trigger lt = new Trigger(() -> driverController.getRawAxis(Constants.XboxController.AxesXbox.LTrig) > 0.5);
     Trigger rt = new Trigger(() -> driverController.getRawAxis(Constants.XboxController.AxesXbox.RTrig) > 0.5);
 
+    // Instantiate Aux Buttons
     JoystickButton a1 = new JoystickButton(auxController, Constants.XboxController.A);
     JoystickButton b1 = new JoystickButton(auxController, Constants.XboxController.B);
     JoystickButton x1 = new JoystickButton(auxController, Constants.XboxController.X);
@@ -144,8 +185,7 @@ public class RobotContainer {
     Trigger joystickUp1 = new Trigger(() -> auxController.getRawAxis(XboxController.Axis.kLeftY.value) < -.5);
     Trigger joystickDown1 = new Trigger(() -> auxController.getRawAxis(XboxController.Axis.kLeftY.value) > .5);
 
-
-
+    // Driver Bindings
     rt.whileTrue(new ShakeAutoTarget(
         s_Swerve,
         () -> -driverController.getRawAxis(translationAxis),
@@ -158,6 +198,7 @@ public class RobotContainer {
         () -> -driverController.getRawAxis(strafeAxis),
         () -> robotCentric.getAsBoolean()));
 
+    // Haptic feedback (rumble) cutoff when targeting triggers are released
     lt.onFalse(new InstantCommand(() -> {
       RobotContainer.driverController.setRumble(GenericHID.RumbleType.kBothRumble, 0.0);
       RobotContainer.auxController.setRumble(GenericHID.RumbleType.kBothRumble, 0.0);
@@ -173,12 +214,12 @@ public class RobotContainer {
     upPov.whileTrue(binManualRetract);
     downPov.whileTrue(binManualExtend);
 
-    b.whileTrue(new AlignAndFullClimb(s_Swerve, binManualExtend, climber, binRelease));
-
     menu.whileTrue(new EjectWithOuttake(preFeeder, mainRoller, floor, binRelease, intake));
 
+    b.whileTrue(new AlignAndFullClimb(s_Swerve, binManualExtend, climber, binRelease));
     a.whileTrue(new IntakeWithBinExtend(binRelease, Constants.BinReleaseConstants.BIN_DOWN_POSSITION, intake, Constants.IntakeConstants.INTAKE_RPM));
 
+    // Aux Bindings
     view1.onTrue(climberPrep);
     menu1.onTrue(climberL1Front);
     lm1.onTrue(climberSidePrep);
@@ -205,6 +246,11 @@ public class RobotContainer {
 
   }
 
+  /**
+   * Configures the available PathPlanner autonomous paths that can be selected
+   * from the driver station.
+   */
+
   private void configAutos() {
 
     autoChooser.addOption("COMP_4L_double_nz_double_shoot", new PathPlannerAuto("COMP_4R_double_nz_double_shoot", true));
@@ -220,9 +266,13 @@ public class RobotContainer {
 
   }
 
+  /**
+   * Passes the autonomous command to the main {@link Robot} class.
+   * @return the command to run in autonomous
+   */
+
   public Command getAutonomousCommand() {
     return autoChooser.getSelected();
-
   }
 
 }

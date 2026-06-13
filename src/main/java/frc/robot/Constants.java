@@ -22,7 +22,7 @@ import frc.lib.util.COTSTalonFXSwerveConstants;
  * for the entire robot.
  * Accessing variables here prevents hardcoded "magic numbers" scattered
  * throughout the code,
- * minimizing errors and allowing the team to tune the robot from a single
+ * minimizing errors and allowing the team to edit robot values from a single
  * location.
  */
 
