@@ -1,4 +1,5 @@
 package frc.robot;
+
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.signals.SensorDirectionValue;
@@ -17,9 +18,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.lib.util.COTSTalonFXSwerveConstants;
 
 /**
- * The master Constants file. This contains numeric values and configurations for the entire robot.
- * Accessing variables here prevents hardcoded "magic numbers" scattered throughout the code, 
- * minimizing errors and allowing the team to tune the robot from a single location.
+ * The master Constants file. This contains numeric values and configurations
+ * for the entire robot.
+ * Accessing variables here prevents hardcoded "magic numbers" scattered
+ * throughout the code,
+ * minimizing errors and allowing the team to tune the robot from a single
+ * location.
  */
 
 public final class Constants {
@@ -27,7 +31,8 @@ public final class Constants {
 
   /**
    * Holds the USB port IDs for the driver station controllers.
-   * These map directly to the order the controllers are plugged into the driver station laptop.
+   * These map directly to the order the controllers are plugged into the driver
+   * station laptop.
    */
 
   public static final class Controller {
@@ -37,7 +42,8 @@ public final class Constants {
 
   /**
    * Defines the unique CAN bus IDs for every motor controller on the robot.
-   * These IDs must match the physical configuration set in the Phoenix Tuner or REV Hardware Client.
+   * These IDs must match the physical configuration set in the Phoenix Tuner or
+   * REV Hardware Client.
    */
 
   public static class MotorControllers {
@@ -54,8 +60,9 @@ public final class Constants {
   }
 
   /**
-   * Constants for the main shooter mechanism. 
-   * Includes target RPMs and the PIDF tuning values required to keep the flywheels spinning at a stable speed.
+   * Constants for the main shooter mechanism.
+   * Includes target RPMs and the PIDF tuning values required to keep the
+   * flywheels spinning at a stable speed.
    */
 
   public static class ShooterConstants {
@@ -69,7 +76,8 @@ public final class Constants {
 
   /**
    * Constants for the pre-feeder mechanism.
-   * This mechanism stages game pieces and feeds them into the main shooter flywheels at the precise moment.
+   * This mechanism stages game pieces and feeds them into the main shooter
+   * flywheels at the precise moment.
    */
 
   public static class PreFeederConstants {
@@ -84,7 +92,8 @@ public final class Constants {
 
   /**
    * Constants for the Bin Release mechanism.
-   * Contains DIO (Digital Input/Output) ports for limit switches and PID values for extending/retracting the bin.
+   * Contains DIO (Digital Input/Output) ports for limit switches and PID values
+   * for extending/retracting the bin.
    */
 
   public static final class BinReleaseConstants {
@@ -115,7 +124,8 @@ public final class Constants {
 
   /**
    * Variables in this class are pushed to and pulled from SmartDashboard.
-   * This allows the drive team to adjust bin timing and speeds on the fly without redeploying code.
+   * This allows the drive team to adjust bin timing and speeds on the fly without
+   * redeploying code.
    */
 
   public static class ChangableBinConstants {
@@ -170,7 +180,8 @@ public final class Constants {
 
   /**
    * Constants for the pivot mechanism that changes the angle of the shooter.
-   * Contains limit switch DIOs, encoder limits, and basic PID tracking for targeting.
+   * Contains limit switch DIOs, encoder limits, and basic PID tracking for
+   * targeting.
    */
 
   public static class ShooterPivotConstants {
@@ -187,7 +198,8 @@ public final class Constants {
 
   /**
    * Constants for the climber mechanism.
-   * Includes safety limits, target encoder revolutions for different climb stages, and motor speeds.
+   * Includes safety limits, target encoder revolutions for different climb
+   * stages, and motor speeds.
    */
 
   public static class ClimberConstants {
@@ -207,7 +219,8 @@ public final class Constants {
 
   /**
    * Constants for the intake mechanism that pulls game pieces off the floor.
-   * Manages speeds, current limits to prevent motor burnout, and PID tuning for intelligent feed control.
+   * Manages speeds, current limits to prevent motor burnout, and PID tuning for
+   * intelligent feed control.
    */
 
   public static class IntakeConstants {
@@ -224,7 +237,8 @@ public final class Constants {
   }
 
   /**
-   * Constants for the internal indexer/floor mechanism that moves game pieces through the robot's interior.
+   * Constants for the internal indexer/floor mechanism that moves game pieces
+   * through the robot's interior.
    */
 
   public static class FloorConstants {
@@ -237,7 +251,7 @@ public final class Constants {
   }
 
   /**
-   * Constants and maps dedicated to vision targeting, Limelight configurations, 
+   * Constants and maps dedicated to vision targeting, Limelight configurations,
    * and physical field coordinates for autonomous scoring.
    */
 
@@ -296,8 +310,9 @@ public final class Constants {
     public static final double AUTO_SHAKE_KD = 0.0;
 
     /**
-     * InterpolatingDoubleTreeMap stores key-value pairs and returns interpolated values 
-     * for missing keys. For example, if a key of 50.0 is requested but not mapped, 
+     * InterpolatingDoubleTreeMap stores key-value pairs and returns interpolated
+     * values
+     * for missing keys. For example, if a key of 50.0 is requested but not mapped,
      * the map calculates a value based on the surrounding keys (42.0 and 74.6).
      */
 
@@ -397,7 +412,8 @@ public final class Constants {
 
   /**
    * PathPlanner PID tuning values.
-   * These dictate how aggressively the robot corrects its position and heading when following an autonomous path.
+   * These dictate how aggressively the robot corrects its position and heading
+   * when following an autonomous path.
    */
 
   public static final class PathPlanner {
@@ -407,7 +423,8 @@ public final class Constants {
 
   /**
    * The master configuration class for the Swerve Drive base.
-   * Contains physical dimensions, gear ratios, current limits, and kinematic definitions required to translate
+   * Contains physical dimensions, gear ratios, current limits, and kinematic
+   * definitions required to translate
    * joystick inputs into complex omnidirectional movement.
    */
 
@@ -473,7 +490,8 @@ public final class Constants {
 
     /**
      * Configuration for physical Swerve Module 0.
-     * Binds the specific drive motor ID, steering motor ID, and CANCoder ID together.
+     * Binds the specific drive motor ID, steering motor ID, and CANCoder ID
+     * together.
      * Angle offset ensures the wheel points perfectly straight on boot.
      */
 
@@ -489,7 +507,7 @@ public final class Constants {
     /**
      * Configuration for physical Swerve Module 1.
      */
-    
+
     public static final class Mod1 {
       public static final int driveMotorID = 3;
       public static final int angleMotorID = 2;
@@ -543,9 +561,10 @@ public final class Constants {
         kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
   }
 
-  /** 
+  /**
    * A mapping of standard Xbox controller buttons to integer IDs.
-   * This allows code to read `Constants.XboxController.A` instead of remembering that the "A" button is ID 1.
+   * This allows code to read `Constants.XboxController.A` instead of remembering
+   * that the "A" button is ID 1.
    */
 
   public static class XboxController {
