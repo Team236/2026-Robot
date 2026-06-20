@@ -21,8 +21,15 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.commands.BinRelease.PIDMove;
 
+/**
+ * The BinRelease subsystem controls the motorized bin mechanism used to contain and agitate game pieces.
+ * It features PID control and complex inline command factories to automate 
+ * "shaking" or "agitating" the bin to prevent game pieces from jamming.
+ */
+
 public class BinRelease extends SubsystemBase {
 
+    // Initializing all of the different global (private) variables we will use
     private TalonFX binReleaseMotor;
     private TalonFXConfiguration motorConfig;
     private DigitalInput maxRetractLimit;
@@ -152,6 +159,19 @@ public class BinRelease extends SubsystemBase {
         }
     }
 
+    
+     // Builds a command to shake the bin back and forth using PID positioning.
+     // INLINE COMMAND BREAKDOWN:
+     // 1. new PIDMove(): Starts moving the bin to position 24.5 (32.5 - 8).
+     // 2. .until(): Constantly checks the math inside the parenthesis. When the encoder is within 0.2 
+     // revolutions of the target, it forcibly stops the PIDMove command, considering it "done."
+     // 3. .andThen(): The moment the first PIDMove ends, it immediately fires a second PIDMove to send 
+     // the bin back to 32.5.
+     // 4. .repeatedly(): The moment the second PIDMove finishes, this decorator restarts the entire 
+     // sequence from the beginning, creating an infinite shaking loop.
+     // 5. .finallyDo(): If the driver lets go of the button (interrupting the command), this guarantees 
+     // the motor won't be left in a dangerous state. It forces the bin to safely return to 32.5.
+
     public Command getAgitateCommand() {
         return new PIDMove(this, 32.5 - 8)
                 .until(() -> Math.abs(this.getEncoderRevolutions() - (32.5 - 8)) < 0.2)
@@ -177,6 +197,16 @@ public class BinRelease extends SubsystemBase {
                         Set.of(this)))
                 .repeatedly();
     }
+
+    // A manual, non-PID version of the rising agitate logic using raw voltage percentages.
+    // INLINE COMMAND BREAKDOWN:
+    // 1. var state = new Object(): This is a Java workaround to track variables inside a lambda (DeferredCommand).
+    // It allows the command to "remember" where it started so it can calculate relative distances.
+    // 2. RunCommand: Unlike InstantCommand, RunCommand executes its logic 50 times a second. It will run 
+    // manualSetSpeedSafe forever until interrupted.
+    // 3. .until(): This is what interrupts the RunCommand. It monitors the encoder and stops the motor once 
+    // the target distance is reached.
+    // 4. Commands.waitSeconds(): An inline delay. Pauses the sequence for 0.25 seconds before restarting (.repeatedly).
 
     public Command getManualRisingAgitateCommand() {
         return new DeferredCommand(() -> {
@@ -227,6 +257,11 @@ public class BinRelease extends SubsystemBase {
                     .finallyDo(() -> this.stopMotor());
         }, Set.of(this));
     }
+
+    /**
+     * Acts as a router. When this command is requested, it checks the SmartDashboard variable
+     * to determine which specific agitation sequence to build and return to the driver.
+     */
 
     public Command getManualSmartAgitateCommand() {
         if (Constants.ChangableBinConstants.USE_RISING_AGITATE) {
