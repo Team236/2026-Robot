@@ -44,9 +44,17 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 
+/**
+ * The Swerve subsystem controls the drivetrain and manages the robot's odometry (its understanding 
+ * of its location on the field). It interfaces with the gyro, the swerve modules, PathPlanner for 
+ * autonomous driving, and vision systems for targeting.
+ */
+
 public class Swerve extends SubsystemBase {
     public SwerveModule[] mSwerveMods;
     public Pigeon2 gyro;
+
+    // The PoseEstimator merges wheel data, gyro data, and camera data to guess the robot's X, Y, and Rotation on the field.
     public SwerveDrivePoseEstimator m_poseEstimator;
     public double poseAngle;
     public double poseForwardDistance;
@@ -62,6 +70,7 @@ public class Swerve extends SubsystemBase {
     public Pose2d poseLL;
     public Pose2d targetPose;
 
+    // A virtual representation of the field sent to the driver station dashboard.
     private Field2d field = new Field2d();
 
     private PIDController PPHeadingPIDController;
@@ -71,17 +80,28 @@ public class Swerve extends SubsystemBase {
 
     public double[] driveTargetingValues;
 
+    /**
+     * Initializes the Swerve subsystem, configures the gyro, sets up the pose estimator, 
+     * and links the drivetrain to PathPlanner for autonomous control.
+     */
+
     public Swerve() {
         gyro = new Pigeon2(Constants.Swerve.pigeonID, "usb");
         gyro.getConfigurator().apply(new Pigeon2Configuration());
         gyro.setYaw(0);
-        
+    
+        // A swerve drive has 4 independent modules. Each has a drive motor to go 
+        // forward/back, and a steering motor to pivot the wheel. We initialize them here using
+        // the hardware IDs defined in Constants.
         mSwerveMods = new SwerveModule[] {
             new SwerveModule(0, Constants.Swerve.Mod0.constants),
             new SwerveModule(1, Constants.Swerve.Mod1.constants), 
             new SwerveModule(2, Constants.Swerve.Mod2.constants), 
             new SwerveModule(3, Constants.Swerve.Mod3.constants) 
         };
+
+        // The Pose Estimator is initialized with "Standard Deviations" (the VecBuilder arrays).
+        // This tells the math model how much to "trust" the wheels vs. how much to trust the vision cameras.
         m_poseEstimator = new SwerveDrivePoseEstimator(
             Constants.Swerve.swerveKinematics,
             gyro.getRotation2d(),
@@ -114,6 +134,9 @@ public class Swerve extends SubsystemBase {
         if (config == null) {
             System.out.println("PathPlanner RobotConfig settings null, may have errored");
         } else {
+            // This block hands control over to PathPlanner. We give PathPlanner 
+            // "get" methods so it knows where the robot is, and "drive" methods so it can 
+            // command the motors during autonomous routines.
             AutoBuilder.configure(
                 this::getPose,
                 this::resetPose,
@@ -135,6 +158,9 @@ public class Swerve extends SubsystemBase {
             );
         }
 
+        // PID Controllers are set up here to handle auto-aiming. 
+        // continuousInput(-Pi, Pi) ensures the robot takes the shortest path when spinning 
+        // (e.g., spinning 10 degrees left instead of 350 degrees right).
         pidControllerForTrackingOutput = new PIDController(
         Constants.Targeting.AUTO_ROTATE_KP,
         0.0,
@@ -159,6 +185,7 @@ public class Swerve extends SubsystemBase {
         );
         PPHeadingPIDController.enableContinuousInput(-Math.PI, Math.PI);
 
+        // Sets up the target location depending on what side of the field we are playing on.
         var alliance = DriverStation.getAlliance();
         if (alliance.isPresent() && alliance.get() == Alliance.Red) {
             cachedHubX = Constants.Targeting.RED_ALLIANCE_HUB_CENTER_X;
@@ -169,10 +196,20 @@ public class Swerve extends SubsystemBase {
         }
     }
 
+    /**
+     * The primary method used to drive the robot.
+     * @param translation The desired X and Y speed.
+     * @param rotation The desired rotational speed.
+     * @param fieldRelative If true, pushing "up" on the joystick moves the robot away from the driver regardless of where the front of the robot is pointing.
+     * @param isOpenLoop If true, runs motors based on raw percentage instead of using internal PID velocity control.
+     */
 
     public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
         var alliance = DriverStation.getAlliance();
 
+        // SwerveDriveKinematics contains the complex trigonometry required to convert 
+        // a simple "move forward and twist" joystick command into 4 specific speeds and 4 specific 
+        // angles for our independent wheel modules.
         SwerveModuleState[] swerveModuleStates =
             Constants.Swerve.swerveKinematics.toSwerveModuleStates(
                 fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(
@@ -186,6 +223,8 @@ public class Swerve extends SubsystemBase {
                                     translation.getY(), 
                                     rotation)
                                 );
+
+        // Prevents the math from requesting a wheel speed higher than the physical motors can achieve.
         SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.Swerve.maxSpeed);
 
         for(SwerveModule mod : mSwerveMods){
@@ -193,7 +232,6 @@ public class Swerve extends SubsystemBase {
         }
     }    
 
-   
     public void setModuleStates(SwerveModuleState[] desiredStates) {
         SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, Constants.Swerve.maxSpeed);
         
@@ -226,6 +264,10 @@ public class Swerve extends SubsystemBase {
             mod.setDesiredState(swerveModuleStates[mod.moduleNumber], true);
         }
     }
+
+    // AUTONOMOUS PATHING METHODS
+    // The following followPath... methods load pre-drawn paths from the PathPlanner GUI,
+    // apply rules for whether the robot is on the Red or Blue alliance, and pass them to the AutoBuilder.
 
     public Command followPathCommand(String pathName) {
         try {
@@ -303,6 +345,9 @@ public class Swerve extends SubsystemBase {
         }
     }
 
+    /**
+     * Returns the path to the closest front climbing position
+     */
     public Command getClimbTargetingPath() {
         try {
             Pose2d robotPoseBlue;
@@ -317,6 +362,7 @@ public class Swerve extends SubsystemBase {
             PathConstraints constraints = PathPlannerPath.fromPathFile("climb-targeting").getGlobalConstraints();
             Pose2d pathEndPose;
 
+            // Dynamically selects which climb path to take based on the robot's current Y position.
             if (robotPoseBlue.getY() < Constants.Targeting.BLUE_TOWER_CENTER_Y_METERS) {
                 pathEndPose = new Pose2d(1.146 + Constants.Targeting.ROBOT_WIDTH_METERS / 2.0, 3.302, Rotation2d.fromDegrees(180)); 
             } else {
@@ -347,6 +393,9 @@ public class Swerve extends SubsystemBase {
         }
     }
 
+    /**
+     * Newer method that returns the path to the closest front climbing position
+     */
     public Command getClimbTargetingPathNew() {
         try {
             Pose2d robotPoseBlue;
@@ -542,14 +591,23 @@ public class Swerve extends SubsystemBase {
         }
     }
 
+    /**
+     * MegaTag2 is a feature of the Limelight camera. Instead of just looking at 
+     * AprilTags and guessing distance based on tag size (which can be noisy with one tag), it uses the robot's 
+     * accurate Pigeon2 gyro compass data combined with the visual tag data to provide a rock-solid 
+     * X/Y position coordinate, even while the robot is spinning wildly. 
+     */
+
     public void MegaTag2UpdateOdometry() {
 
+        // Step 1: Update the pose estimator with raw wheel movements.
         m_poseEstimator.update(getGyroYaw(), getModulePositions());
 
         boolean useMegaTag2 = true;
 
         if (useMegaTag2 == false)
         {
+            // ... (Legacy MegaTag1 logic kept for fallback)
             for (String limelightName : Constants.Targeting.CAMERA_NAMES) {
                 boolean useThisEstimate = true;
                 LimelightHelpers.PoseEstimate estimateMT1 = LimelightHelpers.getBotPoseEstimate_wpiBlue(limelightName);
@@ -578,6 +636,8 @@ public class Swerve extends SubsystemBase {
         } else if (useMegaTag2) {
             for (String limelightName : Constants.Targeting.CAMERA_NAMES) {   
                 boolean useThisEstimate = true;
+
+                // Feeds the robot's current precise rotation to the camera to assist its math.
                 LimelightHelpers.SetRobotOrientation(limelightName, m_poseEstimator.getEstimatedPosition().getRotation().getDegrees(), 0, 0, 0, 0, 0);
                 LimelightHelpers.PoseEstimate estimateMT2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(limelightName);
                 
@@ -585,6 +645,8 @@ public class Swerve extends SubsystemBase {
                     break;
                 }
                 
+                // Ignore vision data if we are spinning faster than 720 degrees per second (camera blur), 
+                // or if no tags are visible.
                 if (Math.abs(gyro.getAngularVelocityZWorld().getValueAsDouble()) > 720 || estimateMT2.tagCount == 0)
                 {
                     useThisEstimate = false;
@@ -592,6 +654,7 @@ public class Swerve extends SubsystemBase {
 
                 if (useThisEstimate)
                 {
+                    // If the data is good, fuse it into the pose estimator to correct wheel drift.
                     m_poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7, 999999));
                     m_poseEstimator.addVisionMeasurement(
                         estimateMT2.pose,
@@ -600,6 +663,9 @@ public class Swerve extends SubsystemBase {
             }
         }
     }
+
+    // --- VISION TARGETING & GAME MATH ---
+
 
     public double calculateTargetingPID (double HUBX, double HUBY) {
       Pose2d currentPose = getPose();
@@ -739,8 +805,15 @@ public class Swerve extends SubsystemBase {
    return pidOutput;
   }
 
+     /**
+     * "Shoot on the move" logic. If the robot is driving to the right, 
+     * and shoots straight at the target, the game piece will miss to the right because it retains 
+     * the robot's momentum. This method calculates a "Virtual Goal" by applying physics vectors, 
+     * forcing the robot to aim slightly *behind* the real target to compensate for its own velocity.
+     */
+
     public double[] getRotationMoving () {
-        final double TIME_OF_FLIGHT = 1.2;
+        final double TIME_OF_FLIGHT = 1.2; // Estimated time the ball takes to land in the hub.
 
         ChassisSpeeds robotChassisSpeeds = getChassisSpeeds();
         ChassisSpeeds fieldSpeeds = ChassisSpeeds.fromRobotRelativeSpeeds(robotChassisSpeeds, getHeading());
@@ -750,6 +823,7 @@ public class Swerve extends SubsystemBase {
         double hubXMeters = Units.inchesToMeters(getHubX());
         double hubYMeters = Units.inchesToMeters(getHubY());
 
+        // Offsets the goal based on current speed.
         double virtualX = hubXMeters - (fieldSpeeds.vxMetersPerSecond * TIME_OF_FLIGHT);
         double virtualY = hubYMeters - (fieldSpeeds.vyMetersPerSecond * TIME_OF_FLIGHT);
         
@@ -824,6 +898,7 @@ public class Swerve extends SubsystemBase {
 
         double dynamicTolerance = Math.toRadians(2.0) + Math.abs(amplitudeRadians);
 
+        // MENTOR NOTE: Triggers controller rumble (haptic feedback) to tell the driver they are aimed at the hub.
         if (Math.abs(angleDifference) < dynamicTolerance) {
             RobotContainer.driverController.setRumble(GenericHID.RumbleType.kBothRumble, 0.33);
             RobotContainer.auxController.setRumble(GenericHID.RumbleType.kBothRumble, 0.33);
