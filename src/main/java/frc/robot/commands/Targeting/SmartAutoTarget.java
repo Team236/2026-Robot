@@ -60,6 +60,8 @@ public class SmartAutoTarget extends Command {
     PIDRotation = this.s_Swerve.getAllianceWallHeading(HUBX, HUBY, 0.0);
 
     // DRIVE COMMAND WITH THE NEW INPUTS FOR ROTATION
+    // THE COMPUTER / MATH CONTROLLS THE HEADING AND THE
+    // DRIVER CAN ONLY MOVE IN THE X/Y DIRECTIONS
     s_Swerve.drive(
         new Translation2d(curveDrive(translationVal), curveDrive(strafeVal)).times(Constants.Swerve.maxSpeed),
         MathUtil.clamp(PIDRotation, -Constants.Swerve.maxAngularVelocity, Constants.Swerve.maxAngularVelocity),
