@@ -269,6 +269,12 @@ public class Swerve extends SubsystemBase {
     // The following followPath... methods load pre-drawn paths from the PathPlanner GUI,
     // apply rules for whether the robot is on the Red or Blue alliance, and pass them to the AutoBuilder.
 
+    /**
+     * Follows a path from the PathPlanner GUI, resetting the robot's odometry to the starting point of the path. This means
+     * that if the robot is not physically at the correct starting position, its Pose will still be reset to the start point.
+     * @param pathName
+     * 
+     */
     public Command followPathCommand(String pathName) {
         try {
             SmartDashboard.putNumber("RobotPoseX before path start", this.getPose().getX());
@@ -312,6 +318,12 @@ public class Swerve extends SubsystemBase {
         }
     }
 
+    /**
+     * This method returns a command which will command the robot to first approach the starting position of the path (if it isn't already there)
+     * and then follow and run the path as normal. This is the most basic PathPlanner implementation.
+     * @param pathName
+     * 
+     */
     public Command followPathCommandNoReset(String pathName) {
         try {
             PathPlannerPath path = PathPlannerPath.fromPathFile(pathName);
@@ -323,6 +335,13 @@ public class Swerve extends SubsystemBase {
         }
     }
 
+    /**
+     * This method is similar to followPathCommandNoReset, but it also MODIFIES the path's starting waypoint to be the robot's current position.
+     * This allows the robot to "grab" the path from its current location and follow it, even if it didn't start at the path's original starting point. 
+     * This can be useful in situations where the robot might be slightly off from the ideal starting pose of the path, but we still want to follow the path's general trajectory.
+     * @param pathName
+     * 
+     */
     public Command followPathCommandRobotStartingPose(String pathName) {
         try {
             PathPlannerPath originalPath = PathPlannerPath.fromPathFile(pathName);
@@ -346,7 +365,8 @@ public class Swerve extends SubsystemBase {
     }
 
     /**
-     * Returns the path to the closest front climbing position
+     * Returns the path to the closest front climbing position. This is an old version that essentially created a path on-the-fly;
+     * it didn't work necessarily as intended and we ended up making a newer, more robust version.
      */
     public Command getClimbTargetingPath() {
         try {
@@ -394,7 +414,9 @@ public class Swerve extends SubsystemBase {
     }
 
     /**
-     * Newer method that returns the path to the closest front climbing position
+     * Newer method that returns the path to the closest front climbing position. Depending on the robot's Y position on the field
+     * it selects which post to climb on. Then it uses built-in PathPlanner pathfinding to intially path/move to the correct climbing path (left vs right).
+     * Worked quite well but Mike's driving ended up being quicker most of the time...
      */
     public Command getClimbTargetingPathNew() {
         try {
@@ -434,7 +456,12 @@ public class Swerve extends SubsystemBase {
         }
     }
     
-    
+    /**
+     * This method runs a path from the robot's frame of reference; therefore only the path's trajectory matters and not
+     * its starting and ending poses.
+     * @param pathName
+     * 
+     */
     public Command followPathCommandRobotRelative(String pathName) {
         try {
             PathPlannerPath originalPath = PathPlannerPath.fromPathFile(pathName);
@@ -470,7 +497,11 @@ public class Swerve extends SubsystemBase {
         }
     }
 
-        public Command getFinishClimbCommand() {
+    /**
+     * Old, deprecated method that works similarly to the other climb commands.
+     * 
+     */
+    public Command getFinishClimbCommand() {
         try {
             Pose2d robotPoseBlue;
             
@@ -512,7 +543,10 @@ public class Swerve extends SubsystemBase {
         }
     }
     
-
+    /**
+     * Returns robot-relative chassis speeds. Used by PathPlanner
+     * 
+     */
     public ChassisSpeeds getChassisSpeeds() {
         SwerveModuleState[] states = getModuleStates();
         ChassisSpeeds fieldRelFromStates = Constants.Swerve.swerveKinematics.toChassisSpeeds(states);
@@ -549,6 +583,9 @@ public class Swerve extends SubsystemBase {
         }
     }
 
+    /**
+     * Old unused method that gets robot pose from tags. Not used in 2026
+     */
     public void getLLPose() {
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
@@ -568,6 +605,9 @@ public class Swerve extends SubsystemBase {
 
     }
 
+    /**
+     * Old unused method that gets AprilTag pose and stores in swerve. Not used in 2026
+     */
     public void getTargetPose(Pose2d targetPose) {
         Optional<Alliance> ally = DriverStation.getAlliance();
         if (ally.get() == Alliance.Blue){
@@ -579,12 +619,18 @@ public class Swerve extends SubsystemBase {
 
     }
 
+    /**
+     * Old unused method. Not used in 2026
+     */
     public void resetFieldPoseWithTarget() {
         if (targetPose != null) {
             resetPose(targetPose);
         }
     }
 
+    /**
+     * Old unused method. Not used in 2026
+     */
     public void resetLLPose() {
         if (poseLL != null) {
             resetPose(poseLL);
@@ -592,10 +638,13 @@ public class Swerve extends SubsystemBase {
     }
 
     /**
-     * MegaTag2 is a feature of the Limelight camera. Instead of just looking at 
+     * MegaTag2 is a feature/algorithm of the Limelight camera. Instead of just looking at 
      * AprilTags and guessing distance based on tag size (which can be noisy with one tag), it uses the robot's 
      * accurate Pigeon2 gyro compass data combined with the visual tag data to provide a rock-solid 
-     * X/Y position coordinate, even while the robot is spinning wildly. 
+     * X/Y position coordinate, even while the robot is spinning wildly.
+     * 
+     * This method assumes CORRECT robot heading, and it doesn't calculate it as part of the algorithm -- unlike MT1.
+     * At the end of the 2026 season we switched to the newer visionUpdate() method (which is similar).
      */
 
     public void MegaTag2UpdateOdometry() {
@@ -664,6 +713,12 @@ public class Swerve extends SubsystemBase {
         }
     }
 
+    /**
+     * supplementary method used by visionUpdate() that tries to update pose estimator with MT1 (the original Limelight pose estimation algorithm). 
+     * If it fails for any reason (such as high ambiguity), it returns false so that visionUpdate() can try using MT2 instead.
+     * @param limelightName
+     * @return true if MT1 data was successful, false otherwise
+     */
     private boolean updateMT1(String limelightName) {
         LimelightHelpers.PoseEstimate estimateMT1 = LimelightHelpers.getBotPoseEstimate_wpiBlue(limelightName);
 
@@ -686,6 +741,11 @@ public class Swerve extends SubsystemBase {
         return true;
     }
 
+    /**
+     * A more versatile vision update method that first tries to use MegaTag1 to update the robot's odometry;
+     * If there is high ambiguity or low trust in the MT1 data, it falls back to using MegaTag2, which is more robust to ambiguity but relies on accurate gyro (heading) data.
+     * We created this method in 2026 after we found that the robot's pose (especially heading) was drifting significantly throughout the match, as an effort to combat that. 
+     */
     public void visionUpdate() {
         m_poseEstimator.update(getGyroYaw(), getModulePositions());
 
@@ -724,7 +784,13 @@ public class Swerve extends SubsystemBase {
 
     // --- VISION TARGETING & GAME MATH ---
 
-
+    /**
+     * This method calculates the PID output needed to rotate the robot to face the hub, based on the robot's current position and the known position of the hub.
+     * The output is used by targeting commands to drive while having the robot aim simultaneously.
+     * @param HUBX
+     * @param HUBY
+     * @return PID output
+     */
     public double calculateTargetingPID (double HUBX, double HUBY) {
       Pose2d currentPose = getPose();
 
@@ -736,6 +802,11 @@ public class Swerve extends SubsystemBase {
       return pidOutput;
     }
 
+    /**
+     * This method calculates the PID output needed to rotate the robot to face the correct alliance zone (red/blue)
+     * Used by targeting commands for easily passing fuel from the Neutral Zone to our alliance zone.
+     * @return PID output
+     */
     public double calculateFaceAlliancePID() {
         Pose2d currentPose = getPose();
         double targetAngle;
@@ -751,6 +822,11 @@ public class Swerve extends SubsystemBase {
         return pidOutput;
     }
 
+    /**
+     * Similar to calculateTargetingPID but slightly different parameter inputs. Used in certain targeting commands.
+     * @param targetAngle
+     * @return PID output
+     */
     public double calculateTargetingAutoPID(double targetAngle) {
         Pose2d currentPose = getPose();
         double pidOutput = pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), targetAngle);
@@ -758,6 +834,12 @@ public class Swerve extends SubsystemBase {
         return pidOutput;
     }
 
+    /**
+     * The goal of this method is to get the robot to rotate to face its direction of travel during path following. This is used
+     * as a supplementary method for a command which can be used in PathPlanner GUI when assembling paths.
+     * Did not work as intended and didn't see use in 2026 (was initially intended to help with ball collection)
+     * 
+     */
     public double getPPOverrideHeadingFeedback() {
         Pose2d currentPose = getPose();
 
@@ -771,6 +853,11 @@ public class Swerve extends SubsystemBase {
         return PPHeadingPIDController.calculate(currentPose.getRotation().getRadians(), targetAngle);
     }
 
+    /**
+     * This method returns a command that when registered as a PathPlanner NamedCommand can be used in the GUI to override the rotation controller for that path.
+     * The underlying rotation feedback for this method didn't work as intended. 
+     * 
+     */
     public Command getPPOverrideHeadingCommand() {
         return 
             new Command() {
@@ -786,6 +873,10 @@ public class Swerve extends SubsystemBase {
             };
     }
 
+    /**
+     * This method returns a command that when registered as a PathPlanner NamedCommand can be used in the GUI to override the rotation controller for that path, 
+     * but instead of facing the direction of travel, it faces the hub. Allows the robot to target the hub even while following PathPlannerAutos.
+     */
     public Command getPPTargetingCommand() {
         return
             new Command() {
@@ -831,37 +922,38 @@ public class Swerve extends SubsystemBase {
         return cachedHubY;
     }
 
-   public double getDistanceToHub() {
+    public double getDistanceToHub() {
 
-    Optional<Alliance> alliance = DriverStation.getAlliance();
-    double HUBX;
-    double HUBY;
+        Optional<Alliance> alliance = DriverStation.getAlliance();
+        double HUBX;
+        double HUBY;
 
-    if (alliance.isPresent()) {
-           if (alliance.get() == Alliance.Red) {
-                HUBX = Constants.Targeting.RED_ALLIANCE_HUB_CENTER_X;
-                HUBY = Constants.Targeting.RED_ALLIANCE_HUB_CENTER_Y;
-           } else {
-                HUBX = Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_X;
-                HUBY = Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_Y;
-           }
-           
+        if (alliance.isPresent()) {
+            if (alliance.get() == Alliance.Red) {
+                    HUBX = Constants.Targeting.RED_ALLIANCE_HUB_CENTER_X;
+                    HUBY = Constants.Targeting.RED_ALLIANCE_HUB_CENTER_Y;
+            } else {
+                    HUBX = Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_X;
+                    HUBY = Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_Y;
+            }
+            
             Pose2d currentPose = getPose();
             double dx = HUBX - Units.metersToInches(currentPose.getX());
             double dy = HUBY - Units.metersToInches(currentPose.getY());
             double distance = Math.hypot(dy, dx);
         
             return distance;
-       }
-      return 0;
-   }
+        }
+        
+        return 0;
+    }
 
-   public double pidCalculateAngle (double targetAngle) {
-   Pose2d currentPose = getPose();
-   double pidOutput = pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), targetAngle);
-  
-   return pidOutput;
-  }
+    public double pidCalculateAngle (double targetAngle) {
+        Pose2d currentPose = getPose();
+        double pidOutput = pidControllerForTrackingOutput.calculate(currentPose.getRotation().getRadians(), targetAngle);
+        
+        return pidOutput;
+    }
 
      /**
      * "Shoot on the move" logic. If the robot is driving to the right, 
@@ -905,21 +997,31 @@ public class Swerve extends SubsystemBase {
         return new double[] {finalDistanceInches, finalRot.getRadians()};
     }
 
-       public boolean inNeutralZone() {
-       Pose2d currentPose = getPose();
+    // used by targeting methods for passing (pretty self-explanatory method name)
+    public boolean inNeutralZone() {
+        Pose2d currentPose = getPose();
 
-       Optional<Alliance> alliance = DriverStation.getAlliance();
+        Optional<Alliance> alliance = DriverStation.getAlliance();
 
-       if (alliance.isPresent()) {
-           if (alliance.get() == Alliance.Red) {
-               return currentPose.getX() < Units.inchesToMeters(Constants.Targeting.RED_NEUTRAL_TOLERANCE_X);
-           } else {
-               return currentPose.getX() > Units.inchesToMeters(Constants.Targeting.BLUE_NEUTRAL_TOLERANCE_X);
-           }
-       }
-       return false;
-   }
+        if (alliance.isPresent()) {
+            if (alliance.get() == Alliance.Red) {
+                return currentPose.getX() < Units.inchesToMeters(Constants.Targeting.RED_NEUTRAL_TOLERANCE_X);
+            } else {
+                return currentPose.getX() > Units.inchesToMeters(Constants.Targeting.BLUE_NEUTRAL_TOLERANCE_X);
+            }
+        }
+        return false;
+    }
 
+    /**
+     * This method name is misleading but basically it is an all around aiming method used by targeting commands. If in the neutral zone, it will aim towards the alliance wall to help with passing. 
+     * If outside the neutral zone, it will aim towards the hub while shaking the robot's heading slightly to agitate fuel. Also provides haptic feedback to the driver when 
+     * they are aimed at the hub.
+     * @param HUBX
+     * @param HUBY
+     * @param offsetRadians
+     * @return PID output for targeting
+     */
     public double getAllianceWallHeading(double HUBX, double HUBY, double offsetRadians) {
         Pose2d currentPose = getPose();
         boolean shouldPass = false;
@@ -974,6 +1076,10 @@ public class Swerve extends SubsystemBase {
         }
     }
 
+    /**
+     * returns an offset to target to that changes sinusoidally over time to agitate fuel.
+     * 
+     */
     public double getShakingOffset() {
         double shakeFrequency = Constants.Targeting.SHAKE_FREQUENCY;
         double shakeSpread = Constants.Targeting.SHAKE_SPREAD;
@@ -986,7 +1092,12 @@ public class Swerve extends SubsystemBase {
         return amplitudeRadians * Math.sin(2 * Math.PI * shakeFrequency * time);
     }
 
-   public boolean inNeutralMid(double yPose) {
+    /**
+     * method which is now unused which returns whether or not the robot is obstructed by the hubs, or in other words in the vertical center of the field.
+     * @param yPose
+     * 
+     */
+    public boolean inNeutralMid(double yPose) {
         var alliance = DriverStation.getAlliance();
 
         if (alliance.isPresent()) {
@@ -1003,22 +1114,23 @@ public class Swerve extends SubsystemBase {
 
 
     public double getXtoHub(){
-    Pose2d currentPose = getPose();
+        Pose2d currentPose = getPose();
 
-    Optional<Alliance> alliance = DriverStation.getAlliance();
+        Optional<Alliance> alliance = DriverStation.getAlliance();
 
-    if (alliance.isPresent()) {
-        if (alliance.get() == Alliance.Red) {
-            return Math.abs(Units.metersToInches(currentPose.getX()) - Constants.Targeting.RED_ALLIANCE_HUB_CENTER_X);
-        } else {
-            return Math.abs(Units.metersToInches(currentPose.getX()) - Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_X);
+        if (alliance.isPresent()) {
+            if (alliance.get() == Alliance.Red) {
+                return Math.abs(Units.metersToInches(currentPose.getX()) - Constants.Targeting.RED_ALLIANCE_HUB_CENTER_X);
+            } else {
+                return Math.abs(Units.metersToInches(currentPose.getX()) - Constants.Targeting.BLUE_ALLIANCE_HUB_CENTER_X);
+            }
         }
-    }
         return 0.0;
     }
 
     @Override
     public void periodic(){
+        // update robot odometry every 20ms using vision (if available)
         visionUpdate();
         SmartDashboard.putNumber("auto pivot desired rotation (red)", Units.radiansToDegrees(getAngleOfHub(Constants.Targeting.RED_ALLIANCE_HUB_CENTER_X, Constants.Targeting.RED_ALLIANCE_HUB_CENTER_Y)));
         SmartDashboard.putNumber("auto pivot current rotation (red)", getPose().getRotation().getDegrees());
