@@ -34,7 +34,7 @@ import frc.lib.util.COTSTalonFXSwerveConstants;
  */
 public final class Constants {
   public static final double stickDeadband = 0.1;
-
+  
   public static final class Controller {
     //USB port number of the xbox controllers
     public static final int USB_DRIVECONTROLLER = 0;
