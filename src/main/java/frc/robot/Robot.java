@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.ctre.phoenix6.SignalLogger;
 import com.pathplanner.lib.commands.FollowPathCommand;
 import com.pathplanner.lib.commands.PathfindingCommand;
 
@@ -71,6 +72,9 @@ public class Robot extends TimedRobot {
 
     DashboardUtil.putAutoToField();
 
+    SignalLogger.enableAutoLogging(false);
+
+
     // ------------------------------------------------------------------------------
     // This is how to add a camera on the robot, and push into output to a dashboard
     // ------------------------------------------------------------------------------
@@ -117,6 +121,14 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Match Time", DriverStation.getMatchTime());
     SmartDashboard.putNumber("Shift Time", DashboardUtil.getShiftTime());
     SmartDashboard.putString("Current Shift", DashboardUtil.getCurrentShift());
+    
+    double memUsage = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+    double freeMb = Runtime.getRuntime().freeMemory() / (1024 * 1024);
+    double mb = memUsage / (1024 * 1024);
+
+    SmartDashboard.putNumber("Memory Usage", mb);
+    SmartDashboard.putNumber("Free Memory", freeMb);
+
     // AutoSwitchHelpers.putAutoSwitchesToSmartDashboard();
     // Constants.ChangableBinConstants.pullFromDashboard();
 
